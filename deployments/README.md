@@ -1,188 +1,205 @@
+# LYIK Platform – Setup Guide
 
-# LYIK Platform Installation and Setup Guide
-
-This guide provides comprehensive step-by-step instructions to install, configure, and deploy the LYIK platform.
-
----
-
-## **Prerequisites**
-
-Before starting, ensure that your environment meets the following requirements:
-
-- **Docker**: Installed and running. Refer to the 
-  1. [Docker installation guide for Linux](https://docs.sevenbridges.com/docs/install-docker-on-linux)
-  2. [Docker installation guide for Windows](https://docs.sevenbridges.com/docs/install-docker-on-windows) 
-   
-   or follow the [Official Documentation](https://docs.docker.com/engine/install/ubuntu/).
-  Check if docker is installed
-  ```
-  docker --version # This will show the version of docker, if installed!
-  ```
-  If it is not installed, follow the link mentioed above to setup docker.
-
-  If it is installed, start the docker daemon and run the hello-world container
-  ```
-  docker run hello-world
-  ```
-
-- **Supported Database**: MongoDB (Docker container or Mongo Atlas).
-- **TLS/SSL Certificates**: Required for secure communication.  (default TLS certificate is provided for this setup)
-- **License Key**: Contact `admin@lyik.com` to obtain a valid license key.
+This guide provides clear and beginner-friendly steps to install, configure, and run the LYIK platform.
 
 ---
 
-## **Accessing Docker Images**
+## Prerequisites
 
-To run the LYIK platform, you need access to the container registry. Follow these steps:
+Before proceeding, ensure the following tools and information are available:
 
-- **Log in to Azure Container Registry (ACR):**
-Use the credentials provided by the LYIK administrator:
+- **Docker**:  
+  Ensure Docker is installed and running on your system.
 
+  - [Linux installation guide](https://docs.sevenbridges.com/docs/install-docker-on-linux)  
+  - [Windows installation guide](https://docs.sevenbridges.com/docs/install-docker-on-windows)
+
+  **Check installation:**
+  ```bash
+  docker --version
+  ```
+
+- **Database**:  
+  MongoDB (self-hosted in Docker or via MongoDB Atlas)
+
+- **TLS/SSL Certificates**:  
+  Required for secure communication. Default certificates are included for initial setup.
+
+- **License Key**:  
+  Contact `admin@lyik.com` to obtain a valid license key.
+
+---
+
+## Accessing LYIK Docker Images
+
+You will need credentials to pull LYIK Docker images.
+
+**Login to the container registry:**
 ```bash
 docker login -u LYIK-CUSTOMER -p <your_azure_token_here> lyikprodblueacr.azurecr.io
 ```
-- Note: Ensure that Docker is running.
----
 
-## **Database Setup**
-
-### **Supported Database**
-
-- **MongoDB**
-
-
-    #### **MongoDB running on Docker Containe** r(non-persistent data, not recommended)
-
-    1. Locate the `compose_lyik_stack.yml` file.
-    2. Follow instruction comments tagged with `@MONGO`.
-        ```
-        # @MONGO 
-        depends_on:
-          - mongodb
-        ```
-
-    #### **MongoDB running as Cloud Managed Service** (Recommended)
-
-    3. Create a database in MongoDB Atlas and obtain the connection URL. Refer to this [MongoDB Atlas setup guide](https://vinyldavyl.medium.com/how-to-create-a-database-in-mongodb-atlas-and-connect-your-database-to-your-application-step-by-9b63a2886b83).
-    4. Additional resources:
-        - [Install MongoDB Community Edition on Ubuntu](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/)
-        - [Install MongoDB Enterprise Edition on Ubuntu](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-enterprise-on-ubuntu/)
-        - [Backup and Restore MongoDB](https://www.mongodb.com/docs/manual/tutorial/backup-and-restore-tools/)
-        - [Recover MongoDB After Unexpected Shutdown](https://www.mongodb.com/docs/manual/tutorial/recover-data-following-unexpected-shutdown/)
+Ensure Docker is running before attempting login.
 
 ---
 
-## **Networking and Nginx Configuration**
+## Database Setup
 
-### For Running locally
-You need to edit the `/etc/hosts` file
+The platform supports **MongoDB**. Choose one of the following methods:
 
+### Option 1: Using Docker (for testing only)
+
+1. Open `compose_lyik_stack.yml`.
+2. Look for and follow comments tagged `@MONGO`:
+   ```yaml
+   # @MONGO
+   depends_on:
+     - mongodb
+   ```
+
+This setup does not persist data and is not recommended for long-term use.
+
+### Option 2: Using MongoDB Atlas (recommended)
+
+1. Create a MongoDB Atlas account.
+2. Set up a database and obtain the connection URI.  
+   Refer to this [MongoDB Atlas setup guide](https://vinyldavyl.medium.com/how-to-create-a-database-in-mongodb-atlas-and-connect-your-database-to-your-application-step-by-9b63a2886b83).
+
+**Additional MongoDB Resources:**
+- [Install MongoDB on Ubuntu](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/)
+- [Backup and Restore](https://www.mongodb.com/docs/manual/tutorial/backup-and-restore-tools/)
+- [Data Recovery](https://www.mongodb.com/docs/manual/tutorial/recover-data-following-unexpected-shutdown/)
+
+---
+
+## Host Mapping (for local setup)
+
+To access services locally using domain-like URLs, update your system's host file:
+
+```bash
+sudo vim /etc/hosts
 ```
-sudo vim /etc/hosts # you can open with any editor
-```
-and add the following entries:
+
+Add the following lines:
+
 ```
 127.0.0.1 api.test.lyik.com admin.test.lyik.com forms.test.lyik.com dashboard.test.lyik.com
 ```
 
-### For Production  
-1. Edit the `nginx.conf` file in the `nginx` directory:
-    - Replace placeholders tagged with `@DOMAIN` with your domain URLs for:
-        - Forms Portal
-        - Admin Portal
-        - API Endpoint
-        - Grafana Dashboard Portal
-2. Place your TLS/SSL certificate files (`tls.cert` and `tls.key`) in the `certificates` directory.
+---
+
+## NGINX Configuration
+
+1. Open the `nginx.conf` file located in the `nginx` directory.
+2. Replace all `@DOMAIN` placeholders with your domain names for:
+   - Forms Portal
+   - Admin Portal
+   - API
+   - Dashboard
+3. Place your TLS certificate files (`tls.cert`, `tls.key`) in the `certificates` folder.
 
 ---
 
-## **LYIK API Setup**
+## API Configuration
 
-### 1. **Edit Environment Variables**
+### Step 1: Configure Environment
 
-- Open the `lyik_base.env` file.
-- Update values to match your requirements.
+Edit the `lyik_base.env` file with appropriate values for your setup.
 
-### 2. **Copy Required Assets** (Optional)
+### Step 2: Optional Asset Files
 
-- Place files corresponding to environment variables (e.g., certificates files for esigning and UCC) in the `~/plugins-files/` directory.
+If you're using digital signing or UCC services, place the required certificate/key files in the `~/plugins-files/` directory.
 
-### 3. Plugin Repository Setup
-- Add your github repository access ssh key named `id_ed25519` to `~/ssh/`
-- Uncomment the code block in `~/Dockerfile` tagged `@PLUGIN` to pull and install plugins automatically.
+### Step 3: Plugin Setup
+
+- Place your SSH key (`id_ed25519`) for plugin access in the `~/ssh/` folder.
+- Uncomment the `@PLUGIN` section in the `Dockerfile` to enable plugin installation.
 
 ---
-## **Forms Portal Setup**
 
-1. Locate and edit the `forms_config.json` file to edit the values for following:
+## Forms Portal Configuration
+
+1. Open and edit `forms_config.json`.
+   ```json
+   "api_path": "https://<api-domain-url>"
    ```
-   "api_path": "https://<api-domain-url>" # No need to edit if nginx configuration is not edited for this.
+
+2. If using DigiLocker, add:
+   ```json
+   "digilocker_callbackUrl": "https://<your-forms-domain>/digi_redirect"
    ```
-2. Edit others as per requirement, for example if you want to use digilocker api services, add the api credentials along with `digilocker_callbackUrl` as `"https://<your-forms-domain>/digi_redirect",`
- 
-## **Admin Portal Setup**
-No changes required for running locally.
-    
-**For Production**
-Locate and edit the `admin_config.json` file.
-```
-"API_URL": "https://<your-api-domain>/v1/",
-"form_filling_url": "https://<your-forms-domain>/"
-```
+
+Update other values as needed for your configuration.
 
 ---
 
-## **Deploying the Platform**
+## Admin Portal Configuration
 
-To deploy the platform, follow these steps:
+For local setups, no changes are required.
 
-1. Run Docker Compose:
+To update settings manually:
 
-```bash
-docker compose -f compose_lyik_stack.yml up -d
-```
+1. Open `admin_config.json`.
+2. Set the correct URLs:
+   ```json
+   "API_URL": "https://<your-api-domain>/v1/",
+   "form_filling_url": "https://<your-forms-domain>/"
+   ```
 
-- **Note:** Ensure that the `net_lyik` network exists. If not, create it using:
-```bash
-docker network create net_lyik
-```
+---
 
-1. Verify that all services are running using:
+## Deploying the Platform
+
+1. Pull the latest base image and build the local Docker containers:
+   ```bash
+   make build
+   ```
+
+2. Start services using Docker Compose:
+   ```bash
+   docker compose -f compose_lyik_stack.yml up -d
+   ```
+
+3. Ensure the Docker network `net_lyik` exists:
+   ```bash
+   docker network create net_lyik
+   ```
+
+4. Verify running containers:
+   ```bash
+   docker ps
+   ```
+
+5. Stop services press `Ctrl+C` in the terminal, or run:
+   ```bash
+   docker compose -f compose_lyik_stack.yml down
+   ```
+
+---
+
+## Accessing the Platform
+
+After deployment, open your browser and go to:
+
+- Forms Portal: `https://forms.test.lyik.com` or your configured domain
+- Admin Portal: `https://admin.test.lyik.com`
+- API Endpoint: `https://api.test.lyik.com`
+- Dashboard: `https://dashboard.test.lyik.com`
+
+---
+
+## Troubleshooting
+
+Check running containers and logs:
 
 ```bash
 docker ps
+docker logs <container-name or container-id>
 ```
-
 
 ---
 
-## **Accessing the Platform**
+## Additional Information
 
-Upon successful deployment, you can access various components of the platform via their respective URLs:
-
-- Forms Portal: `https://forms.test.lyik.com` or `<your-forms-domain>`
-- Admin Portal: `https://admin.test.lyik.com` or `<your-admin-portal-domain>`
-- API Endpoint: `https://api.test.lyik.com` or `<your-api-domain>`
-- Grafana Dashboard: `https://dashboard.test.lyik.com` or `<your-grafana-dashboard-domain>`
-
----
-
-## **Notes**
-
-1. Ensure Docker is running before executing any commands.
-2. Double-check the environment variables in both `lyik_base.env`.
-
----
-
-## **Miscellaneous**
-
-1. A valid LYIK license key is required to run the platform. Contact `admin@lyik.com` for registration.
-2. For troubleshooting or support, reach out to `support@lyik.com`.
-
-## **Troubleshooting**
-See the container logs.
-```
-docker ps
-docker logs <container-name or id>
-```
-
+- You must have a valid license key to run the platform. Email `admin@lyik.com` to get one.
+- For help and support, contact `support@lyik.com`.
