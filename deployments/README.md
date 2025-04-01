@@ -103,10 +103,13 @@ and add the following entries:
 - Open the `lyik_base.env` file.
 - Update values to match your requirements.
 
-
 ### 2. **Copy Required Assets** (Optional)
 
 - Place files corresponding to environment variables (e.g., certificates files for esigning and UCC) in the `~/plugins-files/` directory.
+
+### 3. Plugin Repository Setup
+- Add your github repository access ssh key named `id_ed25519` to `~/ssh/`
+- Uncomment the code block in `~/Dockerfile` tagged `@PLUGIN` to pull and install plugins automatically.
 
 ---
 ## **Forms Portal Setup**

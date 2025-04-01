@@ -50,7 +50,10 @@ services:
   lyik_api:
     container_name: 'lyik_api'
     # @API - REPLACE WITH YOUR IMAGE NAME AND IMAGE TAG in case using modified images.
-    image: lyikprodblueacr.azurecr.io/lyik-api:1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: lyik-api:latest
     restart: always
     ports:
       - 8080:8080
