@@ -1,0 +1,2 @@
+git@github.com:Call-for-Code/Project-Sample.git
+# Ensure this file ends with this line to avoid new-line issues

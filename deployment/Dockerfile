@@ -2,7 +2,7 @@
 FROM lyikprodblueacr.azurecr.io/lyik-api:latest
 
 
-# # @PLUGIN uncomment this to Set up SSH keys (for your own Git repository of plugins)======
+# # @PLUGIN uncomment this to Set up SSH keys (for your own Git repository of plugins)
 # WORKDIR /root/.ssh
 # COPY ssh/id_ed25519 /root/.ssh/id_ed25519
 # RUN chmod 600 /root/.ssh/id_ed25519

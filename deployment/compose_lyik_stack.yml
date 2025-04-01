@@ -65,7 +65,8 @@ services:
       # - LICENSE_KEY=<YOUR-LICENSE-KEY>
     volumes:
       - /tmp/lyik:/tmp/lyik
-      - ./plugin_files:/app/certificate
+      - ./plugin_files:/lyik/certificate
+      - ./templates:/lyik/templates
     logging:
       driver: "json-file"
       options:
@@ -87,6 +88,8 @@ services:
     restart: always
     ports:
       - 27017:27017
+    volumes:
+      - ./mongo-data:/data/db 
 
   promtail:
     image: grafana/promtail:latest
