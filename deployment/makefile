@@ -3,6 +3,9 @@
 # Pull latest image and build containers
 build:
 	docker pull lyikprodblueacr.azurecr.io/lyik-api:latest
+	docker pull lyikprodblueacr.azurecr.io/w2w-spa:latest
+	docker pull lyikprodblueacr.azurecr.io/lyik-admin:latest
+
 	docker compose -f compose_lyik_stack.yml build
 
 # Create Docker network if not exists
