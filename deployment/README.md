@@ -1,6 +1,6 @@
 # LYIK Platform – Setup Guide
 
-This guide provides clear and beginner-friendly steps to install, configure, and run the LYIK platform.
+This guide provides steps to install, configure, and run the LYIK platform.
 
 ---
 
