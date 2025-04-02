@@ -1,0 +1,5 @@
+user_id,email,phone_number,roles,doj,doe,is_active,display_name,branch_id,franchise_id
+U_010,akhilbabu+admin@lyik.com,+919353558502,admin,2021-01-15,2023-01-15,1,Admin User,100,FR_001
+U_011,akhilbabu+maker@lyik.com,+919353558503,parent_maker,2021-01-15,2023-01-15,1,Maker User,100,FR_001
+U_012,akhilbabu+checker@lyik.com,+919353558504,checker,2021-01-15,2023-01-15,1,Checker User,100,FR_001
+U_013,akhilbabu+client@lyik.com,+919353558505,client,2021-01-15,2023-01-15,1,Client User,100,FR_001
