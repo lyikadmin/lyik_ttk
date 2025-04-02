@@ -18,6 +18,7 @@ services:
       - ./certificates/tls.crt:/etc/nginx/certs/certificate.crt
       - ./certificates/tls.key:/etc/nginx/certs/private.key
       - ./logs/nginx-proxy-prod:/var/log/nginx
+      - ./static_files:/app/static_files
     depends_on:
       - lyik_api
       - lyik_spa
