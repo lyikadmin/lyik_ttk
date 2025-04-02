@@ -68,32 +68,20 @@ Add the provided LICENSE_KEY value in `lyik_base.env`
 
 ## Deploying the Platform
 
-1. Pull the latest base image and build the local Docker containers:
+1. **Start the platform:**
    ```bash
-   make build
+   make up
    ```
 
-2. Ensure the Docker network `net_lyik` exists:
+2. **Check if the platform is running:**
    ```bash
-   docker network create net_lyik
+   make ps
    ```
 
-3. Start services using Docker Compose:
+3. **Stop the platform:**
    ```bash
-   docker compose -f compose_lyik_stack.yml up -d
+   make down
    ```
-
-4. Verify running containers:
-   ```bash
-   docker ps
-   ```
-
-5. Stop services press `Ctrl+C` in the terminal, or run:
-   ```bash
-   docker compose -f compose_lyik_stack.yml down
-   ```
-
----
 
 ## Accessing the Platform
 
