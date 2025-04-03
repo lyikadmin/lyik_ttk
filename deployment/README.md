@@ -68,20 +68,35 @@ Add the provided LICENSE_KEY value in `lyik_base.env`
 
 ## Deploying the Platform
 
-1. **Start the platform:**
+**First time Setup and Start platform (Only use once, or if changes are made):**
+
+```bash
+make build-up
+```
+
+---
+
+### Regular use (starting/stopping services):
+
+1. **Start the platform (without rebuilding):**
+
    ```bash
    make up
    ```
 
 2. **Check if the platform is running:**
+
    ```bash
    make ps
    ```
 
 3. **Stop the platform:**
+
    ```bash
    make down
    ```
+
+---
 
 ## Accessing the Platform
 
@@ -91,6 +106,54 @@ After deployment, open your browser and go to:
 - Admin Portal: `https://admin.test.lyik.com`
 - API Endpoint: `https://api.test.lyik.com`
 - Dashboard: `https://dashboard.test.lyik.com`
+
+---
+
+## Advanced Usage (more control)
+
+These commands are for fine-grained control.
+
+- **Build everything manually (API + pull UI images):**
+
+  ```bash
+  make build
+  ```
+
+- **Build only the API image (if there are updates to the API server):**
+
+  ```bash
+  make build-api
+  ```
+
+- **Build only the UI images (if there are updates to the UI):**
+
+  ```bash
+  make build-ui
+  ```
+
+- **Start the platform without rebuilding:**
+
+  ```bash
+  make up
+  ```
+
+- **Stop and remove all containers:**
+
+  ```bash
+  make down
+  ```
+
+- **Restart the full stack:**
+
+  ```bash
+  make restart
+  ```
+
+- **Check running containers:**
+
+  ```bash
+  make ps
+  ```
 
 ---
 

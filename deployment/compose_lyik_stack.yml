@@ -51,9 +51,6 @@ services:
   lyik_api:
     container_name: 'lyik_api'
     # @API - REPLACE WITH YOUR IMAGE NAME AND IMAGE TAG in case using modified images.
-    build:
-      context: .
-      dockerfile: Dockerfile
     image: lyik-api:latest
     restart: always
     ports:
