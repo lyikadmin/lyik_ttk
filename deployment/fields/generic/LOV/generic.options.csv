@@ -1,0 +1,39 @@
+option_name,seq_no,display_text,value
+GENERIC_CHOICE,1,CHOICE1,CHOICE1
+GENERIC_CHOICE,2,CHOICE2,CHOICE2
+LOCALE,1,INDIA,IN
+LOCALE,2,USA,US
+LOCALE,2,EUROPE,EU
+SALUTATION,1,Mr,Mr
+SALUTATION,2,Ms,Ms
+SALUTATION,3,Mrs,Mrs
+SALUTATION,4,Sri,Sri
+SALUTATION,5,Smt,Smt
+BLOODGROUP,1,A +ve,A+
+BLOODGROUP,2,A -ve,A-
+BLOODGROUP,3,B +ve,B+
+BLOODGROUP,4,B -ve,B-
+BLOODGROUP,5,O +ve,O+
+BLOODGROUP,6,O -ve,O-
+BLOODGROUP,7,AB +ve,AB+
+BLOODGROUP,8,AB -ve,AB-
+MARITALSTATUS,1,Married,Married
+MARITALSTATUS,2,Single,Single
+MARITALSTATUS,3,Widowed,Widowed
+MARITALSTATUS,4,Separated,Separated
+MARITALSTATUS,5,Divorced,Divorced
+GENDER,1,Male,M
+GENDER,2,Female,F
+GENDER,3,Transgender,T
+GENDER,4,Other,O
+LANGUAGE,1,Kannada,Kannada
+LANGUAGE,2,English,English
+INDUSTRY,1,Education,Education
+INDUSTRY,2,Retail,Retail
+ORG_TYPE,1,Proprietorship,Proprietorship
+ORG_TYPE,2,Private Limited Company,Pvt
+ORG_TYPE,3,Public Limited Company,Public
+ORG_TYPE,4,LLC,LLC
+PAYMENT_GATEWAY,1,NTT Data,NTT
+PAYMENT_GATEWAY,2,Easebuzz,Easebuzz
+PAYMENT_GATEWAY,3,Paytm,Paytm

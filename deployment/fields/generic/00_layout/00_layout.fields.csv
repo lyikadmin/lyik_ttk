@@ -1,0 +1,5 @@
+field_name,field_type,data_type,display_type,default_value,mandatory,description,title,alias,field_notation,locale,fields,internal_only,category,sequence,input_type,industry,editable
+section_break,layout,,section_break,,FALSE,A field that indicates begining of a new section,Section Break,,,IN,,FALSE,Generic Layout,1000,,,FALSE
+column_break,layout,,column_break,,FALSE,A field that indicates begining of a new column to layout the fields,Column Break,,,IN,,FALSE,Generic Layout,1000,,,FALSE
+tab_break,layout,,tab_break,,FALSE,A field that indicates a new tab in the display,Tab Break,,,IN,,FALSE,Generic Layout,1000,,,FALSE
+display_field,layout,,display_field,,FALSE,A field that is meant only for display purpose,Display Field,,,IN,,FALSE,Generic Layout,1000,,,FALSE

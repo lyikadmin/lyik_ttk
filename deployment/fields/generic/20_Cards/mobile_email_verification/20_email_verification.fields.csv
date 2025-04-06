@@ -1,0 +1,4 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,category,sequence,hidden,editable,meta
+contact_id,,simple,EMAIL,textbox,,TRUE,,Email ID,,,TRUE,,2000,,,
+verified_contact_id,,simple,EMAIL,textbox,,FALSE,,OTP,,,TRUE,,2000,TRUE,,
+email_verification,,compound,,card,,FALSE,,Email Verification,CUSTOM.OTP,"contact_id,verified_contact_id",FALSE,Card - Email Verification,2000,,,verify.verify_handler: VERIFIER_EMAIL

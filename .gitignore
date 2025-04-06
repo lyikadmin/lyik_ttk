@@ -1,3 +1,4 @@
 .obsidian
 .mongo-data
 **.log
+.DS_Store

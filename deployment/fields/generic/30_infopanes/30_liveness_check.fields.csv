@@ -1,0 +1,3 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,category,sequence,hidden,editable,meta
+liveness_captcha,,simple,list:str,liveness.readout,,FALSE,,,,,TRUE,,3000,,,
+liveness_check,,compound,,info_pane,,FALSE,,Liveness Check,,"photo_capture,video_capture,liveness_captcha,liveness_geo_loc",FALSE,InfoPane - Liveness,3000,,,operation.save:Save & Continue;verify.action_text:Verify;verify.verify_handler: VERIFIER_LIVENESS_CHECK

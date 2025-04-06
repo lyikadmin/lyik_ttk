@@ -1,0 +1,5 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,category,sequence,hidden,editable,meta
+column_break,,layout,str,column_break,,FALSE,,,,,TRUE,,6185,,,
+wet_signature_image,,simple,FILE,fileoption,,FALSE,Upload an image,Image of Wet Signature,,,TRUE,,6186,,,
+proof_of_signature,,simple,FILE,fileoption,,FALSE,Upload an image,Proof of Signature,,,TRUE,,6188,,,
+sign_valid,,compound,,card,,FALSE,,Signature Validation,,"column_break,wet_signature_image,column_break,proof_of_signature",FALSE,Card - Signature Validation,6189,,,verify.action_text:Match Signature;verify.verify_handler: VERIFIER_SIGNATURE
