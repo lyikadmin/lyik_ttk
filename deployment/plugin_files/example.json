@@ -1,0 +1,12 @@
+[
+  {
+      "link_attribute_name": "pan_number",
+      "link_attribute_order": 1,
+      "link_attribute_value_path": "$.kyc_holders[0].kyc_holder.pan_verification.pan_details.pan_number"
+  },
+  {
+      "link_attribute_name": "customer_name",
+      "link_attribute_order": 2,
+      "link_attribute_value_path": "$.kyc_holders[0].kyc_holder.pan_verification.pan_details.name_in_pan"
+  }
+]
