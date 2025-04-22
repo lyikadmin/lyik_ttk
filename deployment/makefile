@@ -12,7 +12,7 @@ build-api:
 
 # Pull latest tagged images for other services
 build-ui:
-	docker pull lyikprodblueacr.azurecr.io/w2w-spa:latest
+	docker pull lyikprodblueacr.azurecr.io/lyik-forms-spa:latest
 	docker pull lyikprodblueacr.azurecr.io/lyik-admin:latest
 
 # Create Docker network if not exists

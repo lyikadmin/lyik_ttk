@@ -40,7 +40,7 @@ services:
 
   lyik_spa:
     container_name: 'lyik_spa'
-    image: lyikprodblueacr.azurecr.io/w2w-spa
+    image: lyikprodblueacr.azurecr.io/lyik-forms-spa
     restart: always
     # ports:
     #   - 3030:3030
