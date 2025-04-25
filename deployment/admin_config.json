@@ -1,4 +1,4 @@
 {
-  "API_URL": "https://forms-uat.ttkservices.com/api/v1/",
-  "form_filling_url": "https://forms-uat.ttkservices.com/"
+  "API_URL": "https://test.lyik.com/api/v1/",
+  "form_filling_url": "https://test.lyik.com/"
 }
