@@ -47,6 +47,8 @@ services:
     command: ["nginx", "-g", "daemon off;"]
     volumes:
       - ./forms_config.json:/app/config/config.json
+    environment:
+      - TZ=Asia/Calcutta
 
   lyik_api:
     container_name: 'lyik_api'
@@ -60,6 +62,7 @@ services:
     command: ['bash']
     environment:
       - MODE=PROD
+      - TZ=Asia/Calcutta
       # - LICENSE_KEY=<YOUR-LICENSE-KEY>
     volumes:
       - /tmp/lyik:/tmp/lyik
@@ -87,7 +90,8 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - ./.mongo-data:/data/db 
+      - ./.mongo-data:/data/db
+    user: root
 
   promtail:
     image: grafana/promtail:latest
@@ -118,6 +122,8 @@ services:
         max-size: "10m"
     volumes:
       - ./admin_config.json:/app/config/config.json
+    environment:
+      - TZ=Asia/Calcutta
 
   grafana:
     container_name: 'grafana'
