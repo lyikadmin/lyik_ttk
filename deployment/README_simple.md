@@ -27,6 +27,13 @@ Before proceeding, ensure the following tools and information are available:
 
 ---
 
+## To change domain, change the following files:
+1. admin_config.json (change the `API_URL` and `form_filling_url`)
+2. forms_config.json (change `api_path`)
+3. lyik_base.env (change `API_DOMAIN`)
+
+---
+
 ## Accessing LYIK Docker Images
 
 You will need credentials to pull LYIK Docker images.
@@ -49,7 +56,11 @@ sudo vim /etc/hosts
 ```
 
 Add the following line:
+```
+127.0.0.1 test.lyik.com
+```
 
+(If multiple domains)
 ```
 127.0.0.1 api.test.lyik.com admin.test.lyik.com forms.test.lyik.com dashboard.test.lyik.com
 ```
@@ -102,9 +113,9 @@ make build-up
 
 After deployment, open your browser and go to:
 
-- Forms Portal: `https://forms.test.lyik.com` or your configured domain
+- Forms Portal: `https://test.lyik.com` or your configured domain
 - Admin Portal: `https://admin.test.lyik.com`
-- API Endpoint: `https://api.test.lyik.com`
+- API Endpoint: `https://test.lyik.com/api`
 - Dashboard: `https://dashboard.test.lyik.com`
 
 ---

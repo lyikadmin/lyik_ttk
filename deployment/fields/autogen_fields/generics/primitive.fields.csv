@@ -1,0 +1,9 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,category,sequence,hidden,editable,meta
+fac_str,,simple,str,textbox,,,,,,,,,1,,,
+fac_int,,simple,int,textbox,,,,,,,,,1,,,
+fac_float,,simple,float,textbox,,,,,,,,,1,,,
+fac_bool,,simple,bool,textbox,,,,,,,,,1,,,
+fac_list_str,,simple,list:str,textbox,,,,,,,,,1,,,
+fac_list_int,,simple,list:int,textbox,,,,,,,,,1,,,
+fac_list_float,,simple,list:float,textbox,,,,,,,,,1,,,
+fac_list_bool,,simple,list:bool,textbox,,,,,,,,,1,,,

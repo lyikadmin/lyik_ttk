@@ -1,4 +1,0 @@
-field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,category,sequence,hidden,editable,meta
-lat,,simple,str,display_field,,FALSE,,,,,TRUE,,2000,,,
-long,,simple,str,display_field,,FALSE,,,,,TRUE,,2000,,,
-liveness_geo_loc,,compound,str,geoloc,,FALSE,,Geo Location,,"lat,long",FALSE,Card - Liveness Geo,2000,,,

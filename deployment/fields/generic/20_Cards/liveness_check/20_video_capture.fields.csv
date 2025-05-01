@@ -1,3 +1,0 @@
-field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,category,sequence,hidden,editable,meta
-liveness_video,,simple,FILE,vidcapture,,FALSE,,,,,TRUE,,2000,,,
-video_capture,,compound,,card,,FALSE,,Video Capture,,liveness_video,FALSE,Card - Liveness Video,2000,,,
