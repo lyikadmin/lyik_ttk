@@ -137,6 +137,7 @@ class TTKAuthProvider(AuthProviderSpec):
         token: Annotated[str, Doc("Token to retrieve pre-authorized information from")],
     ) -> Annotated[
         PreAuthorizedInfoModel,
+        RequiredEnv(["LYIK_TOKEN_PUBLIC_KEY"]),
         Doc("Retrieve pre-authorized information from the token"),
     ]:
         """
