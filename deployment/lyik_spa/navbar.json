@@ -1,0 +1,41 @@
+{
+  "background": "url(https://www.ttkvisas.in/assets/images/headerbg_1.svg)",
+  "showLogo": true,
+  "logoSrc": "/assets/images/logo.png",
+  "buttons": [
+    {
+      "label": "Home",
+      "link": "/",
+      "position": "right",
+      "type": "link",
+      "color": "primary"
+    },
+    {
+      "label": "Our Services",
+      "link": "/our-services",
+      "position": "right",
+      "type": "link",
+      "color": "primary"
+    },
+    {
+      "label": "About us",
+      "link": "/about",
+      "position": "right",
+      "type": "link",
+      "color": "primary"
+    },
+    {
+      "label": "Why Choose Us",
+      "link": "/about",
+      "position": "right",
+      "type": "link",
+      "color": "primary"
+    },
+    {
+      "label": "Login",
+      "link": "/login",
+      "position": "right",
+      "type": "button"
+    }
+  ]
+}

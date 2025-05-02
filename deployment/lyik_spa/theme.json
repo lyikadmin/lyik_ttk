@@ -1,0 +1,72 @@
+{
+  "loginBackground": "/assets/images/login_bg.png",
+  "spacing": "comfort",
+  "fontFamily": "'Inter', sans-serif",
+  "colors": {
+    "main": "#3B83DB",
+    "brand": "#2862A9",
+    "light": "#30A1E0",
+    "black": "#000000",
+    "white": "#ffffff",
+    "grey": "#BBBBBB",
+    "error": "#D24D57",
+    "success": "#32A028",
+    "warning": "#F57C00",
+    "info": "#1976D2",
+    "contrastText": "#ffffff",
+
+    "primary": {
+      "brand": "#1136B3"
+    },
+    "secondary": {
+      "main": "#1970C8",
+      "light": "#3BB9EA"
+    },
+    "background": {
+      "secondary": "#F5F5F5"
+    },
+    "text": {
+      "secondary": "#666666"
+    },
+
+    "border": {
+      "primary": "#9E9E9E",
+      "secondary": "#C4C4C4",
+      "focus": "#1970C8"
+    },
+    "status": {
+      "success": "#32A028",
+      "error": "#D32F2F",
+      "warning": "#F57C00",
+      "info": "#1976D2"
+    },
+    "button": {
+      "main": {
+        "bgColor": "#3B83DB",
+        "color": "#fff"
+      },
+      "primary": {
+        "bgColor": "#30A1E0",
+        "color": "#fff"
+      },
+      "outlined": {
+        "borderColor": "#30A1E0",
+        "color": "#30A1E0",
+        "bgColor": "#FFFFFF"
+      },
+      "disabled": {
+        "color": "#fff",
+        "bgColor": "#BBBBBB",
+        "borderColor": "#CDCDCD"
+      },
+      "error": {
+        "color": "#fff",
+        "bgColor": "#D24D57"
+      },
+      "success": {
+        "color": "#fff",
+        "bgColor": "#32A028"
+      }
+    }
+  }
+}
