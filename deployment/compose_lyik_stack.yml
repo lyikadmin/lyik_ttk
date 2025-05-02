@@ -40,7 +40,7 @@ services:
 
   lyik_spa:
     container_name: "lyik_spa"
-    image: lyikprodblueacr.azurecr.io/lyik-forms-spa
+    image: lyikprodblueacr.azurecr.io/lyik-forms-spa-dev
     restart: always
     # ports:
     #   - 3030:3030
@@ -50,7 +50,9 @@ services:
       - ./lyik_spa/fonts:/app/public/assets/fonts
       - ./lyik_spa/images:/app/public/assets/images
       - ./lyik_spa/theme.json:/app/public/config/theme.json
-      # - ./lyik_spa/navbar.json:/app/public/config/navbar.json
+      - ./lyik_spa/theme.json:/usr/share/nginx/html/config/theme.json
+      - ./lyik_spa/navbar.json:/app/public/config/navbar.config.json
+      - ./lyik_spa/navbar.json:/usr/share/nginx/html/config/navbar.config.json
     environment:
       - TZ=Asia/Calcutta
 
