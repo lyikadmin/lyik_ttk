@@ -5,9 +5,10 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "ttk-plugins"
 version = "0.1.0"
-description = "Authentication plugins for different providers, and Auth Token creation for LYIK system."
+description = "All plugins related to TTK"
 readme = "README.md"
 authors = [
+    { name = "Shreesha", email="shreesha@lyik.com"}
     { name = "Akhil Babu", email = "akhilbabu@lyik.com" }
 ]
 license = { file = "LICENSE.txt" }
