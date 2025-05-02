@@ -1,0 +1,862 @@
+field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,category,sequence,hidden,editable,meta
+tab_break,travel_tab,,,tab_break,,False,,Travel,,,False,,,,,
+section_break,travel_section,,,section_break,,False,,Travel Details,,,False,,,,,
+info_pane_builder,travel,,,info_pane,,False,,Travel Details,,,False,,,,,operation.save:Save and Continue
+card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,
+display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <title>Photo Instructions - Switzerland</title>
+</head>
+<body style=""margin: 0; font-family: Arial, sans-serif;"">
+
+<!-- Full width wrapper with 10% left and right padding -->
+<div style=""width: 100%; box-sizing: border-box;"">
+
+    <!-- Main card-style container -->
+    <div style=""background: white; border-radius: 10px; border: 1px solid #ccc; width: 100%; padding: 20px; box-sizing: border-box;"">
+
+        <!-- <p style=""text-align: center; color: #0073cf; font-weight: bold; margin-top: 0;"">
+        (Help for Example Section)
+        </p> -->
+        <!-- Requirements Section -->
+        <div style=""margin-top: 5px;"">
+
+            <!-- <div style=""margin-bottom: 10px;"">
+                <h3 style=""color: #0073cf; margin-top: 0;"">Example Title</h3>
+                <ul style=""line-height: 1.6; padding-left: 20px; margin-top: 10px;"">
+                    <li>Help Item</li>
+                    <li>Help Item</li>
+                    <li>Help Item</li>
+                </ul>
+            </div> -->
+
+            <div style=""margin-bottom: 10px;"">
+              <h3 style=""color: #0073cf; margin-top: 0;"">Example Help Title</h3>
+              <ul style=""line-height: 1.6; padding-left: 20px; margin-top: 10px;"">
+                  <li>Help Item</li>
+                  <li>Help Item</li>
+                  <li>Help Item</li>
+              </ul>
+              <p style=""margin-top: 10px;"">
+                Example Description
+            </p>
+          </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+",,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,travel_details,,,card,,False,,Travel Details,,,False,,,,,
+column_break,column_break_1,,,column_break,,False,,,,,False,,,,,
+fac_str,from_country,,,textbox,,False,Enter From Country,From Country,,,False,,,,,
+fac_date,departure_date,,,datebox,,False,Enter Departure Date,Departure Date,,,False,,,,,
+fac_int,validity,,,textbox,,False,Enter Validity,Validity,,,False,,,,,
+fac_visa_processing_type,visa_processing_type,,,dropdown,,False,Enter Visa Processing,Visa Processing,,,False,,,,,
+column_break,column_break_2,,,column_break,,False,,,,,False,,,,,
+fac_str,to_country,,,textbox,,False,Enter To Country,To Country,,,False,,,,,
+fac_date,arrival_date,,,datebox,,False,Enter Arrival Date,Arrival Date,,,False,,,,,
+fac_int,no_of_entries,,,textbox,,False,Enter No of Entries,No of Entries,,,False,,,,,
+fac_date,earliest_appointment_availability,,,datebox,,False,Enter Earliest Appontment Availability,Earliest Appontment Availability,,,False,,,,,
+column_break,column_break_3,,,column_break,,False,,,,,False,,,,,
+fac_visa_type,visa_type,,,dropdown,,False,Enter Visa Type,Visa Type,,,False,,,,,
+fac_int,length_of_stay,,,textbox,,False,Enter Length of Stay,Length of Stay,,,False,,,,,
+fac_visa_mode,visa_mode,,,dropdown,,False,Enter Visa Mode,Visa Mode,,,False,,,,,
+fac_str,maker,,,hidden,,False,Enter Maker name,Maker name,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+section_break,appointment_section,,,section_break,,False,,Appointment Details,,,False,,,,,
+info_pane_builder,appointment,,,info_pane,,False,,Appointment Details,,,False,,,,,operation.save:Save and Continue
+card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,
+display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <title>Photo Instructions - Switzerland</title>
+</head>
+<body style=""margin: 0; font-family: Arial, sans-serif;"">
+
+<!-- Full width wrapper with 10% left and right padding -->
+<div style=""width: 100%; box-sizing: border-box;"">
+
+    <!-- Main card-style container -->
+    <div style=""background: white; border-radius: 10px; border: 1px solid #ccc; width: 100%; padding: 20px; box-sizing: border-box;"">
+
+        <!-- <p style=""text-align: center; color: #0073cf; font-weight: bold; margin-top: 0;"">
+        (Help for Example Section)
+        </p> -->
+        <!-- Requirements Section -->
+        <div style=""margin-top: 5px;"">
+
+            <!-- <div style=""margin-bottom: 10px;"">
+                <h3 style=""color: #0073cf; margin-top: 0;"">Example Title</h3>
+                <ul style=""line-height: 1.6; padding-left: 20px; margin-top: 10px;"">
+                    <li>Help Item</li>
+                    <li>Help Item</li>
+                    <li>Help Item</li>
+                </ul>
+            </div> -->
+
+            <div style=""margin-bottom: 10px;"">
+              <h3 style=""color: #0073cf; margin-top: 0;"">Example Help Title</h3>
+              <ul style=""line-height: 1.6; padding-left: 20px; margin-top: 10px;"">
+                  <li>Help Item</li>
+                  <li>Help Item</li>
+                  <li>Help Item</li>
+              </ul>
+              <p style=""margin-top: 10px;"">
+                Example Description
+            </p>
+          </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+",,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,appointment_scheduled,,,card,,False,,Appointment Scheduled,,,False,,,,,
+column_break,column_break,,,column_break,,False,,,,,False,,,,,
+fac_pref_loc,scheduled_location,,,dropdown,,False,Enter Scheduled Location,Scheduled Location,,,False,,,,,
+fac_str,scheduled_time,,,dropdown,,False,Enter Scheduled Time,Scheduled Time,,,False,,,,,
+column_break,column_break_2,,,column_break,,False,,,,,False,,,,,
+fac_date,scheduled_date,,,datebox,,False,Enter Scheduled Date,Scheduled Date,,,False,,,,,
+fac_file,upload_appointment,,,fileoption,,False,Enter Upload Appointment,Upload Appointment,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,appointment_preference,,,card,,False,,Appointment Preference,,,False,,,,,
+column_break,column_break_1,,,column_break,,False,,,,,False,,,,,
+fac_pref_loc,preferred_location_1,,,dropdown,,False,Enter Preferred Location 1,Preferred Location 1,,,False,,,,,
+fac_pref_loc,preferred_location_2,,,dropdown,,False,Enter Preferred Location,Preferred Location,,,False,,,,,
+column_break,column_break_2,,,column_break,,False,,,,,False,,,,,
+fac_date,preferred_date_1,,,datebox,,False,Enter Preferred Date 1,Preferred Date 1,,,False,,,,,
+fac_date,preferred_date_2,,,datebox,,False,Enter Preferred Date 2,Preferred Date 2,,,False,,,,,
+column_break,column_break_3,,,column_break,,False,,,,,False,,,,,
+fac_pref_slot,preferred_slot_1,,,dropdown,,False,Enter Preferred Slot 1,Preferred Slot 1,,,False,,,,,
+fac_pref_slot,preferred_slot_2,,,dropdown,,False,Enter Preferred Slot 2,Preferred Slot 2,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,appointment_availability,,,card,,False,,Appointment Availability,,,False,,,,,
+column_break,column_break_1,,,column_break,,False,,,,,False,,,,,
+fac_pref_loc,preferred_location_1,,,dropdown,,False,Enter Available Location 1,Available Location 1,,,False,,,,,
+fac_pref_loc,preferred_location_2,,,dropdown,,False,Enter Available Location 2,Available Location 2,,,False,,,,,
+column_break,column_break_2,,,column_break,,False,,,,,False,,,,,
+fac_date,preferred_date_1,,,datebox,,False,Enter Available Date 1,Available Date 1,,,False,,,,,
+fac_date,preferred_date_2,,,datebox,,False,Enter Available Date 2,Available Date 2,,,False,,,,,
+column_break,column_break_3,,,column_break,,False,,,,,False,,,,,
+fac_pref_slot,preferred_slot_1,,,dropdown,,False,Enter Available Slot 1,Available Slot 1,,,False,,,,,
+fac_pref_slot,preferred_slot_2,,,dropdown,,False,Enter Available Slot 2,Available Slot 2,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+tab_break,personal_tab,,,tab_break,,False,personal,Personal,,,False,,,,,
+section_break,passport_section,,,section_break,,False,,Passport,,,False,,,,,
+info_pane_builder,passport,,,info_pane,,False,,Passport,,,False,,,,,operation.save:Save and Continue
+card_builder,instruction_passport,,,card,,False,,Original Passport,,,False,,,,,
+display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <title>Photo Instructions - Switzerland</title>
+</head>
+<body style=""margin: 0; font-family: Arial, sans-serif;"">
+
+<!-- Full width wrapper with 10% left and right padding -->
+<div style=""width: 100%;"">
+
+    <!-- Main card-style container -->
+    <div style=""background: white; border-radius: 0px; border: 1px solid #ccc; width: 100%; padding: 20px; box-sizing: border-box;"">
+
+        <!-- Requirements Section -->
+        <div style=""margin-top: 30px;"">
+
+            <div style=""margin-bottom: 20px;"">
+                <h3 style=""color: #0073cf; margin-top: 0;""></h3>
+                <ul style=""line-height: 1.6; padding-left: 20px; margin-top: 10px;"">
+                    <li>Minimum Validity of 6 months from the date of Departure from Swiss.</li>
+                    <li>Hand written passports are not accepted.</li>
+                    <li>The passport should not have any damages – For example: Water marks, torn pages, peeling of Lamination, Spelling mistake in the given name and surname.</li>
+                    <li>The passport should not have any observation in the passport like ECR/ Change inPlace of birth/ Spouse name/ applicant Surname and given name/ Change of address.</li>
+                    <li>Old Passports in Original (If applicable)</li>
+                </ul>
+            </div>
+     
+<!-- 
+o Minimum Validity of 6 months from the date of Departure from Swiss.
+o Hand written passports are not accepted.
+o The passport should not have any damages – For example: Water marks, torn
+pages, peeling of Lamination, Spelling mistake in the given name and surname.
+o The passport should not have any observation in the passport like ECR/ Change in
+Place of birth/ Spouse name/ applicant Surname and given name/ Change of
+address.
+o Old Passports in Original (If applicable)
+ -->
+<!-- 
+            <div style=""margin-bottom: 20px;"">
+                <h3 style=""color: #0073cf; margin-top: 0;"">The photographs must:</h3>
+                <ul style=""line-height: 1.6; padding-left: 20px; margin-top: 10px;"">
+                    <li>show you looking directly at the camera</li>
+                    <li>show your skin tones naturally</li>
+                    <li>have appropriate brightness and contrast</li>
+                    <li>be printed on high quality paper, and at high resolution</li>
+                </ul>
+                <p style=""margin-top: 10px;"">
+                    Photographs taken with a digital camera must be high quality colour and printed on photo-quality paper.
+                </p>
+            </div> -->
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+",,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,passport_page_upload,,,card,,False,,Passport Photo Upload,API.TRUSTED_OVD,,False,,,,,
+column_break,column_break_1,,,column_break,,False,,,,,False,,,,,
+fac_passport_type,type_of_passport,,,dropdown,,False,Enter Type of Passport,Type of Passport,,,False,,,,,
+column_break,column_break_2,,,column_break,,False,,,,,False,,,,,
+fac_file,ovd_front,,,fileoption,,False,Enter Front Page of Passport,Front Page of Passport,,,False,,,,,
+column_break,column_break_3,,,column_break,,False,,,,,False,,,,,
+fac_file,ovd_back,,,fileoption,,False,Enter Back Page of Passport,Back Page of Passport,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,passport_details,,,card,,False,,Passport Details,,,False,,,,sample editable from self,verify.verify_handler:;verify.action_text:Verify Passport
+fac_str,desired_validity,,,hidden,6,False,This is the minimum duration for which the passport should be valid,,,,False,,,,,
+column_break,column_break_1,,,column_break,,False,,,,,False,,,,,
+fac_str,first_name,,,textbox,@.passport_page_upload.TRUSTED_OVD.name,False,Enter Given Name as in Passport,Given Name as in Passport,,,False,,,,,
+fac_date,date_of_birth,,,datebox,@.passport_page_upload.TRUSTED_OVD.name,False,Enter Date of Birth as in Passport,Date of Birth as in Passport,,,False,,,,,
+fac_date,date_of_issue,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_birth,False,Enter Date of Issue,Date of Issue,,,False,,,,sample editable,
+fac_gender,gender,,,dropdown,@.passport_page_upload.TRUSTED_OVD.gender,False,Enter Gender,Gender,,,False,,,,,
+fac_str,place_of_issue,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_issue,False,Enter Place of Issue,Place of Issue,,,False,,,,,
+fac_str,nationality,,,textbox,@.passport_page_upload.TRUSTED_OVD.nationality,False,Enter Nationality,Nationality,,,False,,,,,
+fac_str,issued_by,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_issue,False,Enter Issued By (Authority/City),Issued By (Authority/City),,,False,,,,,
+column_break,column_break_4,,,column_break,,False,,,,,False,,,,,
+fac_str,surname,,,textbox,@.passport_page_upload.TRUSTED_OVD.surname,False,Enter Surname as in Passport,Surname as in Passport,,,False,,,,,
+fac_str,passport_number,,,textbox,@.passport_page_upload.TRUSTED_OVD.uid,False,Enter Passport Number,Passport Number,,,False,,,,,
+fac_date,date_of_expiry,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_expiry,False,Enter Date of Expiry,Date of Expiry,,,False,,,,,
+fac_str,place_of_birth,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_birth,False,Enter Place of Birth,Place of Birth,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,passport_address,,,card,,False,,Address as in Passport,,,False,,,,,
+column_break,column_break1,,,column_break,,False,,,,,False,,,,,
+fac_str,address_line_1,,,textbox,@.passport_page_upload.TRUSTED_OVD.full_address,True,Enter Address Line 1,Address Line 1,,,False,,,,,
+fac_str,pin_code,,,textbox,@.passport_page_upload.TRUSTED_OVD.postal_code,False,Enter PIN Code,PIN Code,,,False,,,,,
+fac_str,state,,,textbox,@.passport_page_upload.TRUSTED_OVD.state,False,Enter State,State,,,False,,,,,
+column_break,column_break2,,,column_break,,False,,,,,False,,,,,
+fac_str,address_line_2,,,textbox,@.passport_page_upload.TRUSTED_OVD.address_line_2,False,Enter Address Line 2,Address Line 2,,,False,,,,,
+fac_str,city,,,textbox,@.passport_page_upload.TRUSTED_OVD.city,False,Enter City,City,,,False,,,,,
+fac_str,country,,,textbox,@.passport_page_upload.TRUSTED_OVD.code,False,Enter Country,Country,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+section_break,photograph_section,,,section_break,,False,,Photograph,,,False,,,,,
+info_pane_builder,photograph,,,info_pane,,False,,Photograph,,,False,,,,,operation.save:Save and Continue
+card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,
+display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <title>Photo Instructions - Switzerland</title>
+</head>
+<body style=""margin: 0; font-family: Arial, sans-serif;"">
+
+<!-- Full width wrapper with 10% left and right padding -->
+<div style=""width: 100%; box-sizing: border-box;"">
+
+    <!-- Main card-style container -->
+    <div style=""background: white; border-radius: 10px; border: 1px solid #ccc; width: 100%; padding: 20px; box-sizing: border-box;"">
+
+        <!-- <h2 style=""color: #002b7f; text-align: center; margin-top: 0;"">Instructions</h2> -->
+        <p style=""text-align: center; color: #0073cf; font-weight: bold; margin-top: 0;"">
+            (From the Government of Switzerland)
+        </p>
+
+        <div style=""display: flex; flex-wrap: wrap; justify-content: center; margin-top: 20px;"">
+
+            <!-- Photo Boxes -->
+            <div style=""margin-bottom: 20px; text-align: center;"">
+                <img src=""https://d2phdgmkbm5x8b.cloudfront.net/img/schengen-passport-photo-01.webp"" alt=""Too Close"" style=""width: 100%; border: 1px solid #ccc; border-radius: 5px;"">
+            </div>
+
+        </div>
+
+        <!-- Requirements Section -->
+        <div style=""margin-top: 30px;"">
+
+            <div style=""margin-bottom: 20px;"">
+                <h3 style=""color: #0073cf; margin-top: 0;"">Photograph quality</h3>
+                <ul style=""line-height: 1.6; padding-left: 20px; margin-top: 10px;"">
+                    <li>be no more than 6-months old</li>
+                    <li>35–40mm in width</li>
+                    <li>close up of your head and top of your shoulders so that your face takes up 70–80% of the photograph</li>
+                    <li>in sharp focus and clear</li>
+                    <li>of high quality with no ink marks or creases</li>
+                </ul>
+            </div>
+
+            <div style=""margin-bottom: 20px;"">
+                <h3 style=""color: #0073cf; margin-top: 0;"">The photographs must:</h3>
+                <ul style=""line-height: 1.6; padding-left: 20px; margin-top: 10px;"">
+                    <li>show you looking directly at the camera</li>
+                    <li>show your skin tones naturally</li>
+                    <li>have appropriate brightness and contrast</li>
+                    <li>be printed on high quality paper, and at high resolution</li>
+                </ul>
+                <p style=""margin-top: 10px;"">
+                    Photographs taken with a digital camera must be high quality colour and printed on photo-quality paper.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+",,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,passport_photo,,,card,,False,,Passport Photo,,,False,,,,,
+display_field,upload_photo_display,,,display_field,,False,"<h2 style=""font-family: Arial, sans-serif; font-size: 14px; color: #333;"">
+    Upload a passport photo that has been taken not more than 6 months ago & have a clear resemblance to you.
+</h2>
+",,,,False,,,,,
+fac_file,photo,,,fileoption,,False,Enter Upload Photo,Upload Photo,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+section_break,residential_address_section,,,section_break,,False,,Residential Address,,,False,,,,,
+info_pane_builder,residential_address,,,info_pane,,False,,Residential Address,,,False,,,,,operation.save:Save and Continue
+card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,
+display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <title>Photo Instructions - Switzerland</title>
+</head>
+<body style=""margin: 0; font-family: Arial, sans-serif;"">
+
+<!-- Full width wrapper with 10% left and right padding -->
+<div style=""width: 100%; box-sizing: border-box;"">
+
+    <!-- Main card-style container -->
+    <div style=""background: white; border-radius: 10px; border: 1px solid #ccc; width: 100%; padding: 20px; box-sizing: border-box;"">
+
+        <!-- <p style=""text-align: center; color: #0073cf; font-weight: bold; margin-top: 0;"">
+        (Help for Example Section)
+        </p> -->
+        <!-- Requirements Section -->
+        <div style=""margin-top: 5px;"">
+
+            <!-- <div style=""margin-bottom: 10px;"">
+                <h3 style=""color: #0073cf; margin-top: 0;"">Example Title</h3>
+                <ul style=""line-height: 1.6; padding-left: 20px; margin-top: 10px;"">
+                    <li>Help Item</li>
+                    <li>Help Item</li>
+                    <li>Help Item</li>
+                </ul>
+            </div> -->
+
+            <div style=""margin-bottom: 10px;"">
+              <h3 style=""color: #0073cf; margin-top: 0;"">Example Help Title</h3>
+              <ul style=""line-height: 1.6; padding-left: 20px; margin-top: 10px;"">
+                  <li>Help Item</li>
+                  <li>Help Item</li>
+                  <li>Help Item</li>
+              </ul>
+              <p style=""margin-top: 10px;"">
+                Example Description
+            </p>
+          </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+",,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+display_field,upload_display_residential_address,,,display_field,,False,"<h2 style=""font-family: Arial, sans-serif; font-size: 14px; color: #333;"">
+    Upload the evidence of your legal residence in the country you are applying from
+</h2>",,,,False,,,,,
+fac_same_as_pass_addr,same_as_passport_address,,,checkbox,,False,,,,,False,,,,,
+card_builder,residential_address_card,,,card,,False,,Current Residential Address,,,False,,,same_as_passport_address = 'SAME_AS_PASS_ADDR',,
+column_break,column_break1,,,column_break,,False,,,,,False,,,,,
+fac_str,address_line_1,,,textbox,,False,Enter Address Line 1,Address Line 1,,,False,,,,,
+fac_pincode,pin_code,,,textbox,,False,Enter PIN Code,PIN Code,,,False,,,,,
+fac_str,state,,,textbox,,False,Enter State,State,,,False,,,,,
+column_break,column_break2,,,column_break,,False,,,,,False,,,,,
+fac_str,address_line_2,,,textbox,,False,Enter Address Line 2,Address Line 2,,,False,,,,,
+fac_str,city,,,textbox,,False,Enter City,City,,,False,,,,,
+fac_str,country,,,textbox,,False,Enter Country,Country,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+section_break,ticketing_section,,,section_break,,False,,Ticketing,,,False,,,,,
+info_pane_builder,ticketing,,,info_pane,,False,,Ticketing,,,False,,,,,operation.save:Save and Continue
+card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,
+display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <title>Photo Instructions - Switzerland</title>
+</head>
+<body style=""margin: 0; font-family: Arial, sans-serif;"">
+
+<!-- Full width wrapper with 10% left and right padding -->
+<div style=""width: 100%; box-sizing: border-box;"">
+
+    <!-- Main card-style container -->
+    <div style=""background: white; border-radius: 10px; border: 1px solid #ccc; width: 100%; padding: 20px; box-sizing: border-box;"">
+
+        <!-- <p style=""text-align: center; color: #0073cf; font-weight: bold; margin-top: 0;"">
+        (Help for Example Section)
+        </p> -->
+        <!-- Requirements Section -->
+        <div style=""margin-top: 5px;"">
+
+            <!-- <div style=""margin-bottom: 10px;"">
+                <h3 style=""color: #0073cf; margin-top: 0;"">Example Title</h3>
+                <ul style=""line-height: 1.6; padding-left: 20px; margin-top: 10px;"">
+                    <li>Help Item</li>
+                    <li>Help Item</li>
+                    <li>Help Item</li>
+                </ul>
+            </div> -->
+
+            <div style=""margin-bottom: 10px;"">
+              <h3 style=""color: #0073cf; margin-top: 0;"">Example Help Title</h3>
+              <ul style=""line-height: 1.6; padding-left: 20px; margin-top: 10px;"">
+                  <li>Help Item</li>
+                  <li>Help Item</li>
+                  <li>Help Item</li>
+              </ul>
+              <p style=""margin-top: 10px;"">
+                Example Description
+            </p>
+          </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+",,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+fac_flight_ticket_option,flight_ticket_option,,,radiobutton,HAVE_TICKET,False,,,,,False,,,,,
+fac_file,upload_ticket,,,fileoption,,False,Enter Upload Ticket,Upload Ticket,,,False,,,not flight_ticket_option='HAVE_TICKET',,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+section_break,itinerary_accomodation_section,,,section_break,,False,,Itinerary and Accomodation,,,False,,,,,
+info_pane_builder,itinerary_accomodation,,,info_pane,,False,,Itinerary and Accomodation,,,False,,,,,operation.save:Save and Continue
+card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,
+display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <title>Photo Instructions - Switzerland</title>
+</head>
+<body style=""margin: 0; font-family: Arial, sans-serif;"">
+
+<!-- Full width wrapper with 10% left and right padding -->
+<div style=""width: 100%; box-sizing: border-box;"">
+
+    <!-- Main card-style container -->
+    <div style=""background: white; border-radius: 10px; border: 1px solid #ccc; width: 100%; padding: 20px; box-sizing: border-box;"">
+
+        <!-- <p style=""text-align: center; color: #0073cf; font-weight: bold; margin-top: 0;"">
+        (Help for Example Section)
+        </p> -->
+        <!-- Requirements Section -->
+        <div style=""margin-top: 5px;"">
+
+            <!-- <div style=""margin-bottom: 10px;"">
+                <h3 style=""color: #0073cf; margin-top: 0;"">Example Title</h3>
+                <ul style=""line-height: 1.6; padding-left: 20px; margin-top: 10px;"">
+                    <li>Help Item</li>
+                    <li>Help Item</li>
+                    <li>Help Item</li>
+                </ul>
+            </div> -->
+
+            <div style=""margin-bottom: 10px;"">
+              <h3 style=""color: #0073cf; margin-top: 0;"">Example Help Title</h3>
+              <ul style=""line-height: 1.6; padding-left: 20px; margin-top: 10px;"">
+                  <li>Help Item</li>
+                  <li>Help Item</li>
+                  <li>Help Item</li>
+              </ul>
+              <p style=""margin-top: 10px;"">
+                Example Description
+            </p>
+          </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+",,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+fac_itinerary_option,itinerary_option,,,radiobutton,HAVE_ITINERARY,False,,,,,False,,,,,
+fac_file,upload_itinerary,,,fileoption,,False,Enter Upload Itinerary,Upload Itinerary,,,False,,,not itinerary_option = 'HAVE_ITINERARY',,
+group_builder,itinerary_details,,,groupbox,,False,,Itinerary,,,False,,,not itinerary_option = 'CREATE_ITINERARY',,button_label:Add Itinerary;limits.min:1;limits.max:3
+info_pane_builder,itinerarygroup,,,groupbox,,False,,Itinerary,,,False,,,,,
+card_builder,itinerary_table,,,card,,False,,Itinerary Details,,,False,,,,,verify.verify_handler:;verify.action_text:Validate Dates
+column_break,column_break1,,,column_break,,False,,,,,False,,,,,
+fac_str,country,,,textbox,,False,Enter Country,Country,,,False,,,,,
+fac_accomodation_option,accomodation_option,,,radiobutton,HAVE_ACCOMODATION,False,,,,,False,,,,,
+column_break,column_break2,,,column_break,,False,,,,,False,,,,,
+fac_date,date_of_arrival,,,datebox,,False,Enter Date of Arrival,Date of Arrival,,,False,,,,,
+column_break,column_break3,,,column_break,,False,,,,,False,,,,,
+fac_date,date_of_departure,,,datebox,,False,Enter Date of Departure,Date of Departure,,,False,,,,,
+column_break,column_break4,,,column_break,,False,,,,,False,,,,,
+fac_str,locations,,,textbox.row-8,,False,Enter Locations,Locations,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+fac_file,accommodation_document,,,fileoption,,False,Upload Accommodation Document pdf,Accommodation,,,False,,,not itinerary_table.accomodation_option = 'HAVE_ACCOMODATION',,file_type:.pdf
+card_builder,inviter_details,,,card,,False,,Inviter Details,,,False,,,not itinerary_table.accomodation_option = 'INVITED_ACCOMODATION',,
+column_break,column_break_1,,,column_break,,False,,,,,False,,,,,
+fac_str,address,,,textbox.row-8,,False,Enter Invited Address,Invited Address,,,False,,,,,
+column_break,column_break_2,,,column_break,,False,,,,,False,,,,,
+fac_file,inviter_details,,,fileoption,,False,Upload Inviter Details,Upload Inviter Details,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+section_break,travel_insurance_section,,,section_break,,False,,Travel Insurance,,,False,,,,,
+info_pane_builder,travel_insurance,,,info_pane,,False,,Travel Insurance,,,False,,,,,operation.save:Save and Continue
+card_builder,instructions,,,card,,False,,Travel Insurance,,,False,,,,,
+display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <title>Photo Instructions - Switzerland</title>
+</head>
+<body style=""margin: 0; font-family: Arial, sans-serif;"">
+
+<!-- Full width wrapper with 10% left and right padding -->
+<div style=""width: 100%;"">
+
+    <!-- Main card-style container -->
+    <div style=""background: white; border-radius: 0px; border: 1px solid #ccc; width: 100%; padding: 20px; box-sizing: border-box;"">
+
+        <!-- Requirements Section -->
+        <div style=""margin-top: 30px;"">
+
+            <div style=""margin-bottom: 20px;"">
+                <ul style=""line-height: 1.6; padding-left: 20px; margin-top: 10px;"">
+                    <li>Please refer to the list of approved Indian travel insurances: 
+                        <a href=""https://www.eda.admin.ch/dam/countries/countries-content/india/en/visa/SchengetList-Travel_Insurance_CompaniesEN.pdf"" target=""_blank"">
+                            Approved Travel Insurance List
+                        </a>
+                    </li>
+                    <li>Minimum coverage of 30,000 Euro / 50,000 USD / 50,000 CHF per person</li>
+                    <li>Coverage of all expenses which might arise in connection with repatriation for medical reasons, urgent medical attention and/or emergency hospital treatment</li>
+                    <li>The insurance has to cover the entire stay in Schengen territory</li>
+                    <li>Applicants who wish to apply for a six months or a one year multiple visa are not obliged to provide a 180 (365) days coverage. It is sufficient to submit an insurance policy covering the first journey</li>
+                </ul>
+            </div>
+     
+<!-- 
+o Minimum Validity of 6 months from the date of Departure from Swiss.
+o Hand written passports are not accepted.
+o The passport should not have any damages – For example: Water marks, torn
+pages, peeling of Lamination, Spelling mistake in the given name and surname.
+o The passport should not have any observation in the passport like ECR/ Change in
+Place of birth/ Spouse name/ applicant Surname and given name/ Change of
+address.
+o Old Passports in Original (If applicable)
+ -->
+<!-- 
+            <div style=""margin-bottom: 20px;"">
+                <h3 style=""color: #0073cf; margin-top: 0;"">The photographs must:</h3>
+                <ul style=""line-height: 1.6; padding-left: 20px; margin-top: 10px;"">
+                    <li>show you looking directly at the camera</li>
+                    <li>show your skin tones naturally</li>
+                    <li>have appropriate brightness and contrast</li>
+                    <li>be printed on high quality paper, and at high resolution</li>
+                </ul>
+                <p style=""margin-top: 10px;"">
+                    Photographs taken with a digital camera must be high quality colour and printed on photo-quality paper.
+                </p>
+            </div> -->
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+",,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+fac_insurance_option,insurance_options,,,radiobutton,HAVE_INSURANCE,False,,,,,False,,,,,
+fac_file,insurance_document,,,fileoption,,False,Upload insurance document pdf,Insurance Document,,,False,,,not insurance_options = 'HAVE_INSURANCE',,file_type:.pdf
+card_builder,insurance_details,,,card,,False,,Insurance Details,,,False,,,not insurance_options = 'BUY_INSURANCE',,
+column_break,column_break1,,,column_break,,False,,,,,False,,,,,
+fac_str,name_of_nominee,,,textbox,,False,Enter Name of Nominee,Name of Nominee,,,False,,,,,
+fac_ins_disc_1,disclosure_1,,,checkbox,,False,,,,,False,,,,,
+fac_ins_disc_2,disclosure_2,,,checkbox,,False,,,,,False,,,,,
+column_break,column_break2,,,column_break,,False,,,,,False,,,,,
+fac_int,nominee_relationship,,,textbox,,False,Enter Relationship,Relationship,,,False,,,,,
+column_break,column_break3,,,column_break,,False,,,,,False,,,,,
+fac_option,pre_existing_disease,,,dropdown,NO,False,Select if any disease,Any pre-existing Disease?,,,False,,,,,
+fac_str,pre_existing_disease_details,,,textbox.row-8,,False,Enter Details of Pre-Existing Disease,Details of Pre-Existing Disease,,,False,,,not pre_existing_disease = 'YES',,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+section_break,previous_visas_section,,,section_break,,False,,Previous Visas,,,False,,,,,
+info_pane_builder,previous_visas,,,info_pane,,False,,Previous Visas,,,False,,,,,operation.save:Save and Continue
+card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,
+display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <title>Photo Instructions - Switzerland</title>
+</head>
+<body style=""margin: 0; font-family: Arial, sans-serif;"">
+
+<!-- Full width wrapper with 10% left and right padding -->
+<div style=""width: 100%; box-sizing: border-box;"">
+
+    <!-- Main card-style container -->
+    <div style=""background: white; border-radius: 10px; border: 1px solid #ccc; width: 100%; padding: 20px; box-sizing: border-box;"">
+
+        <!-- <p style=""text-align: center; color: #0073cf; font-weight: bold; margin-top: 0;"">
+        (Help for Example Section)
+        </p> -->
+        <!-- Requirements Section -->
+        <div style=""margin-top: 5px;"">
+
+            <!-- <div style=""margin-bottom: 10px;"">
+                <h3 style=""color: #0073cf; margin-top: 0;"">Example Title</h3>
+                <ul style=""line-height: 1.6; padding-left: 20px; margin-top: 10px;"">
+                    <li>Help Item</li>
+                    <li>Help Item</li>
+                    <li>Help Item</li>
+                </ul>
+            </div> -->
+
+            <div style=""margin-bottom: 10px;"">
+              <h3 style=""color: #0073cf; margin-top: 0;"">Example Help Title</h3>
+              <ul style=""line-height: 1.6; padding-left: 20px; margin-top: 10px;"">
+                  <li>Help Item</li>
+                  <li>Help Item</li>
+                  <li>Help Item</li>
+              </ul>
+              <p style=""margin-top: 10px;"">
+                Example Description
+            </p>
+          </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+",,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,previous_schengen_visa,,,card,,False,,Previous Schengen Visas (if applicable),,,False,,,,,
+fac_option,option_1,,,radiobutton,NO,False,Enter Have you been issued a Schengen visa during the past 3 years?,Have you been issued a Schengen visa during the past 3 years?,,,False,,,,,
+fac_option,option_2,,,radiobutton,NO,False,Enter Have you been issued a Schengen visa in the past?,Have you been issued a Schengen visa in the past?,,,False,,,not option_1 = 'NO',,
+fac_option,option_3,,,radiobutton,NO,False,Enter Have your fingerprints been collected previously while applying for a Schengen Visa?,Have your fingerprints been collected previously while applying for a Schengen Visa?,,,False,,,option_1 = 'YES' or not option_2 = 'YES,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+group_builder,previous_visa_uploads,,,groupbox,,False,,,,,False,,,not previous_schengen_visa.option_1 = 'YES',,button_label:Add Visa;limits.min:1;limits.max:10
+info_pane_builder,previousschengenvisaupload,,,groupbox,,False,,,,,False,,,,,
+card_builder,visa_details,,,card,,False,,Visa Details,,,False,,,,,verify.verify_handler:;verify.action_text:Verify Visa
+column_break,column_break_0,,,column_break,,False,,,,,False,,,,,
+fac_file,visa_file,,,fileoption,,False,Enter Upload Visa,Upload Visa,,,False,,,,,
+column_break,column_break_1,,,column_break,,False,,,,,False,,,,,
+fac_str,visa_number,,,textbox,,False,Enter Visa Number,Visa Number,,,False,,,,,
+column_break,column_break_2,,,column_break,,False,,,,,False,,,,,
+fac_str,visa_type,,,textbox,,False,Enter Visa Type,Visa Type,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+section_break,additional_details_section,,,section_break,,False,,Additional Travel Details,,,False,,,,,
+info_pane_builder,additional_details,,,info_pane,,False,,Additional Travel Details,,,False,,,,,operation.save:Save and Continue
+card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,
+display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <title>Photo Instructions - Switzerland</title>
+</head>
+<body style=""margin: 0; font-family: Arial, sans-serif;"">
+
+<!-- Full width wrapper with 10% left and right padding -->
+<div style=""width: 100%; box-sizing: border-box;"">
+
+    <!-- Main card-style container -->
+    <div style=""background: white; border-radius: 10px; border: 1px solid #ccc; width: 100%; padding: 20px; box-sizing: border-box;"">
+
+        <!-- <p style=""text-align: center; color: #0073cf; font-weight: bold; margin-top: 0;"">
+        (Help for Example Section)
+        </p> -->
+        <!-- Requirements Section -->
+        <div style=""margin-top: 5px;"">
+
+            <!-- <div style=""margin-bottom: 10px;"">
+                <h3 style=""color: #0073cf; margin-top: 0;"">Example Title</h3>
+                <ul style=""line-height: 1.6; padding-left: 20px; margin-top: 10px;"">
+                    <li>Help Item</li>
+                    <li>Help Item</li>
+                    <li>Help Item</li>
+                </ul>
+            </div> -->
+
+            <div style=""margin-bottom: 10px;"">
+              <h3 style=""color: #0073cf; margin-top: 0;"">Example Help Title</h3>
+              <ul style=""line-height: 1.6; padding-left: 20px; margin-top: 10px;"">
+                  <li>Help Item</li>
+                  <li>Help Item</li>
+                  <li>Help Item</li>
+              </ul>
+              <p style=""margin-top: 10px;"">
+                Example Description
+            </p>
+          </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+",,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,application_detail,,,card,,False,,Application Details,,,False,,,,,
+fac_option,option_application_details,,,radiobutton,NO,False,Enter Are you submitting this Schengen Visa application on behalf of the other person?,Are you submitting this Schengen Visa application on behalf of the other person?,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,personal,,,card,,False,,Personal Details,,,False,,,,,
+column_break,column_break_1,,,column_break,,False,,,,,False,,,,,
+fac_option,minor,,,radiobutton,NO,False,Enter Are you a minor?,Are you a minor?,,,False,,,,,
+fac_str,civil_status,,,textbox,,False,Enter Civil Status,Civil Status,,,False,,,,,
+column_break,column_break_2,,,column_break,,False,,,,,False,,,,,
+fac_int,national_identity_number,,,textbox,,False,Enter National Identity Number,National Identity Number,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,personal_details_option,,,card,,False,,"Family Member of EU, EEA, Swiss, or UK National",,,False,,,,,
+fac_option,option_1,,,radiobutton,NO,False,"Enter Do you have a family member who is an EU, EEA, or CH Citizen or a national of the United Kingdom who is a beneficiary of the agreement between the Swiss Confederation and the United Kingdom?","Do you have a family member who is an EU, EEA, or CH Citizen or a national of the United Kingdom who is a beneficiary of the agreement between the Swiss Confederation and the United Kingdom?",,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,contact_details,,,card,,False,,Contact Details,,,False,,,,,
+column_break,column_break_1,,,column_break,,False,,,,,False,,,,,
+fac_phone,phone_number,,,textbox,,False,Enter Phone Number,Phone Number,,,False,,,,,
+column_break,column_break_2,,,column_break,,False,,,,,False,,,,,
+fac_email,email,,,textbox,,False,Enter Email,Email,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,sponorship_details,,,card,,False,,Sponsorship Details,,,False,,,,,
+column_break,column_break_1,,,column_break,,False,,,,,False,,,,,
+fac_sponsorship_cost,sponsor_option_1,,,dropdown,,False,Enter Cost of travelling and living during stay is covered by:,Cost of travelling and living during stay is covered by:,,,False,,,,,
+column_break,column_break_2,,,column_break,,False,,,,,False,,,,,
+fac_support_means,sponsor_option_2,,,dropdown,,False,Enter Means of support during travelling and living during stay,Means of support during travelling and living during stay,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+tab_break,financial_documents_tab,,,tab_break,,False,,Financial Documents,,,False,,,,,
+section_break,salary_slip_section,,,section_break,,False,,Salary Slips,,,False,,,,,
+info_pane_builder,salary_slip,,,info_pane,,False,,Salary Slips,,,False,,,,,operation.save:Save and Continue
+group_builder,slips,,,groupbox,,False,,,,,False,,,,,button_label:Add Slip;limits.min:1;limits.max:10
+info_pane_builder,salaryslips,,,groupbox,,False,,,,,False,,,,,
+fac_file,salary_slip,,,fileoption,,False,Upload salary slip pdf,Salary Slip,,,False,,,,,file_type:.pdf
+card_builder,employment_details,,,card,,False,,Employment Details,,,False,,,,,
+column_break,column_break1,,,column_break,,False,,,,,False,,,,,
+fac_str,name_of_employer,,,textbox,,False,Enter Name of Employer,Name of Employer,,,False,,,,,
+fac_str,address_of_employer,,,textbox.row-4,,False,Enter Address of employer,Address of employer,,,False,,,,,
+column_break,column_break2,,,column_break,,False,,,,,False,,,,,
+fac_str,occupation,,,textbox,,False,Enter Occupation,Occupation,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+section_break,bank_statement_section,,,section_break,,False,,Bank Statements,,,False,,,,,
+info_pane_builder,bank_statement,,,info_pane,,False,,Bank Statements,,,False,,,,,operation.save:Save and Continue
+fac_file,bank_statement_file,,,fileoption,,False,Upload bank statement pdf,Bank Statements,,,False,,,,,file_type:.pdf
+card_builder,account_details,,,card,,False,,Account Details,,,False,,,,,
+column_break,column_break1,,,column_break,,False,,,,,False,,,,,
+fac_str,bank_acc_num,,,textbox,,False,Enter Bank Account Number,Bank Account Number,,,False,,,,,
+fac_str,account_holder_name,,,textbox,,False,Enter Account Holder Name,Account Holder Name,,,False,,,,,
+column_break,column_break2,,,column_break,,False,,,,,False,,,,,
+fac_str,ifsc_code,,,textbox,,False,Enter IFSC Code,IFSC Code,,,False,,,,,
+fac_str,branch,,,textbox,,False,Enter Branch,Branch,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+section_break,itr_section,,,section_break,,False,,ITR Acknowledgements,,,False,,,,,
+info_pane_builder,itr_acknowledgement,,,info_pane,,False,,ITR Acknowledgement,,,False,,,,,operation.save:Save and Continue
+display_field,itr_details_display,,,display_field,,False,ITR Details,,,,False,,,,,
+fac_file,itr_details,,,fileoption,,False,Upload ITR Acknowledgment pdf,Acknowledgments,,,False,,,,,file_type:.pdf
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+tab_break,downlaod_tab,,,tab_break,,False,,Additional,,,False,,,,,
+section_break,attachments_section,,,section_break,,False,,Attachments,,,False,,,,,
+info_pane_builder,attachments_infopane,,,info_pane,,False,,Attachments,,,False,,,,,operation.save:Save and Continue
+group_builder,attach_documents,,,groupbox,,False,,Attached Documents,,,False,,,,,button_label:Add Attachment;limits.min:1;limits.max:10
+info_pane_builder,attachmentgroup,,,groupbox,,False,,Nominee,,,False,,,,,
+card_builder,attachment,,,card,,False,,Attach Document,,,False,,,,,
+fac_str,file_title,,,textbox,,False,Enter File Title,File Title,,,False,,,,,
+fac_str,file_description,,,textbox,,False,Enter File Description,File Description,,,False,,,,,
+fac_file,attached_file,,,fileoption,,False,Enter Nominee ID Proof,Nominee ID Proof,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+section_break,declarations_section,,,section_break,,False,,Declarations,,,False,,,,,
+info_pane_builder,declarations,,,info_pane,,False,,Declarations,,,False,,,,,operation.submit:Save and Submit
+card_builder,visa_declaration,,,card,,False,,Visa Declaration,,,False,,,,,
+fac_visa_policy_1,visa_policy_1,,,checkbox,,False,,,,,False,,,,,
+fac_visa_policy_2,visa_policy_2,,,checkbox,,False,,,,,False,,,,,
+fac_visa_policy_3,visa_policy_3,,,checkbox,,False,,,,,False,,,,,
+fac_visa_policy_4,visa_policy_4,,,checkbox,,False,,,,,False,,,,,
+fac_visa_policy_5,visa_policy_5,,,checkbox,,False,,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+section_break,addons_section,,,section_break,,False,,Addons,,,False,,,,,
+info_pane_builder,addons,,,info_pane,,False,,Addons,,,False,,,,,operation.save:Save and Submit
+card_builder,addons_view,,,card,,False,,Addons List,,,False,,,,,verify.verify_handler:;verify.action_text:Calculate Total Amount
+column_break,column_break1,,,column_break,,False,,,,,False,,,,,
+display_field,addon_display,,,display_field,,False,Addons,,,,False,,,,,
+fac_addon_travel_itinerary,addon_1,,,checkbox,$.travel_itinerary.make_itinerary,False,,,,,False,,,,,
+fac_addon_travel_insurance,addon_2,,,checkbox,$.travel_insurance.make_insurance,False,,,,,False,,,,,
+fac_addon_flight_reserve,addon_3,,,checkbox,$.flight_reservation.make_flight_reservation,False,,,,,False,,,,,
+column_break,column_break2,,,column_break,,False,,,,,False,,,,,
+display_field,ref_id_display,,,display_field,,False,Ref ID,,,,False,,,,,
+fac_str,ref_id_1,,,textbox,,False,Enter Reference ID,Reference ID,,,False,,,,sample editable,
+fac_str,ref_id_2,,,textbox,,False,Enter Reference ID,Reference ID,,,False,,,,,
+fac_str,ref_id_3,,,textbox,,False,Enter Reference ID,Reference ID,,,False,,,,,
+column_break,column_break3,,,column_break,,False,,,,,False,,,,,
+display_field,txn_id_display,,,display_field,,False,Txn ID,,,,False,,,,,
+fac_str,txn_id_1,,,textbox,,False,Enter Txn ID,Txn ID,,,False,,,,,
+fac_str,txn_id_2,,,textbox,,False,Enter Txn ID,Txn ID,,,False,,,,,
+fac_str,txn_id_3,,,textbox,,False,Enter Txn ID,Txn ID,,,False,,,,,
+column_break,column_break4,,,column_break,,False,,,,,False,,,,,
+display_field,date_display,,,display_field,,False,Date,,,,False,,,,,
+fac_date,date_1,,,datebox,,False,Enter Date,Date,,,False,,,,,
+fac_date,date_2,,,datebox,,False,Enter Date,Date,,,False,,,,,
+fac_date,date_3,,,datebox,,False,Enter Date,Date,,,False,,,,,
+column_break,column_break5,,,column_break,,False,,,,,False,,,,,
+display_field,amount_display,,,display_field,,False,Amount,,,,False,,,,,
+fac_str,amount_1,,,textbox,,False,Enter Amount,Amount,,,False,,,,,
+fac_str,amount_2,,,textbox,,False,Enter Amount,Amount,,,False,,,,,
+fac_str,amount_3,,,textbox,,False,Enter Amount,Amount,,,False,,,,,
+fac_str,total_amount,,,textbox,,False,Enter Total Amount,Total Amount,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,

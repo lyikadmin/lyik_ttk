@@ -1,12 +1,10 @@
 {
-    "company_name": "W2W",
-    "api_path": "https://forms-uat.ttkservices.com/api",
-    "digilocker_clientId": "MFE1EF9933",
-    "digilocker_clientSecret": "385cdfeae1d0e1936db7",
-    "digilocker_callbackUrl": "https://forms-uat.ttkservices.com/digi_redirect",
-    "digilocker_codeVerifier": "1QTIzQ~~tMgU.AVpL6.FF5Hdu4ytsG0~_uv0x7GY5j5g-Z~p7vtuI3KaOPQT7~wVAi",
-    "digilocker_api_path": "https://digilocker.meripehchaan.gov.in",
-    "logo_path": "/assets/w2w/w2w.png",
-    "login_bg_path": "/assets/w2w/login_bg.png"
-  }
-  
+  "company_name": "TTK VISAS",
+  "api_path": "https://forms-uat.ttkservices.com/api",
+  "digilocker_clientId": "MFE1EF9933",
+  "digilocker_clientSecret": "385cdfeae1d0e1936db7",
+  "digilocker_callbackUrl": "https://forms-uat.ttkservices.com/digi_redirect",
+  "digilocker_codeVerifier": "1QTIzQ~~tMgU.AVpL6.FF5Hdu4ytsG0~_uv0x7GY5j5g-Z~p7vtuI3KaOPQT7~wVAi",
+  "digilocker_api_path": "https://digilocker.meripehchaan.gov.in",
+  "login_bg_path": "/assets/login_bg.png"
+}
