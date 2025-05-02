@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ttk-plugins"
+version = "0.1.0"
+description = "Authentication plugins for different providers, and Auth Token creation for LYIK system."
+readme = "README.md"
+authors = [
+    { name = "Akhil Babu", email = "akhilbabu@lyik.com" }
+]
+license = { file = "LICENSE.txt" }
+requires-python = ">=3.10"
+dependencies = [
+    "PyJWT==2.6.0",
+    "httpx==0.24.0",
+    "pem==21.2.0"
+]
+
+[project.entry-points."LYIK"]
+_150_TTK_AUTH = "ttk.auth.ttkauth:TTKAuthProvider"

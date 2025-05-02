@@ -2,3 +2,20 @@
 .mongo-data
 **.log
 .DS_Store
+**/dist
+dist_plugin
+.**env
+*env*
+**/*.egg-info
+example
+.idea/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyz
+*.pywz
+# build
+build/
+*.vscode*
+.DS_Store
