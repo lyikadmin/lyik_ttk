@@ -53,12 +53,16 @@ HAVE_FLIGHT,1,I have a flight Ticket,YES
 MULTIPLE_COUNTRY,1,I am travelling to multiple Schengen Countries,YES
 BOOK_DUMMY_TICKET,1,I want TTK to book a dummy flight reservation for my visa,YES
 BOOK_CONFIRM_TICKET,1,I want TTK to book a confirmed/reserved flight ticket,YES
+FLIGHT_TICKET_OPTION,1,I have a flight Ticket,HAVE_TICKET
+FLIGHT_TICKET_OPTION,2,I want TTK to book a dummy flight reservation for my visa,TTK_DUMMY_TICKET
+FLIGHT_TICKET_OPTION,3,I want TTK to book a confirmed/reserved flight ticket,TTK_RESERVE_TICKET
 INSURANCE_OPTION,1,I have a travel insurance,HAVE_INSURANCE
 INSURANCE_OPTION,2,I want TTK to buy me insurance,BUY_INSURANCE
 INSURANCE_OPTION,3,I want to do this later,DO_LATER
-ITINERARY_OPTION,1,I know my itinerary,KNOW_ITINERARY
-ITINERARY_OPTION,2,I was invited,WAS_INVITED
-ITINERARY_OPTION,3,I want TTK to create itinerary,TTK_BOOK
-ITINERARY_OPTION,4,New Option,NEW_OPTION
+ITINERARY_OPTION,1,I have my itinerary,HAVE_ITINERARY
+ITINERARY_OPTION,2,I will create my itinerary here,CREATE_ITINERARY
+ACCOMODATION_OPTION,1,I have booked my accomodation,HAVE_ACCOMODATION
+ACCOMODATION_OPTION,2,I was invited,INVITED_ACCOMODATION
+ACCOMODATION_OPTION,3,I want TTK to book accomodation,BOOK_ACCOMODATION
 INS_DISC_1,1,Example Disclosure 1,YES
 INS_DISC_2,1,Example Disclosure 2,YES
