@@ -1,6 +1,6 @@
 {
   "background": "url(https://www.ttkvisas.in/assets/images/headerbg_1.svg)",
-  "showLogo": true,
+  "showLogo": false,
   "logoSrc": "/assets/images/logo.png",
   "buttons": [
     {

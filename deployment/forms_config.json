@@ -7,5 +7,6 @@
   "digilocker_codeVerifier": "1QTIzQ~~tMgU.AVpL6.FF5Hdu4ytsG0~_uv0x7GY5j5g-Z~p7vtuI3KaOPQT7~wVAi",
   "digilocker_api_path": "https://digilocker.meripehchaan.gov.in",
   "login_bg_path": "/assets/login_bg.png",
-  "show_navbar": true
+  "show_navbar": true,
+  "progress_bar": false
 }
