@@ -46,16 +46,6 @@ TTK_DEFAULT_ALGORITHMS = ["RS256"]  # supported signing algorithms
 JWKS_PATH = "/.well-known/jwks.json"  # standard OIDC path
 
 
-def _get_cfg_attr(cfg: Any, name: str, dflt: Any) -> Any:
-    """Utility to pick attribute from config or fall back to default."""
-    return getattr(cfg, name, dflt) if cfg is not None else dflt
-
-
-def _get_jwk_client(domain: str) -> PyJWKClient:
-    """Return an initialized PyJWKClient for the given domain."""
-    return PyJWKClient(f"https://{domain}{JWKS_PATH}")
-
-
 class TTKAuthProvider(AuthProviderSpec):
     """AuthProvider plugin implementation for TTK Customer SSO tokens.
 
@@ -165,6 +155,8 @@ class TTKAuthProvider(AuthProviderSpec):
         roles = payload.get("roles", [])
         governed_users = payload.get("relationship", [])
         user_name = payload.get("name")
+        expiry = payload.get("exp")
+        plugin_provider = TTK_DEFAULT_DOMAIN
         if not user_id:
             raise PluginException("No user_id found in token")
 
@@ -174,6 +166,8 @@ class TTKAuthProvider(AuthProviderSpec):
             roles=roles,
             governed_users=governed_users,
             user_name=user_name,
+            expiry=expiry,
+            plugin_provider=plugin_provider,
         )
 
     @impl

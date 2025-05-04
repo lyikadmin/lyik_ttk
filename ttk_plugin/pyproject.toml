@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "All plugins related to TTK"
 readme = "README.md"
 authors = [
-    { name = "Shreesha", email="shreesha@lyik.com"}
+    { name = "Shreesha", email="shreesha@lyik.com"},
     { name = "Akhil Babu", email = "akhilbabu@lyik.com" }
 ]
 license = { file = "LICENSE.txt" }
