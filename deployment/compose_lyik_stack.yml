@@ -119,7 +119,7 @@ services:
 
   lyik_admin_portal:
     container_name: "lyik_admin_portal"
-    image: lyikprodblueacr.azurecr.io/lyik-admin:latest
+    image: lyikprodblueacr.azurecr.io/lyik-admin-dev:latest
     restart: always
     # ports:
     #   - 3000:3000
