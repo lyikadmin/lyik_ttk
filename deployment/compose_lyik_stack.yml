@@ -47,6 +47,7 @@ services:
     command: ["nginx", "-g", "daemon off;"]
     volumes:
       - ./forms_config.json:/app/config/config.json
+      - ./forms_config.json:/usr/share/nginx/html/config/config.json
       - ./lyik_spa/fonts:/usr/share/nginx/html/assets/fonts
       - ./lyik_spa/images:/usr/share/nginx/html/assets/
       # - ./lyik_spa/theme.json:/app/public/config/theme.json
