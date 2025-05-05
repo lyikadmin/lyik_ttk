@@ -39,11 +39,11 @@ from lyikpluginmanager import (
 impl = pluggy.HookimplMarker(getProjectName())
 
 TTK_DEFAULT_DOMAIN = "https://auth.ttk.com/"  # e.g. https://auth.TTK.com
-TTK_DEFAULT_AUDIENCE = (
-    "https://lyik.com"  # LYIK audience / client‑id expected in TTK tokens
-)
-TTK_DEFAULT_ALGORITHMS = ["RS256"]  # supported signing algorithms
+TTK_DEFAULT_AUDIENCE = "https://lyik.com"  # LYIK audience / client‑id expected in TTK tokens
+TTK_DEFAULT_ALGORITHMS = ["HS256"]  # supported signing algorithms
 JWKS_PATH = "/.well-known/jwks.json"  # standard OIDC path
+TTK_TOKEN_SECRET= "BmThdDKu4lPOFiiqwHG1GQVm7iGeVIqALcqwJDM6VySzVdOwZ1UMoylzwhIDgXl6"
+
 
 
 class TTKAuthProvider(AuthProviderSpec):
@@ -81,7 +81,7 @@ class TTKAuthProvider(AuthProviderSpec):
         token: Annotated[str, Doc("Token to verify")],
     ) -> Annotated[
         dict,
-        RequiredEnv(["LYIK_TOKEN_PUBLIC_KEY"]),
+        RequiredEnv(["TTK_TOKEN_SECRET"]),
         Doc("Decoded jwt payload"),
     ]:
         """
@@ -92,17 +92,16 @@ class TTKAuthProvider(AuthProviderSpec):
         if context.config is None:
             raise PluginException("config must be provided in the context")
 
-        lyik_public_key_pem = os.getenv("LYIK_TOKEN_PUBLIC_KEY")
-
+        ttk_public_key_pem = os.getenv("TTK_TOKEN_SECRET")
         cfg = context.config
-        algorithms = ["RS256"]
+        algorithms = ["HS256"]
         domain = TTK_DEFAULT_DOMAIN
         audience = TTK_DEFAULT_AUDIENCE
 
         try:
             payload: Dict = jwt.decode(
                 jwt=token,
-                key=lyik_public_key_pem,
+                key=ttk_public_key_pem,
                 algorithms=algorithms,
                 audience=audience,
                 issuer=domain,
@@ -111,7 +110,7 @@ class TTKAuthProvider(AuthProviderSpec):
         except jwt.exceptions.ImmatureSignatureError:
             payload: Dict = jwt.decode(
                 jwt=token,
-                key=lyik_public_key_pem,
+                key=ttk_public_key_pem,
                 algorithms=algorithms,
                 audience=audience,
                 issuer=domain,
@@ -127,7 +126,7 @@ class TTKAuthProvider(AuthProviderSpec):
         token: Annotated[str, Doc("Token to retrieve pre-authorized information from")],
     ) -> Annotated[
         PreAuthorizedInfoModel,
-        RequiredEnv(["LYIK_TOKEN_PUBLIC_KEY"]),
+        RequiredEnv(["TTK_TOKEN_SECRET"]),
         Doc("Retrieve pre-authorized information from the token"),
     ]:
         """
@@ -139,11 +138,11 @@ class TTKAuthProvider(AuthProviderSpec):
 
         try:
             # Verify signature / audience / issuer
-            public_key = os.getenv("LYIK_TOKEN_PUBLIC_KEY")
+            ttk_public_key_pem = os.getenv("TTK_TOKEN_SECRET")
             payload = jwt.decode(
                 token,
-                key=public_key,
-                algorithms=["RS256"],
+                key=ttk_public_key_pem,
+                algorithms=["HS256"],
                 audience=[TTK_DEFAULT_AUDIENCE],
                 issuer=TTK_DEFAULT_DOMAIN,
             )
@@ -152,11 +151,13 @@ class TTKAuthProvider(AuthProviderSpec):
 
         # Pull out the fields you need
         user_id = payload.get("user_id")
-        roles = payload.get("roles", [])
+        roles = [payload["roles"]] if isinstance(payload.get("roles"), str) else payload.get("roles", []) if isinstance(payload.get("roles"), list) else []
         governed_users = payload.get("relationship", [])
         user_name = payload.get("name")
-        expiry = payload.get("exp")
+        expiry = int(datetime.strptime(payload.get("expiry_time"), "%Y-%m-%d %H:%M:%S").timestamp())
         plugin_provider = TTK_DEFAULT_DOMAIN
+        token = token
+
         if not user_id:
             raise PluginException("No user_id found in token")
 
@@ -168,6 +169,7 @@ class TTKAuthProvider(AuthProviderSpec):
             user_name=user_name,
             expiry=expiry,
             plugin_provider=plugin_provider,
+            token=token,
         )
 
     @impl
