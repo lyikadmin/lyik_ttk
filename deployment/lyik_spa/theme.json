@@ -3,7 +3,7 @@
   "spacing": "comfort",
   "fontFamily": "'Inter', sans-serif",
   "colors": {
-    "main": "#3B83DB",
+    "main": "#1698ca",
     "brand": "#2862A9",
     "light": "#30A1E0",
     "black": "#000000",
@@ -20,10 +20,10 @@
     },
     "secondary": {
       "main": "#1970C8",
-      "light": "#3BB9EA"
+      "light": "#1698ca"
     },
     "background": {
-      "secondary": "#F5F5F5"
+      "secondary": "#1698ca"
     },
     "text": {
       "secondary": "#666666"
@@ -42,7 +42,7 @@
     },
     "button": {
       "main": {
-        "bgColor": "#3B83DB",
+        "bgColor": "#1698ca",
         "color": "#fff"
       },
       "primary": {
