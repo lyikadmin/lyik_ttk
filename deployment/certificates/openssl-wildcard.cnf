@@ -1,0 +1,28 @@
+[ req ]
+default_bits       = 2048
+distinguished_name = req_distinguished_name
+req_extensions     = req_ext
+x509_extensions    = v3_ca
+
+[ req_distinguished_name ]
+countryName                 = IN
+countryName_default         = IN
+stateOrProvinceName         = Karnataka
+stateOrProvinceName_default = Karnataka
+localityName                = Bangalore
+localityName_default        = Bangalore
+organizationName            = TTK
+organizationName_default    = TTK
+commonName                  = TTK Services
+commonName_default          = ttkservices.com
+
+[ req_ext ]
+subjectAltName = @alt_names
+
+[ v3_ca ]
+subjectAltName = @alt_names
+
+[ alt_names ]
+DNS.1 = *.ttkservices.com
+DNS.2 = ttkservices.com
+DNS.3 = localhost
