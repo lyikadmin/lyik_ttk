@@ -57,7 +57,7 @@ sudo vim /etc/hosts
 
 Add the following line:
 ```
-127.0.0.1 test.lyik.com
+127.0.0.1 forms-uat.ttkservices.com
 ```
 
 (If multiple domains)
