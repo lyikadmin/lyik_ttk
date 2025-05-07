@@ -42,8 +42,6 @@ TTK_DEFAULT_DOMAIN = "https://auth.ttk.com/"  # e.g. https://auth.TTK.com
 TTK_DEFAULT_AUDIENCE = "https://lyik.com"  # LYIK audience / client‑id expected in TTK tokens
 TTK_DEFAULT_ALGORITHMS = ["HS256"]  # supported signing algorithms
 JWKS_PATH = "/.well-known/jwks.json"  # standard OIDC path
-TTK_TOKEN_SECRET= "BmThdDKu4lPOFiiqwHG1GQVm7iGeVIqALcqwJDM6VySzVdOwZ1UMoylzwhIDgXl6"
-
 
 
 class TTKAuthProvider(AuthProviderSpec):
