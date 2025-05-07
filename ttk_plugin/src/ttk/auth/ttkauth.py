@@ -67,8 +67,7 @@ class TTKAuthProvider(AuthProviderSpec):
                 options={"verify_signature": False},
                 algorithms=["HS256", "RS256", "ES256"],
             )
-            iss: str | None = unverified.get("iss")
-            return bool(iss and TTK_DEFAULT_DOMAIN in iss)
+            return bool(unverified)
         except Exception:
             return False
 
@@ -91,28 +90,13 @@ class TTKAuthProvider(AuthProviderSpec):
             raise PluginException("config must be provided in the context")
 
         ttk_public_key_pem = os.getenv("TTK_TOKEN_SECRET")
-        cfg = context.config
         algorithms = ["HS256"]
-        domain = TTK_DEFAULT_DOMAIN
-        audience = TTK_DEFAULT_AUDIENCE
 
         try:
             payload: Dict = jwt.decode(
                 jwt=token,
                 key=ttk_public_key_pem,
                 algorithms=algorithms,
-                audience=audience,
-                issuer=domain,
-            )
-            return payload
-        except jwt.exceptions.ImmatureSignatureError:
-            payload: Dict = jwt.decode(
-                jwt=token,
-                key=ttk_public_key_pem,
-                algorithms=algorithms,
-                audience=audience,
-                issuer=domain,
-                options={"verify_iat": False, "verify_nbf": False},
             )
             return payload
         except Exception as ex:
@@ -141,8 +125,6 @@ class TTKAuthProvider(AuthProviderSpec):
                 token,
                 key=ttk_public_key_pem,
                 algorithms=["HS256"],
-                audience=[TTK_DEFAULT_AUDIENCE],
-                issuer=TTK_DEFAULT_DOMAIN,
             )
         except Exception as e:
             raise PluginException(f"Invalid pre-auth token: {e}")
@@ -151,8 +133,8 @@ class TTKAuthProvider(AuthProviderSpec):
         user_id = payload.get("user_id")
         roles = [payload["roles"]] if isinstance(payload.get("roles"), str) else payload.get("roles", []) if isinstance(payload.get("roles"), list) else []
         governed_users = payload.get("relationship", [])
-        user_name = payload.get("name")
-        expiry = int(datetime.strptime(payload.get("expiry_time"), "%Y-%m-%d %H:%M:%S").timestamp())
+        user_name = payload.get("name") or 'client'
+        expiry = int(datetime.strptime(payload.get("expiry_time"), "%Y-%m-%d %H:%M:%S").timestamp()) if payload.get("expiry_time") else None
         plugin_provider = TTK_DEFAULT_DOMAIN
         token = token
 
