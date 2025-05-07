@@ -56,18 +56,24 @@ class TTKAuthProvider(AuthProviderSpec):
         self, 
         token: Annotated[str, Doc("Token to validate")]
         ) -> Annotated[
-            bool, 
+            bool,
+            RequiredEnv(["TTK_TOKEN_SECRET"]), 
             Doc("Indicates if the token is valid")]:  # type: ignore[override]
         """Lightweight inspection (no signature verification) to decide if the
         token appears to come from TTK. Returns **False** if it clearly does not.
         """
         try:
+            ttk_public_key_pem = os.getenv("TTK_TOKEN_SECRET")
             unverified: Dict = jwt.decode(
                 token,
-                options={"verify_signature": False},
-                algorithms=["HS256", "RS256", "ES256"],
+                ttk_public_key_pem,
+                algorithms=["HS256"],
             )
-            return bool(unverified)
+            if unverified:
+                return True
+            return False
+        except jwt.DecodeError:
+            return False
         except Exception:
             return False
 
