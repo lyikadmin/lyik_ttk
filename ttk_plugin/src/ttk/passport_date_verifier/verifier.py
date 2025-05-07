@@ -22,15 +22,8 @@ impl = pluggy.HookimplMarker(getProjectName())
 
 class PassportPayload(BaseModel):
     expiry_date: str | None = Field(description="Passport expiry date")
-    desired_validity: int | None = Field(description="dynamic validation duration")
+    desired_validity: int = Field(default=6, description="dynamic validation duration")
     model_config = ConfigDict(extra="allow")
-
-    @field_validator('desired_validity')
-    def validate_month(cls, v):
-        if not (1 <= v <= 24):
-            raise ValueError('desired_validity must be between 1 and 24')
-        return v
-    
 
 class PassportDateVerificationPlugin(VerifyHandlerSpec):
     """
@@ -49,7 +42,6 @@ class PassportDateVerificationPlugin(VerifyHandlerSpec):
         VerifyHandlerResponseModel,
         Doc("Response after validating the passport date."),
     ]:
-
         payload_dict = payload.model_dump()
 
         ret = check_if_verified(payload=payload_dict)
@@ -63,8 +55,9 @@ class PassportDateVerificationPlugin(VerifyHandlerSpec):
             if not expiry_str:
                 raise ValueError("passport_expiry_date not found in payload.")
             
-            if not desired_validity:
-                raise ValueError("desired validity not found in the payload.")
+            if desired_validity is not None:
+                if not (1 <= desired_validity <= 24):
+                    raise ValueError("desired_validity must be between 1 and 24")
 
             expiry_date = datetime.strptime(expiry_str, "%Y-%m-%d").date()
             today = datetime.today().date()
@@ -96,7 +89,6 @@ class PassportDateVerificationPlugin(VerifyHandlerSpec):
             return VerifyHandlerResponseModel(
                 id=None, status=status, message=message, actor="system"
             )
-
 
 
 def check_if_verified(payload: dict) -> VerifyHandlerResponseModel | None:
