@@ -21,4 +21,4 @@ dependencies = [
 
 [project.entry-points."LYIK"]
 _150_TTK_AUTH = "ttk.auth.ttkauth:TTKAuthProvider"
-_150_TTK_PASSPORT_DATE_VERIFICATION = "ttk.passport_date_verifier.verifier:PassportDateVerificationPlugin"
+_150__VERIFIER_PASSPORT_DATE = "ttk.passport_date_verifier.verifier:PassportDateVerificationPlugin"
