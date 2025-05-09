@@ -12,6 +12,7 @@ from lyikpluginmanager import (
 from typing import Annotated
 from typing_extensions import Doc
 from lyikpluginmanager.core.utils import generate_hash_id_from_dict
+from ttk_plugin.src.lyik.ttk.models.forms.schengen_model import RootPassportPassportDetails
 import logging
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -19,11 +20,6 @@ from dateutil.relativedelta import relativedelta
 logger = logging.getLogger(__name__)
 
 impl = pluggy.HookimplMarker(getProjectName())
-
-class PassportPayload(BaseModel):
-    expiry_date: str | None = Field(description="Passport expiry date")
-    desired_validity: int = Field(default=6, description="dynamic validation duration")
-    model_config = ConfigDict(extra="allow")
 
 class PassportDateVerificationPlugin(VerifyHandlerSpec):
     """
@@ -35,37 +31,37 @@ class PassportDateVerificationPlugin(VerifyHandlerSpec):
         self,
         context: ContextModel | None,
         payload: Annotated[
-            PassportPayload,
+            RootPassportPassportDetails,
             Doc("Payload for passport date validity processing."),
         ],
     ) -> Annotated[
         VerifyHandlerResponseModel,
         Doc("Response after validating the passport date."),
     ]:
-        payload_dict = payload.model_dump()
+        payload_dict = payload.model_dump(mode="json")
 
         ret = check_if_verified(payload=payload_dict)
         if ret:
             return ret
 
         try:
-            expiry_str = payload_dict.get("expiry_date")
+            date_of_expiry_str = payload_dict.get("date_of_expiry")
             desired_validity = payload_dict.get("desired_validity")
 
-            if not expiry_str:
+            if not date_of_expiry_str:
                 raise ValueError("passport_expiry_date not found in payload.")
             
             if desired_validity is not None:
                 if not (1 <= desired_validity <= 24):
                     raise ValueError("desired_validity must be between 1 and 24")
 
-            expiry_date = datetime.strptime(expiry_str, "%Y-%m-%d").date()
+            date_of_expiry = datetime.strptime(date_of_expiry_str, "%Y-%m-%d").date()
             today = datetime.today().date()
 
             validity_duration = today + relativedelta(months=desired_validity)
 
             # Validation Logic
-            if expiry_date > validity_duration:
+            if date_of_expiry > validity_duration:
                 status = VERIFY_RESPONSE_STATUS.SUCCESS
                 message = "Passport date verified successfully."
                 hash_id = generate_hash_id_from_dict(payload_dict)
