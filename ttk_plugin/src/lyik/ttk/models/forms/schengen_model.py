@@ -10,7 +10,7 @@ from typing import Any as Any_aliased
 from typing import Dict, List, Optional, Union
 
 from pydantic import ConfigDict, EmailStr, Field
-from pydantic_v2 import BaseModel
+from pydantic import BaseModel
 
 
 class ACCOMODATIONOPTION(Enum):
