@@ -59,8 +59,9 @@ class TTKAuthProvider(AuthProviderSpec):
             bool,
             RequiredEnv(["TTK_TOKEN_SECRET"]), 
             Doc("Indicates if the token is valid")]:  # type: ignore[override]
-        """Lightweight inspection (no signature verification) to decide if the
-        token appears to come from TTK. Returns **False** if it clearly does not.
+        """
+        Lightweight inspection to decide if the token appears to come from TTK.
+        Returns **False** if it clearly does not.
         """
         try:
             ttk_public_key_pem = os.getenv("TTK_TOKEN_SECRET")
