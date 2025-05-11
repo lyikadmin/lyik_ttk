@@ -20,7 +20,7 @@ services:
       - ./logs/nginx-proxy-prod:/var/log/nginx
       - ./static_files:/app/static_files
     depends_on:
-      - lyik_api
+      - lyik_api2
       - lyik_spa
       - lyik_admin_portal
       - grafana
@@ -58,10 +58,18 @@ services:
     environment:
       - TZ=Asia/Calcutta
 
-  lyik_api:
-    container_name: "lyik_api"
-    # @API - REPLACE WITH YOUR IMAGE NAME AND IMAGE TAG in case using modified images.
-    image: lyik-api:latest
+  # lyik_api:
+  #   container_name: "lyik_api"
+  #   # @API - REPLACE WITH YOUR IMAGE NAME AND IMAGE TAG in case using modified images.
+  #   image: lyik-api:latest
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
+  lyik_api2:
+    container_name: "lyik_api2"
+    build:
+      context: ./../
+      dockerfile: deployment/Dockerfile
     restart: always
     ports:
       - 8080:8080
@@ -114,7 +122,7 @@ services:
       options:
         max-size: "10m"
     depends_on:
-      - lyik_api
+      - lyik_api2
     restart: always
 
   lyik_admin_portal:
