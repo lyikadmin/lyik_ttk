@@ -2,7 +2,7 @@
 FROM python:3.11-slim AS builder
 
 WORKDIR /build
-ENV LOGFILE="install_plugins1.log"
+ENV LOGFILE="install_plugins_custom.log"
 
 # Install build tools and PEP 517/518 support
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -34,8 +34,8 @@ RUN mkdir -p /dist && \
 
 
 FROM lyikprodblueacr.azurecr.io/lyik-api:latest
-ENV LOGFILE1="/plugin_logs/install_plugins1.log"
-COPY --from=builder /build/install_plugins1.log /plugin_logs/install_plugins1.log
+ENV LOGFILE1="/plugin_logs/install_plugins_custom.log"
+COPY --from=builder /build/install_plugins_custom.log /plugin_logs/install_plugins_custom.log
 COPY --from=builder /dist/*.whl /dist/ 
 RUN pip3 install -v /dist/*.whl | tee -a $LOGFILE1
 

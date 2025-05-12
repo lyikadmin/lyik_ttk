@@ -20,7 +20,7 @@ services:
       - ./logs/nginx-proxy-prod:/var/log/nginx
       - ./static_files:/app/static_files
     depends_on:
-      - lyik_api2
+      - lyik_api
       - lyik_spa
       - lyik_admin_portal
       - grafana
@@ -114,7 +114,7 @@ services:
       options:
         max-size: "10m"
     depends_on:
-      - lyik_api2
+      - lyik_api
     restart: always
 
   lyik_admin_portal:
