@@ -12,7 +12,7 @@ from lyikpluginmanager import (
 from typing import Annotated
 from typing_extensions import Doc
 from lyikpluginmanager.core.utils import generate_hash_id_from_dict
-from ttk_plugin.src.lyik.ttk.models.forms.schengen_model import RootPassportPassportDetails
+from ..models.forms.schengen_model import RootPassportPassportDetails
 import logging
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
