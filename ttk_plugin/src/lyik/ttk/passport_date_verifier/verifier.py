@@ -37,8 +37,7 @@ class PassportDateVerificationPlugin(VerifyHandlerSpec):
     ) -> Annotated[
         VerifyHandlerResponseModel,
         Doc("Response after validating the passport date."),
-    ]:
-
+    ]: 
         payload_dict = payload.model_dump(mode="json")
 
         ret = check_if_verified(payload=payload_dict)
@@ -46,22 +45,23 @@ class PassportDateVerificationPlugin(VerifyHandlerSpec):
             return ret
 
         try:
-            date_of_expiry_str = payload_dict.get("date_of_expiry")
-            desired_validity = payload_dict.get("desired_validity")
+            date_of_expiry = payload.date_of_expiry
+            desired_validity= payload.desired_validity
 
-            if not date_of_expiry_str:
-                raise ValueError("passport_expiry_date not found in payload.")
+            if not date_of_expiry:
+                raise ValueError("passport Date of Expiry not found in payload.")
             
-            if desired_validity is not None:
-                if not (1 <= desired_validity <= 24):
-                    raise ValueError("desired_validity must be between 1 and 24")
+            if desired_validity is None:
+                desired_validity = 6
+            
+            if not (1 <= desired_validity <= 24):
+                raise ValueError("desired_validity must be between 1 and 24")
 
-            date_of_expiry = datetime.strptime(date_of_expiry_str, "%Y-%m-%d").date()
             today = datetime.today().date()
 
             validity_duration = today + relativedelta(months=desired_validity)
 
-            # Validation Logic
+
             if date_of_expiry > validity_duration:
                 status = VERIFY_RESPONSE_STATUS.SUCCESS
                 message = "Passport date verified successfully."
@@ -86,7 +86,6 @@ class PassportDateVerificationPlugin(VerifyHandlerSpec):
             return VerifyHandlerResponseModel(
                 id=None, status=status, message=message, actor="system"
             )
-
 
 def check_if_verified(payload: dict) -> VerifyHandlerResponseModel | None:
     """
