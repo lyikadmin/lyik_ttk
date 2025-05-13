@@ -1,2 +1,2 @@
-git@github.com:Call-for-Code/Project-Sample.git
+https://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@github.com/lyikadmin/lyik_ttk.git
 # Ensure this file ends with this line to avoid new-line issues
