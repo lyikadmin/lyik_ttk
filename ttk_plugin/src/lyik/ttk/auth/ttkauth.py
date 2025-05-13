@@ -137,11 +137,11 @@ class TTKAuthProvider(AuthProviderSpec):
             raise PluginException(f"Invalid pre-auth token: {e}")
 
         # Pull out the fields you need
-        user_id = payload.get("user_id")
-        roles = [payload["roles"]] if isinstance(payload.get("roles"), str) else payload.get("roles", []) if isinstance(payload.get("roles"), list) else []
+        user_id = payload.get("userId")
+        roles = [payload["accessType"]] if isinstance(payload.get("accessType"), str) else payload.get("accessType", []) if isinstance(payload.get("accessType"), list) else []
         governed_users = payload.get("relationship", [])
-        user_name = payload.get("name") or 'client'
-        expiry = int(datetime.strptime(payload.get("expiry_time"), "%Y-%m-%d %H:%M:%S").timestamp()) if payload.get("expiry_time") else None
+        user_name = payload.get("fullName") or 'client'
+        expiry = int(datetime.strptime(payload.get("expiryTime"), "%Y-%m-%d %H:%M:%S").timestamp()) if payload.get("expiryTime") else None
         plugin_provider = TTK_DEFAULT_DOMAIN
         token = token
 
