@@ -72,9 +72,9 @@ class AppendMakerId(PreActionProcessorSpec):
 
             if maker_id:
                 new_record_payload = _set_owner(record_payload.model_dump(), maker_id) 
-                return Org26843479Frm5809021Model.model_validate(new_record_payload)
+                return GenericFormRecordModel.model_validate(new_record_payload)
             else:
-                return Org26843479Frm5809021Model.model_validate(record_payload.model_dump())
+                return GenericFormRecordModel.model_validate(record_payload.model_dump())
 
         except Exception as e:
             logger.error(f"Error processing payload: {e}")
