@@ -10,7 +10,7 @@ from lyikpluginmanager import (
     GenericFormRecordModel,
     PluginException,
 )
-from ..models.forms.schengentouristvisa import RootTravelTravelDetails
+from ..models.forms.schengentouristvisa import Org26843479Frm5809021Model
 import logging
 
 logger = logging.getLogger(__name__)
@@ -62,32 +62,24 @@ class AppendMakerId(PreActionProcessorSpec):
         """
         This preaction processor will append maker_id into the _owner list of the record.
         """
+        logger.debug(f"Entering preaction with payload: {payload}")
         if not context or not hasattr(context, "token") or not context.token:
-            logger.debug(
-                "No token found in context. Passing through AppendMakerId preaction."
-            )
+            logger.debug("No token found in context. Passing through AppendMakerId preaction.")
             return payload
-        root_travel_details = RootTravelTravelDetails(**payload.model_dump())
-        maker_id=root_travel_details.maker_id
-        if maker_id:
-            owner_list = root_travel_details.get("_owner", [])
+        try:
+            record_payload = Org26843479Frm5809021Model(**payload.model_dump()) 
+            maker_id = record_payload.travel.travel_details.maker_id
 
+            if maker_id:
+                new_record_payload = _set_owner(record_payload.model_dump(), maker_id) 
+                return Org26843479Frm5809021Model.model_validate(new_record_payload)
+            else:
+                return Org26843479Frm5809021Model.model_validate(record_payload.model_dump())
 
-        return GenericFormRecordModel.model_validate(payload)
+        except Exception as e:
+            logger.error(f"Error processing payload: {e}")
+            return payload # Important:  Return original payload on error to prevent data loss.
 
-
-import phonenumbers
-
-
-def validate_phone(value: str) -> str:
-    phone = phonenumbers.parse(
-        number=value,
-        region=phonenumbers.region_code_for_country_code(int(91)),
-    )
-    if not phonenumbers.is_valid_number(phone):
-        raise PluginException(f"{value} does not seem like a valid phone number")
-
-    return phonenumbers.format_number(phone, phonenumbers.PhoneNumberFormat.E164)
 
 
 def _set_owner(rec: dict, client: str) -> dict:
