@@ -10,7 +10,7 @@ from lyikpluginmanager import (
     GenericFormRecordModel,
     PluginException,
 )
-from ..models.forms.schengentouristvisa import Org26843479Frm5809021Model
+from ..models.forms.schengentouristvisa import Schengentouristvisa
 import logging
 
 logger = logging.getLogger(__name__)
@@ -67,14 +67,14 @@ class AppendMakerId(PreActionProcessorSpec):
             logger.debug("No token found in context. Passing through AppendMakerId preaction.")
             return payload
         try:
-            record_payload = Org26843479Frm5809021Model(**payload.model_dump()) 
+            record_payload = Schengentouristvisa(**payload.model_dump()) 
             maker_id = record_payload.travel.travel_details.maker_id
 
             if maker_id:
-                new_record_payload = _set_owner(record_payload.model_dump(), maker_id) 
+                new_record_payload = _set_owner(record_payload.model_dump(mode="json"), maker_id) 
                 return GenericFormRecordModel.model_validate(new_record_payload)
             else:
-                return GenericFormRecordModel.model_validate(record_payload.model_dump())
+                return GenericFormRecordModel.model_validate(record_payload.model_dump(mode="json"))
 
         except Exception as e:
             logger.error(f"Error processing payload: {e}")
