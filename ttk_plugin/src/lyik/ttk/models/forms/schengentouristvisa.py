@@ -6,7 +6,7 @@ from __future__ import annotations
 
 from datetime import date
 from enum import Enum
-from typing import Any as Any_aliased
+from typing import Any
 from typing import Dict, List, Optional, Union
 
 from pydantic import ConfigDict, EmailStr, Field
