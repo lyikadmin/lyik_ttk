@@ -1,2 +1,2 @@
-https://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@github.com/lyikadmin/lyik_ttk.git
+https://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@github.com/lyikadmin/lyik_ttk.git
 # Ensure this file ends with this line to avoid new-line issues

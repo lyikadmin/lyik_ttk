@@ -2,7 +2,7 @@
 FROM lyikprodblueacr.azurecr.io/lyik-api:latest
 
 COPY plugin_repos_custom.txt /plugin_repos.txt
-RUN /install_plugins_repos.sh
+RUN bash /install_plugins_repos.sh
 
 # Expose required ports
 EXPOSE 8080
