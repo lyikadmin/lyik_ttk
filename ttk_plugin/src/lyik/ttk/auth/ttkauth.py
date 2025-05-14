@@ -122,6 +122,13 @@ class TTKAuthProvider(AuthProviderSpec):
         Decode the incoming SSO token, extract sub, roles, and governed_users,
         and return a PreAuthorizedInfoModel.
         """
+        # Attribute key names for values expected in the token payload.
+        USER_ID = "userId"
+        ROLES = "accessType"
+        RELATIONSHIP = "relationship"
+        USER_NAME = "fullName"
+        EXPIRY_TIME = "exp"
+
         if not token:
             raise PluginException("No token provided")
 
@@ -137,11 +144,11 @@ class TTKAuthProvider(AuthProviderSpec):
             raise PluginException(f"Invalid pre-auth token: {e}")
 
         # Pull out the fields you need
-        user_id = payload.get("userId")
-        roles = [payload["accessType"]] if isinstance(payload.get("accessType"), str) else payload.get("accessType", []) if isinstance(payload.get("accessType"), list) else []
-        governed_users = payload.get("relationship", [])
-        user_name = payload.get("fullName") or 'client'
-        expiry = int(datetime.strptime(payload.get("expiryTime"), "%Y-%m-%d %H:%M:%S").timestamp()) if payload.get("expiryTime") else None
+        user_id = payload.get(USER_ID)
+        roles = [payload[ROLES]] if isinstance(payload.get(ROLES), str) else payload.get(ROLES, []) if isinstance(payload.get(ROLES), list) else []
+        governed_users = payload.get(RELATIONSHIP, [])
+        user_name = payload.get(USER_NAME) or 'client'
+        expiry = int(payload[EXPIRY_TIME]) if str(payload[EXPIRY_TIME]).isdigit() else int(datetime.strptime(payload[EXPIRY_TIME], "%Y-%m-%d %H:%M:%S").timestamp()) if payload.get(EXPIRY_TIME) else None
         plugin_provider = TTK_DEFAULT_DOMAIN
         token = token
 
