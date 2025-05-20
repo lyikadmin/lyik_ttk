@@ -1,8 +1,8 @@
 field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,category,sequence,hidden,editable,meta
 tab_break,travel_tab,,,tab_break,,False,Travel,Travel,,,False,,,,,
 section_break,visa_req_section,,,section_break,,False,,Visa Request information,,,False,,,,,
-info_pane_builder,visa_request_information,,,info_pane,,False,,Visa Request information,,,False,,,,,operation.save:Save and Continue
-card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,
+info_pane_builder,visa_request_information,,,info_pane,,False,,Visa Request information,,,False,,,,,table.column:1;operation.save:Save and Continue
+card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,table.column:1
 display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
@@ -54,19 +54,19 @@ display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 </html>
 ",,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,visa_request,,,card,,False,,Visa Request,,,False,,,,,verify.verify_handler:;verify.action_text:Validate
+card_builder,visa_request,,,card,,False,,Visa Request,,,False,,,,,table.column:1;verify.verify_handler:;verify.action_text:Validate
 table,visa_request_table,,,table,,False,,,,,False,,,,,table.column:3
 fac_str,from_country,,,textbox,,False,Enter From Country,From Country,,,False,,,,False,
 fac_str,to_country,,,textbox,,False,Enter To Country,To Country,,,False,,,,False,
-fac_visa_type,visa_type,,,dropdown,,False,Select Visa Type,Visa Type,,,False,,,,False,
-fac_date,departure_date,,,datebox,,False,Enter Departure Date,Departure Date,,,False,,,,,
-fac_date,arrival_date,,,datebox,,False,Enter Arrival Date,Arrival Date,,,False,,,,,
+fac_visa_type,visa_type,,,dropdown,,False,Select Option,Visa Type,,,False,,,,False,
+fac_date,departure_date,,,datebox,,False,DD/MM/YYYY,Departure Date,,,False,,,,,
+fac_date,arrival_date,,,datebox,,False,DD/MM/YYYY,Arrival Date,,,False,,,,,
 fac_int,length_of_stay,,,textbox,,False,Enter Length of Stay,Length of Stay,,,False,,,,False,
 fac_int,validity,,,textbox,,False,Enter Validity,Validity,,,False,,,,False,
 fac_int,no_of_entries,,,textbox,,False,Enter No of Entries,No of Entries,,,False,,,,False,
-fac_visa_mode,visa_mode,,,dropdown,,False,Select Visa Mode,Visa Mode,,,False,,,,False,
-fac_india_states,state_of_residence,,,dropdown,,False,Select Your State/Province of Residence,Your State/Province of Residence,,,False,,,,,
-fac_visa_processing_type,visa_processing_type,,,dropdown,Normal,False,Select Visa Processing Type,Visa Processing Type,,,False,,,,,
+fac_visa_mode,visa_mode,,,dropdown,,False,Select Option,Visa Mode,,,False,,,,False,
+fac_india_states,state_of_residence,,,dropdown,,False,Select Option,Your State/Province of Residence,,,False,,,,,
+fac_visa_processing_type,visa_processing_type,,,dropdown,Normal,False,Select Option,Visa Processing Type,,,False,,,,,
 fac_str,visa_processing_duration,,,textbox,,False,Enter Visa Processing Duration,Visa Processing Duration,,,False,,,,False,
 fac_date,earliest_appointment_availability,,,datebox,,False,DD/MM/YYYY,Earliest Appointment Availability,,,False,,,,False,
 fac_str,appointment_availability_location,,,textbox,,False,Enter Appointment Location,Appointment Location,,,False,,,,False,
@@ -74,9 +74,9 @@ fac_str,visa_cost,,,textbox,,False,Enter Updated Embassy Fee Amount,Updated Emba
 fac_str,primary_traveller,,,hidden,,False,Enter Primary Traveller or Not,Primary Traveller or Not,,,False,,,,,
 fac_str,order_id,,,hidden,,False,Enter Order ID,Order ID,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
-fac_consent_visa_fee,visa_cost_consent,,,checkbox,,True,Select ,,,,False,,,,,
+fac_consent_visa_fee,visa_cost_consent,,,checkbox,,True,Select Option,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,contact_details,,,card,,False,,Contact Details,,,False,,,,,
+card_builder,contact_details,,,card,,False,,Contact Details,,,False,,,,,table.column:1
 column_break,column_break_1,,,column_break,,False,,,,,False,,,,,
 fac_str,mobile_number,,,textbox,,False,Enter Mobile Number,Mobile Number,,,False,,,,,
 column_break,column_break_2,,,column_break,,False,,,,,False,,,,,
@@ -84,8 +84,8 @@ fac_str,email_id,,,textbox,,False,Enter Email ID,Email ID,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,appointment_section,,,section_break,,False,,Appointment Details,,,False,,,,,
-info_pane_builder,appointment,,,info_pane,,False,,Appointment Details,,,False,,,,,operation.save:Save and Continue
-card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,
+info_pane_builder,appointment,,,info_pane,,False,,Appointment Details,,,False,,,,,table.column:1;operation.save:Save and Continue
+card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,table.column:1
 display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
@@ -137,36 +137,36 @@ display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 </html>
 ",,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,appointment_preferance,,,card,,False,,Earliest Available Appointment,,,False,,,,,
-fac_appointment_preferance,appointment_preferance,,,radiobutton,,False,Select ,,,,False,,,,,
+card_builder,appointment_preferance,,,card,,False,,Earliest Available Appointment,,,False,,,,,table.column:1
+fac_appointment_preferance,appointment_preferance,,,radiobutton,,False,Select Option,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,appointment_locations,,,card,,False,,Scheduled Location & Appointment,,,False,,,,,verify.verify_handler:;verify.action_text:Get available details
+card_builder,appointment_locations,,,card,,False,,Scheduled Location & Appointment,,,False,,,,,table.column:1;verify.verify_handler:;verify.action_text:Get available details
 table,appointment_locations_table,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:3
-fac_empty_option,check_1,,,checkbox,,False,Select ,,,,False,,,,,
+fac_empty_option,check_1,,,checkbox,,False,Select Option,,,,False,,,,,
 fac_str,suggested_location_1,,,textbox,,False,Enter Suggested Location 1,Suggested Location 1,,,False,,,,,
-fac_date,date_of_appointment_1,,,datebox,,False,Enter Date of Appointment 1,Date of Appointment 1,,,False,,,,,
-fac_empty_option,check_2,,,checkbox,,False,Select ,,,,False,,,,,
+fac_str,date_of_appointment_1,,,textbox,,False,Enter Date of Appointment 1,Date of Appointment 1,,,False,,,,,
+fac_empty_option,check_2,,,checkbox,,False,Select Option,,,,False,,,,,
 fac_str,suggested_location_2,,,textbox,,False,Enter Suggested Location 2,Suggested Location 2,,,False,,,,,
-fac_date,date_of_appointment_2,,,datebox,,False,Enter Date of Appointment 2,Date of Appointment 2,,,False,,,,,
-fac_empty_option,check_3,,,checkbox,,False,Select ,,,,False,,,,,
+fac_str,date_of_appointment_2,,,textbox,,False,Enter Date of Appointment 2,Date of Appointment 2,,,False,,,,,
+fac_empty_option,check_3,,,checkbox,,False,Select Option,,,,False,,,,,
 fac_str,suggested_location_3,,,textbox,,False,Enter Suggested Location 3,Suggested Location 3,,,False,,,,,
-fac_date,date_of_appointment_3,,,datebox,,False,Enter Date of Appointment 3,Date of Appointment 3,,,False,,,,,
+fac_str,date_of_appointment_3,,,textbox,,False,Enter Date of Appointment 3,Date of Appointment 3,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,appointment_scheduled,,,card,,False,,Scheduled Appointment,,,False,,,"CONTAINS(USER.persona,CLI)",,
+card_builder,appointment_scheduled,,,card,,False,,Scheduled Appointment,,,False,,,"CONTAINS(USER.persona,CLI)",,table.column:1
 column_break,column_break,,,column_break,,False,,,,,False,,,,,
-fac_pref_loc,scheduled_location,,,dropdown,,False,Select Scheduled Location,Scheduled Location,,,False,,,,,
-fac_hour_select,scheduled_hour,,,dropdown,,False,Select Scheduled Time (Hour),Scheduled Time (Hour),,,False,,,,,
+fac_pref_loc,scheduled_location,,,dropdown,,False,Select Option,Scheduled Location,,,False,,,,,
+fac_hour_select,scheduled_hour,,,dropdown,,False,Select Option,Scheduled Time (Hour),,,False,,,,,
 fac_file,upload_appointment,,,fileoption,,False,Enter Upload Appointment,Upload Appointment,,,False,,,,,
 column_break,column_break_2,,,column_break,,False,,,,,False,,,,,
-fac_date,scheduled_date,,,datebox,,False,Enter Scheduled Date,Scheduled Date,,,False,,,,,
-fac_minute_select,scheduled_minute,,,dropdown,,False,Select Scheduled Time (Minute),Scheduled Time (Minute),,,False,,,,,
+fac_date,scheduled_date,,,datebox,,False,DD/MM/YYYY,Scheduled Date,,,False,,,,,
+fac_minute_select,scheduled_minute,,,dropdown,,False,Select Option,Scheduled Time (Minute),,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 tab_break,personal_tab,,,tab_break,,False,personal,Personal,,,False,,,,,
 section_break,passport_section,,,section_break,,False,,Passport,,,False,,,,,
-info_pane_builder,passport,,,info_pane,,False,,Passport,,,False,,,,,operation.save:Save and Continue
-card_builder,instruction_passport,,,card,,False,,Original Passport,,,False,,,,,
+info_pane_builder,passport,,,info_pane,,False,,Passport,,,False,,,,,table.column:1;operation.save:Save and Continue
+card_builder,instruction_passport,,,card,,False,,Original Passport,,,False,,,,,table.column:1
 display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
@@ -229,22 +229,22 @@ o Old Passports in Original (If applicable)
 </html>
 ",,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,passport_page_upload,,,card,,False,,Passport Photo Upload,API.TRUSTED_OVD,,False,,,,,
-fac_passport_type,type_of_passport,,,dropdown,,False,Select Type of Passport,Type of Passport,,,False,,,,,
+card_builder,passport_page_upload,,,card,,False,,Passport Photo Upload,API.TRUSTED_OVD,,False,,,,,table.column:1
+fac_passport_type,type_of_passport,,,dropdown,,False,Select Option,Type of Passport,,,False,,,,,
 table,passport_upload_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_file,ovd_front,,,fileoption,,False,Enter Front Page of Passport,Front Page of Passport,,,False,,,,,
 fac_file,ovd_back,,,fileoption,,False,Enter Back Page of Passport,Back Page of Passport,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,passport_details,,,card,,False,,Passport Details,,,False,,,,,
+card_builder,passport_details,,,card,,False,,Passport Details,,,False,,,,,table.column:1
 table,passport_info_table,,,table,,False,,,,,False,,,,,table.column:3
 fac_str,first_name,,,textbox,@.passport_page_upload.TRUSTED_OVD.name,False,Enter Given Name as in Passport,Given Name as in Passport,,,False,,,,,
 fac_str,surname,,,textbox,@.passport_page_upload.TRUSTED_OVD.surname,False,Enter Surname as in Passport,Surname as in Passport,,,False,,,,,
-fac_date,date_of_birth,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_birth,False,Enter Date of Birth as in Passport,Date of Birth as in Passport,,,False,,,,,
+fac_date,date_of_birth,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_birth,False,DD/MM/YYYY,Date of Birth as in Passport,,,False,,,,,
 fac_str,passport_number,,,textbox,@.passport_page_upload.TRUSTED_OVD.uid,False,Enter Passport Number,Passport Number,,,False,,,,,
-fac_date,date_of_issue,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_issue,False,Enter Date of Issue,Date of Issue,,,False,,,,,
-fac_date,date_of_expiry,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_expiry,False,Enter Date of Expiry,Date of Expiry,,,False,,,,,
-fac_gender,gender,,,dropdown,@.passport_page_upload.TRUSTED_OVD.gender,False,Select Gender,Gender,,,False,,,,,
+fac_date,date_of_issue,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_issue,False,DD/MM/YYYY,Date of Issue,,,False,,,,,
+fac_date,date_of_expiry,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_expiry,False,DD/MM/YYYY,Date of Expiry,,,False,,,,,
+fac_gender,gender,,,dropdown,@.passport_page_upload.TRUSTED_OVD.gender,False,Select Option,Gender,,,False,,,,,
 fac_str,place_of_issue,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_issue,False,Enter Place of Issue,Place of Issue,,,False,,,,,
 fac_str,nationality,,,textbox,@.passport_page_upload.TRUSTED_OVD.nationality,False,Enter Nationality,Nationality,,,False,,,,,
 fac_str,issued_by,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_issue,False,Enter Issued By (Authority/City),Issued By (Authority/City),,,False,,,,,
@@ -263,8 +263,8 @@ break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,photograph_section,,,section_break,,False,,Photograph,,,False,,,,,
-info_pane_builder,photograph,,,info_pane,,False,,Photograph,,,False,,,,,operation.save:Save and Continue
-card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,
+info_pane_builder,photograph,,,info_pane,,False,,Photograph,,,False,,,,,table.column:1;operation.save:Save and Continue
+card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,table.column:1
 display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
@@ -330,18 +330,18 @@ display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 </html>
 ",,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,passport_photo,,,card,,False,,Passport Photo,,,False,,,,,
+card_builder,passport_photo,,,card,,False,,Passport Photo,,,False,,,,,table.column:1
 display_field,upload_photo_display,,,display_field,,False,"<h2 style=""font-family: Arial, sans-serif; font-size: 14px; color: #333;"">
     Upload a passport photo that has been taken not more than 6 months ago & have a clear resemblance to you.
 </h2>
 ",,,,False,,,,,
 fac_file,photo,,,fileoption,,False,Enter Upload Photo,Upload Photo,,,False,,,,,
-fac_print_photo,print_photograpth,,,checkbox,,False,Select ,,,,False,,,,,
+fac_print_photo,print_photograpth,,,checkbox,,False,Select Option,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,residential_address_section,,,section_break,,False,,Address Documents,,,False,,,,,
-info_pane_builder,residential_address,,,info_pane,,False,,Address Documents,,,False,,,,,operation.save:Save and Continue
-card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,
+info_pane_builder,residential_address,,,info_pane,,False,,Address Documents,,,False,,,,,table.column:1;operation.save:Save and Continue
+card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,table.column:1
 display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
@@ -396,10 +396,10 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 display_field,upload_display_residential_address,,,display_field,,False,"<h2 style=""font-family: Arial, sans-serif; font-size: 14px; color: #333;"">
     Upload the evidence of your legal residence in the country you are applying from
 </h2>",,,,False,,,,,
-fac_same_as_pass_addr,same_as_passport_address,,,checkbox,,False,Select ,,,,False,,,,,
-card_builder,residential_address_card,,,card,,False,,Current Residential Address,,,False,,,same_as_passport_address = 'SAME_AS_PASS_ADDR',,
+fac_same_as_pass_addr,same_as_passport_address,,,checkbox,,False,Select Option,,,,False,,,,,
+card_builder,residential_address_card,,,card,,False,,Current Residential Address,,,False,,,same_as_passport_address = 'SAME_AS_PASS_ADDR',,table.column:1
 table,residential_address_table,,,table,,False,,,,,False,,,,,table.column:3
-fac_address_proof_type,type_of_proof,,,dropdown,,False,Select Type of Proof,Type of Proof,,,False,,,,,
+fac_address_proof_type,type_of_proof,,,dropdown,,False,Select Option,Type of Proof,,,False,,,,,
 fac_file,address_proof_upload,,,fileoption,,False,Enter Upload Address Proof,Upload Address Proof,,,False,,,,,file_type:.pdf
 fac_str,address_line_1,,,textbox,,False,Enter Address Line 1,Address Line 1,,,False,,,,,
 fac_str,address_line_2,,,textbox,,False,Enter Address Line 2,Address Line 2,,,False,,,,,
@@ -409,11 +409,11 @@ fac_str,state,,,textbox,,False,Enter State,State,,,False,,,,,
 fac_str,country,,,textbox,,False,Enter Country,Country,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,work_address_card,,,card,,False,,Current Work Address / Name of the Institute / Organization,,,False,,,,,
+card_builder,work_address_card,,,card,,False,,Current Work Address / Name of the Institute / Organization,,,False,,,,,table.column:1
 table,work_address_table,,,table,,False,,,,,False,,,,,table.column:3
 fac_str,employer_name,,,textbox,,False,Enter Name of the Employer,Name of the Employer,,,False,,,,,
 fac_str,occupation,,,textbox,,False,Enter Current Occupation,Current Occupation,,,False,,,,,
-fac_date,date_of_joining,,,datebox,,False,Enter Date of Joining,Date of Joining,,,False,,,,,
+fac_date,date_of_joining,,,datebox,,False,DD/MM/YYYY,Date of Joining,,,False,,,,,
 fac_str,work_address_line_1,,,textbox,,False,Enter Address Line 1,Address Line 1,,,False,,,,,
 fac_str,work_address_line_2,,,textbox,,False,Enter Address Line 2,Address Line 2,,,False,,,,,
 fac_str,work_pin_code,,,textbox,,False,Enter Pin Code,Pin Code,,,False,,,,,
@@ -424,9 +424,9 @@ fac_str,work_phone,,,textbox,,False,Enter Work Phone Number of Employer,Work Pho
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-section_break,itinerary_accomodation_section,,,section_break,,False,,Itinerary and Accomodation,,,False,,,not $.visa_request_information.visa_request.primary_traveller = 'Primary',,
-info_pane_builder,itinerary_accomodation,,,info_pane,,False,,Itinerary and Accomodation,,,False,,,not $.visa_request_information.visa_request.primary_traveller = 'Primary',,operation.save:Save and Continue
-card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,
+section_break,itinerary_accomodation_section,,,section_break,,False,,Itinerary and Accomodation,,,False,,,,,
+info_pane_builder,itinerary_accomodation,,,info_pane,,False,,Itinerary and Accomodation,,,False,,,,,table.column:1;operation.save:Save and Continue
+card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,table.column:1
 display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
@@ -478,23 +478,23 @@ display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 </html>
 ",,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-fac_itinerary_option,itinerary_option,,,radiobutton,HAVE_ITINERARY,False,Select ,,,,False,,,,,
+fac_itinerary_option,itinerary_option,,,radiobutton,HAVE_ITINERARY,False,Select Option,,,,False,,,,,
 fac_file,upload_itinerary,,,fileoption,,False,Enter Upload Itinerary,Upload Itinerary,,,False,,,not itinerary_option = 'HAVE_ITINERARY',,
 group_builder,itinerary_details,,,groupbox,,False,,Itinerary,,,False,,,not itinerary_option = 'CREATE_ITINERARY',,button_label:Add Itinerary;limits.min:1;limits.max:3
 info_pane_builder,itinerarygroup,,,groupbox,,False,,Itinerary,,,False,,,,,
-card_builder,itinerary_information,,,card,,False,,Itinerary Details,,,False,,,,,verify.verify_handler:;verify.action_text:Validate Dates
+card_builder,itinerary_information,,,card,,False,,Itinerary Details,,,False,,,,,table.column:1;verify.verify_handler:;verify.action_text:Validate Dates
 table,itinerary_table,,,table,,False,,,,,False,,,,,table.column:3
 fac_str,country,,,textbox,,False,Enter Country,Country,,,False,,,,,
-fac_date,date_of_arrival,,,datebox,,False,Enter Date of Arrival,Date of Arrival,,,False,,,,,
-fac_date,date_of_departure,,,datebox,,False,Enter Date of Departure,Date of Departure,,,False,,,,,
+fac_date,date_of_arrival,,,datebox,,False,DD/MM/YYYY,Date of Arrival,,,False,,,,,
+fac_date,date_of_departure,,,datebox,,False,DD/MM/YYYY,Date of Departure,,,False,,,,,
 fac_str,city,,,textbox,,False,Enter City,City,,,False,,,,,
 fac_str,placed_to_visit,,,textbox.row-8,,False,"List down all the places, you intend to visit in this country.",Places To Visit,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
-fac_accomodation_option,accomodation_option,,,radiobutton,HAVE_DUMMY_ACCOMODATION,False,Select ,,,,False,,,,,
+fac_accomodation_option,accomodation_option,,,radiobutton,HAVE_DUMMY_ACCOMODATION,False,Select Option,,,,False,,,,,
 fac_file,upload_dummy_accomodation,,,fileoption,,False,Upload Accomodation Document pdf,Upload Dummy Accomodation,,,False,,,not accomodation_option = 'HAVE_DUMMY_ACCOMODATION',,file_type:.pdf
 fac_file,upload_confirmed_accomodation,,,fileoption,,False,Upload Accomodation Document pdf,Upload Confirmed Accomodation,,,False,,,not accomodation_option = 'HAVE_CONFIRMED_ACCOMODATION',,file_type:.pdf
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,book_confirmed_accomodation,,,card,,False,,Book Confirmed Accomodation with TTK,,,False,,,not itinerary_information.accomodation_option = 'BOOK_CONFIRMED_ACCOMODATION',,
+card_builder,book_confirmed_accomodation,,,card,,False,,Book Confirmed Accomodation with TTK,,,False,,,not itinerary_information.accomodation_option = 'BOOK_CONFIRMED_ACCOMODATION',,table.column:1
 table,booking_table,,,table,,False,,,,,False,,,,,table.column:3
 fac_str,given_name,,,textbox,,False,Enter Given Name,Given Name,,,False,,,,False,
 fac_str,surname,,,textbox,,False,Enter Surname,Surname,,,False,,,,False,
@@ -502,11 +502,11 @@ fac_str,passport_number,,,textbox,,False,Enter Passport Number,Passport Number,,
 fac_str,country,,,textbox,,False,Enter Country,Country,,,False,,,,False,
 fac_str,city,,,textbox,,False,Enter City,City,,,False,,,,,
 fac_str,number_of_pax,,,textbox,,False,Enter Number of Pax,Number of Pax,,,False,,,,,
-fac_date,date_of_arrival,,,datebox,,False,Enter Date of Arrival,Date of Arrival,,,False,,,,False,
-fac_date,date_of_departure,,,datebox,,False,Enter Date of Departure,Date of Departure,,,False,,,,False,
+fac_date,date_of_arrival,,,datebox,,False,DD/MM/YYYY,Date of Arrival,,,False,,,,False,
+fac_date,date_of_departure,,,datebox,,False,DD/MM/YYYY,Date of Departure,,,False,,,,False,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,book_dummy_accomodation,,,card,,False,,Book Dummy Accomodation with TTK,,,False,,,not itinerary_information.accomodation_option = 'BOOK_DUMMY_ACCOMODATION',,
+card_builder,book_dummy_accomodation,,,card,,False,,Book Dummy Accomodation with TTK,,,False,,,not itinerary_information.accomodation_option = 'BOOK_DUMMY_ACCOMODATION',,table.column:1
 table,booking_table,,,table,,False,,,,,False,,,,,table.column:3
 fac_str,given_name,,,textbox,,False,Enter Given Name,Given Name,,,False,,,,False,
 fac_str,surname,,,textbox,,False,Enter Surname,Surname,,,False,,,,False,
@@ -514,11 +514,11 @@ fac_str,passport_number,,,textbox,,False,Enter Passport Number,Passport Number,,
 fac_str,country,,,textbox,,False,Enter Country,Country,,,False,,,,False,
 fac_str,city,,,textbox,,False,Enter City,City,,,False,,,,,
 fac_str,number_of_pax,,,textbox,,False,Enter Number of Pax,Number of Pax,,,False,,,,,
-fac_date,date_of_arrival,,,datebox,,False,Enter Date of Arrival,Date of Arrival,,,False,,,,False,
-fac_date,date_of_departure,,,datebox,,False,Enter Date of Departure,Date of Departure,,,False,,,,False,
+fac_date,date_of_arrival,,,datebox,,False,DD/MM/YYYY,Date of Arrival,,,False,,,,False,
+fac_date,date_of_departure,,,datebox,,False,DD/MM/YYYY,Date of Departure,,,False,,,,False,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,inviter_details,,,card,,False,,Inviter Details,,,False,,,not itinerary_information.accomodation_option = 'INVITED_ACCOMODATION',,
+card_builder,inviter_details,,,card,,False,,Inviter Details,,,False,,,not itinerary_information.accomodation_option = 'INVITED_ACCOMODATION',,table.column:1
 table,inviter_table,,,table,,False,,,,,False,,,,,table.column:3
 fac_file,inviter_biopage,,,fileoption,,False,Upload Bio Page of Inviter's Passport,Bio Page of Inviter's Passport,,,False,,,,,
 fac_file,visacopy_permit_card,,,fileoption,,False,Upload Visa Copy or Resident Permit Card,Visa Copy or Resident Permit Card,,,False,,,,,
@@ -527,15 +527,15 @@ fac_str,inviter_name,,,textbox,,False,Enter Name of Inviter,Name of Inviter,,,Fa
 fac_str,inviter_address,,,textbox,,False,Enter Address of the Inviter,Address of the Inviter,,,False,,,,,
 fac_str,mobile_number,,,textbox,,False,Enter Mobile/Telephone Number,Mobile/Telephone Number,,,False,,,,,
 fac_str,email_id,,,textbox,,False,Enter Email id,Email id,,,False,,,,,
-fac_relationship,relationship,,,dropdown,,False,Select Relationship,Relationship,,,False,,,,,
+fac_relationship,relationship,,,dropdown,,False,Select Option,Relationship,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-section_break,ticketing_section,,,section_break,,False,,Ticketing,,,False,,,not $.visa_request_information.visa_request.primary_traveller = 'Primary',,
-info_pane_builder,ticketing,,,info_pane,,False,,Ticketing,,,False,,,not $.visa_request_information.visa_request.primary_traveller = 'Primary',,operation.save:Save and Continue
-card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,
+section_break,ticketing_section,,,section_break,,False,,Ticketing,,,False,,,,,
+info_pane_builder,ticketing,,,info_pane,,False,,Ticketing,,,False,,,,,table.column:1;operation.save:Save and Continue
+card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,table.column:1
 display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
@@ -587,35 +587,35 @@ display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 </html>
 ",,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-fac_flight_ticket_option,flight_ticket_option,,,radiobutton,HAVE_CONFIRMED_TICKET,False,Select ,,,,False,,,,,
+fac_flight_ticket_option,flight_ticket_option,,,radiobutton,HAVE_CONFIRMED_TICKET,False,Select Option,,,,False,,,,,
 fac_file,upload_confirmed_ticket,,,fileoption,,False,Enter Upload Confirmed Ticket,Upload Confirmed Ticket,,,False,,,not flight_ticket_option='HAVE_CONFIRMED_TICKET',,
 fac_file,upload_dummy_ticket,,,fileoption,,False,Enter Upload Dummy Ticket,Upload Dummy Ticket,,,False,,,not flight_ticket_option='HAVE_DUMMY_TICKET',,
-card_builder,book_confirmed_ticket,,,card,,False,,Book Confirmed Flight Ticket,,,False,,,not flight_ticket_option='TTK_BOOK_CONFIRMED_TICKET',,
+card_builder,book_confirmed_ticket,,,card,,False,,Book Confirmed Flight Ticket,,,False,,,not flight_ticket_option='TTK_BOOK_CONFIRMED_TICKET',,table.column:1
 table,ticket_book_table,,,table,,False,,,,,False,,,,,table.column:3
 fac_str,given_name,,,textbox,,False,Enter Given Name,Given Name,,,False,,,,False,
 fac_str,surname,,,textbox,,False,Enter Surname,Surname,,,False,,,,False,
 fac_str,passport_number,,,textbox,,False,Enter Passport Number,Passport Number,,,False,,,,False,
 fac_str,country,,,textbox,,False,Enter Country,Country,,,False,,,,False,
 fac_str,city,,,textbox,,False,Enter City,City,,,False,,,,False,
-fac_date,date_of_arrival,,,datebox,,False,Enter Date of Arrival,Date of Arrival,,,False,,,,False,
-fac_date,date_of_departure,,,datebox,,False,Enter Date of Departure,Date of Departure,,,False,,,,False,
+fac_date,date_of_arrival,,,datebox,,False,DD/MM/YYYY,Date of Arrival,,,False,,,,False,
+fac_date,date_of_departure,,,datebox,,False,DD/MM/YYYY,Date of Departure,,,False,,,,False,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,book_dummy_ticket,,,card,,False,,Book Dummy Flight Ticket,,,False,,,not flight_ticket_option='TTK_BOOK_DUMMY_TICKET',,
+card_builder,book_dummy_ticket,,,card,,False,,Book Dummy Flight Ticket,,,False,,,not flight_ticket_option='TTK_BOOK_DUMMY_TICKET',,table.column:1
 table,ticket_book_table,,,table,,False,,,,,False,,,,,table.column:3
 fac_str,given_name,,,textbox,,False,Enter Given Name,Given Name,,,False,,,,False,
 fac_str,surname,,,textbox,,False,Enter Surname,Surname,,,False,,,,False,
 fac_str,passport_number,,,textbox,,False,Enter Passport Number,Passport Number,,,False,,,,False,
 fac_str,country,,,textbox,,False,Enter Country,Country,,,False,,,,False,
 fac_str,city,,,textbox,,False,Enter City,City,,,False,,,,False,
-fac_date,date_of_arrival,,,datebox,,False,Enter Date of Arrival,Date of Arrival,,,False,,,,False,
-fac_date,date_of_departure,,,datebox,,False,Enter Date of Departure,Date of Departure,,,False,,,,False,
+fac_date,date_of_arrival,,,datebox,,False,DD/MM/YYYY,Date of Arrival,,,False,,,,False,
+fac_date,date_of_departure,,,datebox,,False,DD/MM/YYYY,Date of Departure,,,False,,,,False,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-section_break,travel_insurance_section,,,section_break,,False,,Travel Insurance,,,False,,,not $.visa_request_information.visa_request.primary_traveller = 'Primary',,
-info_pane_builder,travel_insurance,,,info_pane,,False,,Travel Insurance,,,False,,,not $.visa_request_information.visa_request.primary_traveller = 'Primary',,operation.save:Save and Continue
-card_builder,instructions,,,card,,False,,Travel Insurance,,,False,,,,,
+section_break,travel_insurance_section,,,section_break,,False,,Travel Insurance,,,False,,,,,
+info_pane_builder,travel_insurance,,,info_pane,,False,,Travel Insurance,,,False,,,,,table.column:1;operation.save:Save and Continue
+card_builder,instructions,,,card,,False,,Travel Insurance,,,False,,,,,table.column:1
 display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
@@ -681,9 +681,9 @@ o Old Passports in Original (If applicable)
 </html>
 ",,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-fac_insurance_option,insurance_options,,,radiobutton,HAVE_INSURANCE,False,Select ,,,,False,,,,,
+fac_insurance_option,insurance_options,,,radiobutton,HAVE_INSURANCE,False,Select Option,,,,False,,,,,
 fac_file,insurance_document,,,fileoption,,False,Upload insurance document pdf,Insurance Document,,,False,,,not insurance_options = 'HAVE_INSURANCE',,file_type:.pdf
-card_builder,insurance_details,,,card,,False,,Insurance Details,,,False,,,not insurance_options = 'BUY_INSURANCE',,
+card_builder,insurance_details,,,card,,False,,Insurance Details,,,False,,,not insurance_options = 'BUY_INSURANCE',,table.column:1
 table,insurance_details_table,,,table,,False,,,,,False,,,,,table.column:3
 fac_str,name_of_nominee,,,textbox,,False,Enter Name of Nominee,Name of Nominee,,,False,,,,,
 fac_int,nominee_relationship,,,textbox,,False,Enter Relationship,Relationship,,,False,,,,,
@@ -691,13 +691,13 @@ fac_insurance_plan,plan,,,dropdown,USD50K,False,Select plan,Insurance Plan,,,Fal
 fac_option,pre_existing_disease,,,dropdown,YES,False,Select if any disease,Any pre-existing Disease?,,,False,,,,,
 fac_str,pre_existing_disease_details,,,textbox.row-8,,False,Enter Details of Pre-Existing Disease,Details of Pre-Existing Disease,,,False,,,not pre_existing_disease = 'YES',,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
-fac_ins_disc_1,disclosure_1,,,checkbox,,False,Select ,,,,False,,,,,
-fac_ins_disc_2,disclosure_2,,,checkbox,,False,Select ,,,,False,,,,,
+fac_ins_disc_1,disclosure_1,,,checkbox,,False,Select Option,,,,False,,,,,
+fac_ins_disc_2,disclosure_2,,,checkbox,,False,Select Option,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,previous_visas_section,,,section_break,,False,,Previous Visas,,,False,,,,,
-info_pane_builder,previous_visas,,,info_pane,,False,,Previous Visas,,,False,,,,,operation.save:Save and Continue
-card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,
+info_pane_builder,previous_visas,,,info_pane,,False,,Previous Visas,,,False,,,,,table.column:1;operation.save:Save and Continue
+card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,table.column:1
 display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
@@ -749,38 +749,38 @@ display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 </html>
 ",,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,previous_schengen_visa,,,card,,False,,Previous Schengen Visas (if applicable),,,False,,,,,
-fac_option,option_1,,,radiobutton,NO,False,Select Have you been issued a Schengen visa during the past 3 years?,Have you been issued a Schengen visa during the past 3 years?,,,False,,,,,
-fac_option,option_2,,,radiobutton,NO,False,Select Have you been issued a Schengen visa in the past?,Have you been issued a Schengen visa in the past?,,,False,,,not option_1 = 'NO',,
-fac_option_2,option_3,,,radiobutton,NO,False,Select Have your fingerprints been collected previously while applying for a Schengen Visa?,Have your fingerprints been collected previously while applying for a Schengen Visa?,,,False,,,option_1 = 'YES' or not option_2 = 'YES,,
+card_builder,previous_schengen_visa,,,card,,False,,Previous Schengen Visas (if applicable),,,False,,,,,table.column:1
+fac_option,option_1,,,radiobutton,NO,False,Select Option,Have you been issued a Schengen visa during the past 3 years?,,,False,,,,,
+fac_option,option_2,,,radiobutton,NO,False,Select Option,Have you been issued a Schengen visa in the past?,,,False,,,not option_1 = 'NO',,
+fac_option_2,option_3,,,radiobutton,NO,False,Select Option,Have your fingerprints been collected previously while applying for a Schengen Visa?,,,False,,,option_1 = 'YES' or not option_2 = 'YES,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 group_builder,previous_visa_uploads,,,groupbox,,False,,,,,False,,,not previous_schengen_visa.option_1 = 'YES',,button_label:Add Visa;limits.min:1;limits.max:10
 info_pane_builder,previousschengenvisaupload,,,groupbox,,False,,,,,False,,,,,
-card_builder,visa_details,,,card,,False,,Visa Details,,,False,,,,,
+card_builder,visa_details,,,card,,False,,Visa Details,,,False,,,,,table.column:1
 table,visa_details_table,,,table,,False,,,,,False,,,,,table.column:3
 fac_file,visa_file,,,fileoption,,False,Enter Upload Visa,Upload Visa,,,False,,,,,
 fac_str,visa_number,,,textbox,,False,Enter Visa Number,Visa Number,,,False,,,,,
 fac_str,visa_type,,,textbox,,False,Enter Visa Type,Visa Type,,,False,,,,,
 fac_country,country_of_issue,,,dropdown,,False,Select Country of issue,Country of Visa issued from,,,False,,,,,
-fac_date,start_date,,,datebox,,False,Enter Start date of Visa,Start date of Visa,,,False,,,,,
-fac_date,end_date,,,datebox,,False,Enter End date of Visa,End date of Visa,,,False,,,,,
-fac_purpose_of_visa_or_travel,purpose_of_visa,,,dropdown,,False,Select Purpose of Visa (at the time of filling your previous visa application),Purpose of Visa (at the time of filling your previous visa application),,,False,,,,,
+fac_date,start_date,,,datebox,,False,DD/MM/YYYY,Start date of Visa,,,False,,,,,
+fac_date,end_date,,,datebox,,False,DD/MM/YYYY,End date of Visa,,,False,,,,,
+fac_purpose_of_visa_or_travel,purpose_of_visa,,,dropdown,,False,Select Option,Purpose of Visa (at the time of filling your previous visa application),,,False,,,,,
 fac_str,other_purpose,,,textbox,,False,Enter Other purpose,Other purpose,,,False,,,not purpose_of_visa = 'OTHER',,
-fac_option,utlized_visa,,,radiobutton,YES,False,Select Have you utilized this visa for Travel?,Have you utilized this visa for Travel?,,,False,,,,,
+fac_option,utlized_visa,,,radiobutton,YES,False,Select Option,Have you utilized this visa for Travel?,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 table,visa_used_for_table,,,table,,False,,,,,False,,,not utlized_visa = 'YES',,table.column:3
 fac_country,country_of_travel,,,dropdown,,False,Select Country of travel,Country of Travel,,,False,,,not utlized_visa = 'YES',,
-fac_purpose_of_visa_or_travel,purpose_of_visa,,,dropdown,,False,Select Purpose of Travel,Purpose of Travel,,,False,,,not utlized_visa = 'YES',,
-fac_date,start_date,,,datebox,,False,Enter Date of Entry,Date of Entry,,,False,,,not utlized_visa = 'YES',,
-fac_date,end_date,,,datebox,,False,Enter Date of Exit,Date of Exit,,,False,,,not utlized_visa = 'YES',,
+fac_purpose_of_visa_or_travel,purpose_of_visa,,,dropdown,,False,Select Option,Purpose of Travel,,,False,,,not utlized_visa = 'YES',,
+fac_date,start_date,,,datebox,,False,DD/MM/YYYY,Date of Entry,,,False,,,not utlized_visa = 'YES',,
+fac_date,end_date,,,datebox,,False,DD/MM/YYYY,Date of Exit,,,False,,,not utlized_visa = 'YES',,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,additional_details_section,,,section_break,,False,,Additional Travel Details,,,False,,,,,
-info_pane_builder,additional_details,,,info_pane,,False,,Additional Travel Details,,,False,,,,,operation.save:Save and Continue
-card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,
+info_pane_builder,additional_details,,,info_pane,,False,,Additional Travel Details,,,False,,,,,table.column:1;operation.save:Save and Continue
+card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,table.column:1
 display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
@@ -832,95 +832,95 @@ display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 </html>
 ",,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,national_id,,,card,,False,,National Identification Number,,,False,,,,,
+card_builder,national_id,,,card,,False,,National Identification Number,,,False,,,,,table.column:1
 table,national_id_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,aadhaar_number,,,textbox,,False,Enter Aadhaar Card Number,Aadhaar Card Number,,,False,,,,,
 fac_file,aadhaar_upload,,,fileoption,,False,Enter Aadhaar Card Upload,Aadhaar Card Upload,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,other_country_travel,,,card,,False,,Travelling to Multiple Countries during this trip,,,False,,,,,
+card_builder,other_country_travel,,,card,,False,,Travelling to Multiple Countries during this trip,,,False,,,,,table.column:1
 table,travel_country_table,,,table,,False,,,,,False,,,not travelling_to_other_country = 'YES',,table.column:2
-fac_option,travelling_to_other_country,,,radiobutton,,False,"Select Are you traveling to any other country during this trip, apart from Schengen area?","Are you traveling to any other country during this trip, apart from Schengen area?",,,False,,,,,
-fac_country_3,country_of_travel,,,dropdown,,False,Select Country of Travel,Country of Travel,,,False,,,not travelling_to_other_country = 'YES',,
+fac_option,travelling_to_other_country,,,radiobutton,,False,Select Option,"Are you traveling to any other country during this trip, apart from Schengen area?",,,False,,,,,
+fac_country_3,country_of_travel,,,dropdown,,False,Select Option,Country of Travel,,,False,,,not travelling_to_other_country = 'YES',,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
-fac_option,valid_visa_for_country,,,radiobutton,,False,Select Do you have a valid visa for the country mentioned above?,Do you have a valid visa for the country mentioned above?,,,False,,,not travelling_to_other_country = 'YES',,
+fac_option,valid_visa_for_country,,,radiobutton,,False,Select Option,Do you have a valid visa for the country mentioned above?,,,False,,,not travelling_to_other_country = 'YES',,
 table,visa_details_table,,,table,,False,,,,,False,,,not valid_visa_for_country = 'YES',,table.column:3
 fac_file,visa_copy_upload,,,fileoption,,False,Enter Visa Copy,Visa Copy,,,False,,,not valid_visa_for_country = 'YES',,
-fac_date,visa_start_date,,,datebox,,False,Enter Visa Start Date,Visa Start Date,,,False,,,not valid_visa_for_country = 'YES',,
-fac_date,visa_end_date,,,datebox,,False,Enter Visa End Date,Visa End Date,,,False,,,not valid_visa_for_country = 'YES',,
+fac_date,visa_start_date,,,datebox,,False,DD/MM/YYYY,Visa Start Date,,,False,,,not valid_visa_for_country = 'YES',,
+fac_date,visa_end_date,,,datebox,,False,DD/MM/YYYY,Visa End Date,,,False,,,not valid_visa_for_country = 'YES',,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,application_detail,,,card,,False,,Application Details,,,False,,,,,
-fac_option,application_on_behalf,,,radiobutton,,False,Select Are you submitting this Schengen Visa application on behalf of the other person?,Are you submitting this Schengen Visa application on behalf of the other person?,,,False,,,,,
+card_builder,application_detail,,,card,,False,,Application Details,,,False,,,,,table.column:1
+fac_option,application_on_behalf,,,radiobutton,,False,Select Option,Are you submitting this Schengen Visa application on behalf of the other person?,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,family_member_of_eu,,,card,,False,,Family Member of EU/EEA/Swiss/UK National,,,False,,,,,
-fac_option,is_family_member_of_eu,,,radiobutton,,False,"Select Do you have a family member who is an EU, EEA, or CH Citizen or a national of the United Kingdom who is a beneficiary of the agreement between the Swiss Confederation and the United Kingdom?","Do you have a family member who is an EU, EEA, or CH Citizen or a national of the United Kingdom who is a beneficiary of the agreement between the Swiss Confederation and the United Kingdom?",,,False,,,,,
+card_builder,family_member_of_eu,,,card,,False,,Family Member of EU/EEA/Swiss/UK National,,,False,,,,,table.column:1
+fac_option,is_family_member_of_eu,,,radiobutton,,False,Select Option,"Do you have a family member who is an EU, EEA, or CH Citizen or a national of the United Kingdom who is a beneficiary of the agreement between the Swiss Confederation and the United Kingdom?",,,False,,,,,
 table,eu_family_member_details,,,table,,False,,,,,False,,,not is_family_member_of_eu = 'YES',,table.column:3
 fac_str,given_name,,,textbox,,False,Enter Given Name of the Family Member,Given Name of the Family Member,,,False,,,not is_family_member_of_eu = 'YES',,
 fac_str,surname,,,textbox,,False,Enter Surname of the Family Member,Surname of the Family Member,,,False,,,not is_family_member_of_eu = 'YES',,
 fac_str,nationality,,,textbox,,False,Enter Nationality of the Family Member,Nationality of the Family Member,,,False,,,not is_family_member_of_eu = 'YES',,
-fac_date,date_of_birth,,,datebox,,False,Enter Date of Birth of Family Member,Date of Birth of Family Member,,,False,,,not is_family_member_of_eu = 'YES',,
+fac_date,date_of_birth,,,datebox,,False,DD/MM/YYYY,Date of Birth of Family Member,,,False,,,not is_family_member_of_eu = 'YES',,
 fac_str,travel_document_id,,,textbox,,False,Enter Travel document or ID card number,Travel document or ID card number,,,False,,,not is_family_member_of_eu = 'YES',,
-fac_relationship_with_eu,relationship,,,dropdown,,False,Select Relationship of Family Member,Relationship of Family Member,,,False,,,not is_family_member_of_eu = 'YES',,
+fac_relationship_with_eu,relationship,,,dropdown,,False,Select Option,Relationship of Family Member,,,False,,,not is_family_member_of_eu = 'YES',,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,sponsorship_details,,,card,,False,,Sponsorship Details,,,False,,,,,
+card_builder,sponsorship_details,,,card,,False,,Sponsorship Details,,,False,,,,,table.column:1
 table,sponsorship_option_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_sponsorship_options,sponsorship_option,,,radiobutton,,False,Select Cost of travelling is and living during stay is covered by:,Cost of travelling is and living during stay is covered by:,,,False,,,,,
+fac_sponsorship_options,sponsorship_option,,,radiobutton,,False,Select Option,Cost of travelling is and living during stay is covered by:,,,False,,,,,
 fac_str,other_sponsor,,,textbox,,False,Enter Other Sponsor,Other Sponsor,,,False,,,not sponsorship_option = 'OTHER',,
-fac_support_means_self,support_means_self,,,dropdown,,False,Select Means of Support (Self),Means of Support (Self),,,False,,,not sponsorship_option = 'PERSONALLY_COVERED',,
+fac_support_means_self,support_means_self,,,dropdown,,False,Select Option,Means of Support (Self),,,False,,,not sponsorship_option = 'PERSONALLY_COVERED',,
 fac_str,other_support_self,,,textbox,,False,Enter Other means of support (Self),Other means of support (Self),,,False,,,not support_means_self = 'OTHER',,
-fac_support_means_sponsor,support_means_sponsor,,,dropdown,,False,Select Means of Support (Sponsor),Means of Support (Sponsor),,,False,,,sponsorship_option = 'PERSONALLY_COVERED',,
+fac_support_means_sponsor,support_means_sponsor,,,dropdown,,False,Select Option,Means of Support (Sponsor),,,False,,,sponsorship_option = 'PERSONALLY_COVERED',,
 fac_str,other_support_sponsor,,,textbox,,False,Enter Other means of support (Sponsor),Other means of support (Sponsor),,,False,,,not support_means_sponsor = 'OTHER',,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 tab_break,financial_documents_tab,,,tab_break,,False,,Financial Documents,,,False,,,,,
 section_break,salary_slip_section,,,section_break,,False,,Salary Slips,,,False,,,,,
-info_pane_builder,salary_slip,,,info_pane,,False,,Salary Slips,,,False,,,,,operation.save:Save and Continue
-fac_skip_salary,skip_salary,,,checkbox,,False,Select ,,,,False,,,,,
+info_pane_builder,salary_slip,,,info_pane,,False,,Salary Slips,,,False,,,,,table.column:1;operation.save:Save and Continue
+fac_skip_salary,skip_salary,,,checkbox,,False,Select Option,,,,False,,,,,
 group_builder,slips,,,groupbox,,False,,,,,False,,,skip_salary = 'SKIP',,button_label:Add Slip;limits.min:1;limits.max:10
 info_pane_builder,salaryslips,,,groupbox,,False,,,,,False,,,,,
 fac_file,upload_salary_slip,,,fileoption,,False,Enter Upload Salary Slip,Upload Salary Slip,,,False,,,,,file_type:.pdf
-card_builder,employment_details,,,card,,False,,Employment Details,,,False,,,"CONTAINS(USER.persona,CLI)",,
+card_builder,employment_details,,,card,,False,,Employment Details,,,False,,,"CONTAINS(USER.persona,CLI)",,table.column:1
 table,employment_details_table,,,table,,False,,,,,False,,,,,table.column:3
 fac_str,name_of_employer,,,textbox,,False,Enter Name of Employer,Name of Employer,,,False,,,,,
 fac_str,occupation,,,textbox,,False,Enter Occupation,Occupation,,,False,,,,,
 fac_str,address_of_employer,,,textbox.row-4,,False,Enter Address of Employer,Address of Employer,,,False,,,,,
-fac_month_option,month,,,dropdown,,False,Select Month,Month,,,False,,,,,
-fac_year_option,year,,,dropdown,,False,Select Year,Year,,,False,,,,,
+fac_month_option,month,,,dropdown,,False,Select Option,Month,,,False,,,,,
+fac_year_option,year,,,dropdown,,False,Select Option,Year,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-fac_add_previous_emp_salary,previous_employer,,,checkbox,,False,Select ,,,,False,,,skip_salary = 'SKIP',,
+fac_add_previous_emp_salary,previous_employer,,,checkbox,,False,Select Option,,,,False,,,skip_salary = 'SKIP',,
 group_builder,prev_employer_slips,,,groupbox,,False,,,,,False,,,not previous_employer = 'ADD_PREVIOUS_EMP_SALARY',,button_label:Add Slip;limits.min:1;limits.max:10
 info_pane_builder,previousemployersalaryslips,,,groupbox,,False,,,,,False,,,,,
 fac_file,upload_salary_slip,,,fileoption,,False,Enter Upload Salary Slip,Upload Salary Slip,,,False,,,,,file_type:.pdf
-card_builder,employment_details,,,card,,False,,Previous Employment Details,,,False,,,"CONTAINS(USER.persona,CLI)",,
+card_builder,employment_details,,,card,,False,,Previous Employment Details,,,False,,,"CONTAINS(USER.persona,CLI)",,table.column:1
 table,employment_details_table,,,table,,False,,,,,False,,,,,table.column:3
 fac_str,name_of_employer,,,textbox,,False,Enter Name of Employer,Name of Employer,,,False,,,,,
 fac_str,occupation,,,textbox,,False,Enter Occupation,Occupation,,,False,,,,,
 fac_str,address_of_employer,,,textbox.row-4,,False,Enter Address of Employer,Address of Employer,,,False,,,,,
-fac_month_option,month,,,dropdown,,False,Select Month,Month,,,False,,,,,
-fac_year_option,year,,,dropdown,,False,Select Year,Year,,,False,,,,,
+fac_month_option,month,,,dropdown,,False,Select Option,Month,,,False,,,,,
+fac_year_option,year,,,dropdown,,False,Select Option,Year,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,bank_statement_section,,,section_break,,False,,Bank Statements,,,False,,,,,
-info_pane_builder,bank_statement,,,info_pane,,False,,Bank Statements,,,False,,,,,operation.save:Save and Continue
-fac_skip_bank_statement,skip_upload,,,checkbox,,False,Select ,,,,False,,,,,
+info_pane_builder,bank_statement,,,info_pane,,False,,Bank Statements,,,False,,,,,table.column:1;operation.save:Save and Continue
+fac_skip_bank_statement,skip_upload,,,checkbox,,False,Select Option,,,,False,,,,,
 group_builder,statements,,,groupbox,,False,,,,,False,,,skip_upload = 'SKIP',,button_label:Add Bank Statement;limits.min:1;limits.max:10
 info_pane_builder,bankstatementgroup,,,groupbox,,False,,,,,False,,,,,
 fac_file,bank_statement_file,,,fileoption,,False,Upload your bank statement PDF,Upload Bank Statement,,,False,,,,,file_type:.pdf
-card_builder,account_details,,,card,,False,,Account Details,,,False,,,"CONTAINS(USER.persona,CLI)",,
+card_builder,account_details,,,card,,False,,Account Details,,,False,,,"CONTAINS(USER.persona,CLI)",,table.column:1
 table,account_details_table,,,table,,False,,,,,False,,,,,table.column:3
 fac_str,traveller_name,,,textbox,,False,Enter Name of Traveller as in Bank Statement,Name of Traveller as in Bank Statement,,,False,,,,,
 fac_str,traveller_address,,,textbox,,False,Enter Address of Traveller as in Bank Statement,Address of Traveller as in Bank Statement,,,False,,,,,
-fac_date,statement_start_date,,,datebox,,False,Enter Start Date of Statement Period,Start Date of Statement Period,,,False,,,,,
-fac_date,statement_end_date,,,datebox,,False,Enter End Date of Statement Period,End Date of Statement Period,,,False,,,,,
+fac_date,statement_start_date,,,datebox,,False,DD/MM/YYYY,Start Date of Statement Period,,,False,,,,,
+fac_date,statement_end_date,,,datebox,,False,DD/MM/YYYY,End Date of Statement Period,,,False,,,,,
 fac_float,closing_balance,,,textbox,,False,Enter Closing Balance Available,Closing Balance Available,,,False,,,,,
 fac_str,sudden_deposits,,,textbox,,False,Enter Sudden Deposits (if any),Sudden Deposits (if any),,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
@@ -929,16 +929,16 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,itr_section,,,section_break,,False,,ITR Acknowledgements,,,False,,,,,
-info_pane_builder,itr_acknowledgement,,,info_pane,,False,,ITR Acknowledgement,,,False,,,,,operation.save:Save and Continue
-fac_itr_option,itr_option,,,radiobutton,,False,Select ,,,,False,,,,,
+info_pane_builder,itr_acknowledgement,,,info_pane,,False,,ITR Acknowledgement,,,False,,,,,table.column:1;operation.save:Save and Continue
+fac_itr_option,itr_option,,,radiobutton,,False,Select Option,,,,False,,,,,
 fac_file,itr_details,,,fileoption,,False,Upload ITR Acknowledgment pdf,Acknowledgments,,,False,,,not itr_option = 'HAVE',,file_type:.pdf
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 tab_break,additional_tab,,,tab_break,,False,,Additional,,,False,,,,,
 section_break,attachments_section,,,section_break,,False,,Attachments,,,False,,,,,
-info_pane_builder,attachments_infopane,,,info_pane,,False,,Attachments,,,False,,,,,operation.save:Save and Continue
+info_pane_builder,attachments_infopane,,,info_pane,,False,,Attachments,,,False,,,,,table.column:1;operation.save:Save and Continue
 group_builder,attach_documents,,,groupbox,,False,,Attached Documents,,,False,,,,,button_label:Add another Attachment;limits.min:1;limits.max:10
 info_pane_builder,attachmentgroup,,,groupbox,,False,,Nominee,,,False,,,,,
-card_builder,attachment,,,card,,False,,Attach Document,,,False,,,,,
+card_builder,attachment,,,card,,False,,Attach Document,,,False,,,,,table.column:1
 fac_str,file_title,,,textbox,,False,Enter Name of Document,Name of Document,,,False,,,,,
 fac_str,file_description,,,textbox,,False,Enter Document Description,Document Description,,,False,,,,,
 fac_file,attached_file,,,fileoption,,False,Enter File Upload,File Upload,,,False,,,,,
@@ -947,33 +947,33 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,declarations_section,,,section_break,,False,,Declarations,,,False,,,,,
-info_pane_builder,declarations,,,info_pane,,False,,Declarations,,,False,,,,,operation.submit:Save and Submit
-card_builder,visa_declaration,,,card,,False,,Visa Declaration,,,False,,,,,
-fac_visa_policy_1,visa_policy_1,,,checkbox,,False,Select ,,,,False,,,,,
-fac_visa_policy_2,visa_policy_2,,,checkbox,,False,Select ,,,,False,,,,,
-fac_visa_policy_3,visa_policy_3,,,checkbox,,False,Select ,,,,False,,,,,
+info_pane_builder,declarations,,,info_pane,,False,,Declarations,,,False,,,,,table.column:1;operation.submit:Save and Submit
+card_builder,visa_declaration,,,card,,False,,Visa Declaration,,,False,,,,,table.column:1
+fac_visa_policy_1,visa_policy_1,,,checkbox,,False,Select Option,,,,False,,,,,
+fac_visa_policy_2,visa_policy_2,,,checkbox,,False,Select Option,,,,False,,,,,
+fac_visa_policy_3,visa_policy_3,,,checkbox,,False,Select Option,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,addons_section,,,section_break,,False,,Addons,,,False,,,,,
-info_pane_builder,addons,,,info_pane,,False,,Addons,,,False,,,,,operation.save:Save and Submit
-card_builder,addons_view,,,card,,False,,Addons List,,,False,,,,,verify.verify_handler:;verify.action_text:Calculate Total Amount
+info_pane_builder,addons,,,info_pane,,False,,Addons,,,False,,,,,table.column:1;operation.save:Save and Submit
+card_builder,addons_view,,,card,,False,,Addons List,,,False,,,,,table.column:1;verify.verify_handler:;verify.action_text:Calculate Total Amount
 table,addons_table,,,table,,False,,,,,False,,,,,table.column:5
 display_field,addon_display,,,display_field,,False,Addons,,,,False,,,,,
 display_field,ref_id_display,,,display_field,,False,Ref ID,,,,False,,,,,
 display_field,txn_id_display,,,display_field,,False,Txn ID,,,,False,,,,,
 display_field,date_display,,,display_field,,False,Date,,,,False,,,,,
 display_field,amount_display,,,display_field,,False,Amount,,,,False,,,,,
-fac_addon_travel_itinerary,addon_1,,,checkbox,$.travel_itinerary.make_itinerary,False,Select ,,,,False,,,,,
+fac_addon_travel_itinerary,addon_1,,,checkbox,$.travel_itinerary.make_itinerary,False,Select Option,,,,False,,,,,
 fac_str,ref_id_1,,,textbox,,False,Enter Reference ID,Reference ID,,,False,,,,sample editable,
 fac_str,txn_id_1,,,textbox,,False,Enter Txn ID,Txn ID,,,False,,,,,
 fac_date,date_1,,,datebox,,False,DD/MM/YYYY,Date,,,False,,,,,
 fac_str,amount_1,,,textbox,,False,Enter Amount,Amount,,,False,,,,,
-fac_addon_travel_insurance,addon_2,,,checkbox,$.travel_insurance.make_insurance,False,Select ,,,,False,,,,,
+fac_addon_travel_insurance,addon_2,,,checkbox,$.travel_insurance.make_insurance,False,Select Option,,,,False,,,,,
 fac_str,ref_id_2,,,textbox,,False,Enter Reference ID,Reference ID,,,False,,,,,
 fac_str,txn_id_2,,,textbox,,False,Enter Txn ID,Txn ID,,,False,,,,,
 fac_date,date_2,,,datebox,,False,DD/MM/YYYY,Date,,,False,,,,,
 fac_str,amount_2,,,textbox,,False,Enter Amount,Amount,,,False,,,,,
-fac_addon_flight_reserve,addon_3,,,checkbox,$.flight_reservation.make_flight_reservation,False,Select ,,,,False,,,,,
+fac_addon_flight_reserve,addon_3,,,checkbox,$.flight_reservation.make_flight_reservation,False,Select Option,,,,False,,,,,
 fac_str,ref_id_3,,,textbox,,False,Enter Reference ID,Reference ID,,,False,,,,,
 fac_str,txn_id_3,,,textbox,,False,Enter Txn ID,Txn ID,,,False,,,,,
 fac_date,date_3,,,datebox,,False,DD/MM/YYYY,Date,,,False,,,,,
@@ -987,8 +987,8 @@ break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,credentials_section,,,section_break,,False,,Credentials,,,False,,,,,
-info_pane_builder,credentials,,,info_pane,,False,,Credentials,,,False,,,,,operation.save:Save and Continue
-card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,
+info_pane_builder,credentials,,,info_pane,,False,,Credentials,,,False,,,,,table.column:1;operation.save:Save and Continue
+card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,table.column:1
 display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
@@ -1040,7 +1040,7 @@ display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 </html>
 ",,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,credentials,,,card,,False,,Credentials,,,False,,,,,
+card_builder,credentials,,,card,,False,,Credentials,,,False,,,,,table.column:1
 table,login_credentials_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,username,,,textbox,,False,Enter Login / User name,Login / User name,,,False,,,,,
 fac_str,password,,,textbox,,False,Enter Password,Password,,,False,,,,,
@@ -1048,7 +1048,7 @@ break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 group_builder,security_questions,,,groupbox,,False,,,,,False,,,,,button_label:Add Additional Security Questions;limits.min:1;limits.max:5
 info_pane_builder,securityquestiongroup,,,groupbox,,False,,,,,False,,,,,
-card_builder,security_question,,,card,,False,,Security Questions,,,False,,,,,
+card_builder,security_question,,,card,,False,,Security Questions,,,False,,,,,table.column:1
 table,security_questions_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,question,,,textbox,,False,Enter Security Question,Security Question,,,False,,,,,
 fac_str,answer,,,textbox,,False,Enter Answer,Answer,,,False,,,,,
@@ -1058,8 +1058,8 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,briefing_section,,,section_break,,False,,Briefing Call,,,False,,,"CONTAINS(USER.persona,CLI)",,
-info_pane_builder,briefing_call,,,info_pane,,False,,Briefing Call,,,False,,,"CONTAINS(USER.persona,CLI)",,operation.save:Save and Continue
-card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,
+info_pane_builder,briefing_call,,,info_pane,,False,,Briefing Call,,,False,,,"CONTAINS(USER.persona,CLI)",,table.column:1;operation.save:Save and Continue
+card_builder,instructions,,,card,,False,,Instructions,,,False,,,,,table.column:1
 display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
@@ -1113,26 +1113,26 @@ display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 group_builder,briefing_calls,,,groupbox,,False,,,,,False,,,,,button_label:Add Briefing Call;limits.min:1;limits.max:5
 info_pane_builder,briefingcallgroup,,,groupbox,,False,,,,,False,,,,,
-card_builder,briefing_call,,,card,,False,,Briefing Call,,,False,,,,,
+card_builder,briefing_call,,,card,,False,,Briefing Call,,,False,,,,,table.column:1
 table,briefing_call_table,,,table,,False,,,,,False,,,,,table.column:3
 fac_date,schedule_on,,,datebox,,False,DD/MM/YYYY,Schedule on,,,False,,,,,
-fac_hour_select,scheduled_hour,,,dropdown,,False,Select Scheduled Time (Hour),Scheduled Time (Hour),,,False,,,,,
-fac_minute_select,scheduled_minute,,,dropdown,,False,Select Scheduled Time (Minute),Scheduled Time (Minute),,,False,,,,,
-fac_mode_of_call,mode_of_call,,,dropdown,,False,Select Mode of Call,Mode of Call,,,False,,,,,
-fac_option,call_completed,,,radiobutton,,False,Select Briefing Call completed as scheduled,Briefing Call completed as scheduled,,,False,,,,,
+fac_hour_select,scheduled_hour,,,dropdown,,False,Select Option,Scheduled Time (Hour),,,False,,,,,
+fac_minute_select,scheduled_minute,,,dropdown,,False,Select Option,Scheduled Time (Minute),,,False,,,,,
+fac_mode_of_call,mode_of_call,,,dropdown,,False,Select Option,Mode of Call,,,False,,,,,
+fac_option,call_completed,,,radiobutton,,False,Select Option,Briefing Call completed as scheduled,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,docket_section,,,section_break,,False,,Docket,,,False,,,,,
-info_pane_builder,docket,,,info_pane,,False,,Docket,,,False,,,,,
+info_pane_builder,docket,,,info_pane,,False,,Docket,,,False,,,,,table.column:1
 card_builder,,,,card,,FALSE,,Docket,OPERATIONS,,False,,,,,
 fac_str,operation_card,,,,,False,Select Operation type,Select Operation,OPERATIONS,,False,,,,,
 ender_field,,ender,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,operation_section,,,section_break,,False,,Operation,,,False,,,"CONTAINS(USER.persona,CLI)",,
-info_pane_builder,operation,,,info_pane,,False,,Operation,,,False,,,"CONTAINS(USER.persona,CLI)",,
+info_pane_builder,operation,,,info_pane,,False,,Operation,,,False,,,"CONTAINS(USER.persona,CLI)",,table.column:1
 card_builder,,,,card,,FALSE,,Operation Card,OPERATIONS,,False,,,,,
 fac_str,operation_card,,,,,False,Select Operation type,Select Operation,OPERATIONS,,False,,,,,
 ender_field,,ender,,,,False,Used to end builder fields,,,,False,,,,,
