@@ -946,16 +946,8 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-section_break,declarations_section,,,section_break,,False,,Declarations,,,False,,,,,
-info_pane_builder,declarations,,,info_pane,,False,,Declarations,,,False,,,,,table.column:1;operation.submit:Save and Submit
-card_builder,visa_declaration,,,card,,False,,Visa Declaration,,,False,,,,,table.column:1
-fac_visa_policy_1,visa_policy_1,,,checkbox,,False,Select Option,,,,False,,,,,
-fac_visa_policy_2,visa_policy_2,,,checkbox,,False,Select Option,,,,False,,,,,
-fac_visa_policy_3,visa_policy_3,,,checkbox,,False,Select Option,,,,False,,,,,
-ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,addons_section,,,section_break,,False,,Addons,,,False,,,,,
-info_pane_builder,addons,,,info_pane,,False,,Addons,,,False,,,,,table.column:1;operation.save:Save and Submit
+info_pane_builder,addons,,,info_pane,,False,,Addons,,,False,,,,,table.column:1;operation.save:Save and Continue
 card_builder,addons_view,,,card,,False,,Addons List,,,False,,,,,table.column:1;verify.verify_handler:;verify.action_text:Calculate Total Amount
 table,addons_table,,,table,,False,,,,,False,,,,,table.column:5
 display_field,addon_display,,,display_field,,False,Addons,,,,False,,,,,
@@ -984,6 +976,14 @@ fac_str,hidden3,,,hidden,,False,,,,,False,,,,,
 fac_str,hidden4,,,hidden,,False,,,,,False,,,,,
 fac_str,total_amount,,,textbox,,False,Enter Total Amount,Total Amount,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+section_break,declarations_section,,,section_break,,False,,Declarations,,,False,,,,,
+info_pane_builder,declarations,,,info_pane,,False,,Declarations,,,False,,,,,table.column:1;operation.save:Save and Continue
+card_builder,visa_declaration,,,card,,False,,Visa Declaration,,,False,,,,,table.column:1
+fac_visa_policy_1,visa_policy_1,,,checkbox,,False,Select Option,,,,False,,,,,
+fac_visa_policy_2,visa_policy_2,,,checkbox,,False,Select Option,,,,False,,,,,
+fac_visa_policy_3,visa_policy_3,,,checkbox,,False,Select Option,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,credentials_section,,,section_break,,False,,Credentials,,,False,,,,,
