@@ -127,7 +127,7 @@ class TTKAuthProvider(AuthProviderSpec):
         ROLES = "accessType"
         RELATIONSHIP = "relationship"
         USER_NAME = "fullName"
-        EXPIRY_TIME = "exp"
+        EXPIRY_TIME = "expiryTimestamp"
 
         if not token:
             raise PluginException("No token provided")
