@@ -1,0 +1,6 @@
+role,description,weight,personas
+maker,,100,MKR
+parent_maker,,101,PARENT;MKR
+checker,,100,PARENT;CKR
+client,,100,CLI
+admin,,10000,CREATOR;ADMIN

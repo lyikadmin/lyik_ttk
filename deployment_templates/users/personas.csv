@@ -1,0 +1,7 @@
+persona,users,ANY,Form_1,Form_2
+ADMIN,C;R;U,,,
+CREATOR,,C;R;U,,C;R;U
+PARENT,,,,A;R;U
+MKR,,C;R;U,,
+CKR,,R;U,C;R;U,A;C;R;U
+CLI,,,,

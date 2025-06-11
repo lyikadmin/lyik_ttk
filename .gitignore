@@ -4,8 +4,6 @@
 .DS_Store
 **/dist
 dist_plugin
-.**env
-*env*
 **/*.egg-info
 example
 .idea/
@@ -19,3 +17,6 @@ __pycache__/
 build/
 *.vscode*
 .DS_Store
+deployment.dev
+deployment.uat
+deployment.prod
