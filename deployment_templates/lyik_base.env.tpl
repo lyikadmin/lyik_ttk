@@ -20,16 +20,16 @@ SUREPASS_TOKEN=""
 DIGI_CLIENT_ID="TPL_DIGILOCKER_CLIENT_ID"
 DIGI_CLIENT_SECRET="TPL_DIGILOCKER_CLIENT_SECRET"
 DIGI_REDIRECT_URI="TPL_BASEURL/digi_redirect"
-DIGI_CODE_VERIFIER="Packmyboxwithfivedozenliquorjugs-0020002"
+DIGI_CODE_VERIFIER=""
 
 # Add your SMS Message Template. Note, {otp} will be replaced with the actual otp.
-OTP_MESSAGE_TEMPLATE="Way2wealth Ekyc registration process requests you to use {otp} as the OTP to validate your mobile number. Way2Wealthy"
+OTP_MESSAGE_TEMPLATE="TTK registration process requests you to use {otp} as the OTP to validate your mobile number."
 
 
 # If you're using ValueFirst SMS services, add the credentials for Value First SMS Service
-VALUEFIRST_USERNAME="Waytohttp1"
-VALUEFIRST_PASSWORD="wayto123"
-VALUEFIRST_SENDER="WTWADV"
+VALUEFIRST_USERNAME=""
+VALUEFIRST_PASSWORD=""
+VALUEFIRST_SENDER=""
 
 # If you're using TextLocal SMS services, add credentials for SMS Services
 TEXTLOCAL_SENDER=""
@@ -44,8 +44,8 @@ SENDGRID_SENDER_EMAIL="no-reply@lyik.com"
 PLUGIN_MAX_WEIGHT="TPL_PLUGIN_MAX_WEIGHT" # change this to restrict higher weighted plugins!
 
 # Add your KRA credentials
-KRA_AUTH_TOKEN='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJlMTM5ODI5MjMwMWU0MTNkYjljYmNhYmRlM2JmNGJkNiIsInVuaXF1ZV9uYW1lIjoiV0VCV0FZMldFQUxUSEJST0tFUlMiLCJuYmYiOjE3MzYzOTU0NTUsImV4cCI6MTczNjQ4MTg1NSwiaWF0IjoxNzM2Mzk1NDU1LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdCJ9.BRjg5huIZmstcN_UBSC6_9uXVqooyyL4ouTQKx96YRk'
-KRA_AUTH_TOKEN_VALIDITY='20250110093415'
+KRA_AUTH_TOKEN=''
+KRA_AUTH_TOKEN_VALIDITY=''
 KRA_AUTH_API_KEY="TPL_KRA_API_KEY"
 KRA_AUTH_API_USERNAME="TPL_KRA_API_USERNAME"
 POSCODE="TPL_KRA_POSCODE"
@@ -55,10 +55,10 @@ SFTP_USERNAME="TPL_KRA_SFTP_USERNAME"
 SFTP_PASSWORD="TPL_KRA_SFTP_PASSWORD"
 
 # Add credentials for NSDL DEMAT
-NSDL_REQUESTOR_ID="IN303077"
-NSDL_TRANSACTION_TYPE="IDD"
-NSDL_REQUESTOR="IN303077-TEST"
-NSDLREQUEST_REF="045415349158"
+NSDL_REQUESTOR_ID=""
+NSDL_TRANSACTION_TYPE=""
+NSDL_REQUESTOR=""
+NSDLREQUEST_REF=""
 
 # Add credentials for UCC Upload
 UCC_NSE_USERNAME='11502'
@@ -79,15 +79,15 @@ NTT_RESP_HASH_KEY="TPL_NTT_RESP_HASH_KEY"
 
 # Add Protean Esign credentials
 WEB_FORMFILLING_ESIGN_ENDPOINT="TPL_BASEURL/esign/" # Here just replace the domain with your formfilling domain, example https://your-domain.com/esign/
-PROTEAN_ESIGN_PFX_PASSWORD='Globa1*w@w&#'
-PROTEAN_ESIGN_PFX_ALIAS='te-97bb267c-8bae-42fe-a13c-0db609f90b34'
+PROTEAN_ESIGN_PFX_PASSWORD=''
+PROTEAN_ESIGN_PFX_ALIAS=''
 PROTEAN_ESIGN_PFX_ASP_ID='TPL_PROTEAN_ASP_ID'
-PROTEAN_ESIGN_PFX='w2w_protean.pfx' # thid file need to be added to plugin_files directory
+PROTEAN_ESIGN_PFX='' # thid file need to be added to plugin_files directory
 
 # Protean PAN Verification credentials
 PROTEAN_PAN_USER_ID="TPL_PROTEAN_OPV_USER_ID"
-PROTEAN_PAN_PFX='w2w_protean.pfx'
-PROTEAN_PAN_PFX_PASSWORD='Globa1*w@w&#'
+PROTEAN_PAN_PFX=''
+PROTEAN_PAN_PFX_PASSWORD=''
 
 # mount path for the cred files
 CRED_FILES_MOUNT_PATH='/lyik/certificate'

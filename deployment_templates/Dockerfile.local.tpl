@@ -33,7 +33,7 @@ RUN mkdir -p /dist && \
 # Stage 2: Final App Image
 
 
-FROM lyikprodblueacr.azurecr.io/lyik-api:latest
+FROM lyikprodblueacr.azurecr.io/lyik-api:TPL_LYIK_API_VERSION
 ENV LOGFILE1="/plugin_logs/install_plugins_custom.log"
 COPY --from=builder /build/install_plugins_custom.log /plugin_logs/install_plugins_custom.log
 COPY --from=builder /dist/*.whl /dist/ 
