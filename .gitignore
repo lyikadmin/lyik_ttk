@@ -21,3 +21,4 @@ deployment.dev
 deployment.uat
 deployment.prod
 deployment-old
+*venv*

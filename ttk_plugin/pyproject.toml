@@ -8,18 +8,16 @@ version = "1.0.1"
 description = "All plugins related to TTK"
 readme = "README.md"
 authors = [
-    { name = "Shreesha", email="shreesha@lyik.com"},
-    { name = "Akhil Babu", email = "akhilbabu@lyik.com" }
+    { name = "Shreesha", email = "shreesha@lyik.com" },
+    { name = "Akhil Babu", email = "akhilbabu@lyik.com" },
 ]
 license = { file = "LICENSE.txt" }
 requires-python = ">=3.10"
-dependencies = [
-    "PyJWT==2.6.0",
-    "httpx==0.24.0",
-    "pem==21.2.0"
-]
+dependencies = ["PyJWT==2.6.0", "httpx==0.24.0", "pem==21.2.0"]
 
 [project.entry-points."LYIK"]
 _150_TTK_AUTH = "lyik.ttk.auth.ttkauth:TTKAuthProvider"
 _150_VERIFIER_PASSPORT_DATE = "lyik.ttk.passport_date_verifier.verifier:PassportDateVerificationPlugin"
 _150_PREACTION_MAKER_ID_APPEND = "lyik.ttk.preaction.append_maker_id:AppendMakerId"
+_200_SAMPLE_PDF = "lyik.ttk.sample_pdf.sample_pdf:Sample_PDF"
+_200_OPERATION_LIST = "lyik.ttk.sample_pdf.plugin_operations_list:OperationsListPlugin"
