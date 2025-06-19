@@ -12,344 +12,344 @@ from pydantic import ConfigDict, Field, BaseModel
 
 
 class ACCOMMODATIONARRANGEMENT(Enum):
-    BOOKED = "BOOKED"
-    WITH_FAMILY = "WITH_FAMILY"
+    BOOKED = 'BOOKED'
+    WITH_FAMILY = 'WITH_FAMILY'
 
 
 class ADDONACCOMMODATION(Enum):
-    YES = "YES"
+    YES = 'YES'
 
 
 class ADDONFLIGHTRESERVE(Enum):
-    YES = "YES"
+    YES = 'YES'
 
 
 class ADDONFLIGHTTICKETS(Enum):
-    YES = "YES"
+    YES = 'YES'
 
 
 class ADDRESSPROOFTYPE(Enum):
-    DL = "DL"
-    RATION = "RATION"
-    ELECTRICITY = "ELECTRICITY"
-    GAS = "GAS"
-    HR_LETTER = "HR_LETTER"
-    RENTAL_NOTARY = "RENTAL_NOTARY"
-    AADHAAR = "AADHAAR"
+    DL = 'DL'
+    RATION = 'RATION'
+    ELECTRICITY = 'ELECTRICITY'
+    GAS = 'GAS'
+    HR_LETTER = 'HR_LETTER'
+    RENTAL_NOTARY = 'RENTAL_NOTARY'
+    AADHAAR = 'AADHAAR'
 
 
 class ADDONSERVICEAPPOINTMENT(Enum):
-    YES = "YES"
+    YES = 'YES'
 
 
 class ADDONSERVICEITINERARY(Enum):
-    YES = "YES"
+    YES = 'YES'
 
 
 class ADDONSERVICEPHOTOGRAPH(Enum):
-    YES = "YES"
+    YES = 'YES'
 
 
 class ASSISTITR(Enum):
-    YES = "YES"
+    YES = 'YES'
 
 
 class CIVILMARITALSTATUS(Enum):
-    SINGLE = "SINGLE"
-    MARRIED = "MARRIED"
-    DIVORCED = "DIVORCED"
-    WIDOWED = "WIDOWED"
-    SEPARATED = "SEPARATED"
+    SINGLE = 'SINGLE'
+    MARRIED = 'MARRIED'
+    DIVORCED = 'DIVORCED'
+    WIDOWED = 'WIDOWED'
+    SEPARATED = 'SEPARATED'
 
 
 class COUNTRY3(Enum):
-    AFG = "AFG"
-    ALB = "ALB"
-    DZA = "DZA"
-    ASM = "ASM"
-    AND = "AND"
-    AGO = "AGO"
-    AIA = "AIA"
-    ATA = "ATA"
-    ATG = "ATG"
-    ARG = "ARG"
-    ARM = "ARM"
-    ABW = "ABW"
-    AUS = "AUS"
-    AUT = "AUT"
-    AZE = "AZE"
-    BHS = "BHS"
-    BHR = "BHR"
-    BGD = "BGD"
-    BRB = "BRB"
-    BLR = "BLR"
-    BEL = "BEL"
-    BLZ = "BLZ"
-    BEN = "BEN"
-    BMU = "BMU"
-    BTN = "BTN"
-    BOL = "BOL"
-    BES = "BES"
-    BIH = "BIH"
-    BWA = "BWA"
-    BVT = "BVT"
-    BRA = "BRA"
-    IOT = "IOT"
-    BRN = "BRN"
-    BGR = "BGR"
-    BFA = "BFA"
-    BDI = "BDI"
-    CPV = "CPV"
-    KHM = "KHM"
-    CMR = "CMR"
-    CAN = "CAN"
-    CYM = "CYM"
-    CAF = "CAF"
-    TCD = "TCD"
-    CHL = "CHL"
-    CHN = "CHN"
-    CXR = "CXR"
-    CCK = "CCK"
-    COL = "COL"
-    COM = "COM"
-    COD = "COD"
-    COG = "COG"
-    COK = "COK"
-    CRI = "CRI"
-    HRV = "HRV"
-    CUB = "CUB"
-    CUW = "CUW"
-    CYP = "CYP"
-    CZE = "CZE"
-    CIV = "CIV"
-    DNK = "DNK"
-    DJI = "DJI"
-    DMA = "DMA"
-    DOM = "DOM"
-    ECU = "ECU"
-    EGY = "EGY"
-    SLV = "SLV"
-    GNQ = "GNQ"
-    ERI = "ERI"
-    EST = "EST"
-    SWZ = "SWZ"
-    ETH = "ETH"
-    FLK = "FLK"
-    FRO = "FRO"
-    FJI = "FJI"
-    FIN = "FIN"
-    FRA = "FRA"
-    GUF = "GUF"
-    PYF = "PYF"
-    ATF = "ATF"
-    GAB = "GAB"
-    GMB = "GMB"
-    GEO = "GEO"
-    DEU = "DEU"
-    GHA = "GHA"
-    GIB = "GIB"
-    GRC = "GRC"
-    GRL = "GRL"
-    GRD = "GRD"
-    GLP = "GLP"
-    GUM = "GUM"
-    GTM = "GTM"
-    GGY = "GGY"
-    GIN = "GIN"
-    GNB = "GNB"
-    GUY = "GUY"
-    HTI = "HTI"
-    HMD = "HMD"
-    VAT = "VAT"
-    HND = "HND"
-    HKG = "HKG"
-    HUN = "HUN"
-    ISL = "ISL"
-    IND = "IND"
-    IDN = "IDN"
-    IRN = "IRN"
-    IRQ = "IRQ"
-    IRL = "IRL"
-    IMN = "IMN"
-    ISR = "ISR"
-    ITA = "ITA"
-    JAM = "JAM"
-    JPN = "JPN"
-    JEY = "JEY"
-    JOR = "JOR"
-    KAZ = "KAZ"
-    KEN = "KEN"
-    KIR = "KIR"
-    PRK = "PRK"
-    KOR = "KOR"
-    KWT = "KWT"
-    KGZ = "KGZ"
-    LAO = "LAO"
-    LVA = "LVA"
-    LBN = "LBN"
-    LSO = "LSO"
-    LBR = "LBR"
-    LBY = "LBY"
-    LIE = "LIE"
-    LTU = "LTU"
-    LUX = "LUX"
-    MAC = "MAC"
-    MDG = "MDG"
-    MWI = "MWI"
-    MYS = "MYS"
-    MDV = "MDV"
-    MLI = "MLI"
-    MLT = "MLT"
-    MHL = "MHL"
-    MTQ = "MTQ"
-    MRT = "MRT"
-    MUS = "MUS"
-    MYT = "MYT"
-    MEX = "MEX"
-    FSM = "FSM"
-    MDA = "MDA"
-    MCO = "MCO"
-    MNG = "MNG"
-    MNE = "MNE"
-    MSR = "MSR"
-    MAR = "MAR"
-    MOZ = "MOZ"
-    MMR = "MMR"
-    NAM = "NAM"
-    NRU = "NRU"
-    NPL = "NPL"
-    NLD = "NLD"
-    NCL = "NCL"
-    NZL = "NZL"
-    NIC = "NIC"
-    NER = "NER"
-    NGA = "NGA"
-    NIU = "NIU"
-    NFK = "NFK"
-    MNP = "MNP"
-    NOR = "NOR"
-    OMN = "OMN"
-    PAK = "PAK"
-    PLW = "PLW"
-    PSE = "PSE"
-    PAN = "PAN"
-    PNG = "PNG"
-    PRY = "PRY"
-    PER = "PER"
-    PHL = "PHL"
-    PCN = "PCN"
-    POL = "POL"
-    PRT = "PRT"
-    PRI = "PRI"
-    QAT = "QAT"
-    MKD = "MKD"
-    ROU = "ROU"
-    RUS = "RUS"
-    RWA = "RWA"
-    REU = "REU"
-    BLM = "BLM"
-    SHN = "SHN"
-    KNA = "KNA"
-    LCA = "LCA"
-    MAF = "MAF"
-    SPM = "SPM"
-    VCT = "VCT"
-    WSM = "WSM"
-    SMR = "SMR"
-    STP = "STP"
-    SAU = "SAU"
-    SEN = "SEN"
-    SRB = "SRB"
-    SYC = "SYC"
-    SLE = "SLE"
-    SGP = "SGP"
-    SXM = "SXM"
-    SVK = "SVK"
-    SVN = "SVN"
-    SLB = "SLB"
-    SOM = "SOM"
-    ZAF = "ZAF"
-    SGS = "SGS"
-    SSD = "SSD"
-    ESP = "ESP"
-    LKA = "LKA"
-    SDN = "SDN"
-    SUR = "SUR"
-    SJM = "SJM"
-    SWE = "SWE"
-    CHE = "CHE"
-    SYR = "SYR"
-    TWN = "TWN"
-    TJK = "TJK"
-    TZA = "TZA"
-    THA = "THA"
-    TLS = "TLS"
-    TGO = "TGO"
-    TKL = "TKL"
-    TON = "TON"
-    TTO = "TTO"
-    TUN = "TUN"
-    TUR = "TUR"
-    TKM = "TKM"
-    TCA = "TCA"
-    TUV = "TUV"
-    UGA = "UGA"
-    UKR = "UKR"
-    ARE = "ARE"
-    GBR = "GBR"
-    UMI = "UMI"
-    USA = "USA"
-    URY = "URY"
-    UZB = "UZB"
-    VUT = "VUT"
-    VEN = "VEN"
-    VNM = "VNM"
-    VGB = "VGB"
-    VIR = "VIR"
-    WLF = "WLF"
-    ESH = "ESH"
-    YEM = "YEM"
-    ZMB = "ZMB"
-    ZWE = "ZWE"
+    AFG = 'AFG'
+    ALB = 'ALB'
+    DZA = 'DZA'
+    ASM = 'ASM'
+    AND = 'AND'
+    AGO = 'AGO'
+    AIA = 'AIA'
+    ATA = 'ATA'
+    ATG = 'ATG'
+    ARG = 'ARG'
+    ARM = 'ARM'
+    ABW = 'ABW'
+    AUS = 'AUS'
+    AUT = 'AUT'
+    AZE = 'AZE'
+    BHS = 'BHS'
+    BHR = 'BHR'
+    BGD = 'BGD'
+    BRB = 'BRB'
+    BLR = 'BLR'
+    BEL = 'BEL'
+    BLZ = 'BLZ'
+    BEN = 'BEN'
+    BMU = 'BMU'
+    BTN = 'BTN'
+    BOL = 'BOL'
+    BES = 'BES'
+    BIH = 'BIH'
+    BWA = 'BWA'
+    BVT = 'BVT'
+    BRA = 'BRA'
+    IOT = 'IOT'
+    BRN = 'BRN'
+    BGR = 'BGR'
+    BFA = 'BFA'
+    BDI = 'BDI'
+    CPV = 'CPV'
+    KHM = 'KHM'
+    CMR = 'CMR'
+    CAN = 'CAN'
+    CYM = 'CYM'
+    CAF = 'CAF'
+    TCD = 'TCD'
+    CHL = 'CHL'
+    CHN = 'CHN'
+    CXR = 'CXR'
+    CCK = 'CCK'
+    COL = 'COL'
+    COM = 'COM'
+    COD = 'COD'
+    COG = 'COG'
+    COK = 'COK'
+    CRI = 'CRI'
+    HRV = 'HRV'
+    CUB = 'CUB'
+    CUW = 'CUW'
+    CYP = 'CYP'
+    CZE = 'CZE'
+    CIV = 'CIV'
+    DNK = 'DNK'
+    DJI = 'DJI'
+    DMA = 'DMA'
+    DOM = 'DOM'
+    ECU = 'ECU'
+    EGY = 'EGY'
+    SLV = 'SLV'
+    GNQ = 'GNQ'
+    ERI = 'ERI'
+    EST = 'EST'
+    SWZ = 'SWZ'
+    ETH = 'ETH'
+    FLK = 'FLK'
+    FRO = 'FRO'
+    FJI = 'FJI'
+    FIN = 'FIN'
+    FRA = 'FRA'
+    GUF = 'GUF'
+    PYF = 'PYF'
+    ATF = 'ATF'
+    GAB = 'GAB'
+    GMB = 'GMB'
+    GEO = 'GEO'
+    DEU = 'DEU'
+    GHA = 'GHA'
+    GIB = 'GIB'
+    GRC = 'GRC'
+    GRL = 'GRL'
+    GRD = 'GRD'
+    GLP = 'GLP'
+    GUM = 'GUM'
+    GTM = 'GTM'
+    GGY = 'GGY'
+    GIN = 'GIN'
+    GNB = 'GNB'
+    GUY = 'GUY'
+    HTI = 'HTI'
+    HMD = 'HMD'
+    VAT = 'VAT'
+    HND = 'HND'
+    HKG = 'HKG'
+    HUN = 'HUN'
+    ISL = 'ISL'
+    IND = 'IND'
+    IDN = 'IDN'
+    IRN = 'IRN'
+    IRQ = 'IRQ'
+    IRL = 'IRL'
+    IMN = 'IMN'
+    ISR = 'ISR'
+    ITA = 'ITA'
+    JAM = 'JAM'
+    JPN = 'JPN'
+    JEY = 'JEY'
+    JOR = 'JOR'
+    KAZ = 'KAZ'
+    KEN = 'KEN'
+    KIR = 'KIR'
+    PRK = 'PRK'
+    KOR = 'KOR'
+    KWT = 'KWT'
+    KGZ = 'KGZ'
+    LAO = 'LAO'
+    LVA = 'LVA'
+    LBN = 'LBN'
+    LSO = 'LSO'
+    LBR = 'LBR'
+    LBY = 'LBY'
+    LIE = 'LIE'
+    LTU = 'LTU'
+    LUX = 'LUX'
+    MAC = 'MAC'
+    MDG = 'MDG'
+    MWI = 'MWI'
+    MYS = 'MYS'
+    MDV = 'MDV'
+    MLI = 'MLI'
+    MLT = 'MLT'
+    MHL = 'MHL'
+    MTQ = 'MTQ'
+    MRT = 'MRT'
+    MUS = 'MUS'
+    MYT = 'MYT'
+    MEX = 'MEX'
+    FSM = 'FSM'
+    MDA = 'MDA'
+    MCO = 'MCO'
+    MNG = 'MNG'
+    MNE = 'MNE'
+    MSR = 'MSR'
+    MAR = 'MAR'
+    MOZ = 'MOZ'
+    MMR = 'MMR'
+    NAM = 'NAM'
+    NRU = 'NRU'
+    NPL = 'NPL'
+    NLD = 'NLD'
+    NCL = 'NCL'
+    NZL = 'NZL'
+    NIC = 'NIC'
+    NER = 'NER'
+    NGA = 'NGA'
+    NIU = 'NIU'
+    NFK = 'NFK'
+    MNP = 'MNP'
+    NOR = 'NOR'
+    OMN = 'OMN'
+    PAK = 'PAK'
+    PLW = 'PLW'
+    PSE = 'PSE'
+    PAN = 'PAN'
+    PNG = 'PNG'
+    PRY = 'PRY'
+    PER = 'PER'
+    PHL = 'PHL'
+    PCN = 'PCN'
+    POL = 'POL'
+    PRT = 'PRT'
+    PRI = 'PRI'
+    QAT = 'QAT'
+    MKD = 'MKD'
+    ROU = 'ROU'
+    RUS = 'RUS'
+    RWA = 'RWA'
+    REU = 'REU'
+    BLM = 'BLM'
+    SHN = 'SHN'
+    KNA = 'KNA'
+    LCA = 'LCA'
+    MAF = 'MAF'
+    SPM = 'SPM'
+    VCT = 'VCT'
+    WSM = 'WSM'
+    SMR = 'SMR'
+    STP = 'STP'
+    SAU = 'SAU'
+    SEN = 'SEN'
+    SRB = 'SRB'
+    SYC = 'SYC'
+    SLE = 'SLE'
+    SGP = 'SGP'
+    SXM = 'SXM'
+    SVK = 'SVK'
+    SVN = 'SVN'
+    SLB = 'SLB'
+    SOM = 'SOM'
+    ZAF = 'ZAF'
+    SGS = 'SGS'
+    SSD = 'SSD'
+    ESP = 'ESP'
+    LKA = 'LKA'
+    SDN = 'SDN'
+    SUR = 'SUR'
+    SJM = 'SJM'
+    SWE = 'SWE'
+    CHE = 'CHE'
+    SYR = 'SYR'
+    TWN = 'TWN'
+    TJK = 'TJK'
+    TZA = 'TZA'
+    THA = 'THA'
+    TLS = 'TLS'
+    TGO = 'TGO'
+    TKL = 'TKL'
+    TON = 'TON'
+    TTO = 'TTO'
+    TUN = 'TUN'
+    TUR = 'TUR'
+    TKM = 'TKM'
+    TCA = 'TCA'
+    TUV = 'TUV'
+    UGA = 'UGA'
+    UKR = 'UKR'
+    ARE = 'ARE'
+    GBR = 'GBR'
+    UMI = 'UMI'
+    USA = 'USA'
+    URY = 'URY'
+    UZB = 'UZB'
+    VUT = 'VUT'
+    VEN = 'VEN'
+    VNM = 'VNM'
+    VGB = 'VGB'
+    VIR = 'VIR'
+    WLF = 'WLF'
+    ESH = 'ESH'
+    YEM = 'YEM'
+    ZMB = 'ZMB'
+    ZWE = 'ZWE'
 
 
 class CURRENTOCCUPATIONSTATUS(Enum):
-    EMPLOYED = "EMPLOYED"
-    STUDENT = "STUDENT"
-    NEITHER = "NEITHER"
+    EMPLOYED = 'EMPLOYED'
+    STUDENT = 'STUDENT'
+    NEITHER = 'NEITHER'
 
 
 class EXPENSECOVERAGE1(Enum):
-    CASH = "CASH"
+    CASH = 'CASH'
 
 
 class EXPENSECOVERAGE2(Enum):
-    ACCOMMODATION_PROVIDED = "ACCOMMODATION_PROVIDED"
+    ACCOMMODATION_PROVIDED = 'ACCOMMODATION_PROVIDED'
 
 
 class EXPENSECOVERAGE3(Enum):
-    ALL_COVERED = "ALL_COVERED"
+    ALL_COVERED = 'ALL_COVERED'
 
 
 class EXPENSECOVERAGE4(Enum):
-    PREPAID_TRANSPORT = "PREPAID_TRANSPORT"
+    PREPAID_TRANSPORT = 'PREPAID_TRANSPORT'
 
 
 class EXPENSECOVERAGE5(Enum):
-    OTHER = "OTHER"
+    OTHER = 'OTHER'
 
 
 class FAMILYMEMBEROFEU(Enum):
-    YES = "YES"
-    NO = "NO"
-    HELP = "HELP"
+    YES = 'YES'
+    NO = 'NO'
+    HELP = 'HELP'
 
 
 class GENDER(Enum):
-    M = "M"
-    F = "F"
-    T = "T"
-    O = "O"
+    M = 'M'
+    F = 'F'
+    T = 'T'
+    O = 'O'
 
 
 class HOURSELECT(Enum):
@@ -395,563 +395,563 @@ class MINUTESELECT(Enum):
 
 
 class NOTFILEDITR(Enum):
-    YES = "YES"
+    YES = 'YES'
 
 
 class OPTION(Enum):
-    YES = "YES"
-    NO = "NO"
+    YES = 'YES'
+    NO = 'NO'
 
 
 class PASSPORTTYPE(Enum):
-    REGULAR = "REGULAR"
-    OFFICIAL = "OFFICIAL"
-    DIPLOMATIC = "DIPLOMATIC"
-    EMERGENCY = "EMERGENCY"
-    COLLECTIVE = "COLLECTIVE"
-    E_PASSPORT = "E_PASSPORT"
+    REGULAR = 'REGULAR'
+    OFFICIAL = 'OFFICIAL'
+    DIPLOMATIC = 'DIPLOMATIC'
+    EMERGENCY = 'EMERGENCY'
+    COLLECTIVE = 'COLLECTIVE'
+    E_PASSPORT = 'E_PASSPORT'
 
 
 class PAYMENTMETHOD1(Enum):
-    CASH = "CASH"
+    CASH = 'CASH'
 
 
 class PAYMENTMETHOD2(Enum):
-    TRAVELLERS_CHEQUE = "TRAVELLERS_CHEQUE"
+    TRAVELLERS_CHEQUE = 'TRAVELLERS_CHEQUE'
 
 
 class PAYMENTMETHOD3(Enum):
-    CREDIT_CARD = "CREDIT_CARD"
+    CREDIT_CARD = 'CREDIT_CARD'
 
 
 class PAYMENTMETHOD4(Enum):
-    PREPAID_ACCOMMODATION = "PREPAID_ACCOMMODATION"
+    PREPAID_ACCOMMODATION = 'PREPAID_ACCOMMODATION'
 
 
 class PAYMENTMETHOD5(Enum):
-    PREPAID_TRANSPORT = "PREPAID_TRANSPORT"
+    PREPAID_TRANSPORT = 'PREPAID_TRANSPORT'
 
 
 class PAYMENTMETHOD6(Enum):
-    OTHER = "OTHER"
+    OTHER = 'OTHER'
 
 
 class PREFLOC(Enum):
-    Bengaluru = "Bengaluru"
-    Hyderabad = "Hyderabad"
-    Chennai = "Chennai"
+    Bengaluru = 'Bengaluru'
+    Hyderabad = 'Hyderabad'
+    Chennai = 'Chennai'
 
 
 class RELATIONSHIP(Enum):
-    BROTHER = "BROTHER"
-    SISTER = "SISTER"
-    BROTHER_IN_LAW = "BROTHER_IN_LAW"
-    SISTER_IN_LAW = "SISTER_IN_LAW"
-    SPOUSE = "SPOUSE"
-    SON = "SON"
-    DAUGHTER = "DAUGHTER"
-    FRIEND = "FRIEND"
-    OTHERS = "OTHERS"
+    BROTHER = 'BROTHER'
+    SISTER = 'SISTER'
+    BROTHER_IN_LAW = 'BROTHER_IN_LAW'
+    SISTER_IN_LAW = 'SISTER_IN_LAW'
+    SPOUSE = 'SPOUSE'
+    SON = 'SON'
+    DAUGHTER = 'DAUGHTER'
+    FRIEND = 'FRIEND'
+    OTHERS = 'OTHERS'
 
 
 class RELATIONSHIPWITHEU(Enum):
-    SPOUSE = "SPOUSE"
-    CHILD = "CHILD"
-    GRANDCHILD = "GRANDCHILD"
-    DEPENDENT_ASCENDANT = "DEPENDENT_ASCENDANT"
-    REGISTERED_PARTNER = "REGISTERED_PARTNER"
-    OTHER = "OTHER"
+    SPOUSE = 'SPOUSE'
+    CHILD = 'CHILD'
+    GRANDCHILD = 'GRANDCHILD'
+    DEPENDENT_ASCENDANT = 'DEPENDENT_ASCENDANT'
+    REGISTERED_PARTNER = 'REGISTERED_PARTNER'
+    OTHER = 'OTHER'
 
 
 class SAMEASPASSADDR(Enum):
-    SAME_AS_PASS_ADDR = "SAME_AS_PASS_ADDR"
+    SAME_AS_PASS_ADDR = 'SAME_AS_PASS_ADDR'
 
 
 class SKIPBANKSTATEMENTS(Enum):
-    YES = "YES"
+    YES = 'YES'
 
 
 class SKIPITR(Enum):
-    YES = "YES"
+    YES = 'YES'
 
 
 class SKIPSALARYSLIPS(Enum):
-    YES = "YES"
+    YES = 'YES'
 
 
 class SPONSORTYPE1(Enum):
-    SELF = "SELF"
+    SELF = 'SELF'
 
 
 class SPONSORTYPE2(Enum):
-    SPONSOR = "SPONSOR"
+    SPONSOR = 'SPONSOR'
 
 
 class SPONSORTYPE3(Enum):
-    INVITER = "INVITER"
+    INVITER = 'INVITER'
 
 
 class SPONSORTYPE4(Enum):
-    OTHER = "OTHER"
+    OTHER = 'OTHER'
 
 
 class VISAMODE(Enum):
-    Sticker = "Sticker"
-    Evisa = "Evisa"
-    Online = "Online"
+    Sticker = 'Sticker'
+    Evisa = 'Evisa'
+    Online = 'Online'
 
 
 class VISATYPE(Enum):
-    Tourist = "Tourist"
-    Business = "Business"
-    Work = "Work"
-    Dependent = "Dependent"
-    Visitor = "Visitor"
-    Student = "Student"
-    Sports = "Sports"
+    Tourist = 'Tourist'
+    Business = 'Business'
+    Work = 'Work'
+    Dependent = 'Dependent'
+    Visitor = 'Visitor'
+    Student = 'Student'
+    Sports = 'Sports'
 
 
 class RootAccomodationAccommodationChoice(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     accommodation_option: Optional[ACCOMMODATIONARRANGEMENT] = Field(
-        "BOOKED",
-        description="Select Option",
-        title="Please let us know how your stay is arranged:",
+        'BOOKED',
+        description='Select Option',
+        title='Please let us know how your stay is arranged:',
     )
     accommodation_proof: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Enter Accommodation", title="Accommodation"
+        None, description='Enter Accommodation', title='Accommodation'
     )
 
 
 class RootAccomodationAddOnService(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     add_on_service: Optional[ADDONACCOMMODATION] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
     display_add_on: Optional[str] = Field(
         None,
-        description="To know the cost, please refer to the Add-On Cart Section.",
-        title="Display Field",
+        description='To know the cost, please refer to the Add-On Cart Section.',
+        title='Display Field',
     )
 
 
 class RootAccomodationInvitationDetails(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     inviter_name: Optional[str] = Field(
         None,
-        description="Enter Name of the Inviter",
-        title="Name of the Inviter (Family/Friend)",
+        description='Enter Name of the Inviter',
+        title='Name of the Inviter (Family/Friend)',
     )
     relationship: Optional[RELATIONSHIP] = Field(
-        None, description="Select Option", title="Relationship"
+        None, description='Select Option', title='Relationship'
     )
     inviter_address: Optional[str] = Field(
         None,
-        description="Enter Address of the Inviter",
-        title="Address of the Inviter (Family/Friend)",
+        description='Enter Address of the Inviter',
+        title='Address of the Inviter (Family/Friend)',
     )
     mobile_number: Optional[str] = Field(
         None,
-        description="Enter Mobile/Telephone Number",
-        title="Mobile/Telephone Number",
+        description='Enter Mobile/Telephone Number',
+        title='Mobile/Telephone Number',
     )
     email_id: Optional[str] = Field(
-        None, description="Enter Email ID", title="Email ID of Inviter (Family/Friend)"
+        None, description='Enter Email ID', title='Email ID of Inviter (Family/Friend)'
     )
     passport_bio_page: Optional[Union[str, Dict[str, Any]]] = Field(
         None,
-        description="Enter Front Page of Inviter’s Passport",
-        title="Front Page of Inviter’s Passport",
+        description='Enter Front Page of Inviter’s Passport',
+        title='Front Page of Inviter’s Passport',
     )
     visa_copy_permit: Optional[Union[str, Dict[str, Any]]] = Field(
         None,
-        description="Enter Visa Copy / Resident Permit Card",
-        title="Visa Copy / Resident Permit Card",
+        description='Enter Visa Copy / Resident Permit Card',
+        title='Visa Copy / Resident Permit Card',
     )
     accommodation_proof: Optional[Union[str, Dict[str, Any]]] = Field(
         None,
-        description="Enter Inviter’s Accommodation Proof",
-        title="Inviter’s Accommodation Proof",
+        description='Enter Inviter’s Accommodation Proof',
+        title='Inviter’s Accommodation Proof',
     )
 
 
 class RootAdditionalDetailsAppDetails(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     application_on_behalf: Optional[OPTION] = Field(
-        "NO",
-        description="Select Option",
-        title="Are you submitting this Schengen Visa application on behalf of the other person?",
+        'NO',
+        description='Select Option',
+        title='Are you submitting this Schengen Visa application on behalf of the other person?',
     )
-    surname: Optional[str] = Field(None, description="Enter Surname", title="Surname")
+    surname: Optional[str] = Field(None, description='Enter Surname', title='Surname')
     first_name: Optional[str] = Field(
-        None, description="Enter First Name", title="First Name"
+        None, description='Enter First Name', title='First Name'
     )
     address_line_1: Optional[str] = Field(
-        None, description="Enter Address Line 1", title="Address Line 1"
+        None, description='Enter Address Line 1', title='Address Line 1'
     )
     address_line_2: Optional[str] = Field(
-        None, description="Enter Address Line 2", title="Address Line 2"
+        None, description='Enter Address Line 2', title='Address Line 2'
     )
     pin_code: Optional[str] = Field(
-        None, description="Enter Pin Code", title="Pin Code"
+        None, description='Enter Pin Code', title='Pin Code'
     )
-    city: Optional[str] = Field(None, description="Enter City", title="City")
-    state: Optional[str] = Field(None, description="Enter State", title="State")
-    country: Optional[str] = Field(None, description="Enter Country", title="Country")
+    city: Optional[str] = Field(None, description='Enter City', title='City')
+    state: Optional[str] = Field(None, description='Enter State', title='State')
+    country: Optional[str] = Field(None, description='Enter Country', title='Country')
     email_address: Optional[str] = Field(
-        None, description="Enter Email Address", title="Email Address"
+        None, description='Enter Email Address', title='Email Address'
     )
     telephone_mobile_number: Optional[str] = Field(
         None,
-        description="Enter Telephone / Mobile Number",
-        title="Telephone / Mobile Number",
+        description='Enter Telephone / Mobile Number',
+        title='Telephone / Mobile Number',
     )
 
 
 class RootAdditionalDetailsFamilyEu(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     is_family_member: Optional[FAMILYMEMBEROFEU] = Field(
-        "NO",
-        description="Select Option",
-        title="Do you have a family member who is an EU (European Union), EEA (European Economic Area), or CH (Switzerland) Citizen or a national of the United Kingdom who is a beneficiary of the agreement between the Swiss Confederation and the United Kingdom?",
+        'NO',
+        description='Select Option',
+        title='Do you have a family member who is an EU (European Union), EEA (European Economic Area), or CH (Switzerland) Citizen or a national of the United Kingdom who is a beneficiary of the agreement between the Swiss Confederation and the United Kingdom?',
     )
     given_name: Optional[str] = Field(
-        None, description="Enter Given Name", title="Given Name of the Family Member"
+        None, description='Enter Given Name', title='Given Name of the Family Member'
     )
     surname: Optional[str] = Field(
-        None, description="Enter Surname", title="Surname of the Family Member"
+        None, description='Enter Surname', title='Surname of the Family Member'
     )
     nationality: Optional[str] = Field(
-        None, description="Enter Nationality", title="Nationality of the Family Member"
+        None, description='Enter Nationality', title='Nationality of the Family Member'
     )
     date_of_birth: Optional[date] = Field(
-        None, description="DD/MM/YYYY", title="Date of Birth of the Family Member"
+        None, description='DD/MM/YYYY', title='Date of Birth of the Family Member'
     )
     travel_document_id: Optional[str] = Field(
         None,
-        description="Enter document/ID number",
-        title="Travel document or ID card number of Family Member",
+        description='Enter document/ID number',
+        title='Travel document or ID card number of Family Member',
     )
     relationship: Optional[RELATIONSHIPWITHEU] = Field(
-        None, description="Select Option", title="Relationship"
+        None, description='Select Option', title='Relationship'
     )
 
 
 class RootAdditionalDetailsNationalId(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     aadhaar_number: Optional[str] = Field(
-        None, description="Enter Aadhaar Card Number", title="Aadhaar Card Number"
+        None, description='Enter Aadhaar Card Number', title='Aadhaar Card Number'
     )
     aadhaar_upload: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload an image/file", title="Aadhaar Card Upload"
+        None, description='Upload an image/file', title='Aadhaar Card Upload'
     )
 
 
 class RootAdditionalDetailsSponsorship(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     display_sponsorship_details: Optional[str] = Field(
         None,
         description='<div style="\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  /* adjust this height to taste */\n  height: 150px;\n">\n  Please select the type of your sponsor(s). You may add more than one.\n</div>\n',
-        title="Display Field",
+        title='Display Field',
     )
     sponsorship_options_1: Optional[SPONSORTYPE1] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
     sponsorship_options_2: Optional[SPONSORTYPE2] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
     sponsorship_options_3: Optional[SPONSORTYPE3] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
     sponsorship_options_4: Optional[SPONSORTYPE4] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
     display_sponsorship_support: Optional[str] = Field(
         None,
         description='<div style="\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  /* adjust this height to taste */\n  height: 150px;\n">\n  Please select the Means of Support for covering your own costs.\n            You can select more than one.\n</div>\n',
-        title="Display Field",
+        title='Display Field',
     )
     support_means_cash: Optional[PAYMENTMETHOD1] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
     support_means_travellers_cheque: Optional[PAYMENTMETHOD2] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
     support_means_credit_card: Optional[PAYMENTMETHOD3] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
     support_means_prepaid_accommodation: Optional[PAYMENTMETHOD4] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
     support_means_prepaid_transport: Optional[PAYMENTMETHOD5] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
     support_means_other: Optional[PAYMENTMETHOD6] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
     display_sponsorship_coverage: Optional[str] = Field(
         None,
         description='<div style="\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  /* adjust this height to taste */\n  height: 150px;\n">\n  Please enter the Means of Support for the sponsor(s). You can select more than one.\n</div>\n',
-        title="Display Field",
+        title='Display Field',
     )
     coverage_expense_cash: Optional[EXPENSECOVERAGE1] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
     coverage_accommodation_provided: Optional[EXPENSECOVERAGE2] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
     coverage_all_covered: Optional[EXPENSECOVERAGE3] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
     coverage_prepaid_transport: Optional[EXPENSECOVERAGE4] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
     coverage_other: Optional[EXPENSECOVERAGE5] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
 
 
 class RootAdditionalDetailsTravelInfo(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     travelling_to_other_country: Optional[OPTION] = Field(
-        "NO",
-        description="Select Option",
-        title="Are you traveling to any other country during this trip, apart from Schengen area?",
+        'NO',
+        description='Select Option',
+        title='Are you traveling to any other country during this trip, apart from Schengen area?',
     )
     country_of_travel: Optional[COUNTRY3] = Field(
-        None, description="Select Option", title="Country of Travel"
+        None, description='Select Option', title='Country of Travel'
     )
     valid_visa_for_country: Optional[OPTION] = Field(
         None,
-        description="Select Option",
-        title="Do you have a valid visa for the country mentioned above?",
+        description='Select Option',
+        title='Do you have a valid visa for the country mentioned above?',
     )
     start_date_of_visa: Optional[date] = Field(
-        None, description="DD/MM/YYYY", title="Start Date of Visa"
+        None, description='DD/MM/YYYY', title='Start Date of Visa'
     )
     end_date_of_visa: Optional[date] = Field(
-        None, description="DD/MM/YYYY", title="End Date of Visa"
+        None, description='DD/MM/YYYY', title='End Date of Visa'
     )
     visa_copy: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Enter Visa Copy", title="Visa Copy"
+        None, description='Enter Visa Copy', title='Visa Copy'
     )
 
 
 class RootAppointmentAddOnService(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     add_on_service_option: Optional[ADDONSERVICEAPPOINTMENT] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
     display_add_on_service: Optional[str] = Field(
         None,
-        description="To know the cost, please refer the Add-On Cart Section.",
-        title="Display Field",
+        description='To know the cost, please refer the Add-On Cart Section.',
+        title='Display Field',
     )
 
 
 class RootAppointmentAppointmentScheduled(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     scheduled_location: Optional[PREFLOC] = Field(
-        None, description="Select Option", title="Scheduled Location"
+        None, description='Select Option', title='Scheduled Location'
     )
     scheduled_hour: Optional[HOURSELECT] = Field(
-        None, description="Select Option", title="Scheduled Time (Hour)"
+        None, description='Select Option', title='Scheduled Time (Hour)'
     )
     upload_appointment: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Enter Upload Appointment", title="Upload Appointment"
+        None, description='Enter Upload Appointment', title='Upload Appointment'
     )
     scheduled_date: Optional[date] = Field(
-        None, description="DD/MM/YYYY", title="Scheduled Date"
+        None, description='DD/MM/YYYY', title='Scheduled Date'
     )
     scheduled_minute: Optional[MINUTESELECT] = Field(
-        None, description="Select Option", title="Scheduled Time (Minute)"
+        None, description='Select Option', title='Scheduled Time (Minute)'
     )
 
 
 class RootBankStatementUpload(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     display_bank_statements_instructions: Optional[str] = Field(
         None,
-        description="If you’d like us to review your Bank Statements to make sure it meets the guidelines, please upload it here.",
-        title="Display Field",
+        description='If you’d like us to review your Bank Statements to make sure it meets the guidelines, please upload it here.',
+        title='Display Field',
     )
     bank_statements: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload an image/file", title="Bank Statements (Optional)"
+        None, description='Upload an image/file', title='Bank Statements (Optional)'
     )
 
 
 class RootItineraryAccomodationAddOnServiceItinerary(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     add_on_service_itinerary_option: Optional[ADDONSERVICEITINERARY] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
     display_add_on_service_itinerary: Optional[str] = Field(
         None,
-        description="To know the cost, please refer the Add-On Cart Section.",
-        title="Display Field",
+        description='To know the cost, please refer the Add-On Cart Section.',
+        title='Display Field',
     )
 
 
 class RootItineraryAccomodationItineraryCard(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     display_itinerary_card_instructions: Optional[str] = Field(
         None,
         description="If you’d like us to review your Itinerary to make sure your it meets the guidelines, please upload it here. Make sure it includes all Schengen countries you're visiting.",
-        title="Display Field",
+        title='Display Field',
     )
     upload_itinerary: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload an image/file", title="Itinerary (Optional)"
+        None, description='Upload an image/file', title='Itinerary (Optional)'
     )
 
 
 class RootItrAcknowledgementReason(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     itr_exemption_letter: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload an image/file", title="ITR Exemption Letter"
+        None, description='Upload an image/file', title='ITR Exemption Letter'
     )
-    assist_itr: Optional[ASSISTITR] = Field(None, description="Select Option", title="")
+    assist_itr: Optional[ASSISTITR] = Field(None, description='Select Option', title='')
 
 
 class RootItrAcknowledgementUpload(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     display_itr_acknowledgement_instructions: Optional[str] = Field(
         None,
-        description="Please upload a letter explaining why you have not filed your Income Tax Returns.",
-        title="Display Field",
+        description='Please upload a letter explaining why you have not filed your Income Tax Returns.',
+        title='Display Field',
     )
     itr_acknowledgement: Optional[Union[str, Dict[str, Any]]] = Field(
         None,
-        description="Upload an image/file",
-        title="ITR Acknowledgements (Optional)",
+        description='Upload an image/file',
+        title='ITR Acknowledgements (Optional)',
     )
 
 
 class RootLetsGetStartedLetsGetStartedInstructions(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     instruction_display: Optional[str] = Field(
         None,
         description='<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Visa Application Journey</title>\n</head>\n<body>\n  <div style="max-width:700px; margin:0 auto; padding:40px 20px; font-family:Arial, sans-serif; color:#333;">\n    \n    <!-- Top row: SVG + headlines -->\n    <div style="display:flex; align-items:flex-start;">\n      <!-- Inline SVG icon -->\n      <svg\n        xmlns="http://www.w3.org/2000/svg"\n        viewBox="0 0 162 148"\n        width="161"\n        height="147"\n        style="flex-shrink:0; margin-right:20px;"\n      >\n        <g clip-path="url(#clip0_24484_91519)">\n          <path d="M109.203 2.3816L14.3616 15.1878C10.5764 15.6989 7.92215 19.1818 8.43327 22.9671L19.4375 104.463C19.9486 108.248 23.4315 110.903 27.2168 110.391L122.058 97.5852C125.844 97.0741 128.498 93.5912 127.987 89.8059L116.982 8.30998C116.471 4.52471 112.988 1.87049 109.203 2.3816Z" fill="white" stroke="black" stroke-width="1.98"/>\n          <path d="M108.25 1.06129L13.4085 13.8675C9.62325 14.3786 6.96903 17.8615 7.48014 21.6468L18.4843 103.143C18.9955 106.928 22.4784 109.582 26.2636 109.071L121.105 96.2649C124.89 95.7538 127.545 92.2709 127.034 88.4856L116.029 6.98967C115.518 3.2044 112.035 0.550174 108.25 1.06129Z" fill="white" stroke="#1C4BA0" stroke-width="1.98"/>\n          <!-- …all your other <path> elements… -->\n        </g>\n        <defs>\n          <clipPath id="clip0_24484_91519">\n            <rect width="161" height="147.325" transform="translate(0.96875)" fill="white"/>\n          </clipPath>\n        </defs>\n      </svg>\n\n      <!-- Text beside SVG -->\n      <div>\n        <h1 style="margin:0; font-size:30px; line-height:1.2; color:#0E408A;">\n          Excited for Your Trip?\n        </h1>\n        <p style="margin:6px 0 0 0; font-size:18px; line-height:1.2; color:#0E408A;">\n          Let’s Make Your Visa Process Easy!\n        </p>\n      </div>\n    </div>\n\n    <!-- Welcome subtitle -->\n    <h2 style="font-size:24px; line-height:1.3; color:#0E408A; text-align:center;">\n      Welcome to your Visa Application Journey!\n    </h2>\n\n    <!-- Intro paragraph with manual line break -->\n    <p style="margin:0 0 30px 0; text-align:center; font-size:16px; line-height:1.6;">\n      Our guided process, along with the support of a TTK Visa Consultant,<br>\n      will help you complete this journey with ease.\n    </p>\n\n    <!-- Bullet list -->\n    <ul style="margin:0; padding-left:40px; font-size:16px; line-height:1.6;">\n      <li style="margin-bottom:12px;">\n        Your filled Visa Application Form will be automatically generated in your downloadable Docket at the end of this process.\n      </li>\n      <li style="margin-bottom:12px;">\n        An instruction sheet in the Docket will tell you exactly what to carry, including originals, copies, and any additional documents.\n      </li>\n      <li style="margin-bottom:12px;">\n        Our team will continuously review your details and documents to ensure everything is in order.\n      </li>\n      <li style="margin-bottom:12px;">\n        A dedicated Visa Consultant will be assigned to assist and guide you at every step.\n      </li>\n      <li style="margin-bottom:12px;">\n        For added convenience, you can choose from a range of Add-On Services during your application journey.\n      </li>\n      <li>\n        All your traveller details will be submitted and saved securely.\n      </li>\n    </ul>\n\n  </div>\n</body>\n</html>\n',
-        title="Display Field",
+        title='Display Field',
     )
 
 
 class RootPassportInstructionPassport(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     instruction_display: Optional[str] = Field(
         None,
         description='<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <title>Photo Instructions - Switzerland</title>\n</head>\n<body style="margin: 0; font-family: Arial, sans-serif;">\n\n<!-- Full width wrapper with 10% left and right padding -->\n<div style="width: 100%;">\n\n    <!-- Main card-style container -->\n    <div style="background: white; border-radius: 0px; border: 1px solid #ccc; width: 100%; padding: 20px; box-sizing: border-box;">\n\n        <!-- Requirements Section -->\n        <div style="margin-top: 30px;">\n\n            <div style="margin-bottom: 20px;">\n                <h3 style="color: #0073cf; margin-top: 0;"></h3>\n                <ul style="line-height: 1.6; padding-left: 20px; margin-top: 10px;">\n                    <li>Minimum Validity of 6 months from the date of Departure from Swiss.</li>\n                    <li>Hand written passports are not accepted.</li>\n                    <li>The passport should not have any damages – For example: Water marks, torn pages, peeling of Lamination, Spelling mistake in the given name and surname.</li>\n                    <li>The passport should not have any observation in the passport like ECR/ Change inPlace of birth/ Spouse name/ applicant Surname and given name/ Change of address.</li>\n                    <li>Old Passports in Original (If applicable)</li>\n                </ul>\n            </div>\n     \n<!-- \no Minimum Validity of 6 months from the date of Departure from Swiss.\no Hand written passports are not accepted.\no The passport should not have any damages – For example: Water marks, torn\npages, peeling of Lamination, Spelling mistake in the given name and surname.\no The passport should not have any observation in the passport like ECR/ Change in\nPlace of birth/ Spouse name/ applicant Surname and given name/ Change of\naddress.\no Old Passports in Original (If applicable)\n -->\n<!-- \n            <div style="margin-bottom: 20px;">\n                <h3 style="color: #0073cf; margin-top: 0;">The photographs must:</h3>\n                <ul style="line-height: 1.6; padding-left: 20px; margin-top: 10px;">\n                    <li>show you looking directly at the camera</li>\n                    <li>show your skin tones naturally</li>\n                    <li>have appropriate brightness and contrast</li>\n                    <li>be printed on high quality paper, and at high resolution</li>\n                </ul>\n                <p style="margin-top: 10px;">\n                    Photographs taken with a digital camera must be high quality colour and printed on photo-quality paper.\n                </p>\n            </div> -->\n\n        </div>\n\n    </div>\n\n</div>\n\n</body>\n</html>\n',
-        title="Display Field",
+        title='Display Field',
     )
 
 
 class RootPassportOtherDetails(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     civil_status: Optional[CIVILMARITALSTATUS] = Field(
-        None, description="Select Option", title="Civil/Marital Status"
+        None, description='Select Option', title='Civil/Marital Status'
     )
     nationality_of_birth: Optional[str] = Field(
         None,
-        description="Enter Nationality of Birth (if different)",
-        title="Nationality of Birth (if different)",
+        description='Enter Nationality of Birth (if different)',
+        title='Nationality of Birth (if different)',
     )
     other_nationality: Optional[str] = Field(
-        None, description="Enter Other National", title="Other National"
+        None, description='Enter Other National', title='Other National'
     )
 
 
 class RootPassportPassportDetails(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     type_of_passport: Optional[PASSPORTTYPE] = Field(
-        None, description="Select Option", title="Type of Passport"
+        None, description='Select Option', title='Type of Passport'
     )
     ovd_front: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Enter Front Page of Passport", title="Front Page of Passport"
+        None, description='Enter Front Page of Passport', title='Front Page of Passport'
     )
     ovd_back: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Enter Back Page of Passport", title="Back Page of Passport"
+        None, description='Enter Back Page of Passport', title='Back Page of Passport'
     )
     first_name: Optional[str] = Field(
-        "@.passport_page_upload.TRUSTED_OVD.name",
-        description="Enter Given Name as in Passport",
-        title="Given Name as in Passport",
+        '@.passport_page_upload.TRUSTED_OVD.name',
+        description='Enter Given Name as in Passport',
+        title='Given Name as in Passport',
     )
     surname: Optional[str] = Field(
-        "@.passport_page_upload.TRUSTED_OVD.surname",
-        description="Enter Surname as in Passport",
-        title="Surname as in Passport",
+        '@.passport_page_upload.TRUSTED_OVD.surname',
+        description='Enter Surname as in Passport',
+        title='Surname as in Passport',
     )
     date_of_birth: Optional[date] = Field(
-        None, description="DD/MM/YYYY", title="Date of Birth as in Passport"
+        None, description='DD/MM/YYYY', title='Date of Birth as in Passport'
     )
     passport_number: Optional[str] = Field(
-        "@.passport_page_upload.TRUSTED_OVD.uid",
-        description="Enter Passport Number",
-        title="Passport Number",
+        '@.passport_page_upload.TRUSTED_OVD.uid',
+        description='Enter Passport Number',
+        title='Passport Number',
     )
     date_of_issue: Optional[date] = Field(
-        None, description="DD/MM/YYYY", title="Date of Issue"
+        None, description='DD/MM/YYYY', title='Date of Issue'
     )
     date_of_expiry: Optional[date] = Field(
-        None, description="DD/MM/YYYY", title="Date of Expiry"
+        None, description='DD/MM/YYYY', title='Date of Expiry'
     )
-    gender: Optional[GENDER] = Field(None, description="Select Option", title="Gender")
+    gender: Optional[GENDER] = Field(None, description='Select Option', title='Gender')
     place_of_issue: Optional[str] = Field(
-        "@.passport_page_upload.TRUSTED_OVD.place_of_issue",
-        description="Enter Place of Issue",
-        title="Place of Issue",
+        '@.passport_page_upload.TRUSTED_OVD.place_of_issue',
+        description='Enter Place of Issue',
+        title='Place of Issue',
     )
     place_of_birth: Optional[str] = Field(
-        "@.passport_page_upload.TRUSTED_OVD.place_of_birth",
-        description="Enter Place of Birth",
-        title="Place of Birth",
+        '@.passport_page_upload.TRUSTED_OVD.place_of_birth',
+        description='Enter Place of Birth',
+        title='Place of Birth',
     )
     nationality: Optional[str] = Field(
-        "@.passport_page_upload.TRUSTED_OVD.nationality",
-        description="Enter Nationality",
-        title="Nationality",
+        '@.passport_page_upload.TRUSTED_OVD.nationality',
+        description='Enter Nationality',
+        title='Nationality',
     )
     issued_by: Optional[str] = Field(
-        "@.passport_page_upload.TRUSTED_OVD.place_of_issue",
-        description="Enter Issued By (Authority/City)",
-        title="Issued By (Authority/City)",
+        '@.passport_page_upload.TRUSTED_OVD.place_of_issue',
+        description='Enter Issued By (Authority/City)',
+        title='Issued By (Authority/City)',
     )
     father_name: Optional[str] = Field(
         None, description="Enter Father's Name", title="Father's Name"
@@ -963,551 +963,551 @@ class RootPassportPassportDetails(BaseModel):
         None, description="Enter Spouse' Name", title="Spouse' Name"
     )
     address_line_1: Optional[str] = Field(
-        "@.passport_page_upload.TRUSTED_OVD.full_address",
-        description="Enter Address Line 1",
-        title="Address Line 1",
+        '@.passport_page_upload.TRUSTED_OVD.full_address',
+        description='Enter Address Line 1',
+        title='Address Line 1',
     )
     address_line_2: Optional[str] = Field(
-        "@.passport_page_upload.TRUSTED_OVD.address_line_2",
-        description="Enter Address Line 2",
-        title="Address Line 2",
+        '@.passport_page_upload.TRUSTED_OVD.address_line_2',
+        description='Enter Address Line 2',
+        title='Address Line 2',
     )
     pin_code: Optional[str] = Field(
-        "@.passport_page_upload.TRUSTED_OVD.postal_code",
-        description="Enter PIN Code",
-        title="PIN Code",
+        '@.passport_page_upload.TRUSTED_OVD.postal_code',
+        description='Enter PIN Code',
+        title='PIN Code',
     )
     city: Optional[str] = Field(
-        "@.passport_page_upload.TRUSTED_OVD.city",
-        description="Enter City",
-        title="City",
+        '@.passport_page_upload.TRUSTED_OVD.city',
+        description='Enter City',
+        title='City',
     )
     state: Optional[str] = Field(
-        "@.passport_page_upload.TRUSTED_OVD.state",
-        description="Enter State",
-        title="State",
+        '@.passport_page_upload.TRUSTED_OVD.state',
+        description='Enter State',
+        title='State',
     )
     country: Optional[str] = Field(
-        "@.passport_page_upload.TRUSTED_OVD.code",
-        description="Enter Country",
-        title="Country",
+        '@.passport_page_upload.TRUSTED_OVD.code',
+        description='Enter Country',
+        title='Country',
     )
     desired_validity: Optional[str] = Field(
-        "6",
-        description="This is the minimum duration for which the passport should be valid",
-        title="",
+        '6',
+        description='This is the minimum duration for which the passport should be valid',
+        title='',
     )
 
 
 class RootPhotographAddOnServicePhoto(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     add_on_service_option: Optional[ADDONSERVICEPHOTOGRAPH] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
     display_add_on_service: Optional[str] = Field(
         None,
-        description="Please upload the photo above for us to print it for you.",
-        title="Display Field",
+        description='Please upload the photo above for us to print it for you.',
+        title='Display Field',
     )
 
 
 class RootPhotographInstructions(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     instruction_display: Optional[str] = Field(
         None,
         description='<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <title>Photo Instructions - Switzerland</title>\n</head>\n<body style="margin: 0; font-family: Arial, sans-serif;">\n\n<!-- Full width wrapper with 10% left and right padding -->\n<div style="width: 100%; box-sizing: border-box;">\n\n    <!-- Main card-style container -->\n    <div style="background: white; border-radius: 10px; border: 1px solid #ccc; width: 100%; padding: 20px; box-sizing: border-box;">\n\n        <!-- <h2 style="color: #002b7f; text-align: center; margin-top: 0;">Instructions</h2> -->\n        <p style="text-align: center; color: #0073cf; font-weight: bold; margin-top: 0;">\n            (From the Government of Switzerland)\n        </p>\n\n        <div style="display: flex; flex-wrap: wrap; justify-content: center; margin-top: 20px;">\n\n            <!-- Photo Boxes -->\n            <div style="margin-bottom: 20px; text-align: center;">\n                <img src="https://d2phdgmkbm5x8b.cloudfront.net/img/schengen-passport-photo-01.webp" alt="Too Close" style="width: 100%; border: 1px solid #ccc; border-radius: 5px;">\n            </div>\n\n        </div>\n\n        <!-- Requirements Section -->\n        <div style="margin-top: 30px;">\n\n            <div style="margin-bottom: 20px;">\n                <h3 style="color: #0073cf; margin-top: 0;">Photograph quality</h3>\n                <ul style="line-height: 1.6; padding-left: 20px; margin-top: 10px;">\n                    <li>Be no more than 6-months old</li>\n                    <li>35–40mm in width</li>\n                    <li>Close up of your head and top of your shoulders so that your face takes up 70–80% of the photograph</li>\n                    <li>In sharp focus and clear</li>\n                    <li>Of high quality with no ink marks or creases</li>\n                </ul>\n            </div>\n\n            <div style="margin-bottom: 20px;">\n                <h3 style="color: #0073cf; margin-top: 0;">The Photographs Must:</h3>\n                <ul style="line-height: 1.6; padding-left: 20px; margin-top: 10px;">\n                    <li>Show you looking directly at the camera</li>\n                    <li>Show your skin tones naturally</li>\n                    <li>Have appropriate brightness and contrast</li>\n                    <li>Be printed on high quality paper, and at high resolution</li>\n                </ul>\n                <p style="margin-top: 10px;">\n                    Photographs taken with a digital camera must be high quality colour and printed on photo-quality paper.\n                </p>\n            </div>\n\n        </div>\n\n    </div>\n\n</div>\n\n</body>\n</html>\n',
-        title="Display Field",
+        title='Display Field',
     )
 
 
 class RootPhotographPassportPhoto(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     upload_photo_display: Optional[str] = Field(
         None,
         description='<div style="\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  /* set the height to whatever vertical space you need */\n">\n  If you’d like us to review your photo to make sure your photo meets the guidelines, \n  please upload it here.\n</div>\n',
-        title="Display Field",
+        title='Display Field',
     )
     photo: Optional[Union[str, Dict[str, Any]]] = Field(
         None,
-        description="Enter Passport-Size Photo (Optional)",
-        title="Passport-Size Photo (Optional)",
+        description='Enter Passport-Size Photo (Optional)',
+        title='Passport-Size Photo (Optional)',
     )
 
 
 class RootPreviousVisasPreviousVisaDetails(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     fingerprint_collected: Optional[OPTION] = Field(
-        "NO",
-        description="Select Option",
-        title="Have your fingerprints been collected before for a Schengen visa application?",
+        'NO',
+        description='Select Option',
+        title='Have your fingerprints been collected before for a Schengen visa application?',
     )
     previous_visa_file: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload an image/file", title="Upload Previous Visa"
+        None, description='Upload an image/file', title='Upload Previous Visa'
     )
     visa_sticker_number: Optional[str] = Field(
-        None, description="Enter Visa (Sticker) Number", title="Visa (Sticker) Number"
+        None, description='Enter Visa (Sticker) Number', title='Visa (Sticker) Number'
     )
     date_of_previous_visa: Optional[date] = Field(
-        None, description="DD/MM/YYYY", title="Date (If Known)"
+        None, description='DD/MM/YYYY', title='Date (If Known)'
     )
 
 
 class RootResidentialAddressResidentialAddressCardV1(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     type_of_proof: Optional[ADDRESSPROOFTYPE] = Field(
-        None, description="Select Option", title="Type of Proof"
+        None, description='Select Option', title='Type of Proof'
     )
     address_proof_upload: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Enter Upload Address Proof", title="Upload Address Proof"
+        None, description='Enter Upload Address Proof', title='Upload Address Proof'
     )
     address_line_1: Optional[str] = Field(
-        None, description="Enter Address Line 1", title="Address Line 1"
+        None, description='Enter Address Line 1', title='Address Line 1'
     )
     address_line_2: Optional[str] = Field(
-        None, description="Enter Address Line 2", title="Address Line 2"
+        None, description='Enter Address Line 2', title='Address Line 2'
     )
     pin_code: Optional[str] = Field(
-        None, description="Enter PIN Code", title="PIN Code"
+        None, description='Enter PIN Code', title='PIN Code'
     )
-    city: Optional[str] = Field(None, description="Enter City", title="City")
-    state: Optional[str] = Field(None, description="Enter State", title="State")
-    country: Optional[str] = Field(None, description="Enter Country", title="Country")
+    city: Optional[str] = Field(None, description='Enter City', title='City')
+    state: Optional[str] = Field(None, description='Enter State', title='State')
+    country: Optional[str] = Field(None, description='Enter Country', title='Country')
 
 
 class RootResidentialAddressResidentialAddressCardV2(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     address_line_1: Optional[str] = Field(
-        None, description="Enter Address Line 1", title="Address Line 1"
+        None, description='Enter Address Line 1', title='Address Line 1'
     )
     address_line_2: Optional[str] = Field(
-        None, description="Enter Address Line 2", title="Address Line 2"
+        None, description='Enter Address Line 2', title='Address Line 2'
     )
     pin_code: Optional[str] = Field(
-        None, description="Enter PIN Code", title="PIN Code"
+        None, description='Enter PIN Code', title='PIN Code'
     )
-    city: Optional[str] = Field(None, description="Enter City", title="City")
-    state: Optional[str] = Field(None, description="Enter State", title="State")
-    country: Optional[str] = Field(None, description="Enter Country", title="Country")
+    city: Optional[str] = Field(None, description='Enter City', title='City')
+    state: Optional[str] = Field(None, description='Enter State', title='State')
+    country: Optional[str] = Field(None, description='Enter Country', title='Country')
 
 
 class RootResidentialAddressWorkAddressCard(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     current_occupation_status: Optional[CURRENTOCCUPATIONSTATUS] = Field(
-        "EMPLOYED",
-        description="Select Option",
-        title="Are you currently a Student or Employee?",
+        'EMPLOYED',
+        description='Select Option',
+        title='Are you currently a Student or Employee?',
     )
     employer_name: Optional[str] = Field(
-        None, description="Enter Name of the Employer", title="Name of the Employer"
+        None, description='Enter Name of the Employer', title='Name of the Employer'
     )
     occupation: Optional[str] = Field(
-        None, description="Enter Current Occupation", title="Current Occupation"
+        None, description='Enter Current Occupation', title='Current Occupation'
     )
     date_of_joining: Optional[date] = Field(
-        None, description="DD/MM/YYYY", title="Date of Joining"
+        None, description='DD/MM/YYYY', title='Date of Joining'
     )
     work_phone: Optional[str] = Field(
         None,
-        description="Enter Work Phone Number of Employer",
-        title="Work Phone Number of Employer",
+        description='Enter Work Phone Number of Employer',
+        title='Work Phone Number of Employer',
     )
     work_address: Optional[str] = Field(
-        None, description="Enter Work Address", title="Work Address"
+        None, description='Enter Work Address', title='Work Address'
     )
     establishment_name: Optional[str] = Field(
         None,
-        description="Enter Name of Establishment",
-        title="Educational Establishment",
+        description='Enter Name of Establishment',
+        title='Educational Establishment',
     )
     date_of_admission: Optional[date] = Field(
-        None, description="DD/MM/YYYY", title="Date of Admission"
+        None, description='DD/MM/YYYY', title='Date of Admission'
     )
     establishment_address: Optional[str] = Field(
-        None, description="Enter Address", title="Address of Educational Establishment"
+        None, description='Enter Address', title='Address of Educational Establishment'
     )
     establishment_contact: Optional[str] = Field(
         None,
-        description="Enter Phone Number",
-        title="Contact of Educational Establishment",
+        description='Enter Phone Number',
+        title='Contact of Educational Establishment',
     )
 
 
 class RootSalarySlipUpload(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     display_salary_slips_instructions: Optional[str] = Field(
         None,
-        description="If you’d like us to review your Salary Slips to make sure it meets the guidelines, please upload it here. If your current employment is under 3 months, submit the payslip from your previous employer",
-        title="Display Field",
+        description='If you’d like us to review your Salary Slips to make sure it meets the guidelines, please upload it here. If your current employment is under 3 months, submit the payslip from your previous employer',
+        title='Display Field',
     )
     salary_slip: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload an image/file", title="Salary Slip (Optional)"
+        None, description='Upload an image/file', title='Salary Slip (Optional)'
     )
 
 
 class RootTicketingAddOnService(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     add_on_service: Optional[ADDONFLIGHTTICKETS] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
     display_add_on: Optional[str] = Field(
         None,
-        description="To know the cost, please refer to the Add-On Cart Section.",
-        title="Display Field",
+        description='To know the cost, please refer to the Add-On Cart Section.',
+        title='Display Field',
     )
 
 
 class RootTicketingFlightTickets(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     display_flight_tickets_instructions: Optional[str] = Field(
         None,
         description="If you’d like us to review your flight tickets to make sure your it meets the guidelines, \nplease upload it here. Make sure it includes all Schengen countries you're visiting.",
-        title="Display Field",
+        title='Display Field',
     )
     flight_tickets: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload an image/file", title="Flight Tickets"
+        None, description='Upload an image/file', title='Flight Tickets'
     )
 
 
 class RootTravelInsuranceAddOnService(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     add_on_service: Optional[ADDONFLIGHTRESERVE] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
     display_add_on: Optional[str] = Field(
         None,
-        description="To know the cost, please refer to the Add-On Cart Section.",
-        title="Display Field",
+        description='To know the cost, please refer to the Add-On Cart Section.',
+        title='Display Field',
     )
 
 
 class RootTravelInsuranceFlightReservationDetails(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     display_flight_reservation_details: Optional[str] = Field(
         None,
         description="If you’d like us to review your Travel Insurance to make sure your it meets the guidelines, \nplease upload it here. Make sure it includes all Schengen countries you're visiting.",
-        title="Display Field",
+        title='Display Field',
     )
     flight_reservation_tickets: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload insurance document pdf", title="Insurance Document"
+        None, description='Upload insurance document pdf', title='Insurance Document'
     )
 
 
 class RootVisaRequestInformationVisaRequest(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     phone_number: Optional[str] = Field(
-        None, description="Enter Phone Number", title="Phone Number"
+        None, description='Enter Phone Number', title='Phone Number'
     )
     email_id: Optional[str] = Field(
-        None, description="Enter Email ID", title="Email ID"
+        None, description='Enter Email ID', title='Email ID'
     )
     travelling_from: Optional[str] = Field(
-        None, description="Enter Travelling From", title="Travelling From"
+        None, description='Enter Travelling From', title='Travelling From'
     )
     travelling_to: Optional[str] = Field(
-        None, description="Enter Travelling To", title="Travelling To"
+        None, description='Enter Travelling To', title='Travelling To'
     )
     visa_type: Optional[VISATYPE] = Field(
-        None, description="Select Option", title="Type of Visa"
+        None, description='Select Option', title='Type of Visa'
     )
     length_of_stay: Optional[int] = Field(
         None,
-        description="Enter Length of Stay (in Days)",
-        title="Length of Stay (in Days)",
+        description='Enter Length of Stay (in Days)',
+        title='Length of Stay (in Days)',
     )
     date_of_arrival: Optional[date] = Field(
-        None, description="DD/MM/YYYY", title="Date of Arrival"
+        None, description='DD/MM/YYYY', title='Date of Arrival'
     )
     date_of_departure: Optional[date] = Field(
-        None, description="DD/MM/YYYY", title="Date of Departure"
+        None, description='DD/MM/YYYY', title='Date of Departure'
     )
     validity: Optional[int] = Field(
         None,
-        description="Enter Validity of Visa (in Days)",
-        title="Validity of Visa (in Days)",
+        description='Enter Validity of Visa (in Days)',
+        title='Validity of Visa (in Days)',
     )
     no_of_entries: Optional[str] = Field(
-        None, description="Enter Number of Entries", title="Number of Entries"
+        None, description='Enter Number of Entries', title='Number of Entries'
     )
     visa_mode: Optional[VISAMODE] = Field(
-        None, description="Select Option", title="Visa Mode"
+        None, description='Select Option', title='Visa Mode'
     )
 
 
 class RootAccomodation(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     accommodation_choice: Optional[RootAccomodationAccommodationChoice] = Field(
-        None, title="Accommodation"
+        None, title='Accommodation'
     )
     invitation_details: Optional[RootAccomodationInvitationDetails] = Field(
-        None, title="Details of Stay with Family/Friends (Invitation)"
+        None, title='Details of Stay with Family/Friends (Invitation)'
     )
     add_on_service: Optional[RootAccomodationAddOnService] = Field(
-        None, title="Add-On Service"
+        None, title='Add-On Service'
     )
 
 
 class RootAdditionalDetails(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     national_id: Optional[RootAdditionalDetailsNationalId] = Field(
-        None, title="National Identification Number"
+        None, title='National Identification Number'
     )
     travel_info: Optional[RootAdditionalDetailsTravelInfo] = Field(
-        None, title="Travelling to Multiple Countries during this trip"
+        None, title='Travelling to Multiple Countries during this trip'
     )
     app_details: Optional[RootAdditionalDetailsAppDetails] = Field(
-        None, title="Application Details"
+        None, title='Application Details'
     )
     family_eu: Optional[RootAdditionalDetailsFamilyEu] = Field(
-        None, title="Family Member of EU, EEA, Swiss, or UK National"
+        None, title='Family Member of EU, EEA, Swiss, or UK National'
     )
     sponsorship: Optional[RootAdditionalDetailsSponsorship] = Field(
-        None, title="Sponsorship Details"
+        None, title='Sponsorship Details'
     )
 
 
 class RootAppointment(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     display_appointment_details_header: Optional[str] = Field(
         None,
         description='<p style="margin: 0; line-height: 1.3; color: #0E408A; text-align: left;">\n  Please upload the details of your\n  <span style="font-weight: bold; font-size: 1em;">\n    Booked Visa\n  </span>\n  appointment below.\n</p>\n',
-        title="Display Field",
+        title='Display Field',
     )
     appointment_scheduled: Optional[RootAppointmentAppointmentScheduled] = Field(
-        None, title="Scheduled Appointment"
+        None, title='Scheduled Appointment'
     )
     add_on_service: Optional[RootAppointmentAddOnService] = Field(
-        None, title="Add-On Service"
+        None, title='Add-On Service'
     )
 
 
 class RootBankStatement(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     upload: Optional[RootBankStatementUpload] = Field(
-        None, title="Bank Statements (Optional)"
+        None, title='Bank Statements (Optional)'
     )
     skip_bank_statements: Optional[SKIPBANKSTATEMENTS] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
 
 
 class RootItineraryAccomodation(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     itinerary_card: Optional[RootItineraryAccomodationItineraryCard] = Field(
-        None, title="Itinerary"
+        None, title='Itinerary'
     )
     add_on_service_itinerary: Optional[
         RootItineraryAccomodationAddOnServiceItinerary
-    ] = Field(None, title="Add-On Service")
+    ] = Field(None, title='Add-On Service')
 
 
 class RootItrAcknowledgement(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     upload: Optional[RootItrAcknowledgementUpload] = Field(
-        None, title="ITR Acknowledgements (Optional)"
+        None, title='ITR Acknowledgements (Optional)'
     )
-    skip_itr: Optional[SKIPITR] = Field(None, description="Select Option", title="")
+    skip_itr: Optional[SKIPITR] = Field(None, description='Select Option', title='')
     not_filed_itr: Optional[NOTFILEDITR] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
     reason: Optional[RootItrAcknowledgementReason] = Field(
-        None, title="Reason for Not Filing ITR"
+        None, title='Reason for Not Filing ITR'
     )
 
 
 class RootLetsGetStarted(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     lets_get_started_instructions: Optional[
         RootLetsGetStartedLetsGetStartedInstructions
-    ] = Field(None, title="Instructions")
+    ] = Field(None, title='Instructions')
 
 
 class RootPassport(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     instruction_passport: Optional[RootPassportInstructionPassport] = Field(
-        None, title="Original Passport"
+        None, title='Original Passport'
     )
     display_passport_header: Optional[str] = Field(
         None,
         description='<p style="margin: 0; line-height: 1.3; text-align: left;">\nPlease upload the images of your Passport to auto-fill the details below.\n</p>\n<p style="margin: 0; line-height: 1.3; text-align: left;">\nNote : Your Passport must be valid 6 months after the date of your departure from the Schengen Country.\n</p>',
-        title="Display Field",
+        title='Display Field',
     )
     passport_details: Optional[RootPassportPassportDetails] = Field(
-        None, title="Details of your Passport"
+        None, title='Details of your Passport'
     )
     other_details: Optional[RootPassportOtherDetails] = Field(
-        None, title="Other Details"
+        None, title='Other Details'
     )
 
 
 class RootPhotograph(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     display_photograph_header: Optional[str] = Field(
         None,
-        description="For your appointment, you must carry four recent colour photographs (35mm x 40mm) with a white background of yourself. For detailed guideline on this, click on Instructions in the top-right corner of this section.",
-        title="Display Field",
+        description='For your appointment, you must carry four recent colour photographs (35mm x 40mm) with a white background of yourself. For detailed guideline on this, click on Instructions in the top-right corner of this section.',
+        title='Display Field',
     )
     instructions: Optional[RootPhotographInstructions] = Field(
-        None, title="Instructions"
+        None, title='Instructions'
     )
     passport_photo: Optional[RootPhotographPassportPhoto] = Field(
-        None, title="Review my Passport-Sized Photo (Optional)"
+        None, title='Review my Passport-Sized Photo (Optional)'
     )
     add_on_service_photo: Optional[RootPhotographAddOnServicePhoto] = Field(
-        None, title="Add-On Service"
+        None, title='Add-On Service'
     )
 
 
 class RootPreviousVisas(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     previous_visa_details: Optional[RootPreviousVisasPreviousVisaDetails] = Field(
-        None, title="Previous Visa Details"
+        None, title='Previous Visa Details'
     )
 
 
 class RootResidentialAddress(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     same_as_passport_address: Optional[SAMEASPASSADDR] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
     residential_address_card_v1: Optional[
         RootResidentialAddressResidentialAddressCardV1
-    ] = Field(None, title="Current Residential Address")
+    ] = Field(None, title='Current Residential Address')
     residential_address_card_v2: Optional[
         RootResidentialAddressResidentialAddressCardV2
-    ] = Field(None, title="Current Residential Address")
+    ] = Field(None, title='Current Residential Address')
     work_address_card: Optional[RootResidentialAddressWorkAddressCard] = Field(
-        None, title="Work/Education"
+        None, title='Work/Education'
     )
 
 
 class RootSalarySlip(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     upload: Optional[RootSalarySlipUpload] = Field(
-        None, title="Salary Slips (Optional)"
+        None, title='Salary Slips (Optional)'
     )
     skip_salary_slips: Optional[SKIPSALARYSLIPS] = Field(
-        None, description="Select Option", title=""
+        None, description='Select Option', title=''
     )
 
 
 class RootTicketing(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     flight_tickets: Optional[RootTicketingFlightTickets] = Field(
-        None, title="Flight Tickets"
+        None, title='Flight Tickets'
     )
     add_on_service: Optional[RootTicketingAddOnService] = Field(
-        None, title="Add-On Service"
+        None, title='Add-On Service'
     )
 
 
 class RootTravelInsurance(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     flight_reservation_details: Optional[
         RootTravelInsuranceFlightReservationDetails
-    ] = Field(None, title="Insurance Details")
+    ] = Field(None, title='Insurance Details')
     add_on_service: Optional[RootTravelInsuranceAddOnService] = Field(
-        None, title="Add-On Service"
+        None, title='Add-On Service'
     )
 
 
 class RootVisaRequestInformation(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     display_info_header: Optional[str] = Field(
         None,
         description='<p style="margin: 0; line-height: 1.3; color: #0E408A; text-align: left;">\n  Please review your\n  <span style="font-weight: bold; font-size: 1em;">\n    Visa Request\n  </span>\n  details below. If you have any questions, you can contact us.\n</p>\n',
-        title="Display Field",
+        title='Display Field',
     )
     visa_request: Optional[RootVisaRequestInformationVisaRequest] = Field(
-        None, title="Summary"
+        None, title='Summary'
     )
 
 
 class Schengentouristvisa(BaseModel):
     model_config = ConfigDict(
-        extra="allow",
+        extra='allow',
     )
     lets_get_started: Optional[RootLetsGetStarted] = Field(
         None, title="Let's Get Started"
     )
     visa_request_information: Optional[RootVisaRequestInformation] = Field(
-        None, title="Visa Request Summary"
+        None, title='Visa Request Summary'
     )
-    appointment: Optional[RootAppointment] = Field(None, title="Appointment Details")
-    passport: Optional[RootPassport] = Field(None, title="Passport")
-    photograph: Optional[RootPhotograph] = Field(None, title="Photograph")
+    appointment: Optional[RootAppointment] = Field(None, title='Appointment Details')
+    passport: Optional[RootPassport] = Field(None, title='Passport')
+    photograph: Optional[RootPhotograph] = Field(None, title='Photograph')
     residential_address: Optional[RootResidentialAddress] = Field(
-        None, title="Address Documents"
+        None, title='Address Documents'
     )
     itinerary_accomodation: Optional[RootItineraryAccomodation] = Field(
-        None, title="Itinerary and Accomodation"
+        None, title='Itinerary and Accomodation'
     )
-    accomodation: Optional[RootAccomodation] = Field(None, title="Accomodation")
-    ticketing: Optional[RootTicketing] = Field(None, title="Ticketing")
+    accomodation: Optional[RootAccomodation] = Field(None, title='Accomodation')
+    ticketing: Optional[RootTicketing] = Field(None, title='Ticketing')
     travel_insurance: Optional[RootTravelInsurance] = Field(
-        None, title="Travel Insurance"
+        None, title='Travel Insurance'
     )
-    previous_visas: Optional[RootPreviousVisas] = Field(None, title="Previous Visas")
+    previous_visas: Optional[RootPreviousVisas] = Field(None, title='Previous Visas')
     additional_details: Optional[RootAdditionalDetails] = Field(
-        None, title="Additional Travel Details"
+        None, title='Additional Travel Details'
     )
-    salary_slip: Optional[RootSalarySlip] = Field(None, title="Salary Slips")
-    bank_statement: Optional[RootBankStatement] = Field(None, title="Bank Statements")
+    salary_slip: Optional[RootSalarySlip] = Field(None, title='Salary Slips')
+    bank_statement: Optional[RootBankStatement] = Field(None, title='Bank Statements')
     itr_acknowledgement: Optional[RootItrAcknowledgement] = Field(
-        None, title="ITR Acknowledgement"
+        None, title='ITR Acknowledgement'
     )
