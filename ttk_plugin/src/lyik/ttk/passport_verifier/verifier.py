@@ -188,6 +188,7 @@ def map_fields_to_payload(response: OVDPassport, payload: RootPassportPassportDe
     payload.city = response.city or ""
     payload.state = response.state or ""
     payload.country = response.country or ""
+    payload.pin_code = response.postal_code or ""
 
 
 def _split_string(text: str, max_length):
@@ -407,8 +408,9 @@ async def get_ocr_data(
     temp_file_paths = set()
     if isinstance(payload.ovd_front, str):
         ovd_front_to_send = payload.ovd_front
-    elif isinstance(payload.ovd_front, DBDocumentModel):
-        front_doc = payload.ovd_front.model_copy()
+    elif isinstance(payload.ovd_front, Dict):
+        parsed_front_doc = DBDocumentModel.model_validate(payload.ovd_front)
+        front_doc = parsed_front_doc.model_copy()
         # Fetching the Document from DB to get the content
         doc_content = await get_document_from_db(context=context, doc=front_doc)
         front_doc.doc_content = doc_content
@@ -420,8 +422,9 @@ async def get_ocr_data(
         ovd_front_to_send = None
     if isinstance(payload.ovd_back, str):
         ovd_back_to_send = payload.ovd_back
-    elif isinstance(payload.ovd_back, DBDocumentModel):
-        back_doc = payload.ovd_back.model_copy()
+    elif isinstance(payload.ovd_back, Dict):
+        parsed_back_doc = DBDocumentModel.model_validate(payload.ovd_back)
+        back_doc = parsed_back_doc.model_copy()
         # Fetching the Document from DB to get the content
         doc_content = await get_document_from_db(context=context, doc=back_doc)
         back_doc.doc_content = doc_content

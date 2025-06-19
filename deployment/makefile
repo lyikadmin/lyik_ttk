@@ -8,8 +8,8 @@ build-up: build up
 
 # Build only lyik-api image
 build-api:
-	# docker build -t lyik-api:latest -f Dockerfile . --no-cache
-	docker build -t lyik-api:latest -f Dockerfile.local ../ --no-cache
+	docker build -t lyik-api:latest -f Dockerfile . --no-cache
+	# docker build -t lyik-api:latest -f Dockerfile.local ../ --no-cache
 
 # Pull latest tagged images for other services
 build-ui:
