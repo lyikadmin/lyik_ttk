@@ -8,8 +8,7 @@ from datetime import date
 from enum import Enum
 from typing import Any, Dict, Optional, Union
 
-from pydantic import ConfigDict, Field
-from pydantic_v2 import BaseModel
+from pydantic import ConfigDict, Field, BaseModel
 
 
 class ACCOMMODATIONARRANGEMENT(Enum):
