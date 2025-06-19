@@ -219,6 +219,8 @@ def check_expiry_validation(
         )
     doe = payload.date_of_expiry
     desired_validity = payload.desired_validity
+    logger.info(f"doe is: {doe} or type {type(doe)}")
+    logger.info(f"date.today() is: {date.today()} or type {type(date.today())}")
     if doe < date.today():
         logger.error("The passport has already expired.")
         return VerifyHandlerResponseModel(
