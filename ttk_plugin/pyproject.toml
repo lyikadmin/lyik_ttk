@@ -16,11 +16,17 @@ requires-python = ">=3.10"
 dependencies = [
     "PyJWT==2.6.0",
     "httpx==0.24.0",
-    "pem==21.2.0"
+    "pem==21.2.0",
+    "python-dateutil==2.9.0.post0",
+    "country_converter==1.3",
 ]
 
 [project.entry-points."LYIK"]
 _150_TTK_AUTH = "lyik.ttk.auth.ttkauth:TTKAuthProvider"
-_150_VERIFIER_PASSPORT_DATE = "lyik.ttk.passport_date_verifier.verifier:PassportDateVerificationPlugin"
+_150_VERIFIER_PASSPORT_DATE = "lyik.ttk.passport_verifier.verifier:PassportVerificationPlugin"
 _150_PREACTION_MAKER_ID_APPEND = "lyik.ttk.preaction.append_maker_id:AppendMakerId"
+_150_VERIFIER_PREVIOUS_VISAS = "lyik.ttk.previous_visas_verifier.previous_visas_verifier:PreviousVisasVerifier"
+_150_VERIFIER_ADDITIONAL_TRAVEL_DETAILS = "lyik.ttk.additional_travel_details_verifier.additional_travel_details_verifier:AdditionalTravelDetailsVerifier"
+_150_PREACTION_COPY_PASSPORT_DETAILS = "lyik.ttk.preaction.copy_passport_details:CopyPassportAddress"
+_150_PREACTION_NORMALIZE_COUNTRY_CODES = "lyik.ttk.preaction.normalize_country_codes:NormalizeCountryCodes"
 _150_CUSTOM_LINKED_RECORD_FILTER = "lyik.ttk.linked_record_filters.linked_record_filters:CustomLinkedRecordFiltersPlugin"
