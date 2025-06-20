@@ -8,12 +8,12 @@ build-up: build up
 
 # Build only lyik-api image
 build-api:
-	# docker build -t lyik-api:latest -f Dockerfile.local ../ --no-cache
-	docker build -t lyik-api:latest --no-cache -f Dockerfile .
+	docker build -t lyik-api:latest -f Dockerfile.local ../ --no-cache
+	# docker build -t lyik-api:latest --no-cache -f Dockerfile .
 
 # Pull latest tagged images for other services
 build-ui:
-	docker pull lyikprodblueacr.azurecr.io/lyik-forms-spa:TPL_LYIK_SPA_VERSION
+	docker pull TPL_LYIK_SPA_VERSION
 	docker pull lyikprodblueacr.azurecr.io/lyik-admin:TPL_LYIK_ADMIN_VERSION
 
 # Create Docker network if not exists

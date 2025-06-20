@@ -40,7 +40,7 @@ services:
 
   lyik_spa:
     container_name: 'lyik_spa'
-    image: lyikprodblueacr.azurecr.io/lyik-forms-spa:TPL_LYIK_SPA_VERSION
+    image: TPL_LYIK_SPA_VERSION
     restart: always
     # ports:
     #   - 3030:3030
