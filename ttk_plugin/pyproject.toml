@@ -23,6 +23,7 @@ dependencies = [
 
 [project.entry-points."LYIK"]
 _150_TTK_AUTH = "lyik.ttk.auth.ttkauth:TTKAuthProvider"
+_150_CUSTOM_LINKED_RECORD_FILTER = "lyik.ttk.linked_record_filters.linked_record_filters:CustomLinkedRecordFiltersPlugin"
 _150_VERIFIER_PASSPORT_DATE = "lyik.ttk.passport_verifier.verifier:PassportVerificationPlugin"
 _150_PREACTION_MAKER_ID_APPEND = "lyik.ttk.preaction.append_maker_id:AppendMakerId"
 _150_VERIFIER_PREVIOUS_VISAS = "lyik.ttk.previous_visas_verifier.previous_visas_verifier:PreviousVisasVerifier"
