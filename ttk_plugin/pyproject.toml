@@ -24,6 +24,8 @@ dependencies = [
 [project.entry-points."LYIK"]
 _150_TTK_AUTH = "lyik.ttk.auth.ttkauth:TTKAuthProvider"
 _150_VERIFIER_PASSPORT_DATE = "lyik.ttk.passport_verifier.verifier:PassportVerificationPlugin"
-#_150_PREACTION_MAKER_ID_APPEND = "lyik.ttk.preaction.append_maker_id:AppendMakerId"
+_150_PREACTION_MAKER_ID_APPEND = "lyik.ttk.preaction.append_maker_id:AppendMakerId"
+_150_VERIFIER_PREVIOUS_VISAS = "lyik.ttk.previous_visas_verifier.previous_visas_verifier:PreviousVisasVerifier"
+_150_VERIFIER_ADDITIONAL_TRAVEL_DETAILS = "lyik.ttk.additional_travel_details_verifier.additional_travel_details_verifier:AdditionalTravelDetailsVerifier"
 _150_PREACTION_COPY_PASSPORT_DETAILS = "lyik.ttk.preaction.copy_passport_details:CopyPassportAddress"
 _150_PREACTION_NORMALIZE_COUNTRY_CODES = "lyik.ttk.preaction.normalize_country_codes:NormalizeCountryCodes"
