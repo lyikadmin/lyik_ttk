@@ -1,0 +1,5 @@
+template_var,data,category
+TPL_NGINX_DOMAIN,forms-uat.ttkservices.com,GENERIC
+TPL_BASEURL,https://forms-uat.ttkservices.com
+TPL_DEV_VAR,dev
+TPL_PLUGIN_MAX_WEIGHT,899,GENERIC

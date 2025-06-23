@@ -1,5 +1,0 @@
-field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,category,sequence,hidden,editable
-ender_field,,ender,,textbox,,FALSE,Used to end builder fields,Ender,,,FALSE,Custom Field Builders,1100,,
-info_pane_builder,,compound,,info_pane,,FALSE,,Info Pane Builder,,,FALSE,Custom Field Builders,1100,,
-card_builder,,compound,,card,,FALSE,,Card Builder,,,FALSE,Custom Field Builders,1100,,
-group_builder,,group,,groupbox,,FALSE,,Group Builder,,,FALSE,Custom Field Builders,1100,,
