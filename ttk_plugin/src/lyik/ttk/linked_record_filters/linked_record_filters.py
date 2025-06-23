@@ -4,13 +4,14 @@ from lyikpluginmanager import (
     ContextModel,
     LinkedRecordFilterSpec,
     PluginException,
+    LinkRecordFilter,
 )
 from typing import Annotated, Dict
 from typing_extensions import Doc
 import logging
 import jwt
 from jwt.exceptions import DecodeError, ExpiredSignatureError, InvalidTokenError
-from typing import Dict, Any, Union
+from typing import Any, Union
 
 
 logger = logging.getLogger(__name__)
@@ -27,7 +28,9 @@ class CustomLinkedRecordFiltersPlugin(LinkedRecordFilterSpec):
     async def get_custom_linked_record_filters(
         self,
         context: ContextModel,
-    ) -> Annotated[Dict, Doc("This is the extracted filters dictionary.")]:
+    ) -> Annotated[
+        LinkRecordFilter, Doc("The response contains the filters with filter types.")
+    ]:
         "Function to extract the filters and return."
 
         logger.info("Started extracting the filters.")
@@ -45,7 +48,7 @@ class CustomLinkedRecordFiltersPlugin(LinkedRecordFilterSpec):
             token = context.token
 
             # Get the filters from the token.
-            filters: Dict = self.get_filters_from_token(token=token)
+            filters: LinkRecordFilter = self.get_filters_from_token(token=token)
 
             if not filters:
                 logger.info("No filter found in the token.")
@@ -58,7 +61,16 @@ class CustomLinkedRecordFiltersPlugin(LinkedRecordFilterSpec):
             logger.error(f"Something went wrong: {e}")
             raise
 
-    def get_filters_from_token(self, token: str) -> Dict[str, Any]:
+    def get_filters_from_token(self, token: str) -> LinkRecordFilter:
+        """
+        Extracts filtering criteria from the TTK JWT token and builds a LinkRecordFilter.
+        The plugin knows internally which keys to extract and how to classify them.
+
+        Returns:
+            A LinkRecordFilter instance.
+        """
+        # 🔧 Plugin-defined config: key → filter type
+        key_classification: Dict[str, str] = {}
         # Step 1: Decode outer token
         outer_payload = self._decode_jwt(token=token)
 
@@ -72,16 +84,19 @@ class CustomLinkedRecordFiltersPlugin(LinkedRecordFilterSpec):
             )
 
         # Step 3: Decode inner JWT token
-        inner_payload = self._decode_jwt(inner_token)
+        inner_token_payload = self._decode_jwt(token=inner_token)
 
-        # Step 4: Extract 'filter' key
-        if "filter" not in inner_payload:
-            raise PluginException(
-                message="Internal error occurred. Please contact support.",
-                detailed_message="No 'filter' key found in TTK Token.",
-            )
+        # Step 4: Build the filter model using known classification
+        filter_data: Dict[str, Dict[str, str]] = {}
 
-        return inner_payload["filter"]
+        for key, filter_type in key_classification.items():
+            if key in inner_token_payload:
+                val = inner_token_payload[key]
+                filter_data.setdefault(filter_type, {})[key] = str(val)
+            else:
+                logger.error(f"The {key} is not present in the token. Skipped.")
+
+        return LinkRecordFilter(**filter_data)
 
     def _decode_jwt(self, token: str) -> Dict[str, Any]:
         try:
