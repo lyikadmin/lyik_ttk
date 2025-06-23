@@ -6,7 +6,7 @@ from lyikpluginmanager import (
     PluginException,
     LinkRecordFilter,
 )
-from typing import Annotated, Dict, Optional
+from typing import Annotated, Dict
 from typing_extensions import Doc
 import logging
 import jwt
@@ -50,9 +50,6 @@ class CustomLinkedRecordFiltersPlugin(LinkedRecordFilterSpec):
             # Get the filters from the token.
             filters: LinkRecordFilter = self.get_filters_from_token(token=token)
 
-            if not filters:
-                logger.info("No filter found in the token.")
-
             return filters
         except PluginException as pe:
             logger.error(pe.detailed_message)
@@ -61,7 +58,7 @@ class CustomLinkedRecordFiltersPlugin(LinkedRecordFilterSpec):
             logger.error(f"Something went wrong: {e}")
             raise
 
-    def get_filters_from_token(self, token: str) -> Optional[LinkRecordFilter]:
+    def get_filters_from_token(self, token: str) -> LinkRecordFilter:
         """
         Extracts filtering criteria from the TTK JWT token and builds a LinkRecordFilter.
         The plugin knows internally which keys to extract and how to classify them.
@@ -97,7 +94,7 @@ class CustomLinkedRecordFiltersPlugin(LinkedRecordFilterSpec):
                 logger.error(f"The {key} is not present in the token. Skipped.")
 
         if not any(filter_data.values()):
-            return None
+            logger.info("No filter found in the token.")
 
         return LinkRecordFilter(**filter_data)
 
