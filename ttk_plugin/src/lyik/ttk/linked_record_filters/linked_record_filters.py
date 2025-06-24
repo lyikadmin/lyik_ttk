@@ -11,12 +11,14 @@ from typing_extensions import Doc
 import logging
 import jwt
 from jwt.exceptions import DecodeError, ExpiredSignatureError, InvalidTokenError
-from typing import Any, Union
+from typing import Any, Union, Literal
 
 
 logger = logging.getLogger(__name__)
 
 impl = pluggy.HookimplMarker(getProjectName())
+
+LinkRecordFilterKey = Literal["include_and", "exclude_and", "include_or", "exclude_or"]
 
 
 class CustomLinkedRecordFiltersPlugin(LinkedRecordFilterSpec):
@@ -66,8 +68,9 @@ class CustomLinkedRecordFiltersPlugin(LinkedRecordFilterSpec):
         Returns:
             A LinkRecordFilter instance.
         """
-        # 🔧 Plugin-defined config: key → filter type
-        key_classification: Dict[str, str] = {}
+        # Plugin-defined config: key → filter type
+        key_classification: Dict[str, LinkRecordFilterKey] = {"Order ID": "include_and"}
+
         # Step 1: Decode outer token
         outer_payload = self._decode_jwt(token=token)
 
@@ -83,6 +86,8 @@ class CustomLinkedRecordFiltersPlugin(LinkedRecordFilterSpec):
         # Step 3: Decode inner JWT token
         inner_token_payload = self._decode_jwt(token=inner_token)
 
+        logger.info(f"The inner token payload is: {inner_token_payload}")
+
         # Step 4: Build the filter model using known classification
         filter_data: Dict[str, Dict[str, str]] = {}
 
@@ -96,6 +101,10 @@ class CustomLinkedRecordFiltersPlugin(LinkedRecordFilterSpec):
         if not any(filter_data.values()):
             logger.info("No filter found in the token.")
 
+        link_record_filter_response = LinkRecordFilter(**filter_data)
+        logger.info(
+            f"The filters extracted from the token is: {link_record_filter_response}"
+        )
         return LinkRecordFilter(**filter_data)
 
     def _decode_jwt(self, token: str) -> Dict[str, Any]:
