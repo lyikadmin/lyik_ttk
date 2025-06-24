@@ -30,3 +30,4 @@ _150_VERIFIER_PREVIOUS_VISAS = "lyik.ttk.previous_visas_verifier.previous_visas_
 _150_VERIFIER_ADDITIONAL_TRAVEL_DETAILS = "lyik.ttk.additional_travel_details_verifier.additional_travel_details_verifier:AdditionalTravelDetailsVerifier"
 _150_PREACTION_COPY_PASSPORT_DETAILS = "lyik.ttk.preaction.copy_passport_details:CopyPassportAddress"
 _150_PREACTION_NORMALIZE_COUNTRY_CODES = "lyik.ttk.preaction.normalize_country_codes:NormalizeCountryCodes"
+_150_PREACTION_PROGRESS_CHECK = "lyik.ttk.preaction.pct_completion:PctCompletion"
