@@ -19,3 +19,4 @@ __pycache__/
 build/
 *.vscode*
 .DS_Store
+deployment.dev

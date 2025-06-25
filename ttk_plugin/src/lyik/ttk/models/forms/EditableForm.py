@@ -1,3 +1,4 @@
+import os
 from pydantic import BaseModel
 from enum import Enum
 from datetime import date
@@ -152,6 +153,46 @@ class EditableForm(BaseModel):
     visa_trav_cost_sponsor_txt: str
     visa_trav_cost_oth_txt: str
     visa_means_support_oth_txt: str
+
+    def save_to_json(self, filename: str):
+        """
+        Writes all key-value pairs (attributes) of this EditableForm instance
+        into a JSON file. this can be updeted for returiung a JSON string
+        representation of the form data.
+
+        Args:
+            filename (str): The name of the JSON file to create or overwrite.
+                            This can be a full path or a relative path.
+        """
+        try:
+            # Pydantic v2 uses .model_dump_json() for JSON string output
+            # Pydantic v1 uses .json()
+            json_data = self.model_dump_json(
+                indent=4
+            )  # indent=4 makes the JSON human-readable
+
+            # Ensure the directory exists
+            output_dir = os.path.dirname(filename)
+            if output_dir and not os.path.exists(output_dir):
+                os.makedirs(output_dir)
+
+            with open(filename, "w", encoding="utf-8") as f:
+                f.write(json_data)
+            print(f"Successfully saved form data to '{filename}'")
+        except ImportError:
+            print("Pydantic is likely an older version. Trying .json() method...")
+            try:
+                json_data = self.json(indent=4)
+                output_dir = os.path.dirname(filename)
+                if output_dir and not os.path.exists(output_dir):
+                    os.makedirs(output_dir)
+                with open(filename, "w", encoding="utf-8") as f:
+                    f.write(json_data)
+                print(f"Successfully saved form data to '{filename}' using .json()")
+            except Exception as e:
+                print(f"Error saving form data to '{filename}': {e}")
+        except Exception as e:
+            print(f"An unexpected error occurred while saving to '{filename}': {e}")
 
 
 my_editable_form = EditableForm(
@@ -479,7 +520,8 @@ if __name__ == "__main__":
     )
     for key in unset_keys:
         print(f"- {key}")
-
+    output_filename = "form_data.json"
+    my_editable_form.save_to_json(output_filename)
     # print("\n--- Keys and values which are set ---")
     # for key, value in set_key_values.items():
     #     print(f"- {key}: {value}")
