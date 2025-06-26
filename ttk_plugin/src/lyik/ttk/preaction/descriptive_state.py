@@ -29,14 +29,14 @@ _DISPLAY_STATE: dict[str, str] = {
 class FormStatusDisplay(PreActionProcessorSpec):
     """
     Converts the technical *state* into a user-friendly text and stores it
-    under ``lets_get_started.form_status``.
+    under ``lets_get_started.form_status`` in a payload.
     """
 
     @impl
     async def pre_action_processor(
         self,
         context: ContextModel,
-        action: Annotated[str, "save / submit"],
+        action: Annotated[str, "Sates of actions"],
         current_state: Annotated[str | None, "previous record state"],
         new_state: Annotated[str | None, "new record state"],
         payload: Annotated[GenericFormRecordModel, "entire form record model"],
@@ -51,15 +51,15 @@ class FormStatusDisplay(PreActionProcessorSpec):
             logger.error("form_status_display: cannot parse payload - %s", exc)
 
         # 2)  Look up human label
-        sys_state: str | None = action
-        human_label = _DISPLAY_STATE.get(sys_state, sys_state or "Unknown State")
+        form_state: str | None = action
+        user_friendly_lable = _DISPLAY_STATE.get(form_state, form_state or "Unknown State")
 
-        # 3)  Persist under lets_get_started.form_status
         data_dict = form.model_dump()
+        # 3)  Persist under lets_get_started.form_status
         lgs = data_dict.setdefault("lets_get_started", {})
-        # if lets_get_started is itself a nested model, convert to dict first
 
-        lgs["form_status"] = human_label
+        # 3.1) add/update the user understandable message as per the form state
+        lgs["form_status"] = user_friendly_lable
 
         # 4)  Return updated record
         return GenericFormRecordModel.model_validate(data_dict)
