@@ -3,13 +3,40 @@ from enum import Enum
 from datetime import date
 
 from new_schengentouristvisa import (
+    COUNTRY3,
+    EXPENSECOVERAGE1,
+    EXPENSECOVERAGE2,
+    EXPENSECOVERAGE3,
+    EXPENSECOVERAGE4,
+    EXPENSECOVERAGE5,
+    FAMILYMEMBEROFEU,
+    OPTION,
     PASSPORTTYPE,
+    PAYMENTMETHOD1,
+    PAYMENTMETHOD2,
+    PAYMENTMETHOD3,
+    PAYMENTMETHOD4,
+    PAYMENTMETHOD5,
+    PAYMENTMETHOD6,
+    RELATIONSHIPWITHEU,
+    SPONSORTYPE1,
+    SPONSORTYPE2,
+    SPONSORTYPE3,
+    SPONSORTYPE4,
+    RootAdditionalDetails,
+    RootAdditionalDetailsAppDetails,
+    RootAdditionalDetailsFamilyEu,
+    RootAdditionalDetailsNationalId,
+    RootAdditionalDetailsSponsorship,
+    RootAdditionalDetailsTravelInfo,
     RootPassport,
     RootPassportInstructionPassport,
+    RootPassportOtherDetails,
     RootPassportPassportDetails,
     Schengentouristvisa,
     GENDER,
     CIVILMARITALSTATUS,
+    PASSPORTTYPE,
 )
 
 
@@ -250,25 +277,101 @@ schengen_visa_data = Schengentouristvisa(
             surname="Singh",
             passport_number="P1234567",
             date_of_expiry=date(2030, 1, 9),
-            place_of_birth="Mumbai",
+            place_of_birth="Jaunpur",
+            type_of_passport=PASSPORTTYPE.REGULAR,
+            ovd_front={
+                "file_name": "passport_front_image.jpg",
+                "url": "https://example.com/passport_front_image.jpg",
+            },
+            ovd_back={
+                "file_name": "passport_back_image.jpg",
+                "url": "https://example.com/passport_back_image.jpg",
+            },
+            father_name="Father",
+            mother_name="Mother",
+            spouse_name="Sushma",
+            address_line_1="10 Downing Street",
+            address_line_2="Whitehall",
+            pin_code="SW1A 2AA",
+            city="Bengaluru",
+            state="Karnataka",
+            country="India",
         ),
-    )
+        other_details=RootPassportOtherDetails(
+            civil_status=CIVILMARITALSTATUS.SINGLE,
+            nationality_of_birth="Indian",
+            other_nationality="American",
+        ),
+    ),
+    additional_details=RootAdditionalDetails(
+        national_id=RootAdditionalDetailsNationalId(
+            aadhaar_number="123456789012",
+            aadhaar_upload={
+                "file_name": "aadhaar.pdf",
+                "url": "https://example.com/aadhaar.pdf",
+            },
+        ),
+        travel_info=RootAdditionalDetailsTravelInfo(
+            travelling_to_other_country=OPTION.YES,
+            country_of_travel=COUNTRY3.BTN,
+            valid_visa_for_country=OPTION.YES,
+            start_date_of_visa=date(2025, 7, 1),
+            end_date_of_visa=date(2025, 7, 30),
+            visa_copy={
+                "file_name": "uk_visa.jpg",
+                "url": "https://example.com/uk_visa.jpg",
+            },
+        ),
+        app_details=RootAdditionalDetailsAppDetails(
+            # No specific fields defined in RootAdditionalDetailsAppDetails, so it's empty for now
+            # example_field="Some application detail"
+        ),
+        family_eu=RootAdditionalDetailsFamilyEu(
+            is_family_member=FAMILYMEMBEROFEU.YES,
+            given_name="Maria",
+            surname="Gonzalez",
+            nationality="Spanish",
+            date_of_birth=date(1975, 1, 20),
+            travel_document_id="ES987654321",
+            relationship=RELATIONSHIPWITHEU.SPOUSE,
+        ),
+        sponsorship=RootAdditionalDetailsSponsorship(
+            display_sponsorship_details="Please select the type of your sponsor(s). You may add more than one.",
+            sponsorship_options_1=SPONSORTYPE1.SELF,  # Example of selecting one
+            sponsorship_options_2=SPONSORTYPE2.SPONSOR,  # Example of selecting multiple
+            sponsorship_options_3=SPONSORTYPE3.INVITER,
+            sponsorship_options_4=SPONSORTYPE4.OTHER,
+            display_sponsorship_support="Please select the Means of Support for covering your own costs. You can select more than one.",
+            support_means_cash=PAYMENTMETHOD1.CASH,
+            support_means_travellers_cheque=PAYMENTMETHOD2.TRAVELLERS_CHEQUE,
+            support_means_credit_card=PAYMENTMETHOD3.CREDIT_CARD,
+            support_means_prepaid_accommodation=PAYMENTMETHOD4.PREPAID_ACCOMMODATION,
+            support_means_prepaid_transport=PAYMENTMETHOD5.PREPAID_TRANSPORT,
+            support_means_other=PAYMENTMETHOD6.OTHER,
+            display_sponsorship_coverage="Please enter the Means of Support for the sponsor(s). You can select more than one.",
+            coverage_expense_cash=EXPENSECOVERAGE1.CASH,
+            coverage_accommodation_provided=EXPENSECOVERAGE2.ACCOMMODATION_PROVIDED,
+            coverage_all_covered=EXPENSECOVERAGE3.ALL_COVERED,
+            coverage_prepaid_transport=EXPENSECOVERAGE4.PREPAID_TRANSPORT,
+            coverage_other=EXPENSECOVERAGE5.OTHER,  # Example
+        ),
+    ),
 )
 if __name__ == "__main__":
     # You can now print the object or convert it to a dictionary/JSON
     # print(schengen_visa_data.model_dump_json(indent=2))
 
-    # my_editable_form.visa_surname_family_name = (
-    #     my_editable_form.passport.surname_family_name or ""
-    # )
-    # my_editable_form.visa_surname_at_birth = (
-    #     my_editable_form.passport.surname_at_birth or ""
-    # )
+    my_editable_form.visa_surname_family_name = (
+        schengen_visa_data.passport.passport_details.father_name or ""
+    )
+    my_editable_form.visa_surname_at_birth = (
+        schengen_visa_data.passport.passport_details.mother_name or ""
+    )
     my_editable_form.visa_first_name = (
         schengen_visa_data.passport.passport_details.first_name or ""
     )
     my_editable_form.visa_cob = (
-        schengen_visa_data.passport.passport_details.date_of_birth or ""
+        schengen_visa_data.passport.passport_details.country or ""
     )
     my_editable_form.visa_dob = (
         schengen_visa_data.passport.passport_details.date_of_birth or ""
@@ -276,45 +379,110 @@ if __name__ == "__main__":
     my_editable_form.visa_pob = (
         schengen_visa_data.passport.passport_details.place_of_birth or ""
     )
+    my_editable_form.visa_fam_mem_eu_surname = (
+        schengen_visa_data.additional_details.family_eu.surname or ""
+    )
+    my_editable_form.visa_fam_mem_eu_dob = (
+        schengen_visa_data.additional_details.family_eu.date_of_birth or ""
+    )
+    my_editable_form.visa_fam_mem_eu_1st_nm = (
+        schengen_visa_data.additional_details.family_eu.given_name or ""
+    )
+    my_editable_form.visa_fam_mem_eu_natl = (
+        schengen_visa_data.additional_details.family_eu.nationality or ""
+    )
+    my_editable_form.visa_fam_mem_eu_num_trav_doc = (
+        schengen_visa_data.additional_details.family_eu.travel_document_id or ""
+    )
+    my_editable_form.visa_fam_rs_eu_spouse = (
+        FieldToggle(value=FieldToggle.YES)
+        if schengen_visa_data.additional_details.family_eu.relationship
+        == RELATIONSHIPWITHEU.SPOUSE
+        else FieldToggle(value=FieldToggle.NO)
+    )
+    my_editable_form.visa_fam_rs_eu_child = (
+        FieldToggle(value=FieldToggle.YES)
+        if schengen_visa_data.additional_details.family_eu.relationship
+        == RELATIONSHIPWITHEU.CHILD
+        else FieldToggle(value=FieldToggle.NO)
+    )
+    my_editable_form.visa_fam_rs_eu_gc = (
+        FieldToggle(value=FieldToggle.YES)
+        if schengen_visa_data.additional_details.family_eu.relationship
+        == RELATIONSHIPWITHEU.GRANDCHILD
+        else FieldToggle(value=FieldToggle.NO)
+    )
+    my_editable_form.visa_fam_rs_eu_dependent = (
+        FieldToggle(value=FieldToggle.YES)
+        if schengen_visa_data.additional_details.family_eu.relationship
+        == RELATIONSHIPWITHEU.DEPENDENT_ASCENDANT
+        else FieldToggle(value=FieldToggle.NO)
+    )
+    my_editable_form.visa_fam_rs_eu_registered = (
+        FieldToggle(value=FieldToggle.YES)
+        if schengen_visa_data.additional_details.family_eu.relationship
+        == RELATIONSHIPWITHEU.REGISTERED_PARTNER
+        else FieldToggle(value=FieldToggle.NO)
+    )
+    my_editable_form.visa_fam_rs_eu_oth = (
+        FieldToggle(value=FieldToggle.YES)
+        if schengen_visa_data.additional_details.family_eu.relationship
+        == RELATIONSHIPWITHEU.OTHER
+        else FieldToggle(value=FieldToggle.NO)
+    )
     my_editable_form.visa_issued_by_ctry = (
         schengen_visa_data.passport.passport_details.issued_by or ""
     )
-    print(my_editable_form.model_dump_json(indent=2))
-    # my_editable_form.visa_curr_natl = (
-    #     schengen_visa_data.passport.other_details.other_nationality
-    #     or ""
-    # )
-    # my_editable_form.visa_natl_at_birth = (
-    #     schengen_visa_data.passport.other_details.nationality_of_birth or ""
-    # )
-    # if my_editable_form.gender == GENDER.M:
-    #     schengen_visa_data.visa_sex_male = FieldToggle.YES
+    if (
+        schengen_visa_data.passport.other_details.civil_status
+        == CIVILMARITALSTATUS.SINGLE
+    ):
+        my_editable_form.visa_civil_sts_single = FieldToggle(value=FieldToggle.YES)
 
-    # if my_editable_form.gender == GENDER.F:
-    #     schengen_visa_data.visa_sex_female = FieldToggle.YES
+    my_editable_form.visa_curr_natl = (
+        schengen_visa_data.passport.other_details.other_nationality or ""
+    )
+    my_editable_form.visa_natl_at_birth = (
+        schengen_visa_data.passport.other_details.nationality_of_birth or ""
+    )
+    if (
+        schengen_visa_data.passport.passport_details.type_of_passport
+        == PASSPORTTYPE.REGULAR
+    ):
+        my_editable_form.visa_typ_trav_doc_ord = FieldToggle(value=FieldToggle.YES)
 
-    # if my_editable_form.civil_status == CIVILMARITALSTATUS.SINGLE:
-    #     schengen_visa_data.visa_civil_sts_single = FieldToggle.YES
+    # print(my_editable_form.model_dump_json(indent=2))
 
-    # if my_editable_form.civil_status == CIVILMARITALSTATUS.MARRIED:
-    #     schengen_visa_data.visa_civil_sts_married = FieldToggle.YES
+    unset_keys = []
+    set_key_values = {}
 
-    # if my_editable_form.civil_status == CIVILMARITALSTATUS.SEPARATED:
-    #     schengen_visa_data.visa_civil_sts_seperated = FieldToggle.YES
+    # Iterate over all fields defined in the model
+    for field_name, field_info in EditableForm.model_fields.items():
+        current_value = getattr(my_editable_form, field_name)
 
-    # if my_editable_form.civil_status == CIVILMARITALSTATUS.DIVORCED:
-    #     schengen_visa_data.visa_civil_sts_divorced = FieldToggle.YES
+        if isinstance(current_value, FieldToggle):
+            if not current_value.value:
+                unset_keys.append(field_name)
+            else:
+                set_key_values[field_name] = (
+                    current_value.value
+                )  # Store boolean value for clarity
+        elif current_value is None:
+            unset_keys.append(field_name)
+        elif isinstance(current_value, str) and current_value == "":
+            # For string fields, consider empty string as "not set" if that's the desired interpretation
+            unset_keys.append(field_name)
+        else:
+            set_key_values[field_name] = current_value
+    print(
+        "--- Keys which have not been explicitly set (or are empty/default false) ---"
+    )
+    for key in unset_keys:
+        print(f"- {key}")
 
-    # if my_editable_form.civil_status == CIVILMARITALSTATUS.WIDOWED:
-    #     schengen_visa_data.visa_civil_widow = FieldToggle.YES
-
-    # if my_editable_form.civil_status == CIVILMARITALSTATUS.REGISTERED_PARTNER:
-    #     schengen_visa_data.visa_civil_sts_reg_partner = FieldToggle.YES
-    # if my_editable_form.civil_status == CIVILMARITALSTATUS.OTHER:
-    #     my_editable_form.visa_civil_sts_oth = FieldToggle.YES
-    #     my_editable_form.visa_civil_sts_oth_txt = (
-    #         my_editable_form.civil_status_other or ""
-    #     )
+    # print("\n--- Keys and values which are set ---")
+    # for key, value in set_key_values.items():
+    #     print(f"- {key}: {value}")
 """
 following are not mapped:
     visa_parental_auth: str

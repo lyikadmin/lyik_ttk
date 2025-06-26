@@ -16,7 +16,10 @@ requires-python = ">=3.10"
 dependencies = [
     "PyJWT==2.6.0",
     "httpx==0.24.0",
-    "pem==21.2.0"
+    "pem==21.2.0",
+    "pypdf==5.1.0",
+    "pillow==11.2.1",
+    "pycryptodome==3.19.0",
 ]
 
 [project.entry-points."LYIK"]
