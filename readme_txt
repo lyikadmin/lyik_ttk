@@ -1,0 +1,119 @@
+vishnu@ttkservices.com
+123456
+p.baskar@ttkservices.com
+123456
+Q. 1. How to get _owner in line 73 append_maker_id.py I could not find it in RootTravelTravelDetails
+
+Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2x5aWsuY29tIiwiYXVkIjoiaHR0cHM6Ly9seWlrLmNvbSIsInN1YiI6IlUwMDIiLCJ1c2VyX21ldGFkYXRhIjp7InVzZXJfaW5mbyI6eyJ1c2VyX2lkIjoiVTAwMiIsInBob25lX251bWJlciI6Iis5MTk2ODY5NjYzOTUiLCJlbWFpbCI6InZpc2hudUB0dGtzZXJ2aWNlcy5jb20iLCJyb2xlcyI6WyJhZG1pbiJdLCJkb2oiOiIyMDIzLTAyLTAxIiwiZG9lIjoiMjAyNS0wNS0zMSIsImlzX2FjdGl2ZSI6ZmFsc2UsImRpc3BsYXlfbmFtZSI6IlZpc2hudSBTaGFua2FyIiwicGVybWlzc2lvbnMiOiJyZWFkIiwiZGF0ZV9vZl9qb2luaW5nIjoiMjAyMy0wMi0wMSIsImRhdGVfb2ZfZXhpdCI6IjIwMjUtMDUtMzEiLCJleHRyYV9maWVsZHMiOiJ7J2JyYW5jaCc6ICdCZW5nYWx1cnUnfSIsIm9yZ2FuaXphdGlvbl9pZCI6Im9yZzc4NzkxMTE4In0sInVzZXJfcmVsYXRpb25zaGlwX2luZm8iOnsicGFyZW50cyI6W10sImNoaWxkcmVuIjpbXX0sIm93bmVyX29mIjpbIm9yZzc4NzkxMTE4Il0sInBlcm1pc3Npb25zIjp7IndlaWdodCI6MTAwMDAsInBlcnNvbmEiOlsiQ1JFQVRPUiIsIkFETUlOIl0sInBlcm1pc3Npb24iOnt9fX0sImV4cCI6MTc0NzIwNTE1MiwiaWF0IjoxNzQ3MjAxNTUyLCJuYmYiOjE3NDcyMDE1NTJ9.FSO7lDJL8ru1MK28wlacUHcACkbvehlLtIlxoCZiUZ8uqg-j8Tm3z4vW5cS4ZRVnYyqK5dfwtdEwrr_R9vOGi_b9tzNhiV8X_cM_nk2Pb3ZCY_2L9R5tnsYMrAID-2Py3Yv03gZU2dd35QL_tCbaODncNpoIAnC47YPWOsJte1nw3GbCf6N-ReCkB4ZCsYrDJHbGbb-J4IXA637I__nnwkhZUwOgyjaX5Bu3y0gxWtZNPZByRFBb_-_5Rpt5SjC7MepeKtDqUAB5dSFqyjcd_6leJ-ExBo6tgxflg1mk7_bCF5EYz6eWu8K2KkwyDmWiFX2FkLxp9V2Wn5onZqP4BA
+
+
+
+curl --location 'https://forms-uat.ttkservices.com/api/v1/forms/1b7cc29c7e8ae9f8ae1a5e4308a84a650933c7e494dfa1420b34c720?action=SAVE' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2x5aWsuY29tIiwiYXVkIjoiaHR0cHM6Ly9seWlrLmNvbSIsInN1YiI6IlUwMDIiLCJ1c2VyX21ldGFkYXRhIjp7InVzZXJfaW5mbyI6eyJ1c2VyX2lkIjoiVTAwMiIsInBob25lX251bWJlciI6Iis5MTk2ODY5NjYzOTUiLCJlbWFpbCI6InZpc2hudUB0dGtzZXJ2aWNlcy5jb20iLCJyb2xlcyI6WyJhZG1pbiJdLCJkb2oiOiIyMDIzLTAyLTAxIiwiZG9lIjoiMjAyNS0wNS0zMSIsImlzX2FjdGl2ZSI6ZmFsc2UsImRpc3BsYXlfbmFtZSI6IlZpc2hudSBTaGFua2FyIiwicGVybWlzc2lvbnMiOiJyZWFkIiwiZGF0ZV9vZl9qb2luaW5nIjoiMjAyMy0wMi0wMSIsImRhdGVfb2ZfZXhpdCI6IjIwMjUtMDUtMzEiLCJleHRyYV9maWVsZHMiOiJ7J2JyYW5jaCc6ICdCZW5nYWx1cnUnfSIsIm9yZ2FuaXphdGlvbl9pZCI6Im9yZzc4NzkxMTE4In0sInVzZXJfcmVsYXRpb25zaGlwX2luZm8iOnsicGFyZW50cyI6W10sImNoaWxkcmVuIjpbXX0sIm93bmVyX29mIjpbIm9yZzc4NzkxMTE4Il0sInBlcm1pc3Npb25zIjp7IndlaWdodCI6MTAwMDAsInBlcnNvbmEiOlsiQ1JFQVRPUiIsIkFETUlOIl0sInBlcm1pc3Npb24iOnt9fX0sImV4cCI6MTc0NzIwNTE1MiwiaWF0IjoxNzQ3MjAxNTUyLCJuYmYiOjE3NDcyMDE1NTJ9.FSO7lDJL8ru1MK28wlacUHcACkbvehlLtIlxoCZiUZ8uqg-j8Tm3z4vW5cS4ZRVnYyqK5dfwtdEwrr_R9vOGi_b9tzNhiV8X_cM_nk2Pb3ZCY_2L9R5tnsYMrAID-2Py3Yv03gZU2dd35QL_tCbaODncNpoIAnC47YPWOsJte1nw3GbCf6N-ReCkB4ZCsYrDJHbGbb-J4IXA637I__nnwkhZUwOgyjaX5Bu3y0gxWtZNPZByRFBb_-_5Rpt5SjC7MepeKtDqUAB5dSFqyjcd_6leJ-ExBo6tgxflg1mk7_bCF5EYz6eWu8K2KkwyDmWiFX2FkLxp9V2Wn5onZqP4BA' \
+--form 'payload="{
+  "travel": {
+    "travel_details": {
+      "from_country": "Dubai",
+      "departure_date": "2025-04-29",
+      "validity": "10",
+      "visa_processing_type": "Normal",
+      "to_country": "Switzerland",
+      "arrival_date": "2025-04-30",
+      "no_of_entries": "3",
+      "earliest_appointment_availability": "2025-05-07",
+      "visa_type": "Tourist",
+      "length_of_stay": "20",
+      "visa_mode": "Sticker",
+      "maker_id": "example_maker",
+      "order_id": "order_example123"
+    }
+  }
+}"'
+
+use following to send in api in swagger:
+
+{   "travel": {     "travel_details": {       "from_country": "Dubai",       "departure_date": "2025-04-29",       "validity": "10",       "visa_processing_type": "Normal",       "to_country": "Switzerland",       "arrival_date": "2025-04-30",       "no_of_entries": "3",       "earliest_appointment_availability": "2025-05-07",       "visa_type": "Tourist",       "length_of_stay": "20",       "visa_mode": "Sticker",       "maker_id": "example_maker",       "order_id": "order_example123"     }   } }
+
+curl -X 'POST' \
+  'https://forms-uat.ttkservices.com/api/v1/forms/126aa383edf119588ba1bca421a4c1868e9ed4827750ad95b1ef419e?action=SAVE' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2x5aWsuY29tIiwiYXVkIjoiaHR0cHM6Ly9seWlrLmNvbSIsInN1YiI6IlVfMDExIiwidXNlcl9tZXRhZGF0YSI6eyJ1c2VyX2luZm8iOnsidXNlcl9pZCI6IlVfMDExIiwicGhvbmVfbnVtYmVyIjoiKzkxOTM1MzU1ODUwMyIsImVtYWlsIjoiYWtoaWxiYWJ1K21ha2VyQGx5aWsuY29tIiwicm9sZXMiOlsicGFyZW50X21ha2VyIl0sImRvaiI6IjIwMjEtMDEtMTUiLCJkb2UiOiIyMDIzLTAxLTE1IiwiaXNfYWN0aXZlIjp0cnVlLCJkaXNwbGF5X25hbWUiOiJNYWtlciBVc2VyIiwiYnJhbmNoX2lkIjoiMTAwIiwiZnJhbmNoaXNlX2lkIjoiRlJfMDAxIiwib3JnYW5pemF0aW9uX2lkIjoib3JnNzg3OTExMTgifSwidXNlcl9yZWxhdGlvbnNoaXBfaW5mbyI6eyJwYXJlbnRzIjpbXSwiY2hpbGRyZW4iOlsiVV8wMTMiXX0sIm93bmVyX29mIjpbIm9yZzc4NzkxMTE4Il0sInBlcm1pc3Npb25zIjp7IndlaWdodCI6MTAxLCJwZXJzb25hIjpbIlBBUkVOVCIsIk1LUiJdLCJwZXJtaXNzaW9uIjp7InVzZXJzIjpbXSwiQU5ZIjpbIkMiLCJSIiwiVSJdLCJGb3JtXzEiOltdLCJGb3JtXzIiOlsiQSIsIlIiLCJVIl19fX0sImV4cCI6MTc0NzIwODM1NSwiaWF0IjoxNzQ3MjA0NzU1LCJuYmYiOjE3NDcyMDQ3NTV9.EidEcRmBxChxZ9mQrl09o6HsfNQ4tmvtURCWcfME2CXfqKPvdvD9jbpbuG4jZXmPpgk9IBx4fBQHsLAIVf52B72x9wgk0dpGFAlKsoP9qXM-CRDFSPnGTdNGPqK_Lvfx925lNcG6fSi2--wGFs4Kg3TCKlubY8iYUx8KOi9QatVUU0zKg3kNjYNhBJWtHbcVX0vi6bp8PmqmL18owyOf2fMjdNtwc68lH4i8NB4l6DF__b2aU966GuuhfMPsP4hhF1cMEpdVbWPcgzOivrwX-uRNLWIFvPZsE9a7xELzpoenGl7saK6d9MMEqdYhrb_4RLcST7rP9Y9sX7eBHV1yqw' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'payload={"travel":{"travel_details":{"from_country":"Dubai","departure_date":"2025-04-29","validity":"10","visa_processing_type":"Normal","to_country":"Switzerland","arrival_date":"2025-04-30","no_of_entries":"3","earliest_appointment_availability":"2025-05-07","visa_type":"Tourist","length_of_stay":"20","visa_mode":"Sticker","maker_id":"example_maker","order_id":"order_example123"}}}'
+
+{
+  "org_id": "org78791118",
+  "form_id": "frm3348186",
+  "record_id": "214647",
+  "payment_ref": null,
+  "receipt_url": null,
+  "submit_url": null,
+  "record": {
+    "payment": null,
+    "submitter": {
+      "id": "U_011",
+      "phone": "Anonymous",
+      "email": "Anonymous",
+      "time": "2025-05-14T12:11:24.948219+05:30"
+    },
+    "state": "SAVE",
+    "travel": {
+      "travel_details": {
+        "from_country": "Dubai",
+        "departure_date": "2025-04-29",
+        "validity": "10",
+        "visa_processing_type": "Normal",
+        "to_country": "Switzerland",
+        "arrival_date": "2025-04-30",
+        "no_of_entries": "3",
+        "earliest_appointment_availability": "2025-05-07",
+        "visa_type": "Tourist",
+        "length_of_stay": "20",
+        "visa_mode": "Sticker",
+        "maker_id": "example_maker",
+        "order_id": "order_example123"
+      }
+    },
+    "_time_log": {
+      "created_on": "2025-05-14T06:41:24.946045Z",
+      "last_updated_on": "2025-05-14T06:41:24.946045Z"
+    },
+    "_owner": [
+      "U_011"
+    ]
+  },
+  "result": "success",
+  "message": null
+}
+
+
+curl -X 'POST' \
+  'https://forms-uat.ttkservices.com/api/v1/auth/verify-otp' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "contact_id": "akhilbabu+maker@lyik.com",
+  "otp": "123456",
+  "transaction_id": "string"
+}'
+
+{
+  "auth_code": "fa9afae7e5cb0573ad3e327a3d775b6cc762a0886ae71910665b6b9a2f2e1eae"
+}
+curl -X 'POST' \
+  'https://forms-uat.ttkservices.com/api/v1/auth/get-token' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "auth_code": "fa9afae7e5cb0573ad3e327a3d775b6cc762a0886ae71910665b6b9a2f2e1eae",
+  "contact_id": "akhilbabu+maker@lyik.com"
+}'
+
+{
+
+  "auth_code": "fa9afae7e5cb0573ad3e327a3d775b6cc762a0886ae71910665b6b9a2f2e1eae",
+  "contact_id": "akhilbabu+maker@lyik.com"
+}
+{
+  "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2x5aWsuY29tIiwiYXVkIjoiaHR0cHM6Ly9seWlrLmNvbSIsInN1YiI6IlVfMDExIiwidXNlcl9tZXRhZGF0YSI6eyJ1c2VyX2luZm8iOnsidXNlcl9pZCI6IlVfMDExIiwicGhvbmVfbnVtYmVyIjoiKzkxOTM1MzU1ODUwMyIsImVtYWlsIjoiYWtoaWxiYWJ1K21ha2VyQGx5aWsuY29tIiwicm9sZXMiOlsicGFyZW50X21ha2VyIl0sImRvaiI6IjIwMjEtMDEtMTUiLCJkb2UiOiIyMDIzLTAxLTE1IiwiaXNfYWN0aXZlIjp0cnVlLCJkaXNwbGF5X25hbWUiOiJNYWtlciBVc2VyIiwiYnJhbmNoX2lkIjoiMTAwIiwiZnJhbmNoaXNlX2lkIjoiRlJfMDAxIiwib3JnYW5pemF0aW9uX2lkIjoib3JnNzg3OTExMTgifSwidXNlcl9yZWxhdGlvbnNoaXBfaW5mbyI6eyJwYXJlbnRzIjpbXSwiY2hpbGRyZW4iOlsiVV8wMTMiXX0sIm93bmVyX29mIjpbIm9yZzc4NzkxMTE4Il0sInBlcm1pc3Npb25zIjp7IndlaWdodCI6MTAxLCJwZXJzb25hIjpbIlBBUkVOVCIsIk1LUiJdLCJwZXJtaXNzaW9uIjp7InVzZXJzIjpbXSwiQU5ZIjpbIkMiLCJSIiwiVSJdLCJGb3JtXzEiOltdLCJGb3JtXzIiOlsiQSIsIlIiLCJVIl19fX0sImV4cCI6MTc0NzIxNTM5MCwiaWF0IjoxNzQ3MjExNzkwLCJuYmYiOjE3NDcyMTE3OTB9.k08Cx9Zc9SL86VnfPhsahFctfY-87fNWT2xB4-vET1PjuXO-xFXEmTntQBZPwhYsDNv0rpmon0dAOw-UFAh4YMUKskD5Eooop3X5WSz31ULIty8s9eY3OwE-UNt_1O44eVML71QMeKpI3pSWaPCeFraY3QXXT6GAoyWJZzw6UxcIAPGoKm7Y6eja5-ZYr2qI8JBae0-KaS_d6ap2zRKqJEHblmLzTxq1mUOFZ_vONjUB-nvdzlFpwBFW52zmIuxj2p1Y7WssNZPXGmSXkg22SCTNAJvDt7b_CMEtOeHA8korYRO4Rir5n7OEW_q8ed0enjQWDVUOlN1xoNwImb9oMg"
+}
