@@ -1,0 +1,59 @@
+import apluggy as pluggy
+from lyikpluginmanager import (
+    ContextModel,
+    getProjectName,
+    Operation,
+    OperationsListResponseModel,
+    OperationsListSpec,
+    GenericFormRecordModel,
+    PluginException,
+)
+from typing_extensions import Annotated, Doc
+from ..models.forms.new_schengentouristvisa import (
+    Schengentouristvisa,
+)
+import logging
+
+logger = logging.getLogger(__name__)
+impl = pluggy.HookimplMarker(getProjectName())
+
+OPR_DOCKET_CREATION = "OP_DOCKET_CREATION"
+
+ALL_OPERATIONS = [
+    Operation(
+        op_id=OPR_DOCKET_CREATION,
+        display_text="Operation to create Docket for the current user.",
+        op_name="",
+    )
+]
+
+
+class OperationListPlugin(OperationsListSpec):
+    @impl
+    async def get_operations_list(
+        self,
+        context: ContextModel,
+        form_record: Annotated[
+            GenericFormRecordModel,
+            Doc("The form record for which the operations list is required"),
+        ],
+    ) -> Annotated[
+        OperationsListResponseModel,
+        Doc("The list of operations available for the current form as per user role"),
+    ]:
+        try:
+            parsed_record = Schengentouristvisa(**form_record.model_dump())
+            user_name = parsed_record.passport.passport_details.first_name or ""
+            for op in ALL_OPERATIONS:
+                if op.op_id == OPR_DOCKET_CREATION:
+                    op.op_name = (
+                        f"Docket creation for {user_name}"
+                        if user_name
+                        else "Docket creation"
+                    )
+            return OperationsListResponseModel(operations=ALL_OPERATIONS)
+        except Exception as e:
+            raise PluginException(
+                message="Internal error occurred. Please contact support.",
+                detailed_message=f"Failed to get operations for the current form. Error: {str(e)}",
+            )

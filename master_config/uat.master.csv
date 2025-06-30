@@ -1,0 +1,9 @@
+template_var,data,category
+TPL_NGINX_DOMAIN,forms-uat.ttkservices.com,GENERIC
+TPL_PLUGIN_MAX_WEIGHT,1300,GENERIC
+TPL_BASEURL,https://forms-uat.ttkservices.com,
+TPL_LYIK_API_VERSION,1.0.7,
+TPL_LYIK_SPA_VERSION,lyikprodblueacr.azurecr.io/lyik-forms-spa-dev:0.0.3-dev,
+TPL_MONGODB_SERVER,mongodb://mongodb:27017,
+TPL_DIGILOCKER_CLIENT_ID,,DIGILOCKER
+TPL_DIGILOCKER_CLIENT_SECRET,,DIGILOCKER

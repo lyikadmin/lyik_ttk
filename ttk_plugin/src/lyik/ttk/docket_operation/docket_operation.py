@@ -58,22 +58,24 @@ class DocketOperation(OperationPluginSpec):
         Doc("Reurns the operation response with operation status and message."),
     ]:
         try:
-            parsed_form_model = Schengentouristvisa(form_record.model_dump())
+            parsed_form_model = Schengentouristvisa(**form_record.model_dump())
 
             docket_util = DocketUtilities()
+
+            final_files: List[DocumentModel] = []
 
             mapped_data: EditableForm = docket_util.map_schengen_to_editable_form(
                 schengen_visa_data=parsed_form_model
             )
 
-            data_dict: Dict = mapped_data.model_dump()
+            data_dict: Dict = mapped_data.model_dump(mode="json")
 
             transformed_data: TransformerResponseModel = (
                 await invoke.template_generate_pdf(
                     org_id=context.org_id,
                     config=context.config,
                     form_id=context.form_id,
-                    additional_args=None,
+                    additional_args={"record_id": record_id},
                     template_id="01_SwitzerlandVisaForm",
                     form_name="ttkform",
                     record=data_dict,
@@ -97,23 +99,14 @@ class DocketOperation(OperationPluginSpec):
             pdfs: List[TemplateDocumentModel] = transformed_data.response
 
             for pdf in pdfs:
-                await self.store_all_files(
-                    context=context,
-                    files=[
-                        DocumentModel(
-                            doc_name=pdf.doc_name,
-                            doc_content=pdf.doc_content,
-                            doc_type=pdf.doc_type,
-                            doc_size=len(pdf.doc_content),
-                        )
-                    ],
-                    rec_id=record_id,
-                    tag={
-                        "main_doc": "main_doc",
-                        "docket": "docket",
-                    },
+                final_files.append(
+                    DocumentModel(
+                        doc_name=pdf.doc_name,
+                        doc_content=pdf.doc_content,
+                        doc_type=pdf.doc_type,
+                        doc_size=len(pdf.doc_content),
+                    )
                 )
-                logger.info("PDF saved to DB.")
 
             files_in_rec_with_filename = {
                 "appointment_schedule_document": parsed_form_model.appointment.appointment_scheduled.upload_appointment,
@@ -122,10 +115,11 @@ class DocketOperation(OperationPluginSpec):
                 "passport_size_photo": parsed_form_model.photograph.passport_photo.photo,
                 "address_proof": parsed_form_model.residential_address.residential_address_card_v1.address_proof_upload,
                 "itinerary": parsed_form_model.itinerary_accomodation.itinerary_card.upload_itinerary,
-                "accommodation_proof": parsed_form_model.accomodation.accommodation_choice.accommodation_proof,
+                "accommodation_proof": parsed_form_model.accomodation.booked_appointment.booking_upload,
                 "flight_tickets": parsed_form_model.ticketing.flight_tickets.flight_tickets,
                 "travel_insurance": parsed_form_model.travel_insurance.flight_reservation_details.flight_reservation_tickets,
-                "aadhaar_card": parsed_form_model.additional_details.national_id.aadhaar_upload,
+                "aadhaar_card_front": parsed_form_model.additional_details.national_id.aadhaar_upload_front,
+                "aadhaar_card_back": parsed_form_model.additional_details.national_id.aadhaar_upload_back,
                 "salary_slip": parsed_form_model.salary_slip.upload.salary_slip,
                 "bank_statement": parsed_form_model.bank_statement.upload.bank_statements,
             }
@@ -156,9 +150,11 @@ class DocketOperation(OperationPluginSpec):
                         )
 
             # ✅ Process and get final files
-            final_files: List[DocumentModel] = self.process_documents_for_output(
+            processed_files: List[DocumentModel] = self.process_documents_for_output(
                 fetched_documents_by_key
             )
+
+            final_files.extend(processed_files)
 
             if len(final_files) != 0:
                 await self.store_all_files(
@@ -240,7 +236,14 @@ class DocketOperation(OperationPluginSpec):
                 )
             except Exception as e:
                 continue
-
+        for file in files:
+            meta_data = DocMeta(
+                org_id=context.org_id,
+                form_id=context.form_id,
+                record_id=rec_id,
+                doc_type=file.doc_type,
+            )
+            meta_data = meta_data.model_copy(update=tag)
             try:
                 await invoke.addDocument(
                     config=context.config,
@@ -270,7 +273,7 @@ class DocketOperation(OperationPluginSpec):
             output_docs: List[DocumentModel] = []
             group_mapping = {
                 "passport": ["passport_front", "passport_back"],
-                "aadhaar_card": ["aadhaar_card"],
+                "aadhaar_card": ["aadhaar_card_front", "aadhaar_card_back"],
                 "bank_statement": ["bank_statement"],
                 "salary_slip": ["salary_slip"],
                 "flight_tickets": ["flight_tickets"],

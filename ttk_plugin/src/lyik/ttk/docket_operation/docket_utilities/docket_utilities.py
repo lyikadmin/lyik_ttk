@@ -6,6 +6,7 @@ from ...models.forms.new_schengentouristvisa import (
     CIVILMARITALSTATUS,
     PASSPORTTYPE,
 )
+from datetime import date, datetime
 from ...models.pdf.pdf_model import EditableForm, FieldToggle
 import logging
 
@@ -13,6 +14,23 @@ logger = logging.getLogger(__name__)
 
 
 class DocketUtilities:
+
+    def format_date(
+        self,
+        raw_date: date | datetime | None | str,
+    ) -> str:
+        """
+        This function formats the date  and datetime object and returns as date str.
+        """
+        if isinstance(raw_date, str):
+            return raw_date
+        formatted_date = ""
+        if isinstance(raw_date, date):
+            formatted_date = raw_date.strftime("%d/%m/%Y")
+        if isinstance(raw_date, datetime):
+            formatted_date = raw_date.strftime("%d/%m/%Y %H:%M:%S")
+
+        return formatted_date
 
     def map_schengen_to_editable_form(
         self,
@@ -43,7 +61,10 @@ class DocketUtilities:
                 schengen_visa_data.passport.passport_details.country or ""
             )
             my_editable_form.visa_dob = (
-                schengen_visa_data.passport.passport_details.date_of_birth or ""
+                self.format_date(
+                    schengen_visa_data.passport.passport_details.date_of_birth
+                )
+                or ""
             )
             my_editable_form.visa_pob = (
                 schengen_visa_data.passport.passport_details.place_of_birth or ""
@@ -52,7 +73,10 @@ class DocketUtilities:
                 schengen_visa_data.additional_details.family_eu.surname or ""
             )
             my_editable_form.visa_fam_mem_eu_dob = (
-                schengen_visa_data.additional_details.family_eu.date_of_birth or ""
+                self.format_date(
+                    schengen_visa_data.additional_details.family_eu.date_of_birth
+                )
+                or ""
             )
             my_editable_form.visa_fam_mem_eu_1st_nm = (
                 schengen_visa_data.additional_details.family_eu.given_name or ""
