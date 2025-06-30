@@ -109,19 +109,51 @@ class DocketOperation(OperationPluginSpec):
                 )
 
             files_in_rec_with_filename = {
-                "appointment_schedule_document": parsed_form_model.appointment.appointment_scheduled.upload_appointment,
-                "passport_front": parsed_form_model.passport.passport_details.ovd_front,
-                "passport_back": parsed_form_model.passport.passport_details.ovd_back,
-                "passport_size_photo": parsed_form_model.photograph.passport_photo.photo,
-                "address_proof": parsed_form_model.residential_address.residential_address_card_v1.address_proof_upload,
-                "itinerary": parsed_form_model.itinerary_accomodation.itinerary_card.upload_itinerary,
-                "accommodation_proof": parsed_form_model.accomodation.booked_appointment.booking_upload,
-                "flight_tickets": parsed_form_model.ticketing.flight_tickets.flight_tickets,
-                "travel_insurance": parsed_form_model.travel_insurance.flight_reservation_details.flight_reservation_tickets,
-                "aadhaar_card_front": parsed_form_model.additional_details.national_id.aadhaar_upload_front,
-                "aadhaar_card_back": parsed_form_model.additional_details.national_id.aadhaar_upload_back,
-                "salary_slip": parsed_form_model.salary_slip.upload.salary_slip,
-                "bank_statement": parsed_form_model.bank_statement.upload.bank_statements,
+                "appointment_schedule_document": self.safe_getattr(
+                    parsed_form_model,
+                    "appointment.appointment_scheduled.upload_appointment",
+                ),
+                "passport_front": self.safe_getattr(
+                    parsed_form_model, "passport.passport_details.ovd_front"
+                ),
+                "passport_back": self.safe_getattr(
+                    parsed_form_model, "passport.passport_details.ovd_back"
+                ),
+                "passport_size_photo": self.safe_getattr(
+                    parsed_form_model, "photograph.passport_photo.photo"
+                ),
+                "address_proof": self.safe_getattr(
+                    parsed_form_model,
+                    "residential_address.residential_address_card_v1.address_proof_upload",
+                ),
+                "itinerary": self.safe_getattr(
+                    parsed_form_model,
+                    "itinerary_accomodation.itinerary_card.upload_itinerary",
+                ),
+                "accommodation_proof": self.safe_getattr(
+                    parsed_form_model, "accomodation.booked_appointment.booking_upload"
+                ),
+                "flight_tickets": self.safe_getattr(
+                    parsed_form_model, "ticketing.flight_tickets.flight_tickets"
+                ),
+                "travel_insurance": self.safe_getattr(
+                    parsed_form_model,
+                    "travel_insurance.flight_reservation_details.flight_reservation_tickets",
+                ),
+                "aadhaar_card_front": self.safe_getattr(
+                    parsed_form_model,
+                    "additional_details.national_id.aadhaar_upload_front",
+                ),
+                "aadhaar_card_back": self.safe_getattr(
+                    parsed_form_model,
+                    "additional_details.national_id.aadhaar_upload_back",
+                ),
+                "salary_slip": self.safe_getattr(
+                    parsed_form_model, "salary_slip.upload.salary_slip"
+                ),
+                "bank_statement": self.safe_getattr(
+                    parsed_form_model, "bank_statement.upload.bank_statements"
+                ),
             }
 
             fetched_documents_by_key: Dict[str, DBDocumentModel] = {}
@@ -207,6 +239,17 @@ class DocketOperation(OperationPluginSpec):
                 status=OperationStatus.FAILED,
                 message="Failed to generate the Docket.",
             )
+
+    def safe_getattr(self, obj, attr_path: str):
+        """Safely gets nested attributes from an object using dot notation."""
+        try:
+            for attr in attr_path.split("."):
+                obj = getattr(obj, attr)
+                if obj is None:
+                    return None
+            return obj
+        except AttributeError:
+            return None
 
     async def store_all_files(
         self,
