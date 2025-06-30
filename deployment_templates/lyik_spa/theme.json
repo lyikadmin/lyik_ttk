@@ -13,7 +13,7 @@
     "success": "#32A028",
     "warning": "#F57C00",
     "info": "#1976D2",
-    "contrastText": "#ffffff",
+    "contrastText": "#FFFFFF",
 
     "primary": {
       "brand": "#1136B3"
@@ -67,6 +67,15 @@
         "color": "#fff",
         "bgColor": "#32A028"
       }
+    },
+    "sidebar": {
+      "backgroundColor": "#1698ca",
+      "contrastText": "#ffffff",
+      "activeColor": "#1698ca",
+      "activeBackgroundColor": "#FFFFFF"
+    },
+    "progress_bar": {
+      "progress_text": "#000000"
     }
   }
 }

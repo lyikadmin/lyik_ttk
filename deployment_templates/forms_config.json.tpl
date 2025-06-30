@@ -9,6 +9,6 @@
     "logo_path": "/assets/ttk.png",
     "login_bg_path": "/assets/login_bg.png",
     "show_navbar": false,
-    "progress_bar": false
+    "progress_bar": true
   }
   
