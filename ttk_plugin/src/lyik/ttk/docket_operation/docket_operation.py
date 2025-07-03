@@ -31,7 +31,7 @@ from ..models.forms.new_schengentouristvisa import (
 )
 from ..ttk_storage_util.ttk_storage import TTKStorage
 from .docket_utilities.docket_utilities import DocketUtilities
-from ..models.pdf.pdf_model import EditableForm
+from ..models.pdf.pdf_model import PDFModel
 from typing import Annotated, Dict, List
 from typing_extensions import Doc
 import logging
@@ -42,7 +42,7 @@ logger = logging.getLogger(__name__)
 impl = pluggy.HookimplMarker(getProjectName())
 
 PRIMARY_TRAVELLER = "Primary"
-CO_TRAVELLER = "Co-Traveller"
+CO_TRAVELLER = "Co-traveller"
 COLLECTION_NAME = "primary_travellers"
 
 
@@ -180,9 +180,7 @@ class DocketOperation(OperationPluginSpec):
 
             docket_util = DocketUtilities()
 
-            final_files: List[DocumentModel] = []
-
-            mapped_data: EditableForm = docket_util.map_schengen_to_editable_form(
+            mapped_data: PDFModel = docket_util.map_schengen_to_pdf_model(
                 schengen_visa_data=parsed_form_model
             )
 
@@ -215,19 +213,23 @@ class DocketOperation(OperationPluginSpec):
                 )
 
             pdfs: List[TemplateDocumentModel] = transformed_data.response
+            pdf = pdfs[0]
 
-            for pdf in pdfs:
-                final_files.append(
-                    DocumentModel(
-                        doc_name=pdf.doc_name,
-                        doc_content=pdf.doc_content,
-                        doc_type=pdf.doc_type,
-                        doc_size=len(pdf.doc_content),
-                    )
-                )
+            pdf_doc_model = DBDocumentModel(
+                doc_name=f"{parsed_form_model.passport.passport_details.first_name}_{parsed_form_model.visa_request_information.visa_request.to_country}_Application",
+                doc_content=pdf.doc_content,
+                doc_size=len(pdf.doc_content),
+                metadata=DocMeta(
+                    org_id=context.org_id,
+                    form_id=context.form_id,
+                    record_id=record_id,
+                    doc_type=pdf.doc_type,
+                ),
+            )
 
             files_in_rec_with_filename = self.get_files_from_record(
-                parsed_form_model=parsed_form_model
+                parsed_form_model=parsed_form_model,
+                pdf_doc_model=pdf_doc_model,
             )
 
             fetched_documents_by_key: Dict[str, DBDocumentModel] = {}
@@ -236,18 +238,19 @@ class DocketOperation(OperationPluginSpec):
                 if isinstance(file_data, dict) and file_data.get("doc_id"):
                     try:
                         doc = DBDocumentModel(**file_data)
-
-                        fetched_docs: List[DBDocumentModel] = (
-                            await invoke.fetchDocument(
-                                config=context.config,
-                                org_id=context.org_id,
-                                file_id=doc.doc_id,
-                                coll_name=context.form_id,
-                                metadata_params=None,
+                        if doc.doc_name != pdf_doc_model.doc_name:
+                            fetched_docs: List[DBDocumentModel] = (
+                                await invoke.fetchDocument(
+                                    config=context.config,
+                                    org_id=context.org_id,
+                                    file_id=doc.doc_id,
+                                    coll_name=context.form_id,
+                                    metadata_params=None,
+                                )
                             )
-                        )
-
-                        fetched_documents_by_key[key] = fetched_docs[0]
+                            fetched_documents_by_key[key] = fetched_docs[0]
+                        else:
+                            fetched_documents_by_key[key] = doc
 
                     except Exception as e:
                         raise PluginException(
@@ -260,12 +263,10 @@ class DocketOperation(OperationPluginSpec):
                 fetched_documents_by_key
             )
 
-            final_files.extend(processed_files)
-
-            if len(final_files) != 0:
+            if len(processed_files) != 0:
                 await self.store_all_files(
                     context=context,
-                    files=final_files,
+                    files=processed_files,
                     rec_id=record_id,
                     tag={
                         "docket": "docket",
@@ -315,7 +316,9 @@ class DocketOperation(OperationPluginSpec):
             )
 
     def get_files_from_record(
-        self, parsed_form_model: Schengentouristvisa
+        self,
+        parsed_form_model: Schengentouristvisa,
+        pdf_doc_model: DBDocumentModel,
     ) -> Dict[str, any]:
         files_in_rec_with_filename = {}
 
@@ -358,6 +361,10 @@ class DocketOperation(OperationPluginSpec):
         if consultant_info and consultant_info.cover_letter:
             files_in_rec_with_filename["Cover_Letter"] = (
                 consultant_info.cover_letter.cover_letter
+            )
+        if pdf_doc_model:
+            files_in_rec_with_filename[pdf_doc_model.doc_name] = (
+                pdf_doc_model.model_dump(mode="json")
             )
         if itinerary and itinerary.itinerary_card:
             files_in_rec_with_filename["Itinerary"] = (
