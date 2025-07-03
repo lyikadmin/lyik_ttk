@@ -29,6 +29,7 @@ import mimetypes
 from ..models.forms.new_schengentouristvisa import (
     Schengentouristvisa,
 )
+from ..ttk_storage_util.ttk_storage import TTKStorage
 from .docket_utilities.docket_utilities import DocketUtilities
 from ..models.pdf.pdf_model import EditableForm
 from typing import Annotated, Dict, List
@@ -39,6 +40,10 @@ import os
 logger = logging.getLogger(__name__)
 
 impl = pluggy.HookimplMarker(getProjectName())
+
+PRIMARY_TRAVELLER = "Primary"
+CO_TRAVELLER = "Co-Traveller"
+COLLECTION_NAME = "primary_travellers"
 
 
 class DocketOperation(OperationPluginSpec):
@@ -58,7 +63,120 @@ class DocketOperation(OperationPluginSpec):
         Doc("Reurns the operation response with operation status and message."),
     ]:
         try:
+            if not context or not context.config:
+                raise PluginException(
+                    message="Internal configuration error. Please contact support.",
+                    detailed_message="The context or config is missing.",
+                )
+            config = context.config
+
+            conn_url = config.DB_CONN_URL
+            if not conn_url:
+                raise PluginException(
+                    message="Internal configuration error. Please contact support.",
+                    detailed_message="DB_CONN_URL is missing in the config.",
+                )
+
+            org_id = context.org_id
+            if not org_id:
+                raise PluginException(
+                    message="Internal configuration error. Please contact support.",
+                    detailed_message="org_id is missing in the context.",
+                )
+
             parsed_form_model = Schengentouristvisa(**form_record.model_dump())
+
+            traveller_type = (
+                parsed_form_model.visa_request_information.visa_request.traveller_type
+            )
+            if not traveller_type:
+                raise PluginException(
+                    message="Traveller type is missing in Visa Request Summary. Please enure it is filled and try again. If issue persists, please contact support.",
+                    detailed_message="traveller_type is missing in payload, hence the exception.",
+                )
+
+            order_id = parsed_form_model.visa_request_information.visa_request.order_id
+            if not order_id:
+                raise PluginException(
+                    message="Internal configuration error. Please contact support.",
+                    detailed_message="order_id is missing in the payload.",
+                )
+
+            if traveller_type == CO_TRAVELLER:
+                try:
+                    ttk_storage = TTKStorage(db_conn_url=conn_url)
+                    fetched_data: GenericFormRecordModel = (
+                        await ttk_storage.query_primary_info(
+                            collection_name=COLLECTION_NAME,
+                            org_id=org_id,
+                            order_id=order_id,
+                        )
+                    )
+
+                    if not fetched_data:
+                        raise PluginException(
+                            message="Internal error occurred. Please contact support.",
+                            detailed_message="Failed to fetch the Primary traveller details.",
+                        )
+
+                    primary_traveller_data = Schengentouristvisa(
+                        **fetched_data.model_dump(mode="json")
+                    )
+
+                    shared_traveller_info = parsed_form_model.shared_travell_info
+
+                    if shared_traveller_info.shared.itinerary_same.value == "ITINERARY":
+                        primary_traveller_itinerary = (
+                            primary_traveller_data.itinerary_accomodation
+                        )
+                        if (
+                            not primary_traveller_itinerary
+                            or not primary_traveller_itinerary.itinerary_card
+                        ):
+                            raise PluginException(
+                                message="Please ensure the Initerary section of the Primary traveller is filled and try again. If issue persists, contact support.",
+                                detailed_message="Primary traveller itinerary data is missing in the form record.",
+                            )
+                        parsed_form_model.itinerary_accomodation = (
+                            primary_traveller_itinerary
+                        )
+
+                    if (
+                        shared_traveller_info.shared.accommodation_same.value
+                        == "ACCOMMODATION"
+                    ):
+                        primary_traveller_accommodation = (
+                            primary_traveller_data.accomodation
+                        )
+                        if not primary_traveller_accommodation:
+                            raise PluginException(
+                                message="Please ensure the Accommodation section of the Primary traveller is filled and try again. If issue persists, contact support.",
+                                detailed_message="Primary traveller Accommodation data is missing in the form record.",
+                            )
+                        parsed_form_model.accomodation = primary_traveller_accommodation
+
+                    if (
+                        shared_traveller_info.shared.flight_ticket_same.value
+                        == "FLIGHT_TICKET"
+                    ):
+                        primary_traveller_flight_ticket = (
+                            primary_traveller_data.ticketing
+                        )
+                        if (
+                            not primary_traveller_flight_ticket
+                            or not primary_traveller_flight_ticket.flight_tickets
+                        ):
+                            raise PluginException(
+                                message="Please ensure the Flight Tickets section of the Primary traveller is filled and try again. If issue persists, contact support.",
+                                detailed_message="Primary traveller Flight Tickets data is missing in the form record.",
+                            )
+                        parsed_form_model.ticketing = primary_traveller_flight_ticket
+
+                except Exception as e:
+                    raise PluginException(
+                        "Internal error occurred. Please contact support.",
+                        detailed_message=f"Exception raised during fetch primary traveller details. Error: {str(e)}",
+                    )
 
             docket_util = DocketUtilities()
 

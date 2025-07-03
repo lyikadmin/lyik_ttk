@@ -1,6 +1,7 @@
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
 from typing import Dict, Any, Optional
 import logging
+from lyikpluginmanager import GenericFormRecordModel
 
 logger = logging.getLogger(__name__)
 
@@ -57,10 +58,15 @@ class TTKStorage:
             raise ValueError("Database name not specified and no default set.")
         return self._client[name]
 
-    async def save_primary_info(self, org_id: str, order_id: str, data: Dict[str, Any]):
+    async def save_primary_info(
+        self,
+        org_id: str,
+        order_id: str,
+        data: Dict[str, Any],
+        collection_name: str,
+    ):
         db = self.get_db(org_id)
         try:
-            collection_name = ""
             document = {"_id": order_id, "data": data}
             result = await db[collection_name].replace_one(
                 {"_id": order_id},
@@ -74,6 +80,7 @@ class TTKStorage:
                 db.name,
                 collection_name,
             )
+            return str(result.upserted_id)
         except Exception as e:
             logger.error("Error upserting into '%s': %s", collection_name, e)
             raise Exception(
@@ -84,14 +91,14 @@ class TTKStorage:
         self,
         org_id: str,
         order_id: str,
-    ) -> Optional[Dict[str, Any]]:
+        collection_name: str,
+    ) -> Optional[GenericFormRecordModel]:
         """
         Fetches the document with _id = order_id from the given org_id's DB.
         Returns the 'data' field if the document is found, else None.
         """
         db = self.get_db(org_id)
         try:
-            collection_name = ""
             document = await db[collection_name].find_one({"_id": order_id})
             if document:
                 logger.info(
@@ -100,7 +107,8 @@ class TTKStorage:
                     db.name,
                     collection_name,
                 )
-                return document.get("data")
+                data = document.get("data")
+                return GenericFormRecordModel(**data)
             else:
                 logger.warning(
                     "No document found for _id '%s' in '%s.%s'.",
