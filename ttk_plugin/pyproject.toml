@@ -22,7 +22,7 @@ dependencies = [
     "pycryptodome==3.19.0",
     "PyJWT==2.6.0",
     "python-dateutil==2.9.0.post0",
-    "motor==3.7.1"
+    "motor==3.1.2"
 ]
 
 [project.entry-points."LYIK"]
@@ -32,6 +32,7 @@ _150_01_PREACTION_NORMALIZE_COUNTRY_CODES = "lyik.ttk.preaction.normalize_countr
 _150_PREACTION_MAKER_ID_APPEND = "lyik.ttk.preaction.append_maker_id:AppendMakerId"
 # _150_PREACTION_FORM_STATUS = "lyik.ttk.preaction.descriptive_state:FormStatusDisplay"
 _150_PREACTION_PROGRESS_CHECK = "lyik.ttk.preaction.pct_completion:PctCompletion"
+_150_PREACTION_SAVE_PRIMARY_TRAVELLER = "lyik.ttk.preaction.save_primary_traveller:SavePrimaryTraveller"
 _150_TTK_AUTH = "lyik.ttk.auth.ttkauth:TTKAuthProvider"
 _150_VERIFIER_ADDITIONAL_TRAVEL_DETAILS = "lyik.ttk.additional_travel_details_verifier.additional_travel_details_verifier:AdditionalTravelDetailsVerifier"
 _150_VERIFIER_PASSPORT_DATE = "lyik.ttk.passport_verifier.verifier:PassportVerificationPlugin"

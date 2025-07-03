@@ -127,20 +127,3 @@ class TTKStorage:
     def client(self) -> AsyncIOMotorClient:
         """Expose the raw Motor client if advanced operations are needed."""
         return self._client
-
-
-import asyncio
-
-
-async def main():
-    mongo = TTKStorage(db_conn_url="mongodb://localhost:27017")
-    result_id = await mongo.add_document(
-        db_name="delete_this",
-        collection_name="delete_collection",
-        document_data={"test": "test"},
-    )
-    print("Inserted ID:", result_id)
-
-
-if __name__ == "__main__":
-    asyncio.run(main())
