@@ -13,7 +13,14 @@ from lyikpluginmanager import (
 )
 from typing_extensions import Doc
 
-from ..models.forms.new_schengentouristvisa_ import Schengentouristvisa
+from ..models.forms.new_schengentouristvisa_ import (
+    Schengentouristvisa,
+    ACCOMMODATIONARRANGEMENT,
+    RootConsultantInfoConfirmedAccommodation,
+    RootConsultantInfoDummyAccommodation,
+    RootConsultantInfoConfirmedFlightTicket,
+    RootConsultantInfoDummyFlightTicket,
+    )
 
 logger = logging.getLogger(__name__)
 impl = pluggy.HookimplMarker(getProjectName())
@@ -27,9 +34,19 @@ def _dig_get(obj: dict, path: str) -> Any:
     return obj
 
 def _dig_set(obj: dict, path: str, value: Any) -> None:
+    """
+    Walks obj[path] = value, creating any intermediate dicts.
+    If an intermediate key exists but is not a dict (e.g. None),
+    it is replaced with a new dict so we never call .setdefault() on None.
+    """
     parts = path.split(".")
     for key in parts[:-1]:
-        obj = obj.setdefault(key, {})
+        cur = obj.get(key)
+        if not isinstance(cur, dict):
+            # replace None or any other non-dict
+            cur = {}
+            obj[key] = cur
+        obj = cur
     obj[parts[-1]] = value
 
 #  Individual copier steps
@@ -66,59 +83,110 @@ def _copy_itinerary(data: dict, consul: dict) -> None:
     itinerary_addon = consul.get("itinerary_addon")
     if not isinstance(itinerary_addon, dict):
         return
+    
+    upload_itinerary = itinerary_addon.get('upload_itinerary')
+    if not upload_itinerary:
+        return
 
-    _dig_set(data, "itinerary_accomodation.itinerary_card.upload_itinerary", itinerary_addon)
+    _dig_set(data, "itinerary_accomodation.itinerary_card.upload_itinerary", upload_itinerary)
 
 def _copy_accommodation(data: dict, consul: dict) -> None:
     """
-    Copy consultant_info.dummy_accommodation
-        or consultant_info.confirmed_accommodation
-    → accomodation.booked_appointment
-    and force accommodation_choice.accommodation_option='BOOKED'
+    Copy either confirmed_accommodation or dummy_accommodation into
+    accomodation.booked_appointment—but only if the consultant actually
+    provided at least one field.  Any field they left as None is dropped.
     """
-    acc = consul.get("confirmed_accommodation") or consul.get("dummy_accommodation")
-    if not isinstance(acc, dict):
-        return
+    # 1) grab the raw dicts (or empty if missing)
+    confirmed_raw = consul.get("confirmed_accommodation") or {}
+    dummy_raw     = consul.get("dummy_accommodation")   or {}
 
-    booking = acc.get("booking_upload")
-    if not booking:
-        return
+    # 2) parse + prune Nones via Pydantic
+    try:
+        confirmed = (
+            RootConsultantInfoConfirmedAccommodation(**confirmed_raw)
+            .model_dump(exclude_none=True)
+        )
+    except Exception:
+        confirmed = {}
+    try:
+        dummy = (
+            RootConsultantInfoDummyAccommodation(**dummy_raw)
+            .model_dump(exclude_none=True)
+        )
+    except Exception:
+        dummy = {}
 
-    # force BOOKED
-    _dig_set(data, "accomodation.accommodation_choice.accommodation_option", "BOOKED")
+    # 3) pick the first non-empty
+    acc = confirmed or dummy
+    if not acc:
+        return  # neither had any real data
 
-    # build the booked_appointment payload
-    card: Dict[str, Any] = {}
-    card["booking_upload"] = booking
-    for fld in ("accommodation_name", "accommodation_address", "accommodation_email", "accommodation_phone"):
-        val = acc.get(fld)
-        if val:
-            card[fld] = val
+    # 4) build your card straight from acc (it already has only the set fields)
+    card = acc
 
+    # 5) mark the choice as BOOKED
+    _dig_set(
+        data,
+        "accomodation.accommodation_choice.accommodation_option",
+        ACCOMMODATIONARRANGEMENT.BOOKED,
+    )
+
+    # 6) plug it into booked_appointment
     _dig_set(data, "accomodation.booked_appointment", card)
 
+
+
 def _copy_flight_tickets(data: dict, consul: dict) -> None:
-    """Copy consultant_info.{dummy|confirmed}_flight_ticket.flight_tickets → ticketing.flight_tickets"""
-    flight = consul.get("confirmed_flight_ticket") or consul.get("dummy_flight_ticket")
-    if not isinstance(flight, dict):
-        return
+    """
+    Copy consultant_info.confirmed_flight_ticket or dummy_flight_ticket
+    → ticketing.flight_tickets.flight_tickets,
+    but only if the consultant actually provided something.
+    """
 
+    # 1) pull both raw dicts (or empty if missing)
+    raw_conf  = consul.get("confirmed_flight_ticket") or {}
+    raw_dummy = consul.get("dummy_flight_ticket")   or {}
+
+    # 2) parse + prune None-fields via Pydantic
+    try:
+        conf = (
+            RootConsultantInfoConfirmedFlightTicket(**raw_conf)
+            .model_dump(exclude_none=True)
+        )
+    except Exception:
+        conf = {}
+    try:
+        dummy = (
+            RootConsultantInfoDummyFlightTicket(**raw_dummy)
+            .model_dump(exclude_none=True)
+        )
+    except Exception:
+        dummy = {}
+
+    # 3) pick whichever has real data
+    flight = conf or dummy
+    if not flight:
+        return  # neither had any non-None field
+
+    # 4) grab the actual upload (Pydantic has already stripped out None)
     tickets = flight.get("flight_tickets")
-    if not tickets:
-        return
+    if tickets is None:
+        return  # just in case
 
+    # 5) copy into your pane
     _dig_set(data, "ticketing.flight_tickets.flight_tickets", tickets)
+
 
 
 def _copy_travel_insurance(data: dict, consul: dict) -> None:
     """Copy consultant_info.travel_insurances.flight_reservation_tickets → travel_insurance.flight_reservation_details.flight_reservation_tickets"""
     ins = consul.get("travel_insurances")
     if not isinstance(ins, dict):
-        return
+        return logger.warning("Insurance Card itself empty")
 
     ticket = ins.get("flight_reservation_tickets")
-    if not ticket:
-        return
+    if ticket is None:
+        return logger.warning("Cant find the file")
 
     _dig_set(data, "travel_insurance.flight_reservation_details.flight_reservation_tickets", ticket)
 
