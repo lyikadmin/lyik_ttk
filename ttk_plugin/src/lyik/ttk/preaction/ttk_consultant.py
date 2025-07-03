@@ -149,7 +149,7 @@ class MakerCopyToPanes(PreActionProcessorSpec):
         # 1) try parsing into your Pydantic model (safe fallback on error)
         try:
             form = Schengentouristvisa(**payload.model_dump())
-            data: dict = form.model_dump()
+            data: dict = form.model_dump(exclude_none=True)
         except Exception as e:
             logger.error("maker_copy_to_panes: parse error %s", e)
             data = payload.model_dump()
