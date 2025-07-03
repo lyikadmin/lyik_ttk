@@ -23,7 +23,7 @@ class TTKStorage:
             # Optional: warn if somebody tries to pass a different URL later on
             if db_conn_url != cls._instance._conn_url:
                 logger.warning(
-                    "MongoManager already initialised with '%s'; "
+                    "TTKStorage already initialised with '%s'; "
                     "ignoring new URL '%s'.",
                     cls._instance._conn_url,
                     db_conn_url,
