@@ -428,7 +428,9 @@ class DocketOperation(OperationPluginSpec):
                 if (
                     add_docs.additionaldocumentgroup
                     and add_docs.additionaldocumentgroup.additional_documents_card
-                    and add_docs.additionaldocumentgroup.additional_documents_card.file_upload
+                    and add_docs.additionaldocumentgroup.additional_documents_card.file_upload.get(
+                        "doc_id"
+                    )
                 ):
                     key_name = f"Additional_Doc{idx:02d}"
                     files_in_rec_with_filename[key_name] = (
