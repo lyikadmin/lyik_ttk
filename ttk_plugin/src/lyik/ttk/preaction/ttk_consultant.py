@@ -77,6 +77,9 @@ def _copy_appointments(data: dict, consul: dict) -> None:
                 "upload_appointment",
             ) if k in appointments_consul
         })
+        # add a lock_appointment value to be true
+    # in _copy_appointments, right after you set appointment.appointment_scheduled:
+    _dig_set(data, "appointment.lock_appointment", 'Lock')
 
 def _copy_itinerary(data: dict, consul: dict) -> None:
     """Copy consultant_info.itinerary_addon.upload_itinerary → itinerary_accomodation.itinerary_card.upload_itinerary"""
@@ -89,6 +92,10 @@ def _copy_itinerary(data: dict, consul: dict) -> None:
         return
 
     _dig_set(data, "itinerary_accomodation.itinerary_card.upload_itinerary", upload_itinerary)
+    # lock_itinerary will be true
+    # in _copy_itinerary, right after you set itinerary_accomodation.itinerary_card.upload_itinerary:
+    _dig_set(data, "itinerary_accomodation.lock_itinerary", 'Lock')
+
 
 def _copy_accommodation(data: dict, consul: dict) -> None:
     """
@@ -133,6 +140,10 @@ def _copy_accommodation(data: dict, consul: dict) -> None:
 
     # 6) plug it into booked_appointment
     _dig_set(data, "accomodation.booked_appointment", card)
+    # lock_itinerary will be true 
+    # in _copy_accommodation, right after you set accomodation.booked_appointment:
+    _dig_set(data, "accomodation.lock_accommodation", 'Lock')
+
 
 
 
@@ -175,6 +186,10 @@ def _copy_flight_tickets(data: dict, consul: dict) -> None:
 
     # 5) copy into your pane
     _dig_set(data, "ticketing.flight_tickets.flight_tickets", tickets)
+    # lock_ticket to be true
+    # in _copy_flight_tickets, right after you set ticketing.flight_tickets.flight_tickets:
+    _dig_set(data, "ticketing.lock_ticket", 'Lock')
+
 
 
 
@@ -189,6 +204,7 @@ def _copy_travel_insurance(data: dict, consul: dict) -> None:
         return logger.warning("Cant find the file")
 
     _dig_set(data, "travel_insurance.flight_reservation_details.flight_reservation_tickets", ticket)
+    _dig_set(data, "travel_insurance.lock_travel_insurance", 'Lock')
 
 #  Pipeline
 _COPIERS: List[Callable[[dict, dict], None]] = [

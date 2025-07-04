@@ -103,7 +103,7 @@ info_pane_builder,lets_get_started,,,info_pane,,False,"<!DOCTYPE html>
   </div>
 </body>
 </html>
-",Let's Get Started,,,False,,,,,operation.save:Continue
+",Let's Get Started,,,False,,,,,operation.continue:Continue
 display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
@@ -528,7 +528,7 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,other_details,,,card,,False,,Other Details,,,False,,,,,
 table,other_details_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_civil_marital_status,civil_status,,,dropdown,,False,Select Option,Civil/Marital Status,,,False,,,,,
-fac_str,nationality_of_birth,,,textbox,INDIAN,False,Enter Nationality of Birth (if different),Nationality of Birth (if different),,,False,,,,,
+fac_str,nationality_of_birth,,,textbox,,False,Enter Nationality of Birth (if different),Nationality of Birth (if different),,,False,,,,,
 fac_str,other_nationality,,,textbox,,False,Enter Other Nationality,Other Nationality,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -1351,10 +1351,10 @@ display_field,display_accommodation_header,,,display_field,,False,"
 </body>
 </html>",,,,False,,,,,
 fac_str,lock_accommodation,,,hidden,,False,,,,,False,,,,,
-card_builder,accommodation_choice,,,card,,False,,Accommodation,,,False,,,not lock_accommodation='Lock',,
+card_builder,accommodation_choice,,,card,,False,,Accommodation,,,False,,,,not lock_accommodation='Lock',
 fac_accommodation_arrangement,accommodation_option,,,radiobutton,BOOKED,False,Select Option,Please let us know how your stay is arranged:,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,invitation_details,,,card,,False,,Details of Stay with Family/Friends (Invitation),,,False,,,not (lock_accommodation='Lock' or accommodation_choice.accommodation_option != 'WITH_FAMILY'),,
+card_builder,invitation_details,,,card,,False,,Details of Stay with Family/Friends (Invitation),,,False,,,accommodation_choice.accommodation_option != 'WITH_FAMILY',,
 display_field,display_accomodation,,,display_field,,False,"<div style=""
 display: flex;
 justify-content: center;
@@ -1385,7 +1385,7 @@ fac_file,visa_copy_permit,,,fileoption,,False,Upload an image/file,Visa Copy / R
 fac_file,accommodation_proof,,,fileoption,,False,Upload an image/file,Inviter's Accommodation Proof,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,booked_appointment,,,card,,False,,Booked Accommodation,,,False,,,accommodation_choice.accommodation_option = 'WITH_FAMILY',,
+card_builder,booked_appointment,,,card,,False,,Booked Accommodation,,,False,,,accommodation_choice.accommodation_option = 'WITH_FAMILY',not lock_accommodation='Lock',
 display_field,display_accommodation_instruction,,,display_field,,False,"<div style=""
 display: flex;
 justify-content: center;
@@ -1825,7 +1825,7 @@ To know the cost, please refer to the <strong>&nbsp;Add-On Cart Section</strong>
 </body>
 </html>",,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,add_on_card,,,card,,False,,Add-On Service: Details Required,,,False,,,,,
+card_builder,add_on_card,,,card,,False,,Add-On Service: Details Required,,,False,,,,"not lock_travel_insurance=""Lock""",
 fac_adosi,add_on_service_option,,,checkbox,,False,Select Option,,,,False,,,,,
 display_field,instruction_display,,,display_field,,False,"<div style=""
 display: flex;
@@ -2325,32 +2325,8 @@ display_field,display_not_filled_itr,,,display_field,,False,"<!DOCTYPE html>
 ",,,,False,,,not @.itr_options = 'NO_ITR',,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 tab_break,additional_documents_tab,,,tab_break,,False,,Additional Information,,,False,,,,,
-section_break,declarations_section,,,section_break,,False,No Instructions Present,Declarations,,,False,,,,,
-info_pane_builder,declarations,,,info_pane,,False,No Instructions Present,Declarations,,,False,,,,,operation.save:Save and Continue
-card_builder,visa_declaration,,,card,,False,,Visa Declaration,,,False,,,,,
-fac_visa_policy_1,visa_policy_1,,,checkbox,,False,Select Option,,,,False,,,,,
-fac_visa_policy_2,visa_policy_2,,,checkbox,,False,Select Option,,,,False,,,,,
-fac_visa_policy_3,visa_policy_3,,,checkbox,,False,Select Option,,,,False,,,,,
-ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,addons_section,,,section_break,,False,No Instructions Present,Add-On Cart,,,False,,,,,
 info_pane_builder,addons,,,info_pane,,False,No Instructions Present,Add-On Cart,,,False,,,,,operation.save:Continue
-card_builder,addon_card,,,card,,False,,Addon Cart,,,False,,,,,
-table,table,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:1
-group_builder,addon_cart_row,,,table_row,,False,,Addon Table,,,False,,,,,
-fac_str,slno,,,textbox,,False,Enter  , ,,,False,,,,,
-fac_str,addon_id,,,hidden,,False,Enter Addon ID,Addon ID,,,False,,,,,
-fac_str,addon_name,,,textbox,,False,Enter Add-Ons,Add-Ons,,,False,,,,,
-fac_str,refid,,,textbox,,False,Enter Ref ID,Ref ID,,,False,,,,,
-fac_str,txnid,,,hidden,,False,Enter Txn ID,Txn ID,,,False,,,,,
-fac_str,status,,,textbox,,False,Enter Status,Status,,,False,,,,,
-fac_str,lps_status,,,hidden,,False,Enter LPS Status,LPS Status,,,False,,,,,
-fac_str,amount,,,textbox,,False,Enter Amount,Amount,,,False,,,,,
-fac_str,message,,,hidden,,False,Enter Message,Message,,,False,,,,,
-fac_str,remarks,,,hidden,,False,Enter Remarks,Remarks,,,False,,,,,
-ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
-ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,consultant_section,,,section_break,,False,No Instructions Present,TTK Consultant,,,False,,,"CONTAINS(USER.persona,[CLI])",,
 info_pane_builder,consultant_info,,,info_pane,,False,No Instructions Present,TTK Consultant,,,False,,,"CONTAINS(USER.persona,[CLI])",,operation.save:Save and Continue
@@ -2403,6 +2379,28 @@ Upload the Instruction Sheet prepared for the Traveller.
 
 </div> ",,,,False,,,,,
 fac_file,upload_instruction,,,fileoption,,False,Upload an image/file,Instruction Sheet,,,False,,,,,file_type:.pdf
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,cover_letter,,,card,,False,,Cover Letter,,,False,,,,,
+display_field,display_card_2,,,display_field,,False,"<div style=""
+display: flex;
+justify-content: center;
+align-items: center;"">
+
+<div style=""
+  text-align: center;
+  width: 1060px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 32px;
+  color: #000000;
+  text-align: center;
+"">
+Upload the Cover Letter prepared for the Traveller.
+</div>
+
+</div> ",,,,False,,,,,
+fac_file,cover_letter,,,fileoption,,False,Upload an image/file,Cover Letter,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,itinerary_addon,,,card,,False,,Add-On : Itinerary,,,False,,,,,
 display_field,display_card_3,,,display_field,,False,"<div style=""
