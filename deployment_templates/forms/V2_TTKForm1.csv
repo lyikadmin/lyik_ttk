@@ -2626,7 +2626,7 @@ fac_confirm_docs_uploaded,docs_uploaded,,,checkbox,,False,Select Option,,,,False
 fac_confirm_uneditable,understand_lock,,,checkbox,,False,Select Option,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-section_break,docket_section,,,section_break,,False,No Instructions Present,Docket,,,False,,,,,
+section_break,docket_section,,,section_break,,False,No Instructions Present,Docket,,,False,,,"not $.submit_info.docket.docket_status = ""ENABLE_DOWNLOAD""",,
 info_pane_builder,docket_info,,,info_pane,,False,No Instructions Present,Docket,,,False,,,,,operation.save:Save
 display_field,display_header_docket,,,display_field,,False,Download the Completed Docket(/s) here.,,,,False,,,,,
 card_builder,,,,card,,FALSE,,Docket Operation,ACTION.OPERATIONS,,False,,,,,
