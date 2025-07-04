@@ -503,7 +503,7 @@ class DocketOperation(OperationPluginSpec):
             output_docs: List[DocumentModel] = []
 
             for index, (key, doc) in enumerate(
-                fetched_documents_by_key.items(), start=2
+                fetched_documents_by_key.items(), start=1
             ):
                 if not doc or not doc.doc_content:
                     raise PluginException(
