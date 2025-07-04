@@ -63,21 +63,21 @@ class DocketUtilities:
             passport_details = passport_section.passport_details
             other_details = passport_section.other_details
 
-            pdf_model.visa_surname_family_name = (passport_details.surname,)
-            pdf_model.visa_surname_at_birth = (passport_details.surname,)
-            pdf_model.visa_first_name = (passport_details.first_name,)
+            pdf_model.visa_surname_family_name = passport_details.surname
+            pdf_model.visa_surname_at_birth = passport_details.surname
+            pdf_model.visa_first_name = passport_details.first_name
             pdf_model.visa_dob = (
                 self.format_date(
                     schengen_visa_data.passport.passport_details.date_of_birth
                 )
-                or "",
+                or ""
             )
-            pdf_model.visa_cob = (passport_details.country,)
+            pdf_model.visa_cob = passport_details.country
             pdf_model.visa_sex_male = (
                 True if passport_details.gender.value == "M" else False
             )
             pdf_model.visa_sex_female = (
-                True if passport_details.gender.value == "F" else True
+                True if passport_details.gender.value == "F" else False
             )
             pdf_model.visa_sex_oth = (
                 True
@@ -89,6 +89,8 @@ class DocketUtilities:
 
             pdf_model.visa_curr_natl = passport_details.nationality
             pdf_model.visa_oth_natl = other_details.other_nationality
+
+            return pdf_model
 
             # sample_data = Switzerland6(
             #     first_name=passport_details.first_name,

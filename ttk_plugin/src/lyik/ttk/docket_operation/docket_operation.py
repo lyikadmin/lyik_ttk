@@ -125,7 +125,11 @@ class DocketOperation(OperationPluginSpec):
 
                     shared_traveller_info = parsed_form_model.shared_travell_info
 
-                    if shared_traveller_info.shared.itinerary_same.value == "ITINERARY":
+                    if (
+                        shared_traveller_info.shared.itinerary_same != None
+                        and shared_traveller_info.shared.itinerary_same.value
+                        == "ITINERARY"
+                    ):
                         primary_traveller_itinerary = (
                             primary_traveller_data.itinerary_accomodation
                         )
@@ -142,7 +146,8 @@ class DocketOperation(OperationPluginSpec):
                         )
 
                     if (
-                        shared_traveller_info.shared.accommodation_same.value
+                        shared_traveller_info.shared.accommodation_same != None
+                        and shared_traveller_info.shared.accommodation_same.value
                         == "ACCOMMODATION"
                     ):
                         primary_traveller_accommodation = (
@@ -156,7 +161,8 @@ class DocketOperation(OperationPluginSpec):
                         parsed_form_model.accomodation = primary_traveller_accommodation
 
                     if (
-                        shared_traveller_info.shared.flight_ticket_same.value
+                        shared_traveller_info.shared.flight_ticket_same != None
+                        and shared_traveller_info.shared.flight_ticket_same.value
                         == "FLIGHT_TICKET"
                     ):
                         primary_traveller_flight_ticket = (
@@ -235,7 +241,7 @@ class DocketOperation(OperationPluginSpec):
             fetched_documents_by_key: Dict[str, DBDocumentModel] = {}
 
             for key, file_data in files_in_rec_with_filename.items():
-                if isinstance(file_data, dict) and file_data.get("doc_id"):
+                if isinstance(file_data, dict):
                     try:
                         doc = DBDocumentModel(**file_data)
                         if doc.doc_name != pdf_doc_model.doc_name:
@@ -364,7 +370,7 @@ class DocketOperation(OperationPluginSpec):
             )
         if pdf_doc_model:
             files_in_rec_with_filename[pdf_doc_model.doc_name] = (
-                pdf_doc_model.model_dump(mode="json")
+                pdf_doc_model.model_dump()
             )
         if itinerary and itinerary.itinerary_card:
             files_in_rec_with_filename["Itinerary"] = (
