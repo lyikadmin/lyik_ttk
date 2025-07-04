@@ -342,6 +342,10 @@ class DocketOperation(OperationPluginSpec):
         bank_statement = parsed_form_model.bank_statement
         itr = parsed_form_model.itr_acknowledgement
 
+        if consultant_info and consultant_info.instruction_letter:
+            files_in_rec_with_filename["Instruction_sheet"] = (
+                consultant_info.instruction_letter.upload_instruction
+            )
         if appointment and appointment.appointment_scheduled:
             files_in_rec_with_filename["Visa_Appointment"] = (
                 appointment.appointment_scheduled.upload_appointment
@@ -514,20 +518,37 @@ class DocketOperation(OperationPluginSpec):
                         detailed_message=f"Missing MIME type for document key: {key}",
                     )
 
-                ext = self.get_extension_from_mime(mime_type)
                 seq_prefix = f"{index:02d}"
-                doc_name = f"{seq_prefix}_{key}{ext}"
 
-                output_docs.append(
-                    DocumentModel(
-                        doc_id=None,
-                        doc_name=doc_name,
-                        doc_type=mime_type,
-                        doc_size=len(doc.doc_content),
-                        doc_content=doc.doc_content,
+                # Convert image to PDF
+                if mime_type.startswith("image/"):
+                    image = Image.open(BytesIO(doc.doc_content)).convert("RGB")
+                    buffer = BytesIO()
+                    image.save(buffer, format="PDF")
+                    pdf_bytes = buffer.getvalue()
+                    doc_name = f"{seq_prefix}_{key}.pdf"
+                    output_docs.append(
+                        DocumentModel(
+                            doc_id=None,
+                            doc_name=doc_name,
+                            doc_type="application/pdf",
+                            doc_size=len(pdf_bytes),
+                            doc_content=pdf_bytes,
+                        )
                     )
-                )
-
+                else:
+                    # Keep PDFs or other supported files as-is
+                    ext = self.get_extension_from_mime(mime_type)
+                    doc_name = f"{seq_prefix}_{key}{ext}"
+                    output_docs.append(
+                        DocumentModel(
+                            doc_id=None,
+                            doc_name=doc_name,
+                            doc_type=mime_type,
+                            doc_size=len(doc.doc_content),
+                            doc_content=doc.doc_content,
+                        )
+                    )
             return output_docs
 
         except Exception as e:
