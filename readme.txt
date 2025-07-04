@@ -5,3 +5,4 @@ Sample data for Switzerland6: passport_details.gender.value == GENDER.M False  p
   data_dict = model_data.dict()
 ✅ Filled PDF saved as: Switzerland6_original.pdf_filled.pdf
 
+python ttk_plugin/src/lyik/ttk/models/forms/model_generator1.py

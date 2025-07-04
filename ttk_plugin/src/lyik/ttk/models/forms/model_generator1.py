@@ -151,6 +151,6 @@ def extract_pdf_fields_to_json_v2(pdf_path, json_output_path):
 
 # --- Example Usage ---
 if __name__ == "__main__":
-    input_pdf = "Switzerland6.pdf"
+    input_pdf = "Switzerland6_original.pdf"
     output_json = f"extracted_pdf_data_empty_{input_pdf}.json"
     extract_pdf_fields_to_json_v2(input_pdf, output_json)

@@ -1,2 +1,6 @@
 isort
+pyflakes
+pylint
+mypy
+
 
