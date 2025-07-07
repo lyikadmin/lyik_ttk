@@ -1,22 +1,60 @@
-python ttk_plugin/src/lyik/ttk/models/forms/PDFWriter8.py
+✅ Mapped boolean field: visa_sex_male → True
+✅ Mapped boolean field: visa_sex_female → False
+✅ Mapped boolean field: visa_sex_oth → False
+✅ Mapped boolean field: visa_civil_sts_single → True
+✅ Mapped boolean field: visa_civil_sts_married → False
+✅ Mapped boolean field: visa_civil_sts_divorced → False
+✅ Mapped boolean field: visa_civil_sts_seperated → False
+❌ Failed mapping boolean field: visa_civil_sts_reg_partner → REGISTERED_PARTNER
+✅ Mapped boolean field: visa_civil_sts_widow → False
+❌ Failed mapping boolean field: visa_civil_sts_oth → OTHER
+✅ Mapped boolean field: visa_fam_rs_eu_spouse → True
+✅ Mapped boolean field: visa_fam_rs_eu_child → False
+✅ Mapped boolean field: visa_fam_rs_eu_registered → False
+❌ Failed mapping boolean field: visa_fam_rs_eu_dependent → DEPENDENT
+✅ Mapped boolean field: visa_fam_rs_eu_oth → False
+✅ Mapped boolean field: visa_fam_rs_eu_gc → False
+✅ Mapped boolean field: visa_oth_natl_yes → True
+✅ Mapped boolean field: visa_oth_natl_no → False
+✅ Mapped boolean field: visa_entry_num_req_single → False
+✅ Mapped boolean field: visa_entry_num_req_two → False
+✅ Mapped boolean field: visa_entry_num_req_multi → False
+✅ Mapped boolean field: visa_trav_cost_self_cash → True
+✅ Mapped boolean field: visa_trav_cost_self_tc → True
+✅ Mapped boolean field: visa_trav_cost_self_cc → True
+✅ Mapped boolean field: visa_trav_cost_self_ppa → True
+✅ Mapped boolean field: visa_trav_cost_self_ppt → True
+✅ Mapped boolean field: visa_trav_cost_self_oth → True
+✅ Mapped boolean field: visa_trav_cost_self → True
+✅ Mapped boolean field: visa_trav_cost_spons → True
+✅ Mapped boolean field: visa_jrn_purpose_business → False
+✅ Mapped boolean field: visa_jrn_purpose_business → False
+✅ Mapped boolean field: visa_jrn_purpose_culture → False
+✅ Mapped boolean field: visa_jrn_purpose_med → False
+❌ Failed mapping boolean field: visa_jrn_purpose_official → OFFICIAL
+✅ Mapped boolean field: visa_jrn_purpose_oth → False
+✅ Mapped boolean field: visa_jrn_purpose_sports → False
+❌ Failed mapping boolean field: visa_jrn_purpose_study → STUDIES
+✅ Mapped boolean field: visa_jrn_purpose_tour → False
+❌ Failed mapping boolean field: visa_jrn_purpose_transit → TRANSIT
+❌ Failed mapping boolean field: visa_jrn_purpose_visit_fnf → VISIT_FAMILY_OR_FRIENDS
+✅ Mapped boolean field: visa_typ_trav_doc_ord → True
+✅ Mapped boolean field: visa_typ_trav_doc_diplomatic → False
+✅ Mapped boolean field: visa_typ_trav_doc_official → False
+❌ Failed mapping boolean field: visa_typ_trav_doc_service → SERVICE
+❌ Failed mapping boolean field: visa_typ_trav_doc_special → SPECIAL
+❌ Failed mapping boolean field: visa_typ_trav_doc_oth → OTHER
+✅ Mapped boolean field: visa_fingerprint_yes → True
+✅ Mapped boolean field: visa_fingerprint_no → False
+✅ Mapped boolean field: visa_means_support_oth_cash → True
+✅ Mapped boolean field: visa_means_supportoth_oth → True
+✅ Mapped boolean field: visa_means_support_oth_expn_covered → False
+✅ Mapped boolean field: visa_means_support_oth_ppt → False
+❌ Failed mapping boolean field: visa_trav_cost → 'RootAdditionalDetails' object has no attribute 'travel_costs_paid'
+❌ Failed mapping boolean field: visa_trav_cost_31_32 → 'RootAdditionalDetails' object has no attribute 'travel_costs_paid'
 
 ✅ MAPPED FIELDS (Manual):
-visa_first_name  <=OOOOO=>  passport.passport_details.first_name  →  'example'
-visa_surname_family_name  <=OOOOO=>  passport.passport_details.surname  →  'example'
-visa_dob  <=OOOOO=>  passport.passport_details.date_of_birth  →  ''
-visa_num_trav_doc  <=OOOOO=>  passport.passport_details.passport_number  →  'example'
-visa_issued_by_ctry  <=OOOOO=>  passport.passport_details.issued_by  →  'example'
-visa_val_til  <=OOOOO=>  passport.passport_details.date_of_expiry  →  ''
-visa_doi  <=OOOOO=>  passport.passport_details.date_of_issue  →  ''
-visa_nat_id_num  <=OOOOO=>  additional_details.national_id.aadhaar_number  →  'example'
-visa_cob  <=OOOOO=>  passport.passport_details.place_of_birth  →  'example'
-visa_natl_at_birth  <=OOOOO=>  passport.other_details.nationality_of_birth  →  'example'
-visa_curr_natl  <=OOOOO=>  passport.passport_details.nationality  →  'example'
-visa_fam_mem_eu_surname  <=OOOOO=>  additional_details.family_eu.surname  →  'example'
-visa_fam_mem_eu_1st_nm  <=OOOOO=>  additional_details.family_eu.given_name  →  'example'
-visa_fam_mem_eu_dob  <=OOOOO=>  additional_details.family_eu.date_of_birth  →  ''
-visa_fam_mem_eu_natl  <=OOOOO=>  additional_details.family_eu.nationality  →  'example'
-visa_fam_mem_eu_num_trav_doc  <=OOOOO=>  additional_details.family_eu.travel_document_id  →  'example'
+visa_1st_arrival_date ⚠️ Error evaluating 'visa_request_information.visa_request.arrival_date': name 'visa_request_information' is not defined
 
 ✅ BOOLEAN FIELD MAPPINGS:
 visa_sex_male: True
@@ -26,11 +64,12 @@ visa_civil_sts_single: True
 visa_civil_sts_married: False
 visa_civil_sts_divorced: False
 visa_civil_sts_seperated: False
-visa_civil_widow: False
+visa_civil_sts_widow: False
 visa_fam_rs_eu_spouse: True
 visa_fam_rs_eu_child: False
 visa_fam_rs_eu_registered: False
 visa_fam_rs_eu_oth: False
+visa_fam_rs_eu_gc: False
 visa_oth_natl_yes: True
 visa_oth_natl_no: False
 visa_entry_num_req_single: False
@@ -42,16 +81,39 @@ visa_trav_cost_self_cc: True
 visa_trav_cost_self_ppa: True
 visa_trav_cost_self_ppt: True
 visa_trav_cost_self_oth: True
-visa_trav_cost_spons: True
 visa_trav_cost_self: True
+visa_trav_cost_spons: True
+visa_jrn_purpose_business: False
+visa_jrn_purpose_culture: False
+visa_jrn_purpose_med: False
+visa_jrn_purpose_oth: False
+visa_jrn_purpose_sports: False
+visa_jrn_purpose_tour: False
+visa_typ_trav_doc_ord: True
+visa_typ_trav_doc_diplomatic: False
+visa_typ_trav_doc_official: False
+visa_fingerprint_yes: True
+visa_fingerprint_no: False
+visa_means_support_oth_cash: True
+visa_means_supportoth_oth: True
+visa_means_support_oth_expn_covered: False
+visa_means_support_oth_ppt: False
 
 ⚠️ BOOLEAN FIELDS NOT MAPPED (due to missing Enums or Attributes):
 visa_civil_sts_reg_partner
 visa_civil_sts_oth
 visa_fam_rs_eu_dependent
+visa_jrn_purpose_official
+visa_jrn_purpose_study
+visa_jrn_purpose_transit
+visa_jrn_purpose_visit_fnf
+visa_typ_trav_doc_service
+visa_typ_trav_doc_special
+visa_typ_trav_doc_oth
+visa_trav_cost
+visa_trav_cost_31_32
 
 ❌ UNMAPPED FIELDS IN Switzerland6:
-visa_1st_arrival_date: '' (type: str)
 visa_addl_stay_info: '' (type: str)
 visa_app_addr: '' (type: str)
 visa_app_tel_num: '' (type: str)
@@ -61,14 +123,12 @@ visa_applicant_diff_tel_num: '' (type: str)
 visa_civil_sts_oth: False (type: bool)
 visa_civil_sts_oth_txt: '' (type: str)
 visa_civil_sts_reg_partner: False (type: bool)
+visa_civil_widow: False (type: bool)
 visa_curr_occ: '' (type: str)
 visa_dptr_date: '' (type: str)
 visa_emp_stu_add_tel: '' (type: str)
 visa_fam_rs_eu_dependent: False (type: bool)
-visa_fam_rs_eu_gc: False (type: bool)
 visa_fam_rs_eu_oth_txt: '' (type: str)
-visa_fingerprint_no: False (type: bool)
-visa_fingerprint_yes: False (type: bool)
 visa_fingerprint_yes_date: '' (type: str)
 visa_fingerprint_yes_sticker_num: '' (type: str)
 visa_invite_org: '' (type: str)
@@ -77,23 +137,13 @@ visa_invite_temp_accom: '' (type: str)
 visa_invite_temp_accom_comm_details: '' (type: str)
 visa_invite_temp_accom_tel_mun: '' (type: str)
 visa_invite_temp_accom_tel_num: '' (type: str)
-visa_jrn_purpose_business: False (type: bool)
-visa_jrn_purpose_culture: False (type: bool)
-visa_jrn_purpose_med: False (type: bool)
 visa_jrn_purpose_official: False (type: bool)
-visa_jrn_purpose_oth: False (type: bool)
 visa_jrn_purpose_oth_txt: '' (type: str)
-visa_jrn_purpose_sports: False (type: bool)
 visa_jrn_purpose_study: False (type: bool)
-visa_jrn_purpose_tour: False (type: bool)
 visa_jrn_purpose_transit: False (type: bool)
 visa_jrn_purpose_visit_fnf: False (type: bool)
 visa_means_support_oth_ap: False (type: bool)
-visa_means_support_oth_cash: False (type: bool)
-visa_means_support_oth_expn_covered: False (type: bool)
-visa_means_support_oth_ppt: False (type: bool)
 visa_means_support_oth_txt: '' (type: str)
-visa_means_supportoth_oth: False (type: bool)
 visa_mem_1st_entry: '' (type: str)
 visa_mem_main_dst: '' (type: str)
 visa_oth_natl: '' (type: str)
@@ -111,9 +161,6 @@ visa_trav_cost_31_32: False (type: bool)
 visa_trav_cost_oth_txt: '' (type: str)
 visa_trav_cost_self_oth_txt: '' (type: str)
 visa_trav_cost_sponsor_txt: '' (type: str)
-visa_typ_trav_doc_diplomatic: False (type: bool)
-visa_typ_trav_doc_official: False (type: bool)
-visa_typ_trav_doc_ord: False (type: bool)
 visa_typ_trav_doc_oth: False (type: bool)
 visa_typ_trav_doc_service: False (type: bool)
 visa_typ_trav_doc_special: False (type: bool)
@@ -324,7 +371,6 @@ travel_insurance.flight_reservation_details.display_flight_reservation_details: 
 travel_insurance.flight_reservation_details.flight_reservation_tickets: None (type: NoneType)
 travel_insurance.lock_travel_insurance: 'example' (type: str)
 visa_request_information.display_info_header: 'example' (type: str)
-visa_request_information.visa_request.arrival_date: None (type: NoneType)
 visa_request_information.visa_request.departure_date: None (type: NoneType)
 visa_request_information.visa_request.earliest_appointment_availability: 'example' (type: str)
 visa_request_information.visa_request.email_id: 'example' (type: str)
@@ -349,8 +395,5 @@ work_address.work_details.employer_name: 'example' (type: str)
 work_address.work_details.occupation: 'example' (type: str)
 work_address.work_details.work_address: 'example' (type: str)
 work_address.work_details.work_phone: 'example' (type: str)
-Filling Switzerland6 PDF form with sample data... {'visa_first_name': 'example', 'visa_surname_family_name': 'example', 'visa_dob': '', 'visa_num_trav_doc': 'example', 'visa_issued_by_ctry': 'example', 'visa_val_til': '', 'visa_doi': '', 'visa_nat_id_num': 'example', 'visa_cob': 'example', 'visa_natl_at_birth': 'example', 'visa_curr_natl': 'example', 'visa_fam_mem_eu_surname': 'example', 'visa_fam_mem_eu_1st_nm': 'example', 'visa_fam_mem_eu_dob': '', 'visa_fam_mem_eu_natl': 'example', 'visa_fam_mem_eu_num_trav_doc': 'example', 'visa_sex_male': True, 'visa_sex_female': False, 'visa_sex_oth': False, 'visa_civil_sts_single': True, 'visa_civil_sts_married': False, 'visa_civil_sts_divorced': False, 'visa_civil_sts_seperated': False, 'visa_civil_widow': False, 'visa_fam_rs_eu_spouse': True, 'visa_fam_rs_eu_child': False, 'visa_fam_rs_eu_registered': False, 'visa_fam_rs_eu_oth': False, 'visa_oth_natl_yes': True, 'visa_oth_natl_no': False, 'visa_entry_num_req_single': False, 'visa_entry_num_req_two': False, 'visa_entry_num_req_multi': False, 'visa_trav_cost_self_cash': True, 'visa_trav_cost_self_tc': True, 'visa_trav_cost_self_cc': True, 'visa_trav_cost_self_ppa': True, 'visa_trav_cost_self_ppt': True, 'visa_trav_cost_self_oth': True, 'visa_trav_cost_spons': True, 'visa_trav_cost_self': True}
-/Users/dineshpratapsingh/lyik/lyik_ttk/ttk_plugin/src/lyik/ttk/models/forms/PDFWriter8.py:76: PydanticDeprecatedSince20: The `dict` method is deprecated; use `model_dump` instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.11/migration/
-  data_dict = model_data.dict()
+Filling Switzerland6 PDF form with sample data... {'visa_sex_male': True, 'visa_sex_female': False, 'visa_sex_oth': False, 'visa_civil_sts_single': True, 'visa_civil_sts_married': False, 'visa_civil_sts_divorced': False, 'visa_civil_sts_seperated': False, 'visa_civil_sts_widow': False, 'visa_fam_rs_eu_spouse': True, 'visa_fam_rs_eu_child': False, 'visa_fam_rs_eu_registered': False, 'visa_fam_rs_eu_oth': False, 'visa_fam_rs_eu_gc': False, 'visa_oth_natl_yes': True, 'visa_oth_natl_no': False, 'visa_entry_num_req_single': False, 'visa_entry_num_req_two': False, 'visa_entry_num_req_multi': False, 'visa_trav_cost_self_cash': True, 'visa_trav_cost_self_tc': True, 'visa_trav_cost_self_cc': True, 'visa_trav_cost_self_ppa': True, 'visa_trav_cost_self_ppt': True, 'visa_trav_cost_self_oth': True, 'visa_trav_cost_self': True, 'visa_trav_cost_spons': True, 'visa_jrn_purpose_business': False, 'visa_jrn_purpose_culture': False, 'visa_jrn_purpose_med': False, 'visa_jrn_purpose_oth': False, 'visa_jrn_purpose_sports': False, 'visa_jrn_purpose_tour': False, 'visa_typ_trav_doc_ord': True, 'visa_typ_trav_doc_diplomatic': False, 'visa_typ_trav_doc_official': False, 'visa_fingerprint_yes': True, 'visa_fingerprint_no': False, 'visa_means_support_oth_cash': True, 'visa_means_supportoth_oth': True, 'visa_means_support_oth_expn_covered': False, 'visa_means_support_oth_ppt': False}
 ✅ Filled PDF saved as: Switzerland6_original.pdf_filled.pdf
-
