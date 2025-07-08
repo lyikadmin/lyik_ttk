@@ -2071,6 +2071,11 @@ class RootAddons(BaseModel):
     addon_group: Optional[List[FieldGrpRootAddonsAddonGroup]] = Field(
         None, title='Add On'
     )
+    payment_display: Optional[str] = Field(
+        None,
+        description='A field that is meant only for display purpose',
+        title='Display Field',
+    )
 
 
 class RootConsultantInfo(BaseModel):
