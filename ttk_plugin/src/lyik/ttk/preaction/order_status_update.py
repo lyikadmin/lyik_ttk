@@ -17,6 +17,7 @@ from typing_extensions import Doc
 import os
 import httpx
 import json
+from datetime import date, datetime
 
 from ..models.forms.new_schengentouristvisa import Schengentouristvisa
 
@@ -68,11 +69,37 @@ class OrderStatusUpdate(PreActionProcessorSpec):
 
             parsed_form_rec = Schengentouristvisa(**payload.model_dump())
 
+            makerConfirmation = False
+            appointmentDetails = {}
+
+            if (
+                parsed_form_rec.submit_info
+                and parsed_form_rec.submit_info.confirm
+                and getattr(
+                    parsed_form_rec.submit_info.confirm.viewed_data, "value", "NO"
+                )
+                == "YES"
+            ):
+                makerConfirmation = True
+            if (
+                parsed_form_rec.appointment
+                and parsed_form_rec.appointment.appointment_scheduled
+            ):
+                schedule = parsed_form_rec.appointment.appointment_scheduled
+                appointmentDetails["location"] = schedule.scheduled_location or ""
+                appointmentDetails["date"] = (
+                    self.format_date(schedule.scheduled_date) or ""
+                )
+                appointmentDetails["time_hr"] = schedule.scheduled_hour or ""
+                appointmentDetails["time_min"] = schedule.scheduled_minute or ""
+
             body = {
                 "orderId": parsed_form_rec.visa_request_information.visa_request.order_id,
                 "completedSection": parsed_form_rec.infopanes_completed,
                 "totalSection": parsed_form_rec.infopanes_total,
                 "travellerId": "",
+                "makerConfirmation": makerConfirmation,
+                "appointmentDetails": appointmentDetails,
             }
 
             async with httpx.AsyncClient() as client:
@@ -129,3 +156,20 @@ class OrderStatusUpdate(PreActionProcessorSpec):
                     return token
 
         return None
+
+    def format_date(
+        self,
+        raw_date: date | datetime | None | str,
+    ) -> str:
+        """
+        This function formats the date  and datetime object and returns as date str.
+        """
+        if isinstance(raw_date, str):
+            return raw_date
+        formatted_date = ""
+        if isinstance(raw_date, date):
+            formatted_date = raw_date.strftime("%d/%m/%Y")
+        if isinstance(raw_date, datetime):
+            formatted_date = raw_date.strftime("%d/%m/%Y %H:%M:%S")
+
+        return formatted_date

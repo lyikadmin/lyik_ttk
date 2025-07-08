@@ -17,12 +17,32 @@
 6. Change/Add owner to a Record
 	1. http://localhost:8080/api/v1/mgmt/forms/cecec5bb196a2670f451078f166ac7d9d65a5cdc8a2ad0835402f659%2F557790/{recordid}/owners?record_id=103624&mode=Add
 	2. Add, Remove, or Replace owners associated to a record, and associated link record.
+7. Update the payment status
+	1. This API is yet to be created
+	2. TTK will invoke this API to update the payment information for a particular add-on
 
 #### LYIK -> TKK
 1. Addons API
 	1. Get the list of Addons, their cost, etc
-2. Get earliest available appointments
-	1. Get a set of earliest available appointment for given from, to country, and current date etc.
-3. Get Appointment List to change appointment date
-	1. For a customer preference, fetch 3 dates and locations, to let them change the appointment preference
-4. 
+2. Get earliest appointment date, fee and other information. This is needed in the `Visa Request Information` section
+	1. This API will be used to populate the following
+		1. Visa Processing Duration
+		2. Earliest appointment availability
+		3. Appointment location
+		4. Embassy fee
+	2. The input to this API should be
+		1. State of province of residence (?)
+		2. Departure Date
+		3. Visa Processing Type
+3. Get Appointment List to change appointment date. This information is needed in the `Appointment Details` section
+	1. The input the API will be
+		1. Province
+		2. Date of travel
+		3. Preference of wanting an appointment in a specific region
+	2. The output of the API will be used to populate the 3 appointment preferences
+4. Messaging API
+	1. An API to send and receive messages (through WhatsApp) from the traveller
+5. Get the list of `locations` where the visa can be applied based on the traveller's residence state / province 
+	2. This is seemingly needed in the `Appointment Details` section
+	3. What is the purpose of this ? Can this be a simple JSON, CSV file that is statically uploaded ?
+6. 
