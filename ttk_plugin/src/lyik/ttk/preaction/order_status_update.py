@@ -16,6 +16,7 @@ from lyikpluginmanager.annotation import RequiredEnv
 from typing_extensions import Doc
 import os
 import httpx
+import json
 
 from ..models.forms.new_schengentouristvisa import Schengentouristvisa
 
@@ -77,8 +78,11 @@ class OrderStatusUpdate(PreActionProcessorSpec):
             async with httpx.AsyncClient() as client:
                 response = await client.post(
                     order_status_update_api,
-                    json=body,
-                    headers={"Authorization": f"Bearer {inner_token}"},
+                    content=json.dumps(body),
+                    headers={
+                        "Authorization": f"Bearer {inner_token}",
+                        "Content-Type": "application/json",
+                    },
                 )
 
                 try:
