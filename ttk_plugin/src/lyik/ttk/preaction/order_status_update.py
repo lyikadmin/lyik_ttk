@@ -69,8 +69,8 @@ class OrderStatusUpdate(PreActionProcessorSpec):
 
             body = {
                 "orderId": parsed_form_rec.visa_request_information.visa_request.order_id,
-                "completedSection": 0,
-                "totalSection": 0,
+                "completedSection": parsed_form_rec.infopanes_completed,
+                "totalSection": parsed_form_rec.infopanes_total,
                 "travellerId": "",
             }
 
