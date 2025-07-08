@@ -34,7 +34,7 @@ class OrderStatusUpdate(PreActionProcessorSpec):
         payload: Annotated[GenericFormRecordModel, "Entire form record model"],
     ) -> Annotated[
         GenericFormRecordModel,
-        RequiredEnv(["ORDER_STATUS_API_BASE_URL"]),
+        RequiredEnv(["TTK_API_BASE_URL"]),
         Doc("Form record"),
     ]:
         "This plugin will update the order / progree status in the TTK Appication."
@@ -47,7 +47,7 @@ class OrderStatusUpdate(PreActionProcessorSpec):
                 return payload
             token = context.token
 
-            api_prefix = os.getenv("ORDER_STATUS_API_BASE_URL")
+            api_prefix = os.getenv("TTK_API_BASE_URL")
             if not api_prefix:
                 logger.error(
                     "Api prefix is missing. Skipping OrderStatusUpdate Preaction process."
