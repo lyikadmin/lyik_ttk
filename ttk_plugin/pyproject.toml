@@ -34,6 +34,7 @@ _150_PREACTION_TTK_CONSULTANT_PROCESS = "lyik.ttk.preaction.ttk_consultant:Maker
 _150_PREACTION_FORM_STATUS = "lyik.ttk.preaction.descriptive_state:FormStatusDisplay"
 _150_PREACTION_PROGRESS_CHECK = "lyik.ttk.preaction.pct_completion:PctCompletion"
 _150_PREACTION_SAVE_PRIMARY_TRAVELLER = "lyik.ttk.preaction.save_primary_traveller:SavePrimaryTraveller"
+_150_PREACTION_ORDER_STATUS_UPDATE = "lyik.ttk.preaction.order_status_update:OrderStatusUpdate"
 _150_TTK_AUTH = "lyik.ttk.auth.ttkauth:TTKAuthProvider"
 _150_VERIFIER_ADDITIONAL_TRAVEL_DETAILS = "lyik.ttk.additional_travel_details_verifier.additional_travel_details_verifier:AdditionalTravelDetailsVerifier"
 _150_VERIFIER_PASSPORT_DATE = "lyik.ttk.passport_verifier.verifier:PassportVerificationPlugin"
