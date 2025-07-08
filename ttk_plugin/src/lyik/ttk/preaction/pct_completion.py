@@ -110,11 +110,28 @@ class PctCompletion(PreActionProcessorSpec):
                 # 1. _ver_status : 'Successfull'
                 # 2. ignoring infopanes based only for the Backoffice and Maker
                 completed += 1
+        
+        # 2) If this is a Co-traveller, factor in the “shared‐with‐primary” toggles
+        vt = getattr(form.visa_request_information.visa_request, "traveller_type", None)
+        shared = getattr(form.shared_travell_info, "shared", None)
+        if vt and vt.lower() != "primary" and shared:
+            # map each flag to a “virtual pane”
+            mapping = [
+                (shared.itinerary_same,    "ITINERARY"),
+                (shared.accommodation_same, "ACCOMMODATION"),
+                (shared.flight_ticket_same, "FLIGHT_TICKET"),
+            ]
+
+            for flag, value_str in mapping:
+                total += 1
+                if flag and flag.value == value_str:
+                    completed += 1
 
         percentage = round((completed / total) * 100) if total else 0
 
         record = form.model_dump()
-
+        record["infopanes_total"]     = total
+        record["infopanes_completed"] = completed
         record["pct_completion"] = str(percentage)
 
         return GenericFormRecordModel.model_validate(record)
