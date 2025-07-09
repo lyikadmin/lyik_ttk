@@ -181,10 +181,16 @@ class DocketUtilities:
             )
             pdf_model.visa_typ_trav_doc_ord = (
                 schengen_visa_data.passport.passport_details.type_of_passport
-                == PASSPORTTYPE.REGULAR
+                == PASSPORTTYPE.ORDINARY
             )
-            # pdf_model.visa_typ_trav_doc_service=schengen_visa_data.passport.passport_details.type_of_passport == PASSPORTTYPE.OFFICIAL
-            # pdf_model.visa_typ_trav_doc_special=schengen_visa_data.passport.passport_details.type_of_passport == PASSPORTTYPE.SPECIAL
+            pdf_model.visa_typ_trav_doc_service = (
+                schengen_visa_data.passport.passport_details.type_of_passport
+                == PASSPORTTYPE.OFFICIAL
+            )
+            pdf_model.visa_typ_trav_doc_special = (
+                schengen_visa_data.passport.passport_details.type_of_passport
+                == PASSPORTTYPE.SPECIAL
+            )
             pdf_model.visa_typ_trav_doc_diplomatic = (
                 schengen_visa_data.passport.passport_details.type_of_passport
                 == PASSPORTTYPE.DIPLOMATIC
@@ -197,7 +203,10 @@ class DocketUtilities:
             pdf_model.visa_num_trav_doc = (
                 schengen_visa_data.passport.passport_details.passport_number
             )
-            # pdf_model.visa_typ_trav_doc_oth=schengen_visa_data.passport.passport_details.type_of_passport == PASSPORTTYPE.OTHER
+            pdf_model.visa_typ_trav_doc_oth = (
+                schengen_visa_data.passport.passport_details.type_of_passport
+                == PASSPORTTYPE.OTHER
+            )
 
             pdf_model.visa_doi = (
                 schengen_visa_data.passport.passport_details.date_of_issue.strftime(
