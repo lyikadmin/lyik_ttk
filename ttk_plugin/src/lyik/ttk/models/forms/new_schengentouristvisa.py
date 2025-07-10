@@ -1652,7 +1652,7 @@ class RootVisaRequestInformationVisaRequest(BaseModel):
         description='Enter Validity of Visa (in Days)',
         title='Validity of Visa (in Days)',
     )
-    no_of_entries: Optional[str] = Field(
+    no_of_entries: Optional[int] = Field(
         None, description='Enter Number of Entries', title='Number of Entries'
     )
     visa_mode: Optional[VISAMODE] = Field(
@@ -2114,7 +2114,7 @@ class RootConsultantInfo(BaseModel):
     ] = Field(None, title='Additional Document')
 
 
-class Schengentouristvisa(BaseModel):
+class Schengentouristvisa5(BaseModel):
     model_config = ConfigDict(
         extra='allow',
     )
