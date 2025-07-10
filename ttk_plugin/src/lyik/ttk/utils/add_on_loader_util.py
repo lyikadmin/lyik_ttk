@@ -3,13 +3,14 @@ import logging
 from functools import lru_cache
 from typing import List, Dict
 from pathlib import Path
+from lyikpluginmanager import PluginException
 
 logger = logging.getLogger(__name__)
 
 
 class AddonLoader:
 
-    def __init__(self, file_path: str = "addons.json"):
+    def __init__(self, file_path: str):
         self.file_path = Path(file_path).resolve()
 
     @lru_cache()
@@ -22,14 +23,20 @@ class AddonLoader:
         try:
             if not self.file_path.exists():
                 logging.error(f"File not found: {self.file_path}")
-                raise FileNotFoundError(f"File not found: {self.file_path}")
+                raise PluginException(
+                    message="Internal error occurred.",
+                    detailed_message=f"File not found: {self.file_path}",
+                )
 
             with open(self.file_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
 
-            if not isinstance(data, list):
+            if not data or not isinstance(data, list):
                 logging.warning("Expected list at root of JSON")
-                raise ValueError("Invalid JSON structure")
+                raise PluginException(
+                    message="Internal error occurred.",
+                    detailed_message="Invalid JSON structure. Expected list at root of JSON.",
+                )
 
             logging.info(f"Loaded {len(data)} add-ons from {self.file_path}")
             return data

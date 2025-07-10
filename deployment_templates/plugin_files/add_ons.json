@@ -1,0 +1,52 @@
+[
+  {
+    "id": 10,
+    "addon_name": "Travel Insurance",
+    "charges": 350
+  },
+  {
+    "id": 20,
+    "addon_name": "Passport Delivery at Airport",
+    "charges": 1500
+  },
+  {
+    "id": 30,
+    "addon_name": "Meet & Greet",
+    "charges": 1250
+  },
+  {
+    "id": 40,
+    "addon_name": "Preparation of Affidavit",
+    "charges": 1500
+  },
+  {
+    "id": 50,
+    "addon_name": "Notary Attestation",
+    "charges": 500
+  },
+  {
+    "id": 60,
+    "addon_name": "Travel Charges",
+    "charges": 350
+  },
+  {
+    "id": 70,
+    "addon_name": "Courier Charges",
+    "charges": 500
+  },
+  {
+    "id": 80,
+    "addon_name": "Demand Draft Preparation/Cancellation",
+    "charges": 250
+  },
+  {
+    "id": 90,
+    "addon_name": "Photograph Development",
+    "charges": 400
+  },
+  {
+    "id": 100,
+    "addon_name": "Visa Appointment - Rescheduling",
+    "charges": 500
+  }
+]
