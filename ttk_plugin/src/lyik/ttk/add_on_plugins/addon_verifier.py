@@ -51,8 +51,9 @@ class AddOnPaymentInitializeVerifier(VerifyHandlerSpec):
         VerifyHandlerResponseModel,
         Doc("Response including the payment html"),
     ]:
-        record_id = context.record.get("_id")
         full_form_record = Schengentouristvisa.model_validate(context.record)
+
+        record_id = full_form_record.addons.record_id
 
         order_id = full_form_record.visa_request_information.visa_request.order_id
         total_amount = 0
@@ -68,7 +69,7 @@ class AddOnPaymentInitializeVerifier(VerifyHandlerSpec):
                 if not card or not card.addon_on_service:
                     continue
 
-                traveller_id = card.traveler_name
+                traveller_id = card.traveller_id
 
                 for item in card.addon_on_service:
                     if item.service_checkbox == ADDONOP.DONE and item.amount_internal:
@@ -79,6 +80,7 @@ class AddOnPaymentInitializeVerifier(VerifyHandlerSpec):
                                 amount=item.amount_internal,
                                 orderId=order_id,
                                 travellerId=traveller_id,
+                                addonName=item.add_ons
                             )
                         )
 
@@ -86,6 +88,10 @@ class AddOnPaymentInitializeVerifier(VerifyHandlerSpec):
         udf1_data = base64.urlsafe_b64encode(
             json.dumps([entry.model_dump() for entry in addon_summary_models]).encode()
         ).decode()
+
+        # print(f"\n\n The encoded udf1 data is: {udf1_data}")
+
+        # print(f"\n\n The decoded udf1 data is: {decode_base64_to_str(udf1_data)}")
 
         pg_payu_params: PayUParams = PayUParams(
             first_name=full_form_record.passport.passport_details.first_name,
@@ -105,8 +111,8 @@ class AddOnPaymentInitializeVerifier(VerifyHandlerSpec):
                 config=context.config,
                 org_id=context.org_id,
                 form_id=context.form_id,
-                record_id=record_id,
-                amount=calculated_amount,
+                record_id=str(record_id),
+                amount=str(calculated_amount),
                 pg_params=pg_payu_params,
             )
         )
