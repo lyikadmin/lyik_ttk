@@ -87,17 +87,26 @@ class OrderStatusUpdate(PreActionProcessorSpec):
             ):
                 schedule = parsed_form_rec.appointment.appointment_scheduled
                 appointmentDetails["location"] = schedule.scheduled_location or ""
-                appointmentDetails["date"] = (
-                    self.format_date(schedule.scheduled_date) or ""
-                )
-                appointmentDetails["time_hr"] = schedule.scheduled_hour or ""
-                appointmentDetails["time_min"] = schedule.scheduled_minute or ""
+
+                # Combine into yyyy-mm-dd HH:MM format
+                raw_date = schedule.scheduled_date or ""
+                hour = schedule.scheduled_hour or "00"
+                minute = schedule.scheduled_minute or "00"
+
+                appointment_datetime = ""
+                if raw_date:
+                    formatted_date = self.format_date(raw_date)
+                    appointment_datetime = (
+                        f"{formatted_date} {hour.zfill(2)}:{minute.zfill(2)}"
+                    )
+
+                appointmentDetails["appointmentDate"] = appointment_datetime
 
             body = {
                 "orderId": parsed_form_rec.visa_request_information.visa_request.order_id,
                 "completedSection": parsed_form_rec.infopanes_completed,
                 "totalSection": parsed_form_rec.infopanes_total,
-                "travellerId": "",
+                "travellerId": parsed_form_rec.visa_request_information.visa_request.traveller_id,
                 "makerConfirmation": makerConfirmation,
                 "appointmentDetails": appointmentDetails,
             }
@@ -159,17 +168,16 @@ class OrderStatusUpdate(PreActionProcessorSpec):
 
     def format_date(
         self,
-        raw_date: date | datetime | None | str,
+        raw_date: Union[date, datetime, str, None],
     ) -> str:
         """
-        This function formats the date  and datetime object and returns as date str.
+        Formats a date, datetime, or string into a standard yyyy-mm-dd format.
+        Returns the input if it's already a string.
         """
         if isinstance(raw_date, str):
             return raw_date
-        formatted_date = ""
-        if isinstance(raw_date, date):
-            formatted_date = raw_date.strftime("%d/%m/%Y")
         if isinstance(raw_date, datetime):
-            formatted_date = raw_date.strftime("%d/%m/%Y %H:%M:%S")
-
-        return formatted_date
+            return raw_date.strftime("%Y-%m-%d")
+        if isinstance(raw_date, date):
+            return raw_date.strftime("%Y-%m-%d")
+        return ""
