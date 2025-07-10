@@ -23,12 +23,11 @@ from ..models.forms.new_schengentouristvisa import (
     Schengentouristvisa,
 )
 import logging
-from datetime import datetime, date
-from dateutil.relativedelta import relativedelta
-import tempfile
 import base64
-import mimetypes
-import textwrap
+from ..utils.encode import decode_base64_to_str
+
+from .models import AddonSummaryItem
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -57,7 +56,7 @@ class AddOnPaymentInitializeVerifier(VerifyHandlerSpec):
 
         order_id = full_form_record.visa_request_information.visa_request.order_id
         total_amount = 0
-        addon_summary: List[dict] = []
+        addon_summary_models: List[AddonSummaryItem] = []
 
         if payload.addon_group:
             for group in payload.addon_group:
@@ -69,23 +68,23 @@ class AddOnPaymentInitializeVerifier(VerifyHandlerSpec):
                 if not card or not card.addon_on_service:
                     continue
 
-                traveller_id = card.traveler_name  # Used in udf1
+                traveller_id = card.traveler_name
 
                 for item in card.addon_on_service:
                     if item.service_checkbox == ADDONOP.DONE and item.amount_internal:
                         total_amount += item.amount_internal
-                        addon_summary.append(
-                            {
-                                "orderId": order_id,
-                                "travellerId": traveller_id,
-                                "addonId": item.addon_id,
-                                "amount": item.amount_internal,
-                            }
+                        addon_summary_models.append(
+                            AddonSummaryItem(
+                                addonId=item.addon_id,
+                                amount=item.amount_internal,
+                                orderId=order_id,
+                                travellerId=traveller_id,
+                            )
                         )
 
         calculated_amount = total_amount
         udf1_data = base64.urlsafe_b64encode(
-            json.dumps(addon_summary).encode()
+            json.dumps([entry.model_dump() for entry in addon_summary_models]).encode()
         ).decode()
 
         pg_payu_params: PayUParams = PayUParams(
@@ -123,17 +122,3 @@ class AddOnPaymentInitializeVerifier(VerifyHandlerSpec):
             message="Calculated total amount",
             response=full_form_record.addons.model_dump(),
         )
-
-
-import base64
-import json
-
-
-def encode_dict_to_base64(data: dict) -> str:
-    json_str = json.dumps(data)
-    return base64.urlsafe_b64encode(json_str.encode()).decode()
-
-
-def decode_base64_to_str(b64_str: str) -> str:
-    decoded_bytes = base64.urlsafe_b64decode(b64_str.encode())
-    return decoded_bytes.decode()
