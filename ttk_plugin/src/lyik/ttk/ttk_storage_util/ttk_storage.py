@@ -87,6 +87,43 @@ class TTKStorage:
                 f"Failed to insert document in the {collection_name}. Error: {e}"
             )
 
+    async def save_or_update_co_traveller(
+        self,
+        org_id: str,
+        order_id: str,
+        traveller_id: str,
+        traveller_data: Dict[str, Any],
+        collection_name: str,
+    ):
+        """
+        Saves or updates a single traveller's data inside the 'travellers' object
+        of a MongoDB document identified by order_id.
+        """
+        db = self.get_db(org_id)
+        try:
+            update_query = {f"travellers.{traveller_id}": traveller_data}
+            result = await db[collection_name].update_one(
+                {"_id": order_id}, {"$set": update_query}, upsert=True
+            )
+            logger.info(
+                "%s traveller '%s' in '%s.%s'.",
+                "Upserted" if result.upserted_id else "Updated",
+                traveller_id,
+                db.name,
+                collection_name,
+            )
+            return str(result.upserted_id) if result.upserted_id else traveller_id
+        except Exception as e:
+            logger.error(
+                "Error updating traveller '%s' in '%s': %s",
+                traveller_id,
+                collection_name,
+                e,
+            )
+            raise Exception(
+                f"Failed to save traveller '{traveller_id}' in {collection_name}. Error: {e}"
+            )
+
     async def query_primary_info(
         self,
         org_id: str,
@@ -122,6 +159,30 @@ class TTKStorage:
             raise Exception(
                 f"Failed to query document from {collection_name}: {e}"
             ) from e
+
+    async def get_all_co_travellers(
+        self,
+        org_id: str,
+        order_id: str,
+        collection_name: str,
+    ) -> Optional[Dict[str, Dict[str, Any]]]:
+        """
+        Fetches all travellers stored under the given order_id.
+        """
+        db = self.get_db(org_id)
+        try:
+            document = await db[collection_name].find_one(
+                {"_id": order_id}, {"_id": 0, "travellers": 1}
+            )
+            if not document or "travellers" not in document:
+                logger.info("No travellers found for order_id '%s'.", order_id)
+                return None
+
+            return document["travellers"]
+
+        except Exception as e:
+            logger.error("Error fetching Co-travellers:", e)
+            raise Exception(f"Failed to fetch Co-travellers. Error: {e}")
 
     @property
     def client(self) -> AsyncIOMotorClient:
