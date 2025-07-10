@@ -8,8 +8,7 @@ from datetime import date
 from enum import Enum
 from typing import Any, Dict, List, Optional, Union
 
-from pydantic import ConfigDict, Field
-from pydantic import BaseModel
+from pydantic import ConfigDict, Field, BaseModel
 
 
 class ACCOMMODATIONARRANGEMENT(str, Enum):
@@ -912,6 +911,7 @@ class RootAddonsAddonGroupAddonservicegroupAddonCard(BaseModel):
         description="A field that is meant only for display purpose",
         title="Display Field",
     )
+    traveller_id: Optional[str] = Field(None, title="")
     addon_on_service: Optional[
         List[FieldGrpRootAddonsAddonGroupAddonservicegroupAddonCardAddonOnService]
     ] = Field(None, title="Addon On Service")
