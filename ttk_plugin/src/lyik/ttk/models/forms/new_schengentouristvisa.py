@@ -573,6 +573,9 @@ class FieldGrpRootAddonsAddonGroupAddonservicegroupAddonCardAddonOnService(BaseM
     model_config = ConfigDict(
         extra="allow",
     )
+    checkbox_editable: Optional[str] = Field(
+        None, description="Enter Checkbox Editable", title="Checkbox Editable"
+    )
     service_checkbox: Optional[ADDONOP] = Field(
         None, description="Select Option", title=""
     )
@@ -2067,6 +2070,9 @@ class FieldGrpRootConsultantInfoAdditionalDocuments(BaseModel):
 class RootAddons(BaseModel):
     model_config = ConfigDict(
         extra="allow",
+    )
+    record_id: Optional[str] = Field(
+        None, description="Used to get the Record ID", title=""
     )
     addon_service: Optional[RootAddonsAddonService] = Field(None, title="Addon Cart")
     addon_group: Optional[List[FieldGrpRootAddonsAddonGroup]] = Field(
