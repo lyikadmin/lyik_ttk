@@ -16,6 +16,8 @@ from lyikpluginmanager.annotation import RequiredEnv
 from typing_extensions import Doc
 import os
 import httpx
+import json
+from datetime import date, datetime
 
 from ..models.forms.new_schengentouristvisa import Schengentouristvisa
 
@@ -67,18 +69,56 @@ class OrderStatusUpdate(PreActionProcessorSpec):
 
             parsed_form_rec = Schengentouristvisa(**payload.model_dump())
 
+            makerConfirmation = False
+            appointmentDetails = {}
+
+            if (
+                parsed_form_rec.submit_info
+                and parsed_form_rec.submit_info.confirm
+                and getattr(
+                    parsed_form_rec.submit_info.confirm.viewed_data, "value", "NO"
+                )
+                == "YES"
+            ):
+                makerConfirmation = True
+            if (
+                parsed_form_rec.appointment
+                and parsed_form_rec.appointment.appointment_scheduled
+            ):
+                schedule = parsed_form_rec.appointment.appointment_scheduled
+                appointmentDetails["location"] = schedule.scheduled_location or ""
+
+                # Combine into yyyy-mm-dd HH:MM format
+                raw_date = schedule.scheduled_date or ""
+                hour = schedule.scheduled_hour or "00"
+                minute = schedule.scheduled_minute or "00"
+
+                appointment_datetime = ""
+                if raw_date:
+                    formatted_date = self.format_date(raw_date)
+                    appointment_datetime = (
+                        f"{formatted_date} {hour.zfill(2)}:{minute.zfill(2)}"
+                    )
+
+                appointmentDetails["appointmentDate"] = appointment_datetime
+
             body = {
                 "orderId": parsed_form_rec.visa_request_information.visa_request.order_id,
                 "completedSection": parsed_form_rec.infopanes_completed,
                 "totalSection": parsed_form_rec.infopanes_total,
-                "travellerId": "",
+                "travellerId": parsed_form_rec.visa_request_information.visa_request.traveller_id,
+                "makerConfirmation": makerConfirmation,
+                "appointmentDetails": appointmentDetails,
             }
 
             async with httpx.AsyncClient() as client:
                 response = await client.post(
                     order_status_update_api,
-                    json=body,
-                    headers={"Authorization": f"Bearer {inner_token}"},
+                    content=json.dumps(body),
+                    headers={
+                        "Authorization": f"Bearer {inner_token}",
+                        "Content-Type": "application/json",
+                    },
                 )
 
                 try:
@@ -125,3 +165,19 @@ class OrderStatusUpdate(PreActionProcessorSpec):
                     return token
 
         return None
+
+    def format_date(
+        self,
+        raw_date: Union[date, datetime, str, None],
+    ) -> str:
+        """
+        Formats a date, datetime, or string into a standard yyyy-mm-dd format.
+        Returns the input if it's already a string.
+        """
+        if isinstance(raw_date, str):
+            return raw_date
+        if isinstance(raw_date, datetime):
+            return raw_date.strftime("%Y-%m-%d")
+        if isinstance(raw_date, date):
+            return raw_date.strftime("%Y-%m-%d")
+        return ""
