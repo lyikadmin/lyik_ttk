@@ -1656,12 +1656,13 @@ class RootVisaRequestInformationVisaRequest(BaseModel):
         description="Enter Validity of Visa (in Days)",
         title="Validity of Visa (in Days)",
     )
-    no_of_entries: Optional[int] = Field(
+    no_of_entries: Optional[str] = Field(
         None, description="Enter Number of Entries", title="Number of Entries"
     )
     visa_mode: Optional[VISAMODE] = Field(
         None, description="Select Option", title="Visa Mode (E-Visa/Paper)"
     )
+    no_of_travellers: Optional[str] = Field(None, title="")
     traveller_type: Optional[str] = Field(None, title="")
     traveller_id: Optional[str] = Field(None, title="")
     order_id: Optional[str] = Field(None, title="")
