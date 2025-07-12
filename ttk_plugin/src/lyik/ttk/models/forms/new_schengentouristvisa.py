@@ -616,6 +616,28 @@ class FieldGrpRootAddonsAddonServiceAddonCartRow(BaseModel):
     )
 
 
+class FieldGrpRootAddonsAddonServiceInitializationAddonCartRow(BaseModel):
+    model_config = ConfigDict(
+        extra="allow",
+    )
+    addon_id: Optional[str] = Field(
+        None, description="Enter Addon ID", title="Addon ID"
+    )
+    addon_name: Optional[str] = Field(
+        None, description="Enter Add-Ons", title="Add-Ons"
+    )
+    refid: Optional[str] = Field(None, description="Enter Ref ID", title="Ref ID")
+    txnid: Optional[str] = Field(None, description="Enter Txn ID", title="Txn ID")
+    status: Optional[str] = Field(None, description="Enter Status", title="Status")
+    amt_status: Optional[str] = Field(
+        None, description="Enter Amount Status", title="Amount Status"
+    )
+    amount: Optional[str] = Field(None, description="Enter Amount", title="Amount")
+    quantity: Optional[str] = Field(
+        None, description="Enter Quantity", title="Quantity"
+    )
+
+
 class RootAccomodationAccommodationChoice(BaseModel):
     model_config = ConfigDict(
         extra="allow",
@@ -927,6 +949,15 @@ class RootAddonsAddonService(BaseModel):
     addon_cart_row: Optional[List[FieldGrpRootAddonsAddonServiceAddonCartRow]] = Field(
         None, title="Addon Table"
     )
+
+
+class RootAddonsAddonServiceInitialization(BaseModel):
+    model_config = ConfigDict(
+        extra="allow",
+    )
+    addon_cart_row: Optional[
+        List[FieldGrpRootAddonsAddonServiceInitializationAddonCartRow]
+    ] = Field(None, title="Addon Table")
 
 
 class RootAppointmentAppointmentScheduled(BaseModel):
@@ -1659,10 +1690,12 @@ class RootVisaRequestInformationVisaRequest(BaseModel):
     no_of_entries: Optional[str] = Field(
         None, description="Enter Number of Entries", title="Number of Entries"
     )
+    no_of_travellers: Optional[str] = Field(
+        None, description="Enter Number of Travellers", title="Number of Travellers"
+    )
     visa_mode: Optional[VISAMODE] = Field(
         None, description="Select Option", title="Visa Mode (E-Visa/Paper)"
     )
-    no_of_travellers: Optional[str] = Field(None, title="")
     traveller_type: Optional[str] = Field(None, title="")
     traveller_id: Optional[str] = Field(None, title="")
     order_id: Optional[str] = Field(None, title="")
@@ -2074,6 +2107,9 @@ class RootAddons(BaseModel):
     )
     record_id: Optional[str] = Field(
         None, description="Used to get the Record ID", title=""
+    )
+    addon_service_initialization: Optional[RootAddonsAddonServiceInitialization] = (
+        Field(None, title="Initialized Addon Cart")
     )
     addon_service: Optional[RootAddonsAddonService] = Field(None, title="Addon Cart")
     addon_group: Optional[List[FieldGrpRootAddonsAddonGroup]] = Field(
