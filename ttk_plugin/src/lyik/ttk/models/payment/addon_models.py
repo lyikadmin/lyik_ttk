@@ -7,3 +7,9 @@ class AddonSummaryItem(BaseModel):
     addonId: str
     addonName: str
     amount: int
+
+class GroupedAddonSummaryItem(BaseModel):
+    addonName: str
+    count: int
+    singleAddonCost: int
+    totalAddonCost: int

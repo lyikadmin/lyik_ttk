@@ -3,6 +3,7 @@ from ..ttk_storage_util.ttk_storage import TTKStorage
 import apluggy as pluggy
 from lyikpluginmanager.annotation import RequiredEnv, RequiredVars
 from lyikpluginmanager import (
+    PreActionProcessorSpec,
     getProjectName,
     ContextModel,
     GenericFormRecordModel,
@@ -19,9 +20,6 @@ from ..models.forms.new_schengentouristvisa import (
 )
 import os
 import logging
-from ..preaction_ttk_schengen.preaction_processors._base_preaction import (
-    BasePreActionProcessor,
-)
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.info)
@@ -32,7 +30,7 @@ PRIMARY_TRAVELLER = "Primary"
 CO_TRAVELLER_COLLECTION_NAME = "co_travellers"
 
 
-class PreactionAddonServices(BasePreActionProcessor):
+class PreactionAddonServices(PreActionProcessorSpec):
     @impl
     async def pre_action_processor(
         self,

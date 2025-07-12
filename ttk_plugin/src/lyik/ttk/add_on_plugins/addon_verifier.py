@@ -26,7 +26,7 @@ import logging
 import base64
 from ..utils.encode import decode_base64_to_str
 
-from .models import AddonSummaryItem
+from ..models.payment.addon_models import AddonSummaryItem
 import json
 
 logger = logging.getLogger(__name__)
@@ -124,7 +124,7 @@ class AddOnPaymentInitializeVerifier(VerifyHandlerSpec):
         full_form_record.addons.payment_display = decoded_payment_html
 
         return VerifyHandlerResponseModel(
-            status=VERIFY_RESPONSE_STATUS.SUCCESS,
+            status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
             message="Calculated total amount",
             response=full_form_record.addons.model_dump(),
         )
