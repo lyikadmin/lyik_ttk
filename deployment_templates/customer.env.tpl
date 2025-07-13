@@ -4,3 +4,9 @@ TECH_XL_ENDPOINT=""
 TTK_TOKEN_SECRET="BmThdDKu4lPOFiiqwHG1GQVm7iGeVIqALcqwJDM6VySzVdOwZ1UMoylzwhIDgXl6"
 TTK_API_BASE_URL="TPL_TTK_API_BASE_URL"
 ADDON_FILE="add_ons.json"
+
+# Payu Payment Plugins
+PAYU_MERCHANT_KEY="fiBS8J"
+PAYU_SALT="n9jDaiVtx8Lr5R1jEgBFaX3QsYehW7ou"
+PAYU_URL="https://test.payu.in/_payment" 
+PAYU_PRODUCT_INFO="TTK Services Visa Payment"

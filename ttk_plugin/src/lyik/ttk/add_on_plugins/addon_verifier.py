@@ -15,18 +15,23 @@ from lyikpluginmanager import invoke, DBDocumentModel, DocumentModel
 from lyikpluginmanager.models.lyik_payment_system_model import (
     PayUParams,
     PaymentInitiationModel,
+    LPSRecord, 
+    PayUParams
 )
 from lyikpluginmanager.core.utils import generate_hash_id_from_dict
 from ..models.forms.new_schengentouristvisa import (
     RootAddons,
     ADDONOP,
     Schengentouristvisa,
+    FieldGrpRootAddonsAddonServiceAddonCartRow,
+    RootAddonsAddonService,
 )
 import logging
 import base64
 from ..utils.encode import decode_base64_to_str
 
 from ..models.payment.addon_models import AddonSummaryItem
+from ..utils.payment import group_addon_summary
 import json
 
 logger = logging.getLogger(__name__)
@@ -52,7 +57,7 @@ class AddOnPaymentInitializeVerifier(VerifyHandlerSpec):
         Doc("Response including the payment html"),
     ]:
         full_form_record = Schengentouristvisa.model_validate(context.record)
-
+        full_form_record.addons.addon_service_initialization
         record_id = full_form_record.addons.record_id
 
         order_id = full_form_record.visa_request_information.visa_request.order_id
@@ -118,6 +123,55 @@ class AddOnPaymentInitializeVerifier(VerifyHandlerSpec):
         )
 
         payment_txn_id = payment_initiation_response.txn_id
+
+        # Fetch LPS record using txn_id
+        lps_records: List[LPSRecord] = await invoke.get_payment_status(
+            config=context.config,
+            org_id=context.org_id,
+            record_id=None,
+            txn_id=payment_txn_id,
+        )
+
+        # Process LPS record (expecting only one)
+        addon_cart_rows = []
+        seen_combinations = set()
+        # allowed_states = {"PAYMENT_INITIATED", "PAYMENT_COMPLETE"}
+
+        for lps_record in lps_records:
+            # if lps_record.state.value not in allowed_states:
+            #     continue
+
+            for pg_data in lps_record.data:
+                payu_params = PayUParams(**pg_data)
+                if not payu_params.udf1:
+                    continue
+                decoded_udf1 = base64.urlsafe_b64decode(payu_params.udf1).decode()
+                addon_summary_list: List[AddonSummaryItem] = [
+                    AddonSummaryItem(**item) for item in json.loads(decoded_udf1)
+                ]
+                grouped = group_addon_summary(addon_summary_list)
+                for addon_id, summary in grouped.items():
+                    unique_key = (addon_id, lps_record.txn_id)
+                    if unique_key in seen_combinations:
+                        continue
+                    row = FieldGrpRootAddonsAddonServiceAddonCartRow(
+                        addon_id=addon_id,
+                        addon_name=summary.addonName,
+                        amount=str(summary.totalAddonCost),
+                        quantity=str(summary.count),
+                        status=lps_record.state.value,
+                        refid=None,
+                        txnid=lps_record.txn_id,
+                        amt_status=None,
+                    )
+                    addon_cart_rows.append(row)
+                    seen_combinations.add(unique_key)
+
+        # Populate addon_service_initialization field
+        if full_form_record.addons.addon_service_initialization is None:
+            full_form_record.addons.addon_service_initialization = RootAddonsAddonService()
+
+        full_form_record.addons.addon_service_initialization.addon_cart_row = addon_cart_rows
         encoded_payment_html = payment_initiation_response.payment_html
         decoded_payment_html = decode_base64_to_str(encoded_payment_html)
 

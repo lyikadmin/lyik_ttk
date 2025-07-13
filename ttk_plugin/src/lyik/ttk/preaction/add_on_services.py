@@ -201,9 +201,8 @@ class PreactionAddonServices(PreActionProcessorSpec):
                         addon_group_list.append(addon_group)
 
                 # Update parsed form with built addon group list
-                parsed_form_rec.addons = RootAddons(
-                    record_id=str(record_id), addon_group=addon_group_list
-                )
+                parsed_form_rec.addons.record_id = str(record_id)
+                parsed_form_rec.addons.addon_group = addon_group_list
                 logger.info("Successfully populated addon services for travellers.")
 
                 # Return the updated payload

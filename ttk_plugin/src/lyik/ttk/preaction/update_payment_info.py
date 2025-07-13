@@ -11,16 +11,18 @@ from lyikpluginmanager import (
     PluginException,
     invoke,
 )
-from lyikpluginmanager.models import LPSRecord, PayUParams
+from lyikpluginmanager.models import LPSRecord, PayUParams, LPSStatus
 from ..models.forms.new_schengentouristvisa import (
     Schengentouristvisa,
     FieldGrpRootAddonsAddonServiceAddonCartRow,
     RootAddonsAddonService,
+    RootAddonsAddonServiceInitialization
 )
 import logging
 import base64
 import json
 from ..models.payment.addon_models import AddonSummaryItem, GroupedAddonSummaryItem
+from ..utils.payment import group_addon_summary
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.info)
@@ -66,20 +68,33 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
         """
         try:
             full_parsed_record = Schengentouristvisa(**payload.model_dump())
-            record_id = full_parsed_record.addons.record_id
-
-            # Fetch LPS records
-            lps_records: List[LPSRecord] = await invoke.get_payment_status(
-                config=context.config,
-                org_id=context.org_id,
-                record_id=record_id,
-                txn_id=None,
+            addon_rows = (
+                full_parsed_record.addons.addon_service_initialization.addon_cart_row
+                if full_parsed_record.addons.addon_service_initialization
+                else []
             )
+
+            txn_ids = {row.txnid for row in addon_rows if row.txnid}
+            lps_records: List[LPSRecord] = []
+
+            for txn_id in txn_ids:
+                lps = await invoke.get_payment_status(
+                    config=context.config,
+                    org_id=context.org_id,
+                    record_id=None,
+                    txn_id=txn_id,
+                )
+                lps_records.extend(lps)
+
             if not lps_records:
-                raise PluginException(f"No records found for record_id: {record_id}")
+                raise PluginException(f"No records found for txn_ids: {txn_ids}")
 
             # Define allowed states
-            allowed_states = {"PAYMENT_INITIATED", "PAYMENT_COMPLETE"}
+            allowed_states = {
+                LPSStatus.PAY_FAILURE,
+                LPSStatus.PAY_SUCCESS,
+                LPSStatus.PAY_IN_PROGRESS,
+            }
             seen_combinations: set[tuple[str, str]] = set()
             addon_cart_rows = []
 
@@ -91,12 +106,17 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
                     try:
                         payu_params = PayUParams(**pg_data)
                         if not payu_params.udf1:
-                            logger.warning(f"Skipping record {lps_record.txn_id}: missing udf1")
+                            logger.warning(
+                                f"Skipping record {lps_record.txn_id}: missing udf1"
+                            )
                             continue
 
-                        decoded_udf1 = base64.urlsafe_b64decode(payu_params.udf1).decode()
+                        decoded_udf1 = base64.urlsafe_b64decode(
+                            payu_params.udf1
+                        ).decode()
                         addon_summary_list: List[AddonSummaryItem] = [
-                            AddonSummaryItem(**item) for item in json.loads(decoded_udf1)
+                            AddonSummaryItem(**item)
+                            for item in json.loads(decoded_udf1)
                         ]
                         grouped_addon_summary = group_addon_summary(addon_summary_list)
 
@@ -105,7 +125,7 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
                             if unique_key in seen_combinations:
                                 continue
 
-                            row = FieldGrpRootAddonsAddonServiceAddonCartRow(
+                            addon_table_row = FieldGrpRootAddonsAddonServiceAddonCartRow(
                                 addon_id=addon_id,
                                 addon_name=summary.addonName,
                                 amount=str(summary.totalAddonCost),
@@ -115,11 +135,13 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
                                 txnid=lps_record.txn_id,
                                 amt_status=None,
                             )
-                            addon_cart_rows.append(row)
+                            addon_cart_rows.append(addon_table_row)
                             seen_combinations.add(unique_key)
 
                     except Exception as inner_e:
-                        logger.warning(f"Error processing LPS record {lps_record.txn_id}: {inner_e}")
+                        logger.warning(
+                            f"Error processing LPS record {lps_record.txn_id}: {inner_e}"
+                        )
                         continue
 
             # Assign to the parsed record
@@ -128,30 +150,19 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
 
             full_parsed_record.addons.addon_service.addon_cart_row = addon_cart_rows
 
+            # Clear the initialization table
+            full_parsed_record.addons.addon_service_initialization = RootAddonsAddonServiceInitialization()
+
+            # Clear the addon selections
+            for group_traveller in full_parsed_record.addons.addon_group:
+                for addon_table_row in group_traveller.addonservicegroup.addon_card.addon_on_service:
+                    addon_table_row.service_checkbox = None
+
+            # Clear the verifier payment request:
+            full_parsed_record.addons.payment_display = None
+
             return GenericFormRecordModel(**full_parsed_record.model_dump())
 
         except Exception as e:
             logger.error(f"Error processing payload: {e}")
             return payload  # Safe fallback on error
-
-def group_addon_summary(
-    addon_summary_list: List[AddonSummaryItem],
-) -> Dict[str, GroupedAddonSummaryItem]:
-    grouped_summary = {}
-
-    for item in addon_summary_list:
-        addon_id = item.addonId
-
-        if addon_id not in grouped_summary:
-            grouped_summary[addon_id] = GroupedAddonSummaryItem(
-                addonName=item.addonName,
-                count=1,
-                singleAddonCost=item.amount,
-                totalAddonCost=item.amount,
-            )
-        else:
-            summary = grouped_summary[addon_id]
-            summary.count += 1
-            summary.totalAddonCost += item.amount
-
-    return grouped_summary
