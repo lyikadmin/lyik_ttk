@@ -13,6 +13,6 @@
     "show_sidebar_expanded": false,
     "show_csv_export": false,
     "show_records_search": false,
-    "show_back_button": false,
+    "show_back_button": false
   }
   
