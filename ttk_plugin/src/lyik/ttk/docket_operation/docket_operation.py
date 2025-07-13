@@ -428,6 +428,7 @@ class DocketOperation(OperationPluginSpec):
                 if (
                     add_docs.additionaldocumentgroup
                     and add_docs.additionaldocumentgroup.additional_documents_card
+                    and add_docs.additionaldocumentgroup.additional_documents_card.file_upload
                     and add_docs.additionaldocumentgroup.additional_documents_card.file_upload.get(
                         "doc_id"
                     )
