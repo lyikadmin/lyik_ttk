@@ -1653,7 +1653,7 @@ class RootVisaRequestInformationVisaRequest(BaseModel):
         description="Enter Validity of Visa (in Days)",
         title="Validity of Visa (in Days)",
     )
-    no_of_entries: Optional[int] = Field(
+    no_of_entries: Optional[str] = Field(
         None, description="Enter Number of Entries", title="Number of Entries"
     )
     visa_mode: Optional[VISAMODE] = Field(
