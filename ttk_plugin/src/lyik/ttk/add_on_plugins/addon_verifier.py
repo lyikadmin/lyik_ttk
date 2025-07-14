@@ -98,18 +98,25 @@ class AddOnPaymentInitializeVerifier(VerifyHandlerSpec):
 
         # print(f"\n\n The decoded udf1 data is: {decode_base64_to_str(udf1_data)}")
 
-        pg_payu_params: PayUParams = PayUParams(
-            first_name=full_form_record.passport.passport_details.first_name,
-            last_name=full_form_record.passport.passport_details.surname,
-            phone_number=full_form_record.visa_request_information.visa_request.phone_number,
-            reason="Addons",
-            email=full_form_record.visa_request_information.visa_request.email_id,
-            udf1=udf1_data,
-            udf2="",
-            udf3="",
-            udf4="",
-            udf5="",
-        )
+        try:
+            pg_payu_params: PayUParams = PayUParams(
+                first_name=full_form_record.passport.passport_details.first_name,
+                last_name=full_form_record.passport.passport_details.surname,
+                phone_number=full_form_record.visa_request_information.visa_request.phone_number,
+                reason="Addons",
+                email=full_form_record.visa_request_information.visa_request.email_id,
+                udf1=udf1_data,
+                udf2="",
+                udf3="",
+                udf4="",
+                udf5="",
+            )
+        except AttributeError as ae:
+            return VerifyHandlerResponseModel(
+                status=VERIFY_RESPONSE_STATUS.FAILURE,
+                message="Please fill your first name and last name in passport section first.",
+                response=full_form_record.addons.model_dump(),
+            )
 
         payment_initiation_response: PaymentInitiationModel = (
             await invoke.initiate_payment_and_generate_html(
