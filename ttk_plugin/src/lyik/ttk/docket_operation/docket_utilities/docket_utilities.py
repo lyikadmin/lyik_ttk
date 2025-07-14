@@ -70,133 +70,91 @@ class DocketUtilities:
                     visa_info.visa_request.phone_number
                 )
 
-                pdf_model.visa_mem_main_dst = (
-                    visa_info.visa_request.to_country
-                )
+                pdf_model.visa_mem_main_dst = visa_info.visa_request.to_country
 
             passport = schengen_visa_data.passport
             if passport and passport.passport_details:
-                pdf_model.visa_first_name = (
-                    passport.passport_details.first_name
+                pdf_model.visa_first_name = passport.passport_details.first_name
+                pdf_model.visa_surname_family_name = passport.passport_details.surname
+                pdf_model.visa_surname_at_birth = passport.passport_details.surname
+                pdf_model.visa_dob = passport.passport_details.date_of_birth.strftime(
+                    "%d-%m-%Y"
                 )
-                pdf_model.visa_surname_family_name = (
-                    passport.passport_details.surname
-                )
-                pdf_model.visa_surname_at_birth = (
-                    passport.passport_details.surname
-                )
-                pdf_model.visa_dob = (
-                    passport.passport_details.date_of_birth.strftime(
-                        "%d-%m-%Y"
-                    )
-                )
-                pdf_model.visa_pob = (
-                    passport.passport_details.place_of_birth
-                )
-                pdf_model.visa_cob = (
-                    passport.passport_details.country
-                )
+                pdf_model.visa_pob = passport.passport_details.place_of_birth
+                pdf_model.visa_cob = passport.passport_details.country
                 pdf_model.visa_sex_male = (
-                    passport.passport_details.gender
-                    == GENDER.M  # Adjusted
+                    passport.passport_details.gender == GENDER.M  # Adjusted
                 )
                 pdf_model.visa_sex_female = (
-                    passport.passport_details.gender
-                    == GENDER.F  # Adjusted
+                    passport.passport_details.gender == GENDER.F  # Adjusted
                 )
                 pdf_model.visa_sex_oth = (
                     passport.passport_details.gender != GENDER.M
-                    and passport.passport_details.gender
-                    != GENDER.F  # Adjusted
+                    and passport.passport_details.gender != GENDER.F  # Adjusted
                 )
 
-                pdf_model.visa_curr_natl = (
-                    passport.passport_details.nationality
-                )
+                pdf_model.visa_curr_natl = passport.passport_details.nationality
                 pdf_model.visa_typ_trav_doc_ord = (
-                    passport.passport_details.type_of_passport
-                    == PASSPORTTYPE.ORDINARY
+                    passport.passport_details.type_of_passport == PASSPORTTYPE.ORDINARY
                 )
                 pdf_model.visa_typ_trav_doc_service = (
-                    passport.passport_details.type_of_passport
-                    == PASSPORTTYPE.OFFICIAL
+                    passport.passport_details.type_of_passport == PASSPORTTYPE.OFFICIAL
                 )
                 pdf_model.visa_typ_trav_doc_special = (
-                    passport.passport_details.type_of_passport
-                    == PASSPORTTYPE.SPECIAL
+                    passport.passport_details.type_of_passport == PASSPORTTYPE.SPECIAL
                 )
                 pdf_model.visa_typ_trav_doc_diplomatic = (
                     passport.passport_details.type_of_passport
                     == PASSPORTTYPE.DIPLOMATIC
                 )
                 pdf_model.visa_typ_trav_doc_official = (
-                    passport.passport_details.type_of_passport
-                    == PASSPORTTYPE.OFFICIAL
+                    passport.passport_details.type_of_passport == PASSPORTTYPE.OFFICIAL
                 )
 
-                pdf_model.visa_num_trav_doc = (
-                    passport.passport_details.passport_number
-                )
+                pdf_model.visa_num_trav_doc = passport.passport_details.passport_number
                 pdf_model.visa_typ_trav_doc_oth = (
-                    passport.passport_details.type_of_passport
-                    == PASSPORTTYPE.OTHER
+                    passport.passport_details.type_of_passport == PASSPORTTYPE.OTHER
                 )
 
-                pdf_model.visa_doi = (
-                    passport.passport_details.date_of_issue.strftime(
-                        "%d-%m-%Y"
-                    )
-                )
-                pdf_model.visa_val_til = passport.passport_details.date_of_expiry.strftime(
+                pdf_model.visa_doi = passport.passport_details.date_of_issue.strftime(
                     "%d-%m-%Y"
                 )
-                pdf_model.visa_issued_by_ctry = (
-                    passport.passport_details.issued_by
+                pdf_model.visa_val_til = (
+                    passport.passport_details.date_of_expiry.strftime("%d-%m-%Y")
                 )
+                pdf_model.visa_issued_by_ctry = passport.passport_details.issued_by
 
             if passport and passport.other_details:
-                pdf_model.visa_oth_natl = (
-                    passport.other_details.other_nationality
-                )
+                pdf_model.visa_oth_natl = passport.other_details.other_nationality
                 pdf_model.visa_civil_sts_single = (
-                    passport.other_details.civil_status
-                    == CIVILMARITALSTATUS.SINGLE
+                    passport.other_details.civil_status == CIVILMARITALSTATUS.SINGLE
                 )
                 pdf_model.visa_civil_sts_married = (
-                    passport.other_details.civil_status
-                    == CIVILMARITALSTATUS.MARRIED
+                    passport.other_details.civil_status == CIVILMARITALSTATUS.MARRIED
                 )
                 pdf_model.visa_civil_sts_seperated = (
-                    passport.other_details.civil_status
-                    == CIVILMARITALSTATUS.SEPARATED
+                    passport.other_details.civil_status == CIVILMARITALSTATUS.SEPARATED
                 )
                 pdf_model.visa_civil_sts_divorced = (
-                    passport.other_details.civil_status
-                    == CIVILMARITALSTATUS.DIVORCED
+                    passport.other_details.civil_status == CIVILMARITALSTATUS.DIVORCED
                 )
                 pdf_model.visa_civil_widow = (
-                    passport.other_details.civil_status
-                    == CIVILMARITALSTATUS.WIDOWED
+                    passport.other_details.civil_status == CIVILMARITALSTATUS.WIDOWED
                 )
                 pdf_model.visa_civil_sts_single = (
-                    passport.other_details.civil_status
-                    == CIVILMARITALSTATUS.SINGLE
+                    passport.other_details.civil_status == CIVILMARITALSTATUS.SINGLE
                 )
                 pdf_model.visa_civil_sts_married = (
-                    passport.other_details.civil_status
-                    == CIVILMARITALSTATUS.MARRIED
+                    passport.other_details.civil_status == CIVILMARITALSTATUS.MARRIED
                 )
                 pdf_model.visa_civil_sts_seperated = (
-                    passport.other_details.civil_status
-                    == CIVILMARITALSTATUS.SEPARATED
+                    passport.other_details.civil_status == CIVILMARITALSTATUS.SEPARATED
                 )
                 pdf_model.visa_civil_sts_divorced = (
-                    passport.other_details.civil_status
-                    == CIVILMARITALSTATUS.DIVORCED
+                    passport.other_details.civil_status == CIVILMARITALSTATUS.DIVORCED
                 )
                 pdf_model.visa_civil_widow = (
-                    passport.other_details.civil_status
-                    == CIVILMARITALSTATUS.WIDOWED
+                    passport.other_details.civil_status == CIVILMARITALSTATUS.WIDOWED
                 )
 
             if (
@@ -212,9 +170,7 @@ class DocketUtilities:
                 and passport.passport_details
                 and passport.passport_details.nationality
             ):
-                pdf_model.visa_natl_at_birth = (
-                    passport.passport_details.nationality
-                )
+                pdf_model.visa_natl_at_birth = passport.passport_details.nationality
 
             # pdf_model.visa_civil_sts_reg_partner=schengen_visa_data.passport.other_details.civil_status== CIVILMARITALSTATUS.REGISTERED_PARTNER
             # pdf_model.visa_parental_auth = (
@@ -275,11 +231,9 @@ class DocketUtilities:
                 pdf_model.visa_fam_mem_eu_1st_nm = (
                     additional_details.family_eu.given_name
                 )
-                pdf_model.visa_fam_mem_eu_surname = (
-                    additional_details.family_eu.surname
-                )
-                pdf_model.visa_fam_mem_eu_dob = additional_details.family_eu.date_of_birth.strftime(
-                    "%d-%m-%Y"
+                pdf_model.visa_fam_mem_eu_surname = additional_details.family_eu.surname
+                pdf_model.visa_fam_mem_eu_dob = (
+                    additional_details.family_eu.date_of_birth.strftime("%d-%m-%Y")
                 )
                 pdf_model.visa_fam_mem_eu_natl = (
                     additional_details.family_eu.nationality
@@ -349,7 +303,9 @@ class DocketUtilities:
                 email = app_details.email_address or ""
 
                 pdf_model.visa_app_addr = ", ".join(
-                    part for part in [line1, line2, city, state, pin, country, email] if part.strip()
+                    part
+                    for part in [line1, line2, city, state, pin, country, email]
+                    if part.strip()
                 )
 
                 pdf_model.visa_app_addr = pdf_model.visa_app_addr.strip(", ")
@@ -446,12 +402,8 @@ class DocketUtilities:
                 pdf_model.visa_invite_org_comm_details = (
                     work_address.work_details.work_address
                 )
-                pdf_model.visa_invite_org = (
-                    work_address.work_details.employer_name
-                )
-                pdf_model.visa_curr_occ = (
-                    work_address.work_details.occupation
-                )
+                pdf_model.visa_invite_org = work_address.work_details.employer_name
+                pdf_model.visa_curr_occ = work_address.work_details.occupation
                 work_details = work_address.work_details
 
                 employer = work_details.employer_name or ""
@@ -493,7 +445,6 @@ class DocketUtilities:
                 pdf_model.visa_applicant_diff_addr = ", ".join(
                     part for part in [line1, line2, city, country] if part.strip()
                 )
-
 
             return pdf_model
 
