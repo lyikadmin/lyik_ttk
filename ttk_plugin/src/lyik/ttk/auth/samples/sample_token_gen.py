@@ -5,12 +5,12 @@ TTK_TOKEN_SECRET = "BmThdDKu4lPOFiiqwHG1GQVm7iGeVIqALcqwJDM6VySzVdOwZ1UMoylzwhID
 
 
 payload = {
-    "userId": "U_011",
-    "accessType": "maker",
-    "fullName": "Jhon Doe",
+    "userId": "U001",
+    "accessType": "client",
+    "fullName": "Debasish Client",
     "loginTime": "2025-04-25 15:10:30",
     "expiryTimestamp": "1781934720",
-    "Order ID":  "abc_123"
+    "Order ID": "RVIS-03072025-001",
     # "relationship": ["user_xyz", "user_1222"],
     # "iss": "https://auth.ttk.com/",
     # "aud": "https://lyik.com",
@@ -24,7 +24,7 @@ token = jwt.encode(
 
 # If token is bytes, decode it to str
 if isinstance(token, bytes):
-    token = token.decode('utf-8')
+    token = token.decode("utf-8")
 
 print("🔐 JWT Token:")
 print(token)
@@ -32,7 +32,6 @@ print(token)
 deco = jwt.decode(
     token,
     TTK_TOKEN_SECRET,
-
     algorithms=["HS256"],
 )
 
