@@ -103,7 +103,7 @@ info_pane_builder,lets_get_started,,,info_pane,,False,"<!DOCTYPE html>
   </div>
 </body>
 </html>
-",Let's Get Started,,,False,,,,,operation.continue:Continue
+",Let's Get Started,FOR_OFFICE_USE_ONLY;SAVE_EVEN_IF_HIDDEN,,False,,,,,operation.continue:Continue
 display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
@@ -223,7 +223,7 @@ display_field,display_info_header,,,display_field,,False,"<!-- <p style=""font-s
       width: 1060px;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 32px;
       color: #000000;
       text-align: center;
@@ -243,21 +243,23 @@ display_field,display_info_header,,,display_field,,False,"<!-- <p style=""font-s
 </body>
 </html>
 ",,,,False,,,,,
-card_builder,visa_request,,,card,,False,,Summary,,,False,,,,,
+card_builder,visa_request,,,card,,False,,Summary,SAVE_EVEN_IF_HIDDEN,,False,,,,,
 table,visa_request_summary,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,phone_number,,,textbox,,False,Enter Phone Number,Phone Number,,,False,,,,False,
 fac_str,email_id,,,textbox,,False,Enter Email ID,Email ID,,,False,,,,False,
 fac_country_3,from_country,,,dropdown,,False,Select Option,Travelling From,,,False,,,,False,
 fac_country_3,to_country,,,dropdown,,False,Select Option,Travelling To,,,False,,,,False,
-fac_date,departure_date,,,datebox,,False,DD/MM/YYYY,Date of Departure,,,False,,,,,
-fac_date,arrival_date,,,datebox,,False,DD/MM/YYYY,Date of Arrival,,,False,,,,,
+fac_date,departure_date,,,datebox,,False,DD/MM/YYYY,Date of Departure,,,False,,,,,;only_future: true
+fac_date,arrival_date,,,datebox,,False,DD/MM/YYYY,Date of Arrival,,,False,,,,,;only_future: true
 fac_visa_type,visa_type,,,dropdown,,False,Select Option,Type of Visa,,,False,,,,False,
 fac_int,length_of_stay,,,textbox,,False,Enter Length of Stay (in Days),Length of Stay (in Days),,,False,,,,,
 fac_int,validity,,,textbox,,False,Enter Validity of Visa (in Days),Validity of Visa (in Days),,,False,,,,,
-fac_int,no_of_entries,,,textbox,,False,Enter Number of Entries,Number of Entries,,,False,,,,,
+fac_str,no_of_entries,,,textbox,,False,Enter Number of Entries,Number of Entries,,,False,,,,,
 fac_visa_mode,visa_mode,,,dropdown,,False,Select Option,Visa Mode (E-Visa/Paper),,,False,,,,,
+fac_int,no_of_travellers,,,hidden,,False,Enter Number of Travellers,Number of Travellers,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 fac_str,traveller_type,,,hidden,,False,,,,,False,,,,,
+fac_str,traveller_id,,,hidden,,False,,,,,False,,,,,
 fac_str,order_id,,,hidden,,False,,,,,False,,,,,
 fac_str,earliest_appointment_availability,,,hidden,,False,,,,,False,,,,,
 fac_str,visa_processing_type,,,hidden,,False,,,,,False,,,,,
@@ -287,7 +289,7 @@ display_field,display_appointment_details_header,,,display_field,,False,"<!-- <p
       width: 1060px;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 32px;
       color: #000000;
       text-align: center;
@@ -310,10 +312,10 @@ display_field,display_appointment_details_header,,,display_field,,False,"<!-- <p
 card_builder,appointment_scheduled,,,card,,False,,My Scheduled Appointment Details,,,False,,,,not @.add_on_service_option = 'YES',
 table,appointment_details_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_pref_loc,scheduled_location,,,dropdown,,False,Select Option,Scheduled Location (City),,,False,,,,,
-fac_date,scheduled_date,,,datebox,,False,DD/MM/YYYY,Scheduled Date,,,False,,,,,
+fac_date,scheduled_date,,,datebox,,False,DD/MM/YYYY,Scheduled Date,,,False,,,,,;only_future: true
 fac_hour_select,scheduled_hour,,,dropdown,,False,Select Option,Scheduled Time (Hour),,,False,,,,,
 fac_minute_select,scheduled_minute,,,dropdown,,False,Select Option,Scheduled Time (Minute),,,False,,,,,
-fac_file,upload_appointment,,,fileoption,,False,upload a pdf,Appointment Document,,,False,,,,,file_type:.pdf
+fac_file,upload_appointment,,,fileoption,,False,Upload a file,Appointment Document,,,False,,,,,file_type:.pdf
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 fac_str,lock_appointment,,,hidden,,False,,,,,False,,,,,
@@ -346,7 +348,7 @@ info_pane_builder,passport,,,info_pane,,False,"<!DOCTYPE html>
     .container ul,
     .container li {
       font-weight: 400;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 34px;
       letter-spacing: 0;
       color: #333;
@@ -410,13 +412,7 @@ info_pane_builder,passport,,,info_pane,,False,"<!DOCTYPE html>
 </body>
 </html>
 ",Passport,,,False,,,,,operation.save:Save and Continue
-display_field,display_passport_header,,,display_field,,False,"<!-- <p style=""font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;"">
- 
-  Please upload the images of your Passport to auto-fill the details below.
-</p>
-<p style=""font-size: 13px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;"">
-  Note: Your Passport must be valid 6 months after the date of your departure from the Schengen Country.
-</p> -->
+display_field,display_passport_header,,,display_field,,False,"
 
 <!DOCTYPE html>
 <html lang=""en"">
@@ -434,7 +430,7 @@ display_field,display_passport_header,,,display_field,,False,"<!-- <p style=""fo
       width: 1060px;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 32px;
       color: #000000;
       text-align: center;
@@ -446,12 +442,7 @@ display_field,display_passport_header,,,display_field,,False,"<!-- <p style=""fo
   
   <div class=""center-wrapper"">
     <div class=""message-box"">
-        <!-- Please upload the images of your Passport to auto-fill the details below. <br>
-        For detailed guidelines, click on the <svg width=""15"" height=""14"" viewBox=""0 0 25 24"" fill=""none"" xmlns=""http://www.w3.org/2000/svg"">
-<circle cx=""12.5"" cy=""12"" r=""11.0625"" fill=""white"" stroke=""#3B83DB"" style=""fill:white;fill-opacity:1;stroke:#3B83DB;stroke:color(display-p3 0.2314 0.5137 0.8588);stroke-opacity:1;"" stroke-width=""1.875""/>
-<path d=""M9.94367 18.0233C10.4477 18.0093 10.8047 17.9463 11.0147 17.8343C11.2387 17.7083 11.3787 17.5333 11.4347 17.3093C11.4907 17.0853 11.5187 16.7213 11.5187 16.2173V11.7023C11.5187 11.2543 11.4907 10.9323 11.4347 10.7363C11.3787 10.5263 11.2387 10.3653 11.0147 10.2533C10.8047 10.1413 10.4477 10.0783 9.94367 10.0643V9.30829L13.3037 8.65729L13.7867 8.84629V16.2173C13.7867 16.7213 13.8147 17.0853 13.8707 17.3093C13.9267 17.5333 14.0597 17.7083 14.2697 17.8343C14.4937 17.9463 14.8577 18.0093 15.3617 18.0233V18.8633L14.8787 18.8423C14.0247 18.7863 13.2827 18.7583 12.6527 18.7583C12.4707 18.7583 11.7077 18.7863 10.3637 18.8423L9.94367 18.8633V18.0233ZM12.4217 4.31029C12.8977 4.31029 13.2477 4.43629 13.4717 4.68829C13.7097 4.94029 13.8287 5.29029 13.8287 5.73829C13.8287 6.18629 13.7167 6.51529 13.4927 6.72529C13.2687 6.92129 12.9117 7.01929 12.4217 7.01929C11.9597 7.01929 11.6167 6.92129 11.3927 6.72529C11.1687 6.51529 11.0567 6.18629 11.0567 5.73829C11.0567 5.29029 11.1687 4.94029 11.3927 4.68829C11.6307 4.43629 11.9737 4.31029 12.4217 4.31029Z"" fill=""#3BB9EB"" style=""fill:#3BB9EB;fill:color(display-p3 0.2314 0.7255 0.9216);fill-opacity:1;""/>
-</svg>
- button in the top-right corner of this section. -->
+
         Please upload the images of your Passport to auto-fill the details below.
         For detailed guidelines on this,click on the
         <span style=""font-weight: 700; font-size: 1em;"">
@@ -466,8 +457,8 @@ display_field,display_passport_header,,,display_field,,False,"<!-- <p style=""fo
 card_builder,passport_details,,,card,,False,,Passport Details,,,False,,,,,verify.verify_handler:VERIFIER_PASSPORT_DATE;verify.action_text:Auto-fill Details
 fac_passport_type,type_of_passport,,,dropdown,,False,Select Option,Type of Passport,,,False,,,,,
 table,passport_page_upload,,,table,,False,,,,,False,,,,,table.column:2
-fac_file,ovd_front,,,fileoption,,False,Upload an image/file,Front Page of Passport,,,False,,,,,
-fac_file,ovd_back,,,fileoption,,False,Upload an image/file,Back Page of Passport,,,False,,,,,
+fac_file,ovd_front,,,fileoption,,False,Upload a file,Front Page of Passport,,,False,,,,,
+fac_file,ovd_back,,,fileoption,,False,Upload a file,Back Page of Passport,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 display_field,display_passport_table_headline,,,display_field,,False,"<!DOCTYPE html>
 <html lang=""en"">
@@ -485,7 +476,7 @@ display_field,display_passport_table_headline,,,display_field,,False,"<!DOCTYPE 
       width: 1060px;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 32px;
       color: #000000;
       text-align: center;
@@ -623,7 +614,7 @@ in the top-right corner of this section.
       width: 1060px;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 32px;
       color: #000000;
       text-align: center;
@@ -634,8 +625,8 @@ in the top-right corner of this section.
 
   <div class=""center-wrapper"">
     <div class=""message-box"" style=""text-align: center;"">
-        For your appointment, you must carry four recent colour photographs (35mm x 40mm) with a <br>white background of yourself.
-        For detailed guideline on this, cclick on the
+        For your appointment, you must carry four recent colour photographs (35mm x 40mm) with a white background of yourself.<br>
+        For detailed guideline on this, click on the
         <span style=""font-weight: 700; font-size: 1em;"">
           Instructions 
         </span>
@@ -666,7 +657,7 @@ align-items: center;"">
   width: 1060px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   color: #000000;
   text-align: center;
@@ -675,7 +666,7 @@ If you’d like us to <strong>review</strong> your photo to make sure your photo
 please upload it here.
 </div>
 </div>",,,,False,,,,,
-fac_file,photo,,,fileoption,,False,Upload an image/file,Passport-Size Photo (Optional),,,False,,,,,
+fac_file,photo,,,fileoption,,False,Upload a file,Passport-Size Photo (Optional),,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 fac_photograph_appointment,appointment_photo_option,,,checkbox,,False,Select Option,,,,False,,,,,
 card_builder,add_on_service_photo,,,card,,False,,Add-On Service,,,False,,,,,
@@ -697,7 +688,7 @@ display_field,display_add_on_service,,,display_field,,False,"<!-- <div style=""
     .message-box {
       font-family: 'Inter', sans-serif;
       font-weight: 425;
-      font-size: 20px;
+      font-size: 16px;
       text-align: left;
     }
   </style>
@@ -735,7 +726,7 @@ info_pane_builder,residential_address,,,info_pane,,False,"<!DOCTYPE html>
     .container ul,
     .container li {
       font-weight: 400;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 34px;
       letter-spacing: 0;
       color: #333;
@@ -774,7 +765,7 @@ info_pane_builder,residential_address,,,info_pane,,False,"<!DOCTYPE html>
     /* note text */
     .container .note {
       font-weight: 400;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 34px;
       letter-spacing: 0;
       color: #555;
@@ -838,7 +829,7 @@ in the top-right corner of this section.
       width: 1060px;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 32px;
       color: #000000;
       text-align: center;
@@ -865,7 +856,7 @@ fac_same_as_pass_addr,same_as_passport_address,,,checkbox,,False,Select Option,,
 card_builder,residential_address_card_v1,,,card,,False,,Current Residential Address,,,False,,,same_as_passport_address = 'SAME_AS_PASS_ADDR',,
 table,residential_address_table_v1,,,table,,False,,,,,False,,,,,table.column:2
 fac_address_proof_type,type_of_proof,,,dropdown,,False,Select Option,Type of Proof,,,False,,,,,
-fac_file,address_proof_upload,,,fileoption,,False,Upload an image/file,Upload Address Proof,,,False,,,,,
+fac_file,address_proof_upload,,,fileoption,,False,Upload a file,Upload Address Proof,,,False,,,,,
 fac_str,address_line_1,,,textbox,,False,Enter Address Line 1,Address Line 1,,,False,,,,,
 fac_str,address_line_2,,,textbox,,False,Enter Address Line 2,Address Line 2,,,False,,,,,
 fac_str,pin_code,,,textbox,,False,Enter PIN Code,PIN Code,,,False,,,,,
@@ -907,7 +898,7 @@ info_pane_builder,work_address,,,info_pane,,False,"<!DOCTYPE html>
     .container ul,
     .container li {
       font-weight: 400;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 34px;
       letter-spacing: 0;
       color: #333;
@@ -946,7 +937,7 @@ info_pane_builder,work_address,,,info_pane,,False,"<!DOCTYPE html>
     /* note text */
     .container .note {
       font-weight: 400;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 34px;
       letter-spacing: 0;
       color: #555;
@@ -1036,7 +1027,7 @@ info_pane_builder,itinerary_accomodation,,,info_pane,,False,"<!DOCTYPE html>
     .container ul,
     .container li {
       font-weight: 400;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 34px;
       letter-spacing: 0;
       color: #333;
@@ -1130,7 +1121,7 @@ in the top-right corner of this section.
       width: 1060px;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 32px;
       color: #000000;
       text-align: center;
@@ -1164,7 +1155,7 @@ align-items: center;"">
   width: 1060px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   color: #000000;
   text-align: center;
@@ -1173,7 +1164,7 @@ align-items: center;"">
         please upload it here. Make sure it includes all Schengen countries you're visiting.
     </div>
   </div>",,,,False,,,,,
-fac_file,upload_itinerary,,,fileoption,,False,upload a pdf,Itinerary (Optional),,,False,,,,not @.add_on_service_itinerary.add_on_service_itinerary_option = 'YES',file_type:.pdf
+fac_file,upload_itinerary,,,fileoption,,False,Upload a file,Itinerary (Optional),,,False,,,,not @.add_on_service_itinerary.add_on_service_itinerary_option = 'YES',file_type:.pdf
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,add_on_service_itinerary,,,card,,False,,Add-On Service,,,False,,,,,
 display_field,display_add_on_service_itinerary,,,display_field,,False,"<!-- <div style=""
@@ -1194,7 +1185,7 @@ display_field,display_add_on_service_itinerary,,,display_field,,False,"<!-- <div
     .message-box {
       font-family: 'Inter', sans-serif;
       font-weight: 425;
-      font-size: 20px;
+      font-size: 16px;
       text-align: left;
       
     }
@@ -1236,7 +1227,7 @@ info_pane_builder,accomodation,,,info_pane,,False,"<!DOCTYPE html>
     .container ul,
     .container li {
       font-weight: 400;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 34px;
       letter-spacing: 0;
       color: #333;
@@ -1333,7 +1324,7 @@ display_field,display_accommodation_header,,,display_field,,False,"
       width: 1060px;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 32px;
       color: #000000;
       text-align: center;
@@ -1365,7 +1356,7 @@ align-items: center;"">
   width: 1060px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   color: #000000;
   text-align: center;
@@ -1380,9 +1371,9 @@ fac_relationship,relationship,,,dropdown,,False,Select Option,Relationship,,,Fal
 fac_str,inviter_address,,,textbox.row-4,,False,Enter Address of the Inviter,Address of the Inviter (Family/Friend),,,False,,,,,
 fac_str,mobile_number,,,textbox,,False,Enter Mobile/Telephone Number,Mobile/Telephone Number,,,False,,,,,
 fac_str,email_id,,,textbox,,False,Enter Email ID,Email ID of Inviter (Family/Friend),,,False,,,,,
-fac_file,passport_bio_page,,,fileoption,,False,Upload an image/file,Front Page of Inviter's Passport,,,False,,,,,
-fac_file,visa_copy_permit,,,fileoption,,False,Upload an image/file,Visa Copy / Resident Permit Card,,,False,,,,,
-fac_file,accommodation_proof,,,fileoption,,False,Upload an image/file,Inviter's Accommodation Proof,,,False,,,,,
+fac_file,passport_bio_page,,,fileoption,,False,Upload a file,Front Page of Inviter's Passport,,,False,,,,,
+fac_file,visa_copy_permit,,,fileoption,,False,Upload a file,Visa Copy / Resident Permit Card,,,False,,,,,
+fac_file,accommodation_proof,,,fileoption,,False,Upload a file,Inviter's Accommodation Proof,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,booked_appointment,,,card,,False,,Booked Accommodation,,,False,,,accommodation_choice.accommodation_option = 'WITH_FAMILY',not lock_accommodation='Lock',
@@ -1396,7 +1387,7 @@ align-items: center;"">
   width: 1060px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   color: #000000;
   text-align: center;
@@ -1407,7 +1398,7 @@ align-items: center;"">
        
 ",,,,False,,,,,
 table,accommodation_details_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_file,booking_upload,,,fileoption,,False,upload a pdf,Accommodation Booking,,,False,,,,,file_type:.pdf
+fac_file,booking_upload,,,fileoption,,False,Upload a file,Accommodation Booking,,,False,,,,,file_type:.pdf
 fac_str,accommodation_name,,,textbox,,False,Enter Name of Accommodation,Name of Accommodation,,,False,,,,,
 fac_str,accommodation_address,,,textbox.row-4,,False,Enter Address of Accommodation,Address of Accommodation,,,False,,,,,
 fac_str,accommodation_email,,,textbox,,False,Enter Email Address of Accommodation,E-mail Address of Accommodation,,,False,,,,,
@@ -1433,7 +1424,7 @@ To know the cost, please refer to the <strong>&nbsp;Add-On Cart Section</strong>
     .message-box {
       font-family: 'Inter', sans-serif;
       font-weight: 425;
-      font-size: 20px;
+      font-size: 16px;
       text-align: left;
       
     }
@@ -1472,7 +1463,7 @@ info_pane_builder,ticketing,,,info_pane,,False,"<!DOCTYPE html>
     .container ul,
     .container li {
       font-weight: 400;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 34px;
       letter-spacing: 0;
       color: #333;
@@ -1546,7 +1537,7 @@ in the top-right corner of this section.
       width: 1060px;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 32px;
       color: #000000;
       text-align: center;
@@ -1582,7 +1573,7 @@ align-items: center;"">
   width: 1060px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   color: #000000;
   text-align: center;
@@ -1592,7 +1583,7 @@ align-items: center;"">
     </div>
   </div>
 ",,,,False,,,,,
-fac_file,flight_tickets,,,fileoption,,False,upload a pdf,Flight Tickets,,,False,,,,,file_type:.pdf
+fac_file,flight_tickets,,,fileoption,,False,Upload a file,Flight Tickets,,,False,,,,,file_type:.pdf
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,add_on_service,,,card,,False,,Add-On Service,,,False,,,,,
 display_field,display_add_on,,,display_field,,False,"<!DOCTYPE html>
@@ -1604,7 +1595,7 @@ display_field,display_add_on,,,display_field,,False,"<!DOCTYPE html>
     .message-box {
       font-family: 'Inter', sans-serif;
       font-weight: 425;
-      font-size: 20px;
+      font-size: 16px;
       text-align: left;
       
     }
@@ -1644,7 +1635,7 @@ info_pane_builder,travel_insurance,,,info_pane,,False,"<!DOCTYPE html>
     .container ul,
     .container li {
       font-weight: 400;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 34px;
       letter-spacing: 0;
       color: #333;
@@ -1745,7 +1736,7 @@ in the top-right corner of this section.
       width: 1060px;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 32px;
       color: #000000;
       text-align: center;
@@ -1778,7 +1769,7 @@ align-items: center;"">
   width: 1060px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   color: #000000;
   text-align: center;
@@ -1787,7 +1778,7 @@ If you’d like us to <strong> review </strong> your Travel Insurance to make su
 please upload it here. Make sure it includes all Schengen countries you're visiting.
 </div>
 </div>",,,,False,,,,,
-fac_file,flight_reservation_tickets,,,fileoption,,False,upload a pdf,Insurance Document,,,False,,,,,file_type:.pdf
+fac_file,flight_reservation_tickets,,,fileoption,,False,Upload a file,Insurance Document,,,False,,,,,file_type:.pdf
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,add_on_service,,,card,,False,,Add-On Service,,,False,,,,,
 display_field,display_add_on,,,display_field,,False,"<!-- <div style=""
@@ -1808,7 +1799,7 @@ To know the cost, please refer to the <strong>&nbsp;Add-On Cart Section</strong>
     .message-box {
       font-family: 'Inter', sans-serif;
       font-weight: 425;
-      font-size: 20px;
+      font-size: 16px;
       text-align: left;
       
     }
@@ -1837,7 +1828,7 @@ align-items: center;"">
   width: 1060px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   color: #000000;
   text-align: center;
@@ -1878,7 +1869,7 @@ This helps authorities assess your travel history and support your current appli
       width: 1060px;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 32px;
       color: #000000;
       text-align: center;
@@ -1899,7 +1890,7 @@ This helps authorities assess your travel history and support your current appli
 card_builder,previous_visas_details,,,card,,False,,Previous Visa Details,,,False,,,,,
 fac_option,have_past_visa,,,radiobutton,NO,False,Select Option,Have you been issued a Schengen visa during the past?,,,False,,,,,
 table,past_visa_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_file,previous_visa_copy,,,fileoption,,False,Upload an image/file,Previous Visa Copy,,,False,,,not have_past_visa = 'YES',,
+fac_file,previous_visa_copy,,,fileoption,,False,Upload a file,Previous Visa Copy,,,False,,,not have_past_visa = 'YES',,
 fac_str,visa_number,,,textbox,,False,Enter Visa Number,Visa Number,,,False,,,not have_past_visa = 'YES',,
 fac_str,visa_type,,,textbox,,False,Enter Visa Type,Visa Type,,,False,,,not have_past_visa = 'YES',,
 fac_country,country_of_issue,,,dropdown,,False,Select Option,Country of Visa Issued from,,,False,,,not have_past_visa = 'YES',,
@@ -1912,7 +1903,7 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,fingerprint_details,,,card,,False,,Fingerprint Details,,,False,,,,,
 fac_option,fingerprint_collected,,,radiobutton,NO,False,Select Option,Have your fingerprints been collected before for a Schengen visa application?,,,False,,,,,
 table,previous_visa_upload,,,table,,False,,,,,False,,,,,table.column:2
-fac_file,previous_visa_file,,,fileoption,,False,Upload an image/file,Previous Visa Copy,,,False,,,not fingerprint_collected = 'YES',,
+fac_file,previous_visa_file,,,fileoption,,False,Upload a file,Previous Visa Copy,,,False,,,not fingerprint_collected = 'YES',,
 fac_str,visa_sticker_number,,,textbox,,False,Enter Visa (Sticker) Number,Visa (Sticker) Number,,,False,,,not fingerprint_collected = 'YES',,
 fac_date,date_of_previous_visa,,,datebox,,False,DD/MM/YYYY,Date (If Known),,,False,,,not fingerprint_collected = 'YES',,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
@@ -1922,8 +1913,8 @@ section_break,additional_details_section,,,section_break,,False,No Instructions 
 info_pane_builder,additional_details,,,info_pane,,False,No Instructions Present,Additional Travel Details,,,False,,,,,operation.save:Save and Continue;verify.verify_handler:VERIFIER_ADDITIONAL_TRAVEL_DETAILS;verify.action_text:Verify Additional Details
 card_builder,national_id,,,card,,False,,National Identification Number,,,False,,,,,
 table,national_id_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_file,aadhaar_upload_front,,,fileoption,,False,Upload an image/file,Front Image Of Aadhaar Card,,,False,,,,,
-fac_file,aadhaar_upload_back,,,fileoption,,False,Upload an image/file,Back Image Of Aadhaar Card,,,False,,,,,
+fac_file,aadhaar_upload_front,,,fileoption,,False,Upload a file,Front Image Of Aadhaar Card,,,False,,,,,
+fac_file,aadhaar_upload_back,,,fileoption,,False,Upload a file,Back Image Of Aadhaar Card,,,False,,,,,
 fac_str,aadhaar_number,,,textbox,,False,Enter Aadhaar Card Number,Aadhaar Card Number,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -1936,7 +1927,7 @@ break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 table,visa_details_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_date,start_date_of_visa,,,datebox,,False,DD/MM/YYYY,Start Date of Visa,,,False,,,not valid_visa_for_country = 'YES',,
 fac_date,end_date_of_visa,,,datebox,,False,DD/MM/YYYY,End Date of Visa,,,False,,,not valid_visa_for_country = 'YES',,
-fac_file,visa_copy,,,fileoption,,False,Upload an image/file,Visa Copy,,,False,,,not valid_visa_for_country = 'YES',,
+fac_file,visa_copy,,,fileoption,,False,Upload a file,Visa Copy,,,False,,,not valid_visa_for_country = 'YES',,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,app_details,,,card,,False,,Application Details,,,False,,,,,
@@ -2046,7 +2037,7 @@ in the top-right corner of this section.
       width: 1060px;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 32px;
       color: #000000;
       text-align: center;
@@ -2076,7 +2067,7 @@ display_field,display_salary_slips_instructions,,,display_field,,False,"<!-- <di
   align-items: center;
   text-align: center;
   width: 100%;
-  padding: 20px;
+  padding: 16px;
   font-size: 14px;
   font-weight: 400;
   color: #000;
@@ -2103,7 +2094,7 @@ display_field,display_salary_slips_instructions,,,display_field,,False,"<!-- <di
       width: 1060px;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 32px;
       color: #000000;
       text-align: center;
@@ -2119,7 +2110,7 @@ display_field,display_salary_slips_instructions,,,display_field,,False,"<!-- <di
   </div>
 </body>
 </html>",,,,False,,,,,
-fac_file,salary_slip,,,fileoption,,False,upload a pdf,Salary Slip (Optional),,,False,,,,not @.skip_salary_slips = 'YES',file_type:.pdf
+fac_file,salary_slip,,,fileoption,,False,Upload a file,Salary Slip (Optional),,,False,,,,not @.skip_salary_slips = 'YES',file_type:.pdf
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 fac_skip_salary_slips,skip_salary_slips,,,checkbox,,False,Select Option,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -2148,7 +2139,7 @@ in the top-right corner of this section.
       width: 1060px;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 32px;
       color: #000000;
       text-align: center;
@@ -2176,7 +2167,7 @@ display_field,display_bank_statements_instructions,,,display_field,,False,"<!-- 
   align-items: center;
   text-align: center;
   width: 100%;
-  padding: 20px;
+  padding: 16px;
   font-size: 14px;
   font-weight: 400;
   color: #000;
@@ -2203,7 +2194,7 @@ display_field,display_bank_statements_instructions,,,display_field,,False,"<!-- 
       width: 1060px;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 32px;
       color: #000000;
       text-align: center;
@@ -2218,7 +2209,7 @@ display_field,display_bank_statements_instructions,,,display_field,,False,"<!-- 
   </div>
 </body>
 </html>",,,,False,,,,,
-fac_file,bank_statements,,,fileoption,,False,upload a pdf,Bank Statements (Optional),,,False,,,,not @.skip_bank_statements = 'YES',file_type:.pdf
+fac_file,bank_statements,,,fileoption,,False,Upload a file,Bank Statements (Optional),,,False,,,,not @.skip_bank_statements = 'YES',file_type:.pdf
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 fac_skip_bank_statements,skip_bank_statements,,,checkbox,,False,Select Option,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -2248,7 +2239,7 @@ in the top-right corner of this section.
       width: 1060px;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 32px;
       color: #000000;
       text-align: center;
@@ -2279,7 +2270,7 @@ align-items: center;"">
   width: 1060px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   color: #000000;
   text-align: center;
@@ -2287,7 +2278,7 @@ align-items: center;"">
 If you’d like us to <strong> review </strong> your ITR Acknowledgement Document to make sure it meets the guidelines, please upload it here.
 </div>
 </div>",,,,False,,,,,
-fac_file,itr_acknowledgement,,,fileoption,,False,upload a pdf,ITR Acknowledgements (Optional),,,False,,,,,file_type:.pdf
+fac_file,itr_acknowledgement,,,fileoption,,False,Upload a file,ITR Acknowledgements (Optional),,,False,,,,,file_type:.pdf
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 fac_itr_option_1,itr_options,,,checkbox,,False,Select Option,,,,False,,,,,
 display_field,display_not_filled_itr,,,display_field,,False,"<!DOCTYPE html>
@@ -2306,7 +2297,7 @@ display_field,display_not_filled_itr,,,display_field,,False,"<!DOCTYPE html>
       width: 1060px;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 32px;
       color: #000000;
       text-align: center;
@@ -2325,8 +2316,57 @@ display_field,display_not_filled_itr,,,display_field,,False,"<!DOCTYPE html>
 ",,,,False,,,not @.itr_options = 'NO_ITR',,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 tab_break,additional_documents_tab,,,tab_break,,False,,Additional Information,,,False,,,,,
-section_break,addons_section,,,section_break,,False,No Instructions Present,Add-On Cart,,,False,,,,,
-info_pane_builder,addons,,,info_pane,,False,No Instructions Present,Add-On Cart,,,False,,,,,operation.save:Continue
+section_break,addons_section,,,section_break,,False,No Instructions Present,Add-On Cart,,,False,,,not $.visa_request_information.visa_request.traveller_type = 'Primary',,
+info_pane_builder,addons,,,info_pane,,False,No Instructions Present,Add-On Cart,,,False,,,,,operation.save:Continue;verify.verify_handler:VERIFIER_PAYMENT_INITIALIZATION;verify.action_text:Calculate Payment
+fac_str,record_id,,,hidden,,False,Used to get the Record ID,,,,False,,,,,
+card_builder,addon_service_initialization,,,card,,False,,Initialized Addon Cart,,,False,,,,,
+table,table,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:1
+group_builder,addon_cart_row,,,table_row,,False,,Addon Table,,,False,,,,,
+fac_str,addon_id,,,data_display,,False,Enter Addon ID,Addon ID,,,False,,,,,
+fac_str,addon_name,,,data_display,,False,Enter Add-Ons,Add-Ons,,,False,,,,,
+fac_str,refid,,,data_display,,False,Enter Ref ID,Ref ID,,,False,,,,,
+fac_str,txnid,,,data_display,,False,Enter Txn ID,Txn ID,,,False,,,,,
+fac_str,status,,,data_display,,False,Enter Status,Status,,,False,,,,,
+fac_str,amt_status,,,hidden,,False,Enter Amount Status,Amount Status,,,False,,,,,
+fac_str,amount,,,data_display,,False,Enter Amount,Amount,,,False,,,,,
+fac_str,quantity,,,data_display,,False,Enter Quantity,Quantity,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,addon_service,,,card,,False,,Addon Cart,,,False,,,,,
+table,table,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:1
+group_builder,addon_cart_row,,,table_row,,False,,Addon Table,,,False,,,,,
+fac_str,addon_id,,,data_display,,False,Enter Addon ID,Addon ID,,,False,,,,,
+fac_str,addon_name,,,data_display,,False,Enter Add-Ons,Add-Ons,,,False,,,,,
+fac_str,refid,,,data_display,,False,Enter Ref ID,Ref ID,,,False,,,,,
+fac_str,txnid,,,data_display,,False,Enter Txn ID,Txn ID,,,False,,,,,
+fac_str,status,,,data_display,,False,Enter Status,Status,,,False,,,,,
+fac_str,amt_status,,,hidden,,False,Enter Amount Status,Amount Status,,,False,,,,,
+fac_str,amount,,,data_display,,False,Enter Amount,Amount,,,False,,,,,
+fac_str,quantity,,,data_display,,False,Enter Quantity,Quantity,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+group_builder,addon_group,,,groupbox,,False,,Add On,,,False,,,,,button_label:Add Cart;limits.min:1;limits.max:10;limits.fixed:true
+info_pane_builder,addonservicegroup,,,groupbox,,False,,Your Transactions,,,False,,,,,
+card_builder,addon_card,,,card,,False,,TTK Add-On Services,,,False,,,,,
+display_field,traveler_name,,,data_display,,False,,,,,False,,,,,
+fac_str,traveller_id,,,hidden,,False,,,,,False,,,,,
+table,tables,,,table,,False,,,,,False,,,,,table.column:1
+group_builder,addon_on_service,,,table_row,,False,,Addon On Service,,,False,,,,,
+fac_str,checkbox_editable,,,hidden,,False,Enter Checkbox Editable,Checkbox Editable,,,False,,,,,
+fac_add_on_op,service_checkbox,,,checkbox,,False,Select Option,,,,False,,,,"not checkbox_editable=""uneditable""",
+fac_str,addon_id,,,hidden,,False,Enter Addon ID,Addon ID,,,False,,,,,
+fac_str,add_ons,,,data_display,,False,Enter Add-Ons,Add-Ons,,,False,,,,False,
+fac_str,amount_display,,,data_display,,False,Enter Amount,Amount,,,False,,,,False,
+fac_int,amount_internal,,,data_display,,False,Enter Amount Internal,Amount Internal,,,False,,,,,
+fac_str,internal_status,,,hidden,,False,Enter Internal Status,Internal Status,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+display_field,payment_display,,,data_display,,False,,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,consultant_section,,,section_break,,False,No Instructions Present,TTK Consultant,,,False,,,"CONTAINS(USER.persona,[CLI])",,
 info_pane_builder,consultant_info,,,info_pane,,False,No Instructions Present,TTK Consultant,,,False,,,"CONTAINS(USER.persona,[CLI])",,operation.save:Save and Continue
@@ -2341,7 +2381,7 @@ align-items: center;"">
   width: 1060px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   color: #000000;
   text-align: center;
@@ -2355,7 +2395,7 @@ fac_pref_loc,scheduled_location,,,dropdown,,False,Select Option,Scheduled Locati
 fac_date,scheduled_date,,,datebox,,False,DD/MM/YYYY,Scheduled Date,,,False,,,,,
 fac_hour_select,scheduled_hour,,,dropdown,,False,Select Option,Scheduled (Hour),,,False,,,,,
 fac_minute_select,scheduled_minute,,,dropdown,,False,Select Option,Scheduled (Minutes),,,False,,,,,
-fac_file,upload_appointment,,,fileoption,,False,upload a pdf,Appointment Document,,,False,,,,,file_type:.pdf
+fac_file,upload_appointment,,,fileoption,,False,Upload a file,Appointment Document,,,False,,,,,file_type:.pdf
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,instruction_letter,,,card,,False,,Instruction Sheet,,,False,,,,,
@@ -2369,7 +2409,7 @@ align-items: center;"">
   width: 1060px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   color: #000000;
   text-align: center;
@@ -2378,7 +2418,7 @@ Upload the Instruction Sheet prepared for the Traveller.
 </div>
 
 </div> ",,,,False,,,,,
-fac_file,upload_instruction,,,fileoption,,False,Upload an image/file,Instruction Sheet,,,False,,,,,file_type:.pdf
+fac_file,upload_instruction,,,fileoption,,False,Upload a file,Instruction Sheet,,,False,,,,,file_type:.pdf
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,cover_letter,,,card,,False,,Cover Letter,,,False,,,,,
 display_field,display_card_2,,,display_field,,False,"<div style=""
@@ -2391,7 +2431,7 @@ align-items: center;"">
   width: 1060px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   color: #000000;
   text-align: center;
@@ -2400,7 +2440,7 @@ Upload the Cover Letter prepared for the Traveller.
 </div>
 
 </div> ",,,,False,,,,,
-fac_file,cover_letter,,,fileoption,,False,Upload an image/file,Cover Letter,,,False,,,,,
+fac_file,cover_letter,,,fileoption,,False,Upload a file,Cover Letter,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,itinerary_addon,,,card,,False,,Add-On : Itinerary,,,False,,,,,
 display_field,display_card_3,,,display_field,,False,"<div style=""
@@ -2413,7 +2453,7 @@ align-items: center;"">
   width: 1060px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   color: #000000;
   text-align: center;
@@ -2422,7 +2462,7 @@ Upload the Itinerary prepared for the Traveller.
 </div>
 
 </div> ",,,,False,,,,,
-fac_file,upload_itinerary,,,fileoption,,False,Upload an image/file,Itinerary,,,False,,,,,file_type:.pdf
+fac_file,upload_itinerary,,,fileoption,,False,Upload a file,Itinerary,,,False,,,,,file_type:.pdf
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,dummy_accommodation,,,card,,False,,Add-On : Dummy Accommodation,,,False,,,,,
 display_field,display_card_4,,,display_field,,False,"<div style=""
@@ -2435,7 +2475,7 @@ align-items: center;"">
   width: 1060px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   color: #000000;
   text-align: center;
@@ -2445,7 +2485,7 @@ Upload the Dummy Accommodation prepared for the Traveller.
 
 </div> ",,,,False,,,,,
 table,accommodation_details_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_file,booking_upload,,,fileoption,,False,Upload an image/file,Dummy Accommodation,,,False,,,,,file_type:.pdf
+fac_file,booking_upload,,,fileoption,,False,Upload a file,Dummy Accommodation,,,False,,,,,file_type:.pdf
 fac_str,accommodation_name,,,textbox,,False,Enter Name of Accommodation,Name of Accommodation,,,False,,,,,
 fac_str,accommodation_address,,,textbox.row-4,,False,Enter Address of Accommodation,Address of Accommodation,,,False,,,,,
 fac_str,accommodation_email,,,textbox,,False,Enter Email Address of Accommodation,E-mail Address of Accommodation,,,False,,,,,
@@ -2463,7 +2503,7 @@ align-items: center;"">
   width: 1060px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   color: #000000;
   text-align: center;
@@ -2471,9 +2511,10 @@ align-items: center;"">
 Upload the Confirmed Accommodation prepared for the Traveller.
 </div>
 
-</div> ",,,,False,,,,,
+</div> 
+",,,,False,,,,,
 table,accommodation_details_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_file,booking_upload,,,fileoption,,False,Upload an image/file,Confirmed Accommodation,,,False,,,,,file_type:.pdf
+fac_file,booking_upload,,,fileoption,,False,Upload a file,Confirmed Accommodation,,,False,,,,,file_type:.pdf
 fac_str,accommodation_name,,,textbox,,False,Enter Name of Accommodation,Name of Accommodation,,,False,,,,,
 fac_str,accommodation_address,,,textbox.row-4,,False,Enter Address of Accommodation,Address of Accommodation,,,False,,,,,
 fac_str,accommodation_email,,,textbox,,False,Enter Email Address of Accommodation,E-mail Address of Accommodation,,,False,,,,,
@@ -2491,7 +2532,7 @@ align-items: center;"">
   width: 1060px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   color: #000000;
   text-align: center;
@@ -2500,7 +2541,7 @@ Upload the Dummy Flight Ticket prepared for the Traveller.
 </div>
 
 </div> ",,,,False,,,,,
-fac_file,flight_tickets,,,fileoption,,False,Upload an pdf,Dummy Flight Ticket,,,False,,,,,file_type:.pdf
+fac_file,flight_tickets,,,fileoption,,False,Upload a file,Dummy Flight Ticket,,,False,,,,,file_type:.pdf
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,confirmed_flight_ticket,,,card,,False,,Add-On : Confirmed Flight Ticket,,,False,,,,,
 display_field,display_card_7,,,display_field,,False,"<div style=""
@@ -2513,7 +2554,7 @@ align-items: center;"">
   width: 1060px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   color: #000000;
   text-align: center;
@@ -2522,7 +2563,7 @@ Upload the Confirmed Flight Ticket prepared for the Traveller.
 </div>
 
 </div> ",,,,False,,,,,
-fac_file,flight_tickets,,,fileoption,,False,Upload an pdf,Confirmed Flight Ticket,,,False,,,,,file_type:.pdf
+fac_file,flight_tickets,,,fileoption,,False,Upload a file,Confirmed Flight Ticket,,,False,,,,,file_type:.pdf
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,travel_insurances,,,card,,False,,Add-On : Travel Insurance,,,False,,,,,
 display_field,display_card_8,,,display_field,,False,"<div style=""
@@ -2535,7 +2576,7 @@ align-items: center;"">
   width: 1060px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   color: #000000;
   text-align: center;
@@ -2544,7 +2585,7 @@ Upload the Travel Insurance prepared for the Traveller.
 </div>
 
 </div> ",,,,False,,,,,
-fac_file,flight_reservation_tickets,,,fileoption,,False,Upload an pdf,Travel Insurance,,,False,,,,,file_type:.pdf
+fac_file,flight_reservation_tickets,,,fileoption,,False,Upload a file,Travel Insurance,,,False,,,,,file_type:.pdf
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 group_builder,additional_documents,,,groupbox,,False,,Additional Document,,,False,,,,,button_label:Add Another Document;limits.min:1;limits.max:3
 info_pane_builder,additionaldocumentgroup,,,groupbox,,False,,Additional Document,,,False,,,,,
@@ -2559,7 +2600,7 @@ align-items: center;"">
   width: 1060px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   color: #000000;
   text-align: center;
@@ -2570,7 +2611,7 @@ Upload any additional documents required for your application in this section.
 </div> ",,,,False,,,,,
 fac_str,document_name,,,textbox,,False,Enter Name of the document,Name of the document,,,False,,,,,
 fac_str,document_description,,,textbox,,False,Enter Document Description,Document Description,,,False,,,,,
-fac_file,file_upload,,,fileoption,,False,Upload an image/file,File Upload,,,False,,,,,
+fac_file,file_upload,,,fileoption,,False,Upload a file,File Upload,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -2588,7 +2629,7 @@ align-items: center;"">
   width: 1060px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   color: #000000;
   text-align: center;
@@ -2609,7 +2650,7 @@ align-items: center;"">
   width: 1060px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   color: #000000;
   text-align: center;
