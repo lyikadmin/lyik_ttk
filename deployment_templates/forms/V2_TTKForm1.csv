@@ -249,14 +249,14 @@ fac_str,phone_number,,,textbox,,False,Enter Phone Number,Phone Number,,,False,,,
 fac_str,email_id,,,textbox,,False,Enter Email ID,Email ID,,,False,,,,False,
 fac_country_3,from_country,,,dropdown,,False,Select Option,Travelling From,,,False,,,,False,
 fac_country_3,to_country,,,dropdown,,False,Select Option,Travelling To,,,False,,,,False,
-fac_date,departure_date,,,datebox,,False,DD/MM/YYYY,Date of Departure,,,False,,,,,
-fac_date,arrival_date,,,datebox,,False,DD/MM/YYYY,Date of Arrival,,,False,,,,,
+fac_date,departure_date,,,datebox,,False,DD/MM/YYYY,Date of Departure,,,False,,,,,;only_future: true
+fac_date,arrival_date,,,datebox,,False,DD/MM/YYYY,Date of Arrival,,,False,,,,,;only_future: true
 fac_visa_type,visa_type,,,dropdown,,False,Select Option,Type of Visa,,,False,,,,False,
 fac_int,length_of_stay,,,textbox,,False,Enter Length of Stay (in Days),Length of Stay (in Days),,,False,,,,,
 fac_int,validity,,,textbox,,False,Enter Validity of Visa (in Days),Validity of Visa (in Days),,,False,,,,,
 fac_str,no_of_entries,,,textbox,,False,Enter Number of Entries,Number of Entries,,,False,,,,,
-fac_str,no_of_travellers,,,hidden,,False,Enter Number of Travellers,Number of Travellers,,,False,,,,,
 fac_visa_mode,visa_mode,,,dropdown,,False,Select Option,Visa Mode (E-Visa/Paper),,,False,,,,,
+fac_int,no_of_travellers,,,hidden,,False,Enter Number of Travellers,Number of Travellers,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 fac_str,traveller_type,,,hidden,,False,,,,,False,,,,,
 fac_str,traveller_id,,,hidden,,False,,,,,False,,,,,
@@ -312,7 +312,7 @@ display_field,display_appointment_details_header,,,display_field,,False,"<!-- <p
 card_builder,appointment_scheduled,,,card,,False,,My Scheduled Appointment Details,,,False,,,,not @.add_on_service_option = 'YES',
 table,appointment_details_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_pref_loc,scheduled_location,,,dropdown,,False,Select Option,Scheduled Location (City),,,False,,,,,
-fac_date,scheduled_date,,,datebox,,False,DD/MM/YYYY,Scheduled Date,,,False,,,,,
+fac_date,scheduled_date,,,datebox,,False,DD/MM/YYYY,Scheduled Date,,,False,,,,,;only_future: true
 fac_hour_select,scheduled_hour,,,dropdown,,False,Select Option,Scheduled Time (Hour),,,False,,,,,
 fac_minute_select,scheduled_minute,,,dropdown,,False,Select Option,Scheduled Time (Minute),,,False,,,,,
 fac_file,upload_appointment,,,fileoption,,False,Upload a file,Appointment Document,,,False,,,,,file_type:.pdf
