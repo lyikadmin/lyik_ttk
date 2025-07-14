@@ -124,59 +124,66 @@ class DocketOperation(OperationPluginSpec):
                     )
 
                     shared_traveller_info = parsed_form_model.shared_travell_info
+                    shared = (
+                        shared_traveller_info.shared
+                        if shared_traveller_info.shared
+                        else None
+                    )
 
-                    if (
-                        shared_traveller_info.shared.itinerary_same != None
-                        and shared_traveller_info.shared.itinerary_same.value
-                        == "ITINERARY"
-                    ):
-                        primary_traveller_itinerary = (
-                            primary_traveller_data.itinerary_accomodation
-                        )
+                    if shared:
                         if (
-                            not primary_traveller_itinerary
-                            or not primary_traveller_itinerary.itinerary_card
+                            shared.itinerary_same != None
+                            and shared.itinerary_same.value == "ITINERARY"
                         ):
-                            raise PluginException(
-                                message="Please ensure the Initerary section of the Primary traveller is filled and try again. If issue persists, contact support.",
-                                detailed_message="Primary traveller itinerary data is missing in the form record.",
+                            primary_traveller_itinerary = (
+                                primary_traveller_data.itinerary_accomodation
                             )
-                        parsed_form_model.itinerary_accomodation = (
-                            primary_traveller_itinerary
-                        )
-
-                    if (
-                        shared_traveller_info.shared.accommodation_same != None
-                        and shared_traveller_info.shared.accommodation_same.value
-                        == "ACCOMMODATION"
-                    ):
-                        primary_traveller_accommodation = (
-                            primary_traveller_data.accomodation
-                        )
-                        if not primary_traveller_accommodation:
-                            raise PluginException(
-                                message="Please ensure the Accommodation section of the Primary traveller is filled and try again. If issue persists, contact support.",
-                                detailed_message="Primary traveller Accommodation data is missing in the form record.",
+                            if (
+                                not primary_traveller_itinerary
+                                or not primary_traveller_itinerary.itinerary_card
+                            ):
+                                raise PluginException(
+                                    message="Please ensure the Initerary section of the Primary traveller is filled and try again. If issue persists, contact support.",
+                                    detailed_message="Primary traveller itinerary data is missing in the form record.",
+                                )
+                            parsed_form_model.itinerary_accomodation = (
+                                primary_traveller_itinerary
                             )
-                        parsed_form_model.accomodation = primary_traveller_accommodation
 
-                    if (
-                        shared_traveller_info.shared.flight_ticket_same != None
-                        and shared_traveller_info.shared.flight_ticket_same.value
-                        == "FLIGHT_TICKET"
-                    ):
-                        primary_traveller_flight_ticket = (
-                            primary_traveller_data.ticketing
-                        )
                         if (
-                            not primary_traveller_flight_ticket
-                            or not primary_traveller_flight_ticket.flight_tickets
+                            shared.accommodation_same != None
+                            and shared.accommodation_same.value == "ACCOMMODATION"
                         ):
-                            raise PluginException(
-                                message="Please ensure the Flight Tickets section of the Primary traveller is filled and try again. If issue persists, contact support.",
-                                detailed_message="Primary traveller Flight Tickets data is missing in the form record.",
+                            primary_traveller_accommodation = (
+                                primary_traveller_data.accomodation
                             )
-                        parsed_form_model.ticketing = primary_traveller_flight_ticket
+                            if not primary_traveller_accommodation:
+                                raise PluginException(
+                                    message="Please ensure the Accommodation section of the Primary traveller is filled and try again. If issue persists, contact support.",
+                                    detailed_message="Primary traveller Accommodation data is missing in the form record.",
+                                )
+                            parsed_form_model.accomodation = (
+                                primary_traveller_accommodation
+                            )
+
+                        if (
+                            shared.flight_ticket_same != None
+                            and shared.flight_ticket_same.value == "FLIGHT_TICKET"
+                        ):
+                            primary_traveller_flight_ticket = (
+                                primary_traveller_data.ticketing
+                            )
+                            if (
+                                not primary_traveller_flight_ticket
+                                or not primary_traveller_flight_ticket.flight_tickets
+                            ):
+                                raise PluginException(
+                                    message="Please ensure the Flight Tickets section of the Primary traveller is filled and try again. If issue persists, contact support.",
+                                    detailed_message="Primary traveller Flight Tickets data is missing in the form record.",
+                                )
+                            parsed_form_model.ticketing = (
+                                primary_traveller_flight_ticket
+                            )
 
                 except Exception as e:
                     raise PluginException(
