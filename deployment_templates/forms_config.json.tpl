@@ -9,6 +9,9 @@
     "logo_path": "/assets/ttk.png",
     "login_bg_path": "/assets/login_bg.png",
     "show_navbar": false,
-    "progress_bar": true
-  }
-  
+    "progress_bar": true,
+    "show_sidebar_expanded": false,
+    "show_csv_export": false,
+    "show_records_search": false,
+    "show_back_button": false
+}
