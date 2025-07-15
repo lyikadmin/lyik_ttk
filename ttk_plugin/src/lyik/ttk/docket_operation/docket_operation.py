@@ -199,13 +199,25 @@ class DocketOperation(OperationPluginSpec):
 
             data_dict: Dict = mapped_data.model_dump(mode="json")
 
+            template_id = ""
+
+            if parsed_form_model.visa_request_information.visa_request.to_country:
+                template_id = (
+                    parsed_form_model.visa_request_information.visa_request.to_country
+                )
+            else:
+                raise PluginException(
+                    message="Travelling to country is not set. Please ensure filling this field to continue. If error persists, please contact support.",
+                    detailed_message="to_country field is not filled in visa_request_information.",
+                )
+
             transformed_data: TransformerResponseModel = (
                 await invoke.template_generate_pdf(
                     org_id=context.org_id,
                     config=context.config,
                     form_id=context.form_id,
                     additional_args={"record_id": record_id},
-                    template_id="01_SwitzerlandVisaForm",
+                    template_id=template_id,
                     form_name="ttkform",
                     record=data_dict,
                 )
