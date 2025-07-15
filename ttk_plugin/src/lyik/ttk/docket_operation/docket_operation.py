@@ -218,7 +218,7 @@ class DocketOperation(OperationPluginSpec):
                     form_id=context.form_id,
                     additional_args={"record_id": record_id},
                     template_id=template_id,
-                    form_name="ttkform",
+                    form_name="schengenpdf",
                     record=data_dict,
                 )
             )
