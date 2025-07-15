@@ -63,14 +63,12 @@ class DocketUtilities:
                 pdf_model.visa_1st_arrival_date = (
                     visa_info.visa_request.arrival_date.strftime("%d-%m-%Y")
                 )
-                pdf_model.visa_addl_stay_info = (
-                    visa_info.visa_request.visa_type.value  # Adjusted as we need the value of the Enum
-                )
+                pdf_model.visa_addl_stay_info = visa_info.visa_request.visa_type.value
                 pdf_model.visa_applicant_diff_tel_num = (
                     visa_info.visa_request.phone_number
                 )
 
-                pdf_model.visa_mem_main_dst = visa_info.visa_request.to_country
+                pdf_model.visa_mem_main_dst = visa_info.visa_request.to_country.value
 
             passport = schengen_visa_data.passport
             if passport and passport.passport_details:
@@ -82,15 +80,11 @@ class DocketUtilities:
                 )
                 pdf_model.visa_pob = passport.passport_details.place_of_birth
                 pdf_model.visa_cob = passport.passport_details.country
-                pdf_model.visa_sex_male = (
-                    passport.passport_details.gender == GENDER.M  # Adjusted
-                )
-                pdf_model.visa_sex_female = (
-                    passport.passport_details.gender == GENDER.F  # Adjusted
-                )
+                pdf_model.visa_sex_male = passport.passport_details.gender == GENDER.M
+                pdf_model.visa_sex_female = passport.passport_details.gender == GENDER.F
                 pdf_model.visa_sex_oth = (
                     passport.passport_details.gender != GENDER.M
-                    and passport.passport_details.gender != GENDER.F  # Adjusted
+                    and passport.passport_details.gender != GENDER.F
                 )
 
                 pdf_model.visa_curr_natl = passport.passport_details.nationality
@@ -262,7 +256,7 @@ class DocketUtilities:
                     == RELATIONSHIPWITHEU.OTHER
                 )
                 pdf_model.visa_fam_rs_eu_oth_txt = (
-                    additional_details.family_eu.relationship
+                    additional_details.family_eu.relationship.value
                     if additional_details.family_eu.relationship
                     not in [
                         RELATIONSHIPWITHEU.SPOUSE,
@@ -276,10 +270,12 @@ class DocketUtilities:
 
             if additional_details and additional_details.travel_info:
                 pdf_model.visa_mem_1st_entry = (
-                    additional_details.travel_info.start_date_of_visa
+                    additional_details.travel_info.start_date_of_visa.strftime(
+                        "%d-%m-%Y"
+                    )
                 )
                 pdf_model.visa_dptr_date = (
-                    additional_details.travel_info.end_date_of_visa
+                    additional_details.travel_info.end_date_of_visa.strftime("%d-%m-%Y")
                 )
 
                 pdf_model.visa_entry_num_req_single = (
@@ -332,8 +328,8 @@ class DocketUtilities:
                     == OPTION.YES
                 )
                 if pdf_model.visa_fingerprint_yes:
-                    pdf_model.visa_fingerprint_yes_date = (
-                        previous_visas.fingerprint_details.date_of_previous_visa
+                    pdf_model.visa_fingerprint_yes_date = previous_visas.fingerprint_details.date_of_previous_visa.strftime(
+                        "%d-%m-%Y"
                     )
                     pdf_model.visa_fingerprint_yes_sticker_num = (
                         previous_visas.fingerprint_details.visa_sticker_number
@@ -385,13 +381,15 @@ class DocketUtilities:
                 # pdf_model.visa_jrn_purpose_oth_txt=schengen_visa_data.previous_visas.previous_visas_details.
 
                 pdf_model.visa_permit_final_ctry_dest_issued_by = (
-                    previous_visas.previous_visas_details.country_of_issue
+                    previous_visas.previous_visas_details.country_of_issue.value
                 )
                 pdf_model.visa_permit_final_ctry_dest_valid_from = (
-                    previous_visas.previous_visas_details.start_date
+                    previous_visas.previous_visas_details.start_date.strftime(
+                        "%d-%m-%Y"
+                    )
                 )
                 pdf_model.visa_permit_final_ctry_dest_til = (
-                    previous_visas.previous_visas_details.end_date
+                    previous_visas.previous_visas_details.end_date.strftime("%d-%m-%Y")
                 )
 
             work_address = schengen_visa_data.work_address
