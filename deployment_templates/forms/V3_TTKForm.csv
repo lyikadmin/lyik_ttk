@@ -24,7 +24,7 @@ info_pane_builder,lets_get_started,,,info_pane,,False,"<!DOCTYPE html>
     .container ul,
     .container li {
       font-weight: 400;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 34px;
       letter-spacing: 0;
       color: #333;
@@ -56,7 +56,7 @@ info_pane_builder,lets_get_started,,,info_pane,,False,"<!DOCTYPE html>
     }
     .container .note {
       font-weight: 400;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 34px;
       letter-spacing: 0;
       color: #555;
@@ -66,13 +66,14 @@ info_pane_builder,lets_get_started,,,info_pane,,False,"<!DOCTYPE html>
 </head>
 <body>
   <div class=""container schengen"">
-    <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div>
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
 
     <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
-      Follow these steps carefully to ensure smooth processing of your Schengen visa application:
+      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+       Need help with this part? Here’s what you need to know about each field in this section.
     </p>
 
-    <p class=""subheading""><strong>Important:</strong></p>
+    <!-- <p class=""subheading""><strong>Important:</strong></p>
     <ul>
       <li>All documents must be printed on A4 size sheets only.</li>
       <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
@@ -95,10 +96,11 @@ info_pane_builder,lets_get_started,,,info_pane,,False,"<!DOCTYPE html>
       <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
       <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
       <li>Consular officers may request additional documents or a personal interview if required.</li>
-    </ul>
+    </ul> -->
 
     <p class=""note"">
-      <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority.
+      <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+       (To be provided by TTK)
     </p>
   </div>
 </body>
@@ -220,7 +222,7 @@ display_field,display_info_header,,,display_field,,False,"<!-- <p style=""font-s
     }
 
     .message-box {
-      width: 1060px;
+      /* width: 1060px; */
       font-family: 'Inter', sans-serif;
       font-weight: 500;
       font-size: 16px;
@@ -286,7 +288,7 @@ display_field,display_appointment_details_header,,,display_field,,False,"<!-- <p
     }
 
     .message-box {
-      width: 1060px;
+      /* width: 1060px; */
       font-family: 'Inter', sans-serif;
       font-weight: 500;
       font-size: 16px;
@@ -314,7 +316,7 @@ table,appointment_details_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_pref_loc,scheduled_location,,,dropdown,,False,Select Option,Scheduled Location (City),,,False,,,,,
 fac_date,scheduled_date,,,datebox,,False,DD/MM/YYYY,Scheduled Date,,,False,,,,,;only_future: true
 fac_hour_select,scheduled_hour,,,dropdown,,False,Select Option,Scheduled Time (Hour),,,False,,,,,
-fac_minute_select,scheduled_minute,,,dropdown,,False,Select Option,Scheduled Time (Minute),,,False,,,,,
+fac_minute_select,scheduled_minute,,,dropdown,,False,Select Option,Scheduled Time (Minutes),,,False,,,,,
 fac_file,upload_appointment,,,fileoption,,False,Upload a file,Appointment Document,,,False,,,,,file_type:.pdf
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -381,31 +383,31 @@ info_pane_builder,passport,,,info_pane,,False,"<!DOCTYPE html>
 </head>
 <body>
   <div class=""container passport"">
-    <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Guidelines for Passport</div>
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Guidelines for Passport</div> -->
 
     <div class=""subheading"" style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
       Need help with this part? Here’s what you need to know.
     </div>
-
+<!-- 
     <p>
       To ensure your application goes smoothly, please make sure your Passport meets the following requirements:
-    </p>
+    </p> -->
 
     <ul>
       <li>
-        It must be valid for at least 6 months from your date of departure from Switzerland.
+        Kindly upload your passport copy as requested. We shall  automatically capture your passport information using advanced document reader capabilities. 
       </li>
       <li>
-        Handwritten passports are not accepted.
+        Once the file is uploaded, kindly review all the relevant fields to ensure they match exactly with the details on your passport.
       </li>
       <li>
-        Your passport should be in good condition — no water damage, torn pages, peeling lamination, or spelling errors in your name.
+        If you notice any discrepancies or missing information, please update the fields manually.
       </li>
       <li>
-        It should not include any official observations like ECR status, changes to place of birth, spouse’s name, surname, or address.
+        Your passport information serves as the primary source for other sections of your application. Ensuring its accuracy is essential for a smooth and error-free process.
       </li>
       <li>
-        If you have any old passports, please include the originals (if applicable).
+        All validations and review shall be performed on the soft copy uploaded. In case of any discrepancies on the original document received or filed during submission by the applicant at Visa Application Centre or with TTK for filing, then TTK will not be responsible for any liability or delay in filing or unable to file the application with the authorities or on the visa outcome.
       </li>
     </ul>
   </div>
@@ -427,7 +429,7 @@ display_field,display_passport_header,,,display_field,,False,"
     }
 
     .message-box {
-      width: 1060px;
+      /* width: 1060px; */
       font-family: 'Inter', sans-serif;
       font-weight: 500;
       font-size: 16px;
@@ -443,8 +445,7 @@ display_field,display_passport_header,,,display_field,,False,"
   <div class=""center-wrapper"">
     <div class=""message-box"">
 
-        Please upload the images of your Passport to auto-fill the details below.
-        For detailed guidelines on this,click on the
+        Please upload the images of your Passport to auto-fill the details below.For detailed guidelines on this,click on the
         <span style=""font-weight: 700; font-size: 1em;"">
           Instructions 
         </span>
@@ -473,7 +474,7 @@ display_field,display_passport_table_headline,,,display_field,,False,"<!DOCTYPE 
     }
 
     .message-box {
-      width: 1060px;
+      /* width: 1060px; */
       font-family: 'Inter', sans-serif;
       font-weight: 500;
       font-size: 16px;
@@ -611,7 +612,7 @@ in the top-right corner of this section.
     }
 
     .message-box {
-      width: 1060px;
+      /* width: 1060px; */
       font-family: 'Inter', sans-serif;
       font-weight: 500;
       font-size: 16px;
@@ -625,8 +626,7 @@ in the top-right corner of this section.
 
   <div class=""center-wrapper"">
     <div class=""message-box"" style=""text-align: center;"">
-        For your appointment, you must carry four recent colour photographs (35mm x 40mm) with a white background of yourself.<br>
-        For detailed guideline on this, click on the
+        For your appointment, you must carry four recent colour photographs (35mm x 40mm) with a white background of yourself. For detailed guideline on this, click on the
         <span style=""font-weight: 700; font-size: 1em;"">
           Instructions 
         </span>
@@ -654,7 +654,7 @@ align-items: center;"">
 
 <div style=""
   text-align: center;
-  width: 1060px;
+  /* width: 1060px; */
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -775,9 +775,9 @@ info_pane_builder,residential_address,,,info_pane,,False,"<!DOCTYPE html>
 </head>
 <body>
   <div class=""container"">
-    <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">
       Guidelines for Address Documents
-    </div>
+    </div> -->
 
     <div class=""subheading"" style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
       Need help with this part? Here’s what you need to know.
@@ -788,7 +788,7 @@ info_pane_builder,residential_address,,,info_pane,,False,"<!DOCTYPE html>
       essential for processing your visa application.
     </p>
 
-    <p class=""heading"">
+    <p class=""heading"" style=""font-weight: 600;"">
       Please ensure the following:
     </p>
 
@@ -826,7 +826,7 @@ in the top-right corner of this section.
     }
 
     .message-box {
-      width: 1060px;
+      /* width: 1060px; */
       font-family: 'Inter', sans-serif;
       font-weight: 500;
       font-size: 16px;
@@ -947,9 +947,9 @@ info_pane_builder,work_address,,,info_pane,,False,"<!DOCTYPE html>
 </head>
 <body>
   <div class=""container"">
-    <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">
       Guidelines for Address Documents
-    </div>
+    </div> -->
 
     <div class=""subheading"" style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
       Need help with this part? Here’s what you need to know.
@@ -960,7 +960,7 @@ info_pane_builder,work_address,,,info_pane,,False,"<!DOCTYPE html>
       essential for processing your visa application.
     </p>
 
-    <p class=""heading"">
+    <p class=""heading"" style=""font-weight: 600;"">
       Please ensure the following:
     </p>
 
@@ -1054,43 +1054,47 @@ info_pane_builder,itinerary_accomodation,,,info_pane,,False,"<!DOCTYPE html>
 <body>
   <div class=""container"">
     <!-- headings as “bold” spans at 18px, weight 400 -->
-    <div style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">
+    <!-- <div style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">
       Guidelines for Accommodation
-    </div>
+    </div> -->
 
     <div style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
       Need help with this part? Here’s what you need to know.
     </div>
 
     <p>
-      Before uploading your travel itinerary, make sure of the following:
+      Please ensure that all travel details are accurately entered in this section, including:
     </p>
 
     <ul>
       <li>
-        <strong>Submit Confirmed Bookings:</strong>
-        Upload hotel reservations, Airbnb confirmations, or any other proof of stay for the entire duration of your trip.
+        <!-- <strong>Submit Confirmed Bookings:</strong>
+        Upload hotel reservations, Airbnb confirmations, or any other proof of stay for the entire duration of your trip. -->
+        Your complete travel itinerary (entry and exit dates, destinations)
       </li>
       <li>
-        <strong>Cover All Destinations:</strong>
-        If you’re visiting multiple cities or countries, make sure you include accommodation details for each stop.
+        <!-- <strong>Cover All Destinations:</strong>
+        If you’re visiting multiple cities or countries, make sure you include accommodation details for each stop. -->
+        Accommodation details, whether staying at a hotel or with an inviting person
       </li>
       <li>
-        <strong>Match with Your Itinerary:</strong>
-        The check-in/check-out dates should align with your travel itinerary and transportation bookings.
+        <!-- <strong>Match with Your Itinerary:</strong>
+        The check-in/check-out dates should align with your travel itinerary and transportation bookings. -->
+        Accurate and complete information is essential to ensure the consistency and correctness of your visa application package. 
       </li>
       <li>
-        <strong>Invitation:</strong>
-        If you're staying with friends or family, upload a signed Invitation Letter from your host, along with a copy of their ID or proof of residence.
+        <!-- <strong>Invitation:</strong>
+        If you're staying with friends or family, upload a signed Invitation Letter from your host, along with a copy of their ID or proof of residence. -->
+        Incomplete or incorrect entries may lead to processing delays or rejection.
       </li>
-      <li class=""highlight"">
+      <!-- <li class=""highlight"">
         <strong>One Document or Multiple:</strong>
         You can upload a single file with all your accommodation details, or multiple files, whatever is easier for you.
       </li>
       <li>
         <strong>Don’t have confirmed bookings yet?</strong>
         We can help create a sample plan for you, just choose our Add-On Service.
-      </li>
+      </li> -->
     </ul>
   </div>
 </body>
@@ -1118,7 +1122,7 @@ in the top-right corner of this section.
     }
 
     .message-box {
-      width: 1060px;
+      /* width: 1060px; */
       font-family: 'Inter', sans-serif;
       font-weight: 500;
       font-size: 16px;
@@ -1152,7 +1156,7 @@ align-items: center;"">
 
 <div style=""
   text-align: center;
-  width: 1060px;
+  /* width: 1060px; */
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -1265,19 +1269,21 @@ info_pane_builder,accomodation,,,info_pane,,False,"<!DOCTYPE html>
 <body>
   <div class=""container"">
     <!-- Use a helper class for headings -->
-    <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">
       Guidelines for Accommodation
-    </div>
+    </div> -->
 
     <div class=""heading"" style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
-      Need help with this part? Here’s what you need to know.
+      <!-- Need help with this part? Here’s what you need to know. -->
+      Need help with this part? Here’s what you need to know about each field in this section.
     </div>
 
     <p>
-      Before uploading your travel itinerary, make sure of the following:
+      <!-- Before uploading your travel itinerary, make sure of the following: -->
+       Visa Processing time, Validity of Visa, Number of Entries and Duration of the visa are solely at the discretion of the issuing visa officer or consulate, regardless of the documents submitted.
     </p>
 
-    <ul>
+    <!-- <ul>
       <li>
         <strong>Submit Confirmed Bookings:</strong>
         Upload hotel reservations, Airbnb confirmations, or any other proof of stay for the entire duration of your trip.
@@ -1302,7 +1308,7 @@ info_pane_builder,accomodation,,,info_pane,,False,"<!DOCTYPE html>
         <strong>Don’t have confirmed bookings yet?</strong>
         We can help create a sample plan for you, just choose our Add-On Service.
       </li>
-    </ul>
+    </ul> -->
   </div>
 </body>
 </html>
@@ -1321,7 +1327,7 @@ display_field,display_accommodation_header,,,display_field,,False,"
     }
 
     .message-box {
-      width: 1060px;
+      /* width: 1060px; */
       font-family: 'Inter', sans-serif;
       font-weight: 500;
       font-size: 16px;
@@ -1353,7 +1359,7 @@ align-items: center;"">
 
 <div style=""
   text-align: center;
-  width: 1060px;
+  /* width: 1060px; */
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -1384,7 +1390,7 @@ align-items: center;"">
 
 <div style=""
   text-align: center;
-  width: 1060px;
+  /* width: 1060px; */
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -1534,7 +1540,7 @@ in the top-right corner of this section.
     }
 
     .message-box {
-      width: 1060px;
+      /* width: 1060px; */
       font-family: 'Inter', sans-serif;
       font-weight: 500;
       font-size: 16px;
@@ -1570,7 +1576,7 @@ align-items: center;"">
 
 <div style=""
   text-align: center;
-  width: 1060px;
+  /* width: 1060px; */
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -1733,7 +1739,7 @@ in the top-right corner of this section.
     }
 
     .message-box {
-      width: 1060px;
+      /* width: 1060px; */
       font-family: 'Inter', sans-serif;
       font-weight: 500;
       font-size: 16px;
@@ -1766,7 +1772,7 @@ align-items: center;"">
 
 <div style=""
   text-align: center;
-  width: 1060px;
+  /* width: 1060px; */
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -1825,7 +1831,7 @@ align-items: center;"">
 
 <div style=""
   text-align: center;
-  width: 1060px;
+  /* width: 1060px; */
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -1866,7 +1872,7 @@ This helps authorities assess your travel history and support your current appli
     }
 
     .message-box {
-      width: 1060px;
+      /* width: 1060px; */
       font-family: 'Inter', sans-serif;
       font-weight: 500;
       font-size: 16px;
@@ -2034,7 +2040,7 @@ in the top-right corner of this section.
     }
 
     .message-box {
-      width: 1060px;
+      /* width: 1060px; */
       font-family: 'Inter', sans-serif;
       font-weight: 500;
       font-size: 16px;
@@ -2091,7 +2097,7 @@ display_field,display_salary_slips_instructions,,,display_field,,False,"<!-- <di
     }
 
     .message-box {
-      width: 1060px;
+      /* width: 1060px; */
       font-family: 'Inter', sans-serif;
       font-weight: 500;
       font-size: 16px;
@@ -2136,7 +2142,7 @@ in the top-right corner of this section.
     }
 
     .message-box {
-      width: 1060px;
+      /* width: 1060px; */
       font-family: 'Inter', sans-serif;
       font-weight: 500;
       font-size: 16px;
@@ -2191,7 +2197,7 @@ display_field,display_bank_statements_instructions,,,display_field,,False,"<!-- 
     }
 
     .message-box {
-      width: 1060px;
+      /* width: 1060px; */
       font-family: 'Inter', sans-serif;
       font-weight: 500;
       font-size: 16px;
@@ -2236,7 +2242,7 @@ in the top-right corner of this section.
     }
 
     .message-box {
-      width: 1060px;
+      /* width: 1060px; */
       font-family: 'Inter', sans-serif;
       font-weight: 500;
       font-size: 16px;
@@ -2267,7 +2273,7 @@ align-items: center;"">
 
 <div style=""
   text-align: center;
-  width: 1060px;
+  /* width: 1060px; */
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -2294,7 +2300,7 @@ display_field,display_not_filled_itr,,,display_field,,False,"<!DOCTYPE html>
     }
 
     .message-box {
-      width: 1060px;
+      /* width: 1060px; */
       font-family: 'Inter', sans-serif;
       font-weight: 500;
       font-size: 16px;
@@ -2319,31 +2325,33 @@ tab_break,additional_documents_tab,,,tab_break,,False,,Additional Information,,,
 section_break,addons_section,,,section_break,,False,No Instructions Present,Add-On Cart,,,False,,,not $.visa_request_information.visa_request.traveller_type = 'Primary',,
 info_pane_builder,addons,,,info_pane,,False,No Instructions Present,Add-On Cart,,,False,,,,,operation.save:Continue;verify.verify_handler:VERIFIER_PAYMENT_INITIALIZATION;verify.action_text:Calculate Payment
 fac_str,record_id,,,hidden,,False,Used to get the Record ID,,,,False,,,,,
-card_builder,addon_service_initialization,,,card,,False,,Initialized Addon Cart,,,False,,,,,
-table,table,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:1
+card_builder,addon_service_initialization,,,card,,False,,[INTERNAL] Initialized Addon Cart,SAVE_EVEN_IF_HIDDEN,,False,,,True,,
+table,table,,,table,,False,,,,,False,,,,,table.column:1
 group_builder,addon_cart_row,,,table_row,,False,,Addon Table,,,False,,,,,
-fac_str,addon_id,,,data_display,,False,Enter Addon ID,Addon ID,,,False,,,,,
+fac_str,addon_id,,,hidden,,False,Enter Addon ID,Addon ID,,,False,,,,,
 fac_str,addon_name,,,data_display,,False,Enter Add-Ons,Add-Ons,,,False,,,,,
-fac_str,refid,,,data_display,,False,Enter Ref ID,Ref ID,,,False,,,,,
 fac_str,txnid,,,data_display,,False,Enter Txn ID,Txn ID,,,False,,,,,
-fac_str,status,,,data_display,,False,Enter Status,Status,,,False,,,,,
-fac_str,amt_status,,,hidden,,False,Enter Amount Status,Amount Status,,,False,,,,,
-fac_str,amount,,,data_display,,False,Enter Amount,Amount,,,False,,,,,
+fac_str,refid,,,data_display,,False,Enter Ref ID,Ref ID,,,False,,,,,
 fac_str,quantity,,,data_display,,False,Enter Quantity,Quantity,,,False,,,,,
+fac_str,amount,,,data_display,,False,Enter Amount,Amount,,,False,,,,,
+fac_str,amt_internal,,,hidden,,False,Enter Amount Internal,Amount Internal,,,False,,,,,
+fac_str,status,,,data_display,,False,Enter Status,Status,,,False,,,,,
+fac_str,status_internal,,,hidden,,False,Enter Status Internal,Status Internal,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,addon_service,,,card,,False,,Addon Cart,,,False,,,,,
-table,table,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:1
+table,table,,,table,,False,,,,,False,,,,,table.column:1
 group_builder,addon_cart_row,,,table_row,,False,,Addon Table,,,False,,,,,
-fac_str,addon_id,,,data_display,,False,Enter Addon ID,Addon ID,,,False,,,,,
+fac_str,addon_id,,,hidden,,False,Enter Addon ID,Addon ID,,,False,,,,,
 fac_str,addon_name,,,data_display,,False,Enter Add-Ons,Add-Ons,,,False,,,,,
-fac_str,refid,,,data_display,,False,Enter Ref ID,Ref ID,,,False,,,,,
 fac_str,txnid,,,data_display,,False,Enter Txn ID,Txn ID,,,False,,,,,
-fac_str,status,,,data_display,,False,Enter Status,Status,,,False,,,,,
-fac_str,amt_status,,,hidden,,False,Enter Amount Status,Amount Status,,,False,,,,,
-fac_str,amount,,,data_display,,False,Enter Amount,Amount,,,False,,,,,
+fac_str,refid,,,data_display,,False,Enter Ref ID,Ref ID,,,False,,,,,
 fac_str,quantity,,,data_display,,False,Enter Quantity,Quantity,,,False,,,,,
+fac_str,amount,,,data_display,,False,Enter Amount,Amount,,,False,,,,,
+fac_str,amt_internal,,,hidden,,False,Enter Amount Internal,Amount Internal,,,False,,,,,
+fac_str,status,,,data_display,,False,Enter Status,Status,,,False,,,,,
+fac_str,status_internal,,,hidden,,False,Enter Status Internal,Status Internal,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -2359,7 +2367,7 @@ fac_add_on_op,service_checkbox,,,checkbox,,False,Select Option,,,,False,,,,"not 
 fac_str,addon_id,,,hidden,,False,Enter Addon ID,Addon ID,,,False,,,,,
 fac_str,add_ons,,,data_display,,False,Enter Add-Ons,Add-Ons,,,False,,,,False,
 fac_str,amount_display,,,data_display,,False,Enter Amount,Amount,,,False,,,,False,
-fac_int,amount_internal,,,data_display,,False,Enter Amount Internal,Amount Internal,,,False,,,,,
+fac_int,amount_internal,,,hidden,,False,Enter Amount Internal,Amount Internal,,,False,,,,,
 fac_str,internal_status,,,hidden,,False,Enter Internal Status,Internal Status,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
@@ -2378,7 +2386,7 @@ align-items: center;"">
 
 <div style=""
   text-align: center;
-  width: 1060px;
+  /* width: 1060px; */
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -2406,7 +2414,7 @@ align-items: center;"">
 
 <div style=""
   text-align: center;
-  width: 1060px;
+  /* width: 1060px; */
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -2428,7 +2436,7 @@ align-items: center;"">
 
 <div style=""
   text-align: center;
-  width: 1060px;
+  /* width: 1060px; */
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -2450,7 +2458,7 @@ align-items: center;"">
 
 <div style=""
   text-align: center;
-  width: 1060px;
+  /* width: 1060px; */
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -2472,7 +2480,7 @@ align-items: center;"">
 
 <div style=""
   text-align: center;
-  width: 1060px;
+  /* width: 1060px; */
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -2500,7 +2508,7 @@ align-items: center;"">
 
 <div style=""
   text-align: center;
-  width: 1060px;
+  /* width: 1060px; */
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -2529,7 +2537,7 @@ align-items: center;"">
 
 <div style=""
   text-align: center;
-  width: 1060px;
+  /* width: 1060px; */
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -2551,7 +2559,7 @@ align-items: center;"">
 
 <div style=""
   text-align: center;
-  width: 1060px;
+  /* width: 1060px; */
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -2573,7 +2581,7 @@ align-items: center;"">
 
 <div style=""
   text-align: center;
-  width: 1060px;
+  /* width: 1060px; */
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -2597,7 +2605,7 @@ align-items: center;"">
 
 <div style=""
   text-align: center;
-  width: 1060px;
+  /* width: 1060px; */
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -2626,7 +2634,7 @@ align-items: center;"">
 
 <div style=""
   text-align: center;
-  width: 1060px;
+  /* width: 1060px; */
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -2647,7 +2655,7 @@ align-items: center;"">
 
 <div style=""
   text-align: center;
-  width: 1060px;
+  /* width: 1060px; */
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 16px;

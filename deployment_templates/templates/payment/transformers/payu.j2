@@ -1,4 +1,21 @@
-{# Jinja2 Template: Generate base64url encoded HTML to make payment #}
+{# Jinja2 Template: Generate base64url encoded HTML to make payment with Addon Summary #}
+{% set addons = record.udf1 | b64decode | loads %}
+
+{% set grouped_addons = {} %}
+{% for addon in addons %}
+    {% set name = addon.get('addonName', 'Addon ' ~ addon.get('addonId', 'Unknown')) %}
+    {% if name in grouped_addons %}
+        {% set _ = grouped_addons[name].update({
+            'count': grouped_addons[name]['count'] + 1,
+            'total': grouped_addons[name]['total'] + addon['amount']
+        }) %}
+    {% else %}
+        {% set _ = grouped_addons.update({
+            name: {'count': 1, 'total': addon['amount']}
+        }) %}
+    {% endif %}
+{% endfor %}
+
 {% set html_content %}
 <!DOCTYPE html>
 <html lang="en">
@@ -6,49 +23,128 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Make Payment</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #f0f4f8;
         }
+
         .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto;
             background-color: #ffffff;
-            padding: 2.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            max-width: 28rem;
-            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            padding: 32px;
             text-align: center;
+            box-sizing: border-box;
         }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333333;
+            margin-bottom: 16px;
+        }
+
+        .amount {
+            font-size: 18px;
+            color: #555555;
+            margin-bottom: 24px;
+        }
+
+        .amount span {
+            font-weight: bold;
+            color: #000000;
+        }
+
+        .addon-summary {
+            margin-top: 24px;
+            text-align: left;
+        }
+
+        .addon-header {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        .addon-item {
+            display: flex;
+            justify-content: space-between;
+            background-color: #f8f8f8;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+        }
+
+        .addon-label {
+            font-weight: 500;
+            color: #333;
+            flex: 1;
+        }
+
+        .addon-value {
+            font-weight: 600;
+            color: #000;
+            margin-left: 12px;
+            white-space: nowrap;
+        }
+
         .submit-button {
-            background-image: linear-gradient(to right, #6366f1, #8b5cf6);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            background-color: #3BB9EB;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100%;
+            margin-top: 24px;
         }
+
         .submit-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+            background-color: #1280aa;
+            transform: scale(1.02);
         }
-        .text-gradient {
-            background-image: linear-gradient(to right, #6366f1, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+
+        .note {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777777;
         }
     </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-    <div class="container flex flex-col items-center">
-        <h1 class="text-3xl font-bold mb-6 text-gradient">Proceed to Payment</h1>
+<body>
+    <div class="container">
+        <h1>Proceed to Payment</h1>
 
-        <form id="paymentForm" action="{{ record.payuurl }}" method="post" class="w-full">
+        <p class="amount">
+            Amount to be paid: <span>₹{{ record.amount }}</span>
+        </p>
+
+        {% if grouped_addons %}
+            <div class="addon-summary">
+                <div class="addon-header">Addon Summary</div>
+                {% for name, data in grouped_addons.items() %}
+                    <div class="addon-item">
+                        <div class="addon-label">{{ name }}</div>
+                        <div class="addon-value">{{ data.count }} x ₹{{ "%.2f"|format(data.total / data.count) }} = ₹{{ "%.2f"|format(data.total) }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form id="paymentForm" action="{{ record.payuurl }}" method="post">
             <input type="hidden" name="key" value="{{ record.key }}">
             <input type="hidden" name="txnid" value="{{ record.txnid }}">
             <input type="hidden" name="amount" value="{{ record.amount }}">
@@ -65,15 +161,10 @@
             <input type="hidden" name="udf4" value="{{ record.udf4 }}">
             <input type="hidden" name="udf5" value="{{ record.udf5 }}">
 
-            <div class="mt-8">
-                <button type="submit"
-                    class="submit-button w-full py-3 px-6 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform transition duration-300 ease-in-out">
-                    Make Payment
-                </button>
-            </div>
+            <button type="submit" class="submit-button">Make Payment</button>
         </form>
 
-        <p class="mt-6 text-gray-600 text-sm">
+        <p class="note">
             Please click the button above to complete your payment securely.
         </p>
     </div>
