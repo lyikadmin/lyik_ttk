@@ -15,8 +15,8 @@ from lyikpluginmanager import invoke, DBDocumentModel, DocumentModel
 from lyikpluginmanager.models.lyik_payment_system_model import (
     PayUParams,
     PaymentInitiationModel,
-    LPSRecord, 
-    PayUParams
+    LPSRecord,
+    PayUParams,
 )
 from lyikpluginmanager.core.utils import generate_hash_id_from_dict
 from ..models.forms.new_schengentouristvisa import (
@@ -85,7 +85,7 @@ class AddOnPaymentInitializeVerifier(VerifyHandlerSpec):
                                 amount=item.amount_internal,
                                 orderId=order_id,
                                 travellerId=traveller_id,
-                                addonName=item.add_ons
+                                addonName=item.add_ons,
                             )
                         )
 
@@ -99,6 +99,14 @@ class AddOnPaymentInitializeVerifier(VerifyHandlerSpec):
         # print(f"\n\n The decoded udf1 data is: {decode_base64_to_str(udf1_data)}")
 
         try:
+            first_name = full_form_record.passport.passport_details.first_name
+            last_name = full_form_record.passport.passport_details.surname
+
+            if not first_name:
+                raise AttributeError("First name not found in payload")
+            if not last_name:
+                raise AttributeError("Last name not found in payload")
+
             pg_payu_params: PayUParams = PayUParams(
                 first_name=full_form_record.passport.passport_details.first_name,
                 last_name=full_form_record.passport.passport_details.surname,
@@ -112,9 +120,10 @@ class AddOnPaymentInitializeVerifier(VerifyHandlerSpec):
                 udf5="",
             )
         except AttributeError as ae:
+            logger.error(f"Failed to create payu params. {str(ae)}")
             return VerifyHandlerResponseModel(
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
-                message="Please fill your first name and last name in passport section first.",
+                message=f"Please fill your first name and last name in passport section first.",
                 response=full_form_record.addons.model_dump(),
             )
 
@@ -164,21 +173,26 @@ class AddOnPaymentInitializeVerifier(VerifyHandlerSpec):
                     row = FieldGrpRootAddonsAddonServiceAddonCartRow(
                         addon_id=addon_id,
                         addon_name=summary.addonName,
-                        amount=str(summary.totalAddonCost),
-                        quantity=str(summary.count),
-                        status=lps_record.state.value,
-                        refid=None,
                         txnid=lps_record.txn_id,
-                        amt_status=None,
+                        refid=None,
+                        quantity=str(summary.count),
+                        amount=str(summary.totalAddonCost),
+                        amt_internal=str(summary.totalAddonCost),
+                        status=lps_record.state.value,
+                        status_internal=lps_record.state.value,
                     )
                     addon_cart_rows.append(row)
                     seen_combinations.add(unique_key)
 
         # Populate addon_service_initialization field
         if full_form_record.addons.addon_service_initialization is None:
-            full_form_record.addons.addon_service_initialization = RootAddonsAddonService()
+            full_form_record.addons.addon_service_initialization = (
+                RootAddonsAddonService()
+            )
 
-        full_form_record.addons.addon_service_initialization.addon_cart_row = addon_cart_rows
+        full_form_record.addons.addon_service_initialization.addon_cart_row = (
+            addon_cart_rows
+        )
         encoded_payment_html = payment_initiation_response.payment_html
         decoded_payment_html = decode_base64_to_str(encoded_payment_html)
 

@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import Dict, List, Optional
 from pydantic import Field, BaseModel
 from typing_extensions import Doc, Annotated
 
@@ -11,12 +11,17 @@ from lyikpluginmanager import (
     PluginException,
     invoke,
 )
-from lyikpluginmanager.models import LPSRecord, PayUParams, LPSStatus
+from lyikpluginmanager.models import (
+    LPSRecord,
+    PayUParams,
+    LPSStatus,
+    GatewayResponseModel,
+)
 from ..models.forms.new_schengentouristvisa import (
     Schengentouristvisa,
     FieldGrpRootAddonsAddonServiceAddonCartRow,
     RootAddonsAddonService,
-    RootAddonsAddonServiceInitialization
+    RootAddonsAddonServiceInitialization,
 )
 import logging
 import base64
@@ -28,6 +33,14 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.info)
 
 impl = pluggy.HookimplMarker(getProjectName())
+
+LPS_STATUS_USER_STATUS_MAP = {
+    LPSStatus.PAY_SUCCESS.value: "Success | Completed",
+    LPSStatus.PAY_IN_PROGRESS.value: "Success | In Progress",
+    LPSStatus.PAY_INITIATED.value: "Payment Pending",
+    LPSStatus.PAY_FAILURE.value: "Failure",
+    LPSStatus.PAY_REJECTED.value: "Rejected",
+}
 
 
 class UpdatePaymentInfo(PreActionProcessorSpec):
@@ -67,102 +80,158 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
         This preaction processor will append maker_id into the _owner list of the record.
         """
         try:
+            print("Starting UpdatePaymentInfo pre_action_processor")
+
+            # Define allowed states for rows in addon cart.
+            allowed_states = {
+                LPSStatus.PAY_FAILURE,
+                LPSStatus.PAY_SUCCESS,
+                LPSStatus.PAY_IN_PROGRESS,
+            }
+            print(f"Allowed LPS states: {allowed_states}")
+
             full_parsed_record = Schengentouristvisa(**payload.model_dump())
+            print("Parsed full record from payload")
+
             addon_rows = (
                 full_parsed_record.addons.addon_service_initialization.addon_cart_row
                 if full_parsed_record.addons.addon_service_initialization
                 else []
             )
+            print(f"Fetched {len(addon_rows)} addon_rows from initialization")
 
             txn_ids = {row.txnid for row in addon_rows if row.txnid}
+            print(f"Extracted txn_ids from initialization rows: {txn_ids}")
+
             lps_records: List[LPSRecord] = []
 
             for txn_id in txn_ids:
+                print(f"Fetching LPS record for txn_id: {txn_id}")
                 lps = await invoke.get_payment_status(
                     config=context.config,
                     org_id=context.org_id,
                     record_id=None,
                     txn_id=txn_id,
                 )
+                print(f"Received {len(lps)} records for txn_id {txn_id}: {lps}")
                 lps_records.extend(lps)
+
+            print(f"Total LPS records fetched: {len(lps_records)}")
+            print(f"LPS Records: {lps_records}")
 
             if not lps_records:
                 raise PluginException(f"No records found for txn_ids: {txn_ids}")
 
-            # Define allowed states
-            allowed_states = {
-                LPSStatus.PAY_FAILURE,
-                LPSStatus.PAY_SUCCESS,
-                LPSStatus.PAY_IN_PROGRESS,
-            }
-            seen_combinations: set[tuple[str, str]] = set()
-            addon_cart_rows = []
+            lps_record_map: dict[str, dict[str, Optional[str]]] = {}
 
             for lps_record in lps_records:
                 if lps_record.state.value not in allowed_states:
                     continue
 
-                for pg_data in lps_record.data:
-                    try:
-                        payu_params = PayUParams(**pg_data)
-                        if not payu_params.udf1:
-                            logger.warning(
-                                f"Skipping record {lps_record.txn_id}: missing udf1"
-                            )
-                            continue
-
-                        decoded_udf1 = base64.urlsafe_b64decode(
-                            payu_params.udf1
-                        ).decode()
-                        addon_summary_list: List[AddonSummaryItem] = [
-                            AddonSummaryItem(**item)
-                            for item in json.loads(decoded_udf1)
-                        ]
-                        grouped_addon_summary = group_addon_summary(addon_summary_list)
-
-                        for addon_id, summary in grouped_addon_summary.items():
-                            unique_key = (addon_id, lps_record.txn_id)
-                            if unique_key in seen_combinations:
-                                continue
-
-                            addon_table_row = FieldGrpRootAddonsAddonServiceAddonCartRow(
-                                addon_id=addon_id,
-                                addon_name=summary.addonName,
-                                amount=str(summary.totalAddonCost),
-                                quantity=str(summary.count),
-                                status=lps_record.state.value,
-                                refid=None,
-                                txnid=lps_record.txn_id,
-                                amt_status=None,
-                            )
-                            addon_cart_rows.append(addon_table_row)
-                            seen_combinations.add(unique_key)
-
-                    except Exception as inner_e:
-                        logger.warning(
-                            f"Error processing LPS record {lps_record.txn_id}: {inner_e}"
+                ref_id = None
+                try:
+                    if lps_record.data and isinstance(lps_record.data, list):
+                        last_data_entry: dict = lps_record.data[-1]
+                        last_gateway_response: GatewayResponseModel = (
+                            GatewayResponseModel(**last_data_entry)
                         )
-                        continue
+                        ref_id = last_gateway_response.ref_id
+                    print(
+                        f"Extracted ref_id '{ref_id}' from txn_id {lps_record.txn_id}"
+                    )
+                except Exception as ref_err:
+                    print(
+                        f"Error extracting ref_id for txn_id {lps_record.txn_id}: {ref_err}"
+                    )
+
+                lps_record_map[lps_record.txn_id] = {
+                    "status": lps_record.state.value,
+                    "refid": ref_id,
+                }
+
+            print(f"Filtered LPS map with status and refid: {lps_record_map}")
+
+            # Filter LPS records to allowed states
+            lps_map: dict[str, str] = {
+                lps_record.txn_id: lps_record.state.value
+                for lps_record in lps_records
+                if lps_record.state.value in allowed_states
+            }
+            print(f"Filtered LPS map (txn_id -> status): {lps_map}")
+
+            # Prepare final addon_cart_rows based on addon initialization rows
+            addon_cart_rows: List[FieldGrpRootAddonsAddonServiceAddonCartRow] = []
+            for row in addon_rows:
+                print(f"Processing initialization row: {row}")
+                if row.txnid in lps_record_map:
+                    row_dict = row.model_dump()
+
+                    # Get the status value
+                    lps_status_string: str = lps_record_map[row.txnid]["status"]
+
+                    # Ensure amount starts with rupee symbol
+                    amount_rupee_string: str = row_dict.get("amount", "")
+                    if not amount_rupee_string.startswith("₹ "):
+                        amount_rupee_string = "₹ " + amount_rupee_string
+
+                    # Update row_dict with status and formatted amount
+                    row_dict.update({
+                        "status": LPS_STATUS_USER_STATUS_MAP[lps_status_string],
+                        "status_internal": lps_status_string,
+                        "amount": amount_rupee_string
+                    })
+                    try:
+                        if lps_record_map[row.txnid]["refid"]:
+                            row_dict["refid"] = lps_record_map[row.txnid]["refid"]
+                    except Exception as e:
+                        print(f"Could not assign refid for txn_id {row.txnid}: {e}")
+                    updated_row = FieldGrpRootAddonsAddonServiceAddonCartRow(**row_dict)
+                    addon_cart_rows.append(updated_row)
+                    print(
+                        f"Appended updated row for txn_id {row.txnid} with status '{row_dict['status']}' and refid '{row_dict.get('refid')}'"
+                    )
+                else:
+                    print(f"Skipping txn_id {row.txnid} - not in filtered LPS map")
+
+            print(f"Total addon_cart_rows prepared: {len(addon_cart_rows)}")
 
             # Assign to the parsed record
             if full_parsed_record.addons.addon_service is None:
                 full_parsed_record.addons.addon_service = RootAddonsAddonService()
+                print("Initialized empty RootAddonsAddonService")
 
-            full_parsed_record.addons.addon_service.addon_cart_row = addon_cart_rows
+            # Append the new addon_cart_rows to addon cart
+            if full_parsed_record.addons.addon_service.addon_cart_row is None:
+                full_parsed_record.addons.addon_service.addon_cart_row = []
+            full_parsed_record.addons.addon_service.addon_cart_row.extend(
+                addon_cart_rows
+            )
+            print(
+                f"Appended {len(addon_cart_rows)} rows to addon_service.addon_cart_row"
+            )
 
             # Clear the initialization table
-            full_parsed_record.addons.addon_service_initialization = RootAddonsAddonServiceInitialization()
+            full_parsed_record.addons.addon_service_initialization = (
+                RootAddonsAddonServiceInitialization()
+            )
+            print("Cleared addon_service_initialization")
 
             # Clear the addon selections
             for group_traveller in full_parsed_record.addons.addon_group:
-                for addon_table_row in group_traveller.addonservicegroup.addon_card.addon_on_service:
+                for (
+                    addon_table_row
+                ) in group_traveller.addonservicegroup.addon_card.addon_on_service:
                     addon_table_row.service_checkbox = None
+            print("Cleared addon_group.service_checkbox")
 
             # Clear the verifier payment request:
             full_parsed_record.addons.payment_display = None
+            print("Cleared payment_display")
 
+            print("Returning updated payload")
             return GenericFormRecordModel(**full_parsed_record.model_dump())
 
         except Exception as e:
             logger.error(f"Error processing payload: {e}")
+            print(f"Exception occurred: {e}")
             return payload  # Safe fallback on error
