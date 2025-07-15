@@ -6,12 +6,10 @@ from lyikpluginmanager import (
     getProjectName,
     ContextModel,
     GenericFormRecordModel,
+    PreActionProcessorSpec
 )
 from ..models.forms.new_schengentouristvisa import Schengentouristvisa
 import logging
-from ..preaction_ttk_schengen.preaction_processors._base_preaction import (
-    BasePreActionProcessor,
-)
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.info)
@@ -24,7 +22,7 @@ PRIMARY_TRAVELLER = "Primary"
 CO_TRAVELLER = "Co-traveller"
 
 
-class PreactionSavePrimaryTraveller(BasePreActionProcessor):
+class PreactionSavePrimaryTraveller(PreActionProcessorSpec):
     @impl
     async def pre_action_processor(
         self,
@@ -117,7 +115,7 @@ class PreactionSavePrimaryTraveller(BasePreActionProcessor):
             return payload
 
 
-class PreactionSaveCoTravellers(BasePreActionProcessor):
+class PreactionSaveCoTravellers(PreActionProcessorSpec):
     @impl
     async def pre_action_processor(
         self,
