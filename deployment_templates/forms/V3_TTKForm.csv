@@ -2367,7 +2367,7 @@ fac_add_on_op,service_checkbox,,,checkbox,,False,Select Option,,,,False,,,,"not 
 fac_str,addon_id,,,hidden,,False,Enter Addon ID,Addon ID,,,False,,,,,
 fac_str,add_ons,,,data_display,,False,Enter Add-Ons,Add-Ons,,,False,,,,False,
 fac_str,amount_display,,,data_display,,False,Enter Amount,Amount,,,False,,,,False,
-fac_int,amount_internal,,,data_display,,False,Enter Amount Internal,Amount Internal,,,False,,,,,
+fac_int,amount_internal,,,hidden,,False,Enter Amount Internal,Amount Internal,,,False,,,,,
 fac_str,internal_status,,,hidden,,False,Enter Internal Status,Internal Status,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
