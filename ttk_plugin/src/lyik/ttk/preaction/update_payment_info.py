@@ -22,6 +22,7 @@ from ..models.forms.new_schengentouristvisa import (
     FieldGrpRootAddonsAddonServiceAddonCartRow,
     RootAddonsAddonService,
     RootAddonsAddonServiceInitialization,
+    RootAddons
 )
 import logging
 import base64
@@ -90,6 +91,15 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
             logger.debug(f"Allowed LPS states: {allowed_states}")
 
             full_parsed_record = Schengentouristvisa(**payload.model_dump())
+
+            if not full_parsed_record.addons:
+                full_parsed_record.addons = RootAddons()
+
+            if not full_parsed_record.addons.addon_service:
+                 full_parsed_record.addons.addon_service = RootAddonsAddonService()
+
+            if not full_parsed_record.addons.addon_service_initialization:
+                 full_parsed_record.addons.addon_service_initialization = RootAddonsAddonServiceInitialization()
 
             addon_rows = (
                 full_parsed_record.addons.addon_service_initialization.addon_cart_row

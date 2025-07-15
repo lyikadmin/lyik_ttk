@@ -66,9 +66,9 @@ class PreactionAddonServices(PreActionProcessorSpec):
         try:
             parsed_form_rec = Schengentouristvisa(**payload.model_dump())
 
-            record_id = context.record_id
+            # record_id = context.record_id
 
-            parsed_form_rec.addons.record_id = record_id
+            # parsed_form_rec.addons.record_id = record_id
 
             # Extract traveller type and validate
             traveller_type = (
@@ -201,7 +201,9 @@ class PreactionAddonServices(PreActionProcessorSpec):
                         addon_group_list.append(addon_group)
 
                 # Update parsed form with built addon group list
-                parsed_form_rec.addons.record_id = str(record_id)
+                # parsed_form_rec.addons.record_id = str(record_id)
+                if not parsed_form_rec.addons:
+                    parsed_form_rec.addons = RootAddons()
                 parsed_form_rec.addons.addon_group = addon_group_list
                 logger.info("Successfully populated addon services for travellers.")
 
