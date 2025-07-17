@@ -1,6 +1,7 @@
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Any, Union
 from pydantic import Field, BaseModel
 from typing_extensions import Doc, Annotated
+import jwt
 
 import apluggy as pluggy
 from lyikpluginmanager import (
@@ -17,18 +18,22 @@ from lyikpluginmanager.models import (
     LPSStatus,
     GatewayResponseModel,
 )
+from lyikpluginmanager.annotation import RequiredEnv
 from ..models.forms.new_schengentouristvisa import (
     Schengentouristvisa,
     FieldGrpRootAddonsAddonServiceAddonCartRow,
     RootAddonsAddonService,
     RootAddonsAddonServiceInitialization,
-    RootAddons
+    RootAddons,
 )
+import httpx
+
 import logging
 import base64
 import json
 from ..models.payment.addon_models import AddonSummaryItem, GroupedAddonSummaryItem
 from ..utils.payment import group_addon_summary
+import os
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.info)
@@ -36,8 +41,8 @@ logging.basicConfig(level=logging.info)
 impl = pluggy.HookimplMarker(getProjectName())
 
 LPS_STATUS_USER_STATUS_MAP = {
-    LPSStatus.PAY_SUCCESS.value: "Success | Completed",
-    LPSStatus.PAY_IN_PROGRESS.value: "Success | In Progress",
+    LPSStatus.PAY_SUCCESS.value: "Success", # "Success | Completed"
+    LPSStatus.PAY_IN_PROGRESS.value: "Success", # "Success | In Progress"
     LPSStatus.PAY_INITIATED.value: "Payment Pending",
     LPSStatus.PAY_FAILURE.value: "Failure",
     LPSStatus.PAY_REJECTED.value: "Rejected",
@@ -75,12 +80,16 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
         ],
     ) -> Annotated[
         GenericFormRecordModel,
+        RequiredEnv(["TTK_API_BASE_URL"]),
         Doc("The updated form record data."),
     ]:
         """
         This preaction processor will append maker_id into the _owner list of the record.
         """
         try:
+            token = context.token
+
+            _addons_updated_flag = False
 
             # Define allowed states for rows in addon cart.
             allowed_states = {
@@ -96,10 +105,12 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
                 full_parsed_record.addons = RootAddons()
 
             if not full_parsed_record.addons.addon_service:
-                 full_parsed_record.addons.addon_service = RootAddonsAddonService()
+                full_parsed_record.addons.addon_service = RootAddonsAddonService()
 
             if not full_parsed_record.addons.addon_service_initialization:
-                 full_parsed_record.addons.addon_service_initialization = RootAddonsAddonServiceInitialization()
+                full_parsed_record.addons.addon_service_initialization = (
+                    RootAddonsAddonServiceInitialization()
+                )
 
             addon_rows = (
                 full_parsed_record.addons.addon_service_initialization.addon_cart_row
@@ -188,6 +199,9 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
                         )
                     updated_row = FieldGrpRootAddonsAddonServiceAddonCartRow(**row_dict)
                     addon_cart_rows.append(updated_row)
+
+                    # Mark the flag to indicate that the addons are updated.
+                    _addons_updated_flag = True
                 else:
                     logger.debug(
                         f"Skipping txn_id {row.txnid} - not in filtered LPS map"
@@ -227,8 +241,125 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
             full_parsed_record.addons.payment_display = None
             logger.debug("Cleared payment_display")
 
+            try:
+                if _addons_updated_flag:
+                    api_res = await self.update_ttk_payment(
+                        token=token, lps_records=lps_records
+                    )
+            except Exception as e:
+                logger.error(f"Failed to update ttk payment with API call. {str(e)}")
+
             return GenericFormRecordModel(**full_parsed_record.model_dump())
 
         except Exception as e:
             logger.error(f"Error processing payload: {e}")
             return payload  # Safe fallback on error
+
+    def _decode_jwt(self, token: str) -> Dict[str, Any]:
+        try:
+            payload = jwt.decode(
+                token, algorithms=["HS256"], options={"verify_signature": False}
+            )
+            return payload
+        except Exception as e:
+            raise PluginException(
+                message="Internal error occurred. Please contact support.",
+                detailed_message=f"Something went wrong while decoding payload: {e}",
+            )
+
+    def find_token_field(self, data: Dict[str, Any]) -> Union[str, None]:
+        if isinstance(data, dict):
+            provider_info = data.get("provider_info")
+            if isinstance(provider_info, dict):
+                token = provider_info.get("token")
+                if isinstance(token, str):
+                    return token
+
+        return None
+
+    async def update_ttk_payment(self, token: str, lps_records: List[LPSRecord]):
+        api_prefix = os.getenv("TTK_API_BASE_URL")
+        PAYMENT_UPDATE_API_URL = api_prefix + "api/v2/paymentUpdate/"
+
+        outer_payload = self._decode_jwt(token=token)
+
+        # Step 2: Extract inner token
+        inner_token = self.find_token_field(outer_payload)
+        if not inner_token:
+            logger.error("Inner token not found in the decoded payload.")
+            inner_token = "example_token"
+
+        # Map internal statuses to external API statuses
+        LPS_STATUS_API_STATUS_MAP = {
+            LPSStatus.PAY_SUCCESS.value: "Successful",
+            LPSStatus.PAY_IN_PROGRESS.value: "Successful",
+            LPSStatus.PAY_FAILURE.value: "Failure",
+            LPSStatus.PAY_REJECTED.value: "Rejected",
+        }
+
+        for lps_record in lps_records:
+            try:
+                status: LPSStatus = lps_record.state
+                if status.value not in LPS_STATUS_API_STATUS_MAP:
+                    continue  # Skip if status is not relevant for the API
+
+                # Decode udf1 data
+                payu_params: PayUParams = PayUParams(**lps_record.data[0])
+                udf1_encoded_data = payu_params.udf1
+                decoded_str = base64.b64decode(udf1_encoded_data).decode("utf-8")
+                addon_items_data = json.loads(decoded_str)
+                addon_items: List[AddonSummaryItem] = [
+                    AddonSummaryItem(**item) for item in addon_items_data
+                ]
+
+                # Group by traveller
+                traveller_map = {}
+                for item in addon_items:
+                    traveller_services = traveller_map.setdefault(item.travellerId, [])
+                    traveller_services.append(
+                        {"serviceId": item.addonId, "amount": str(item.amount)}
+                    )
+
+                body = {
+                    "orderNo": addon_items[0].orderId if addon_items else "",
+                    "transactionNo": lps_record.txn_id,
+                    "paymentStatus": LPS_STATUS_API_STATUS_MAP[status.value],
+                    "traveller": [
+                        {"travellerId": traveller_id, "service": services}
+                        for traveller_id, services in traveller_map.items()
+                    ],
+                }
+
+                logger.debug(
+                    f"TTK Payment Update Payload:\n{json.dumps(body, indent=2)}"
+                )
+
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    response = await client.post(
+                        PAYMENT_UPDATE_API_URL,
+                        content=json.dumps(body),
+                        headers={
+                            "Authorization": f"Bearer {inner_token}",
+                            "Content-Type": "application/json",
+                        },
+                    )
+
+                    try:
+                        response_json = response.json()
+                    except Exception as e:
+                        logger.error(f"Failed to parse JSON response: {e}")
+                        continue
+
+                    if response_json.get("status") != "success":
+                        logger.error(
+                            f"Payment update failed for txn_id {lps_record.txn_id}. Response: {response_json}"
+                        )
+                    else:
+                        logger.info(
+                            f"Successfully updated payment for txn_id {lps_record.txn_id}"
+                        )
+
+            except Exception as e:
+                logger.error(
+                    f"Error updating payment for txn_id {lps_record.txn_id}: {e}"
+                )
