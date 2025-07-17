@@ -41,8 +41,8 @@ logging.basicConfig(level=logging.info)
 impl = pluggy.HookimplMarker(getProjectName())
 
 LPS_STATUS_USER_STATUS_MAP = {
-    LPSStatus.PAY_SUCCESS.value: "Success | Completed",
-    LPSStatus.PAY_IN_PROGRESS.value: "Success | In Progress",
+    LPSStatus.PAY_SUCCESS.value: "Success", # "Success | Completed"
+    LPSStatus.PAY_IN_PROGRESS.value: "Success", # "Success | In Progress"
     LPSStatus.PAY_INITIATED.value: "Payment Pending",
     LPSStatus.PAY_FAILURE.value: "Failure",
     LPSStatus.PAY_REJECTED.value: "Rejected",
@@ -243,7 +243,9 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
 
             try:
                 if _addons_updated_flag:
-                    api_res = await self.update_ttk_payment(lps_records=lps_records)
+                    api_res = await self.update_ttk_payment(
+                        token=token, lps_records=lps_records
+                    )
             except Exception as e:
                 logger.error(f"Failed to update ttk payment with API call. {str(e)}")
 
@@ -328,7 +330,9 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
                     ],
                 }
 
-                logger.debug(f"TTK Payment Update Payload:\n{json.dumps(body, indent=2)}")
+                logger.debug(
+                    f"TTK Payment Update Payload:\n{json.dumps(body, indent=2)}"
+                )
 
                 async with httpx.AsyncClient(timeout=10.0) as client:
                     response = await client.post(
