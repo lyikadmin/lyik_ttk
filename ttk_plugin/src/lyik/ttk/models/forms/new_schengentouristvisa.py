@@ -8,8 +8,7 @@ from datetime import date
 from enum import Enum
 from typing import Any, Dict, List, Optional, Union
 
-from pydantic import ConfigDict, Field
-from pydantic_v2 import BaseModel
+from pydantic import ConfigDict, Field, BaseModel
 
 
 class ACCOMMODATIONARRANGEMENT(str, Enum):
@@ -2170,7 +2169,7 @@ class RootConsultantInfo(BaseModel):
     ] = Field(None, title="Additional Document")
 
 
-class Schengentouristvisa5(BaseModel):
+class Schengentouristvisa(BaseModel):
     model_config = ConfigDict(
         extra="allow",
     )
