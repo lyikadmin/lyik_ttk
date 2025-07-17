@@ -1,6 +1,6 @@
 field_name,alias,field_type,data_type,display_type,default_value,mandatory,description,title,field_notation,fields,internal_only,category,sequence,hidden,editable,meta
 tab_break,travel_tab,,,tab_break,,False,Travel,Travel,,,False,,,,,
-section_break,lets_get_started_section,,,section_break,,False,,Let's Get Started,,,False,,,,,
+section_break,lets_get_started_section,,,section_break,,False,,Let's Get Started,PROGRESS.IGNORE,,False,,,,,
 info_pane_builder,lets_get_started,,,info_pane,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
@@ -105,7 +105,7 @@ info_pane_builder,lets_get_started,,,info_pane,,False,"<!DOCTYPE html>
   </div>
 </body>
 </html>
-",Let's Get Started,FOR_OFFICE_USE_ONLY;SAVE_EVEN_IF_HIDDEN,,False,,,,,operation.continue:Continue
+",Let's Get Started,PROGRESS.IGNORE,,False,,,,,operation.continue:Continue
 display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
@@ -201,7 +201,111 @@ display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 fac_str,form_status,,,hidden,,False,Used for form status,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,visa_req_section,,,section_break,,False,No Instructions Present,Visa Request Summary,,,False,,,,,
-info_pane_builder,visa_request_information,,,info_pane,,False,No Instructions Present,Visa Request Summary,,,False,,,,,operation.save:Save and Continue
+info_pane_builder,visa_request_information,,,info_pane,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"" />
+  <title>Schengen Visa Application Guidelines</title>
+  <style>
+    .container {
+      background-color: #fefefe;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      color: #111;
+    }
+    .container.schengen {
+      /* width: 540px; */
+      max-width: 100%;
+    }
+    .container p,
+    .container ul,
+    .container li {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #333;
+      margin: 0;
+    }
+    .container p {
+      margin-bottom: 16px;
+    }
+    .container ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .container li {
+      margin-bottom: 8px;
+    }
+    .container .heading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+    }
+    .container .subheading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 16px;
+    }
+    .container .note {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #555;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class=""container schengen"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
+
+    <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
+      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+       Need help with this part? Here’s what you need to know about each field in this section.
+    </p>
+
+    <p class=""subheading"">Visa Processing time, Validity of Visa, Number of Entries and Duration of the visa are solely at the discretion of the issuing visa officer or consulate, regardless of the documents submitted.</p>
+    <!-- <ul>
+      <li>All documents must be printed on A4 size sheets only.</li>
+      <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
+      <li>Required documents must be submitted with the visa application (no fax or email to Embassy accepted).</li>
+      <li>Only documents listed in the checklist will be accepted.</li>
+      <li>If your visa has been refused previously, you must submit the refusal notice or a written explanation of the reason for travel and refusal.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Brief Procedure:</strong></p>
+    <ul>
+      <li>TTK will review your documents and suggest necessary changes before submission.</li>
+      <li>TTK will book an appointment as per jurisdiction at the Visa Application Centre (VAC), subject to slot availability. Inform TTK of your tentative dates at the earliest.</li>
+      <li>Applicants must visit the VAC in person to provide biometric fingerprint data with a signed application form, appointment letter, and checklist documents.</li>
+      <li>Alternatively, TTK can submit the application if the applicant qualifies for biometric waiver due to previous Schengen visa issuance.</li>
+      <li>Courier service is available by filling out the 'Courier Request Form'. The passport will be sent to the address mentioned in the form.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Processing Time:</strong></p>
+    <ul>
+      <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
+      <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
+      <li>Consular officers may request additional documents or a personal interview if required.</li>
+    </ul> -->
+
+    <p class=""note"">
+      <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+       (To be provided by TTK)
+    </p>
+  </div>
+</body>
+</html>
+",Visa Request Summary,,,False,,,,,verify.verify_handler:VERIFIER_VISA_REQUEST_SUMMARY;verify.action_text:Verify;operation.save:Save and Continue;verify.verify_handler:VERIFIER_VISA_REQUEST_SUMMARY;verify.action_text:Verify
 display_field,display_info_header,,,display_field,,False,"<!-- <p style=""font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;"">
   Please review your
   <span style=""font-weight: bold; font-size: 1em;"">
@@ -256,7 +360,7 @@ fac_date,arrival_date,,,datebox,,False,DD/MM/YYYY,Date of Arrival,,,False,,,,,;o
 fac_visa_type,visa_type,,,dropdown,,False,Select Option,Type of Visa,,,False,,,,False,
 fac_int,length_of_stay,,,textbox,,False,Enter Length of Stay (in Days),Length of Stay (in Days),,,False,,,,,
 fac_int,validity,,,textbox,,False,Enter Validity of Visa (in Days),Validity of Visa (in Days),,,False,,,,,
-fac_str,no_of_entries,,,textbox,,False,Enter Number of Entries,Number of Entries,,,False,,,,,
+fac_str,no_of_entries,,,textbox,,False,Enter Number of Entries,Number of Entries,,,False,,,,False,
 fac_visa_mode,visa_mode,,,dropdown,,False,Select Option,Visa Mode (E-Visa/Paper),,,False,,,,,
 fac_int,no_of_travellers,,,hidden,,False,Enter Number of Travellers,Number of Travellers,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
@@ -267,8 +371,216 @@ fac_str,earliest_appointment_availability,,,hidden,,False,,,,,False,,,,,
 fac_str,visa_processing_type,,,hidden,,False,,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-section_break,appointment_section,,,section_break,,False,No Instructions Present,Appointment Details,,,False,,,,,
-info_pane_builder,appointment,,,info_pane,,False,No Instructions Present,Appointment Details,,,False,,,,,operation.save:Save and Continue
+section_break,appointment_section,,,section_break,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"" />
+  <title>Schengen Visa Application Guidelines</title>
+  <style>
+    .container {
+      background-color: #fefefe;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      color: #111;
+    }
+    .container.schengen {
+      /* width: 540px; */
+      max-width: 100%;
+    }
+    .container p,
+    .container ul,
+    .container li {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #333;
+      margin: 0;
+    }
+    .container p {
+      margin-bottom: 16px;
+    }
+    .container ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .container li {
+      margin-bottom: 8px;
+    }
+    .container .heading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+    }
+    .container .subheading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 16px;
+    }
+    .container .note {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #555;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class=""container schengen"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
+
+    <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
+      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+       Need help with this part? Here’s what you need to know about each field in this section.
+    </p>
+
+    <!-- <p class=""subheading""><strong>Important:</strong></p>
+    <ul>
+      <li>All documents must be printed on A4 size sheets only.</li>
+      <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
+      <li>Required documents must be submitted with the visa application (no fax or email to Embassy accepted).</li>
+      <li>Only documents listed in the checklist will be accepted.</li>
+      <li>If your visa has been refused previously, you must submit the refusal notice or a written explanation of the reason for travel and refusal.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Brief Procedure:</strong></p>
+    <ul>
+      <li>TTK will review your documents and suggest necessary changes before submission.</li>
+      <li>TTK will book an appointment as per jurisdiction at the Visa Application Centre (VAC), subject to slot availability. Inform TTK of your tentative dates at the earliest.</li>
+      <li>Applicants must visit the VAC in person to provide biometric fingerprint data with a signed application form, appointment letter, and checklist documents.</li>
+      <li>Alternatively, TTK can submit the application if the applicant qualifies for biometric waiver due to previous Schengen visa issuance.</li>
+      <li>Courier service is available by filling out the 'Courier Request Form'. The passport will be sent to the address mentioned in the form.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Processing Time:</strong></p>
+    <ul>
+      <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
+      <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
+      <li>Consular officers may request additional documents or a personal interview if required.</li>
+    </ul> -->
+
+    <p class=""note"">
+      <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+       (To be provided by TTK)
+    </p>
+  </div>
+</body>
+</html>
+",Appointment Details,,,False,,,,,
+info_pane_builder,appointment,,,info_pane,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"" />
+  <title>Schengen Visa Application Guidelines</title>
+  <style>
+    .container {
+      background-color: #fefefe;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      color: #111;
+    }
+    .container.schengen {
+      /* width: 540px; */
+      max-width: 100%;
+    }
+    .container p,
+    .container ul,
+    .container li {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #333;
+      margin: 0;
+    }
+    .container p {
+      margin-bottom: 16px;
+    }
+    .container ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .container li {
+      margin-bottom: 8px;
+    }
+    .container .heading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+    }
+    .container .subheading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 16px;
+    }
+    .container .note {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #555;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class=""container schengen"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
+
+    <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
+      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+       Need help with this part? Here’s what you need to know about each field in this section.
+    </p>
+
+    <!-- <p class=""subheading""><strong>Important:</strong></p>
+    <ul>
+      <li>All documents must be printed on A4 size sheets only.</li>
+      <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
+      <li>Required documents must be submitted with the visa application (no fax or email to Embassy accepted).</li>
+      <li>Only documents listed in the checklist will be accepted.</li>
+      <li>If your visa has been refused previously, you must submit the refusal notice or a written explanation of the reason for travel and refusal.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Brief Procedure:</strong></p>
+    <ul>
+      <li>TTK will review your documents and suggest necessary changes before submission.</li>
+      <li>TTK will book an appointment as per jurisdiction at the Visa Application Centre (VAC), subject to slot availability. Inform TTK of your tentative dates at the earliest.</li>
+      <li>Applicants must visit the VAC in person to provide biometric fingerprint data with a signed application form, appointment letter, and checklist documents.</li>
+      <li>Alternatively, TTK can submit the application if the applicant qualifies for biometric waiver due to previous Schengen visa issuance.</li>
+      <li>Courier service is available by filling out the 'Courier Request Form'. The passport will be sent to the address mentioned in the form.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Processing Time:</strong></p>
+    <ul>
+      <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
+      <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
+      <li>Consular officers may request additional documents or a personal interview if required.</li>
+    </ul> -->
+
+    <p class=""note"">
+      <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+       (To be provided by TTK)
+    </p>
+  </div>
+</body>
+</html>
+",Appointment Details,,,False,,,,,operation.save:Save and Continue
 display_field,display_appointment_details_header,,,display_field,,False,"<!-- <p style=""font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;"">
  
   Please upload the details of your
@@ -317,7 +629,7 @@ fac_pref_loc,scheduled_location,,,dropdown,,False,Select Option,Scheduled Locati
 fac_date,scheduled_date,,,datebox,,False,DD/MM/YYYY,Scheduled Date,,,False,,,,,;only_future: true
 fac_hour_select,scheduled_hour,,,dropdown,,False,Select Option,Scheduled Time (Hour),,,False,,,,,
 fac_minute_select,scheduled_minute,,,dropdown,,False,Select Option,Scheduled Time (Minutes),,,False,,,,,
-fac_file,upload_appointment,,,fileoption,,False,Upload a file,Appointment Document,,,False,,,,,file_type:.pdf
+fac_file,upload_appointment,,,fileoption,,False,Upload a PDF,Appointment Document,,,False,,,,,file_type:.pdf
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 fac_str,lock_appointment,,,hidden,,False,,,,,False,,,,,
@@ -803,7 +1115,7 @@ info_pane_builder,residential_address,,,info_pane,,False,"<!DOCTYPE html>
   </div>
 </body>
 </html>
-",Address Proof,,,False,,,,,operation.save:Save and Continue
+",Address Proof,,,False,,,,,verify.verify_handler:VERIFIER_ADDRESS;verify.action_text:Verify Address Details;operation.save:Save and Continue;verify.verify_handler:VERIFIER_ADDRESS;verify.action_text:Verify Address Details
 display_field,display_residential_address_header,,,display_field,,False,"<!-- <p style=""font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;"">
  You can fill your address using your passport, or provide an alternative ID to verify your address.
 For detailed guidelines on this
@@ -881,7 +1193,7 @@ info_pane_builder,work_address,,,info_pane,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
   <meta charset=""UTF-8"" />
-  <title>Guidelines for Address Documents</title>
+  <title>Schengen Visa Application Guidelines</title>
   <style>
     .container {
       background-color: #fefefe;
@@ -892,8 +1204,10 @@ info_pane_builder,work_address,,,info_pane,,False,"<!DOCTYPE html>
       font-family: 'Inter', sans-serif;
       color: #111;
     }
-
-    /* regular form text */
+    .container.schengen {
+      /* width: 540px; */
+      max-width: 100%;
+    }
     .container p,
     .container ul,
     .container li {
@@ -905,7 +1219,7 @@ info_pane_builder,work_address,,,info_pane,,False,"<!DOCTYPE html>
       margin: 0;
     }
     .container p {
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
     .container ul {
       padding-left: 20px;
@@ -914,16 +1228,12 @@ info_pane_builder,work_address,,,info_pane,,False,"<!DOCTYPE html>
     .container li {
       margin-bottom: 8px;
     }
-
-    /* emphasized text (headings, bold lines) */
-    .container .heading,
-    .container strong {
-      font-weight: 400;       /* same weight */
-      font-size: 18px;        /* smaller for emphasis */
+    .container .heading {
+      font-weight: 400;
+      font-size: 18px;
       line-height: 34px;
       letter-spacing: 0;
       margin-bottom: 8px;
-      display: block;
     }
     .container .subheading {
       font-weight: 400;
@@ -931,10 +1241,7 @@ info_pane_builder,work_address,,,info_pane,,False,"<!DOCTYPE html>
       line-height: 34px;
       letter-spacing: 0;
       margin-bottom: 16px;
-      display: block;
     }
-
-    /* note text */
     .container .note {
       font-weight: 400;
       font-size: 16px;
@@ -946,36 +1253,47 @@ info_pane_builder,work_address,,,info_pane,,False,"<!DOCTYPE html>
   </style>
 </head>
 <body>
-  <div class=""container"">
-    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">
-      Guidelines for Address Documents
-    </div> -->
+  <div class=""container schengen"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
 
-    <div class=""subheading"" style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
-      Need help with this part? Here’s what you need to know.
-    </div>
-
-    <p>
-      The address proof documents and work address provided in this section are
-      essential for processing your visa application.
+    <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
+      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+       Need help with this part? Here’s what you need to know about each field in this section.
     </p>
 
-    <p class=""heading"" style=""font-weight: 600;"">
-      Please ensure the following:
-    </p>
-
+    <!-- <p class=""subheading""><strong>Important:</strong></p>
     <ul>
-      <li>All information entered is accurate and current.</li>
-      <li>Uploaded documents clearly match the address provided.</li>
+      <li>All documents must be printed on A4 size sheets only.</li>
+      <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
+      <li>Required documents must be submitted with the visa application (no fax or email to Embassy accepted).</li>
+      <li>Only documents listed in the checklist will be accepted.</li>
+      <li>If your visa has been refused previously, you must submit the refusal notice or a written explanation of the reason for travel and refusal.</li>
     </ul>
 
+    <p class=""subheading""><strong>Brief Procedure:</strong></p>
+    <ul>
+      <li>TTK will review your documents and suggest necessary changes before submission.</li>
+      <li>TTK will book an appointment as per jurisdiction at the Visa Application Centre (VAC), subject to slot availability. Inform TTK of your tentative dates at the earliest.</li>
+      <li>Applicants must visit the VAC in person to provide biometric fingerprint data with a signed application form, appointment letter, and checklist documents.</li>
+      <li>Alternatively, TTK can submit the application if the applicant qualifies for biometric waiver due to previous Schengen visa issuance.</li>
+      <li>Courier service is available by filling out the 'Courier Request Form'. The passport will be sent to the address mentioned in the form.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Processing Time:</strong></p>
+    <ul>
+      <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
+      <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
+      <li>Consular officers may request additional documents or a personal interview if required.</li>
+    </ul> -->
+
     <p class=""note"">
-      Incomplete or mismatched details may lead to delays or rejection of your application.
+      <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+       (To be provided by TTK)
     </p>
   </div>
 </body>
 </html>
-",Work/Education,,,False,,,,,operation.save:Save and Continue
+",Work/Education,,,False,,,,,verify.verify_handler:VERIFIER_WORK_EDUCATION;verify.action_text:Verify;operation.save:Save and Continue;verify.verify_handler:VERIFIER_WORK_EDUCATION;verify.action_text:Verify
 fac_current_occupation_status,current_occupation_status,,,radiobutton,EMPLOYEE,False,Select Option,Are you currently an Employee or a Student?,,,False,,,,,
 card_builder,work_details,,,card,,False,,Work Details,,,False,,,"not current_occupation_status = ""EMPLOYEE""",,
 table,work_address_table,,,table,,False,,,,,False,,,,,table.column:2
@@ -1211,13 +1529,10 @@ info_pane_builder,accomodation,,,info_pane,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
   <meta charset=""UTF-8"" />
-  <title>Guidelines for Accommodation</title>
+  <title>Schengen Visa Application Guidelines</title>
   <style>
-    /* Container uses Inter for everything */
     .container {
-      /* border-radius: 6px; */
       background-color: #fefefe;
-      /* box-sizing: border-box; */
       padding: 16px;
       display: flex;
       flex-direction: column;
@@ -1225,8 +1540,10 @@ info_pane_builder,accomodation,,,info_pane,,False,"<!DOCTYPE html>
       font-family: 'Inter', sans-serif;
       color: #111;
     }
-
-    /* Regular form text */
+    .container.schengen {
+      /* width: 540px; */
+      max-width: 100%;
+    }
     .container p,
     .container ul,
     .container li {
@@ -1237,82 +1554,82 @@ info_pane_builder,accomodation,,,info_pane,,False,"<!DOCTYPE html>
       color: #333;
       margin: 0;
     }
-
     .container p {
       margin-bottom: 16px;
     }
-
     .container ul {
       padding-left: 20px;
       margin-bottom: 16px;
     }
-
     .container li {
       margin-bottom: 8px;
     }
-
-    .container li.highlight {
-      /* inherits the same color as body text */
-      color: inherit;
-    }
-
-    /* Emphasized text (strong, headings) */
-    .container strong,
     .container .heading {
-      font-weight: 400;       /* keep same weight */
-      font-size: 18px;        /* slightly smaller for emphasis */
+      font-weight: 400;
+      font-size: 18px;
       line-height: 34px;
       letter-spacing: 0;
+      margin-bottom: 8px;
+    }
+    .container .subheading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 16px;
+    }
+    .container .note {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #555;
+      margin: 0;
     }
   </style>
 </head>
 <body>
-  <div class=""container"">
-    <!-- Use a helper class for headings -->
-    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">
-      Guidelines for Accommodation
-    </div> -->
+  <div class=""container schengen"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
 
-    <div class=""heading"" style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
-      <!-- Need help with this part? Here’s what you need to know. -->
-      Need help with this part? Here’s what you need to know about each field in this section.
-    </div>
-
-    <p>
-      <!-- Before uploading your travel itinerary, make sure of the following: -->
-       Visa Processing time, Validity of Visa, Number of Entries and Duration of the visa are solely at the discretion of the issuing visa officer or consulate, regardless of the documents submitted.
+    <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
+      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+       Need help with this part? Here’s what you need to know about each field in this section.
     </p>
 
-    <!-- <ul>
-      <li>
-        <strong>Submit Confirmed Bookings:</strong>
-        Upload hotel reservations, Airbnb confirmations, or any other proof of stay for the entire duration of your trip.
-      </li>
-      <li>
-        <strong>Cover All Destinations:</strong>
-        If you’re visiting multiple cities or countries, make sure you include accommodation details for each stop.
-      </li>
-      <li>
-        <strong>Match with Your Itinerary:</strong>
-        The check-in/check-out dates should align with your travel itinerary and transportation bookings.
-      </li>
-      <li>
-        <strong>Invitation:</strong>
-        If you're staying with friends or family, upload a signed Invitation Letter from your host, along with a copy of their ID or proof of residence.
-      </li>
-      <li class=""highlight"">
-        <strong>One Document or Multiple:</strong>
-        You can upload a single file with all your accommodation details, or multiple files, whatever is easier for you.
-      </li>
-      <li>
-        <strong>Don’t have confirmed bookings yet?</strong>
-        We can help create a sample plan for you, just choose our Add-On Service.
-      </li>
+    <!-- <p class=""subheading""><strong>Important:</strong></p>
+    <ul>
+      <li>All documents must be printed on A4 size sheets only.</li>
+      <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
+      <li>Required documents must be submitted with the visa application (no fax or email to Embassy accepted).</li>
+      <li>Only documents listed in the checklist will be accepted.</li>
+      <li>If your visa has been refused previously, you must submit the refusal notice or a written explanation of the reason for travel and refusal.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Brief Procedure:</strong></p>
+    <ul>
+      <li>TTK will review your documents and suggest necessary changes before submission.</li>
+      <li>TTK will book an appointment as per jurisdiction at the Visa Application Centre (VAC), subject to slot availability. Inform TTK of your tentative dates at the earliest.</li>
+      <li>Applicants must visit the VAC in person to provide biometric fingerprint data with a signed application form, appointment letter, and checklist documents.</li>
+      <li>Alternatively, TTK can submit the application if the applicant qualifies for biometric waiver due to previous Schengen visa issuance.</li>
+      <li>Courier service is available by filling out the 'Courier Request Form'. The passport will be sent to the address mentioned in the form.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Processing Time:</strong></p>
+    <ul>
+      <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
+      <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
+      <li>Consular officers may request additional documents or a personal interview if required.</li>
     </ul> -->
+
+    <p class=""note"">
+      <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+       (To be provided by TTK)
+    </p>
   </div>
 </body>
 </html>
-",Accommodation,,,False,,,,,operation.save:Save and Continue
+",Accommodation,,,False,,,,,verify.verify_handler:VERIFIER_ACCOMMODATION;verify.action_text:Verify Accommodation Details;operation.save:Save and Continue;verify.verify_handler:VERIFIER_ACCOMMODATION;verify.action_text:Verify Accommodation Details
 display_field,display_accommodation_header,,,display_field,,False,"
 <!DOCTYPE html>
 <html lang=""en"">
@@ -1502,7 +1819,7 @@ info_pane_builder,ticketing,,,info_pane,,False,"<!DOCTYPE html>
 </head>
 <body>
   <div class=""container"">
-    <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Guidelines for Ticketing</div>
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Guidelines for Ticketing</div> -->
 
     <div class=""subheading"" style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
       Need help with this part? Here’s what you need to know.
@@ -1510,10 +1827,13 @@ info_pane_builder,ticketing,,,info_pane,,False,"<!DOCTYPE html>
 
     <ul>
       <li>
-        If you are travelling with multiple travellers, please make sure it contains the names of all the travellers.
+        Please provide accurate and complete details of your travel tickets, including, Country of Travel, Travel dates, Entry and exit points.
       </li>
       <li>
-        If applicable, provide proof of intra-Schengen flight, train itinerary, or car rental.
+        This information is critical for validating your travel plans as part of the visa application package. 
+      </li>
+      <li>
+        Ensure it aligns with your itinerary and accommodation details to avoid inconsistencies that could delay processing.
       </li>
     </ul>
   </div>
@@ -1619,12 +1939,11 @@ display_field,display_add_on,,,display_field,,False,"<!DOCTYPE html>
 </html>",,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-section_break,travel_insurance_section,,,section_break,,False,,Travel Insurance,,,False,,,$.cotraveller.same_as_primary_insurance = 'SAME_AS_PRIMARY_TRAVELLER_INSURANCE',,
-info_pane_builder,travel_insurance,,,info_pane,,False,"<!DOCTYPE html>
+section_break,travel_insurance_section,,,section_break,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
   <meta charset=""UTF-8"" />
-  <title>Guidelines for Travel Insurance</title>
+  <title>Schengen Visa Application Guidelines</title>
   <style>
     .container {
       background-color: #fefefe;
@@ -1635,8 +1954,10 @@ info_pane_builder,travel_insurance,,,info_pane,,False,"<!DOCTYPE html>
       font-family: 'Inter', sans-serif;
       color: #111;
     }
-
-    /* Regular form text */
+    .container.schengen {
+      /* width: 540px; */
+      max-width: 100%;
+    }
     .container p,
     .container ul,
     .container li {
@@ -1657,8 +1978,6 @@ info_pane_builder,travel_insurance,,,info_pane,,False,"<!DOCTYPE html>
     .container li {
       margin-bottom: 8px;
     }
-
-    /* Emphasized headings */
     .container .heading {
       font-weight: 400;
       font-size: 18px;
@@ -1673,47 +1992,159 @@ info_pane_builder,travel_insurance,,,info_pane,,False,"<!DOCTYPE html>
       letter-spacing: 0;
       margin-bottom: 16px;
     }
-
-    /* Link styling */
-    .container a {
-      color: #0969da;
-      text-decoration: underline;
-      word-break: break-word;
+    .container .note {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #555;
+      margin: 0;
     }
   </style>
 </head>
 <body>
-  <div class=""container"">
-    <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Guidelines for Travel Insurance</div>
+  <div class=""container schengen"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
 
-    <div class=""subheading"" style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
-      Need help with this part? Here’s what you need to know.
-    </div>
-
-    <p>
-      You can refer to the list of approved Indian Travel Insurances:<br />
-      <a
-        href=""https://www.eda.admin.ch/dam/countries/countries-content/india/en/visa/SchengenList-_Travel_Insurance_CompaniesEN.pdf""
-        target=""_blank""
-      >
-        https://www.eda.admin.ch/dam/countries/countries-content/india/en/visa/SchengenList-_Travel_Insurance_CompaniesEN.pdf
-      </a>
+    <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
+      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+       Need help with this part? Here’s what you need to know about each field in this section.
     </p>
 
+    <!-- <p class=""subheading""><strong>Important:</strong></p>
     <ul>
-      <li>Minimum coverage of 30,000 Euro/50,000 USD/50,000 CHF per person</li>
-      <li>
-        Coverage of all expenses which might arise in connection with
-        repatriation for medical reasons, urgent medical attention and/or
-        emergency hospital treatment
-      </li>
-      <li>The insurance has to cover the entire stay in Schengen territory</li>
-      <li>
-        Applicants who wish to apply for a six-month or a one-year multiple visa
-        are not obliged to provide a 180 (365) days coverage. It is sufficient to
-        submit an insurance policy covering the first journey.
-      </li>
+      <li>All documents must be printed on A4 size sheets only.</li>
+      <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
+      <li>Required documents must be submitted with the visa application (no fax or email to Embassy accepted).</li>
+      <li>Only documents listed in the checklist will be accepted.</li>
+      <li>If your visa has been refused previously, you must submit the refusal notice or a written explanation of the reason for travel and refusal.</li>
     </ul>
+
+    <p class=""subheading""><strong>Brief Procedure:</strong></p>
+    <ul>
+      <li>TTK will review your documents and suggest necessary changes before submission.</li>
+      <li>TTK will book an appointment as per jurisdiction at the Visa Application Centre (VAC), subject to slot availability. Inform TTK of your tentative dates at the earliest.</li>
+      <li>Applicants must visit the VAC in person to provide biometric fingerprint data with a signed application form, appointment letter, and checklist documents.</li>
+      <li>Alternatively, TTK can submit the application if the applicant qualifies for biometric waiver due to previous Schengen visa issuance.</li>
+      <li>Courier service is available by filling out the 'Courier Request Form'. The passport will be sent to the address mentioned in the form.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Processing Time:</strong></p>
+    <ul>
+      <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
+      <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
+      <li>Consular officers may request additional documents or a personal interview if required.</li>
+    </ul> -->
+
+    <p class=""note"">
+      <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+       (To be provided by TTK)
+    </p>
+  </div>
+</body>
+</html>
+",Travel Insurance,,,False,,,$.cotraveller.same_as_primary_insurance = 'SAME_AS_PRIMARY_TRAVELLER_INSURANCE',,
+info_pane_builder,travel_insurance,,,info_pane,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"" />
+  <title>Schengen Visa Application Guidelines</title>
+  <style>
+    .container {
+      background-color: #fefefe;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      color: #111;
+    }
+    .container.schengen {
+      /* width: 540px; */
+      max-width: 100%;
+    }
+    .container p,
+    .container ul,
+    .container li {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #333;
+      margin: 0;
+    }
+    .container p {
+      margin-bottom: 16px;
+    }
+    .container ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .container li {
+      margin-bottom: 8px;
+    }
+    .container .heading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+    }
+    .container .subheading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 16px;
+    }
+    .container .note {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #555;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class=""container schengen"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
+
+    <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
+      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+       Need help with this part? Here’s what you need to know about each field in this section.
+    </p>
+
+    <!-- <p class=""subheading""><strong>Important:</strong></p>
+    <ul>
+      <li>All documents must be printed on A4 size sheets only.</li>
+      <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
+      <li>Required documents must be submitted with the visa application (no fax or email to Embassy accepted).</li>
+      <li>Only documents listed in the checklist will be accepted.</li>
+      <li>If your visa has been refused previously, you must submit the refusal notice or a written explanation of the reason for travel and refusal.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Brief Procedure:</strong></p>
+    <ul>
+      <li>TTK will review your documents and suggest necessary changes before submission.</li>
+      <li>TTK will book an appointment as per jurisdiction at the Visa Application Centre (VAC), subject to slot availability. Inform TTK of your tentative dates at the earliest.</li>
+      <li>Applicants must visit the VAC in person to provide biometric fingerprint data with a signed application form, appointment letter, and checklist documents.</li>
+      <li>Alternatively, TTK can submit the application if the applicant qualifies for biometric waiver due to previous Schengen visa issuance.</li>
+      <li>Courier service is available by filling out the 'Courier Request Form'. The passport will be sent to the address mentioned in the form.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Processing Time:</strong></p>
+    <ul>
+      <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
+      <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
+      <li>Consular officers may request additional documents or a personal interview if required.</li>
+    </ul> -->
+
+    <p class=""note"">
+      <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+       (To be provided by TTK)
+    </p>
   </div>
 </body>
 </html>
@@ -1853,8 +2284,216 @@ fac_insurance_plan,plan_sum_insured,,,dropdown,,False,Select Option,Plan (Sum In
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-section_break,previous_visas_section,,,section_break,,False,No Instructions Present,Previous Visas,,,False,,,,,
-info_pane_builder,previous_visas,,,info_pane,,False,No Instructions Present,Previous Visas,,,False,,,,,operation.save:Save and Continue;verify.verify_handler:VERIFIER_PREVIOUS_VISAS;verify.action_text:verify
+section_break,previous_visas_section,,,section_break,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"" />
+  <title>Schengen Visa Application Guidelines</title>
+  <style>
+    .container {
+      background-color: #fefefe;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      color: #111;
+    }
+    .container.schengen {
+      /* width: 540px; */
+      max-width: 100%;
+    }
+    .container p,
+    .container ul,
+    .container li {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #333;
+      margin: 0;
+    }
+    .container p {
+      margin-bottom: 16px;
+    }
+    .container ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .container li {
+      margin-bottom: 8px;
+    }
+    .container .heading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+    }
+    .container .subheading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 16px;
+    }
+    .container .note {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #555;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class=""container schengen"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
+
+    <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
+      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+       Need help with this part? Here’s what you need to know about each field in this section.
+    </p>
+
+    <!-- <p class=""subheading""><strong>Important:</strong></p>
+    <ul>
+      <li>All documents must be printed on A4 size sheets only.</li>
+      <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
+      <li>Required documents must be submitted with the visa application (no fax or email to Embassy accepted).</li>
+      <li>Only documents listed in the checklist will be accepted.</li>
+      <li>If your visa has been refused previously, you must submit the refusal notice or a written explanation of the reason for travel and refusal.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Brief Procedure:</strong></p>
+    <ul>
+      <li>TTK will review your documents and suggest necessary changes before submission.</li>
+      <li>TTK will book an appointment as per jurisdiction at the Visa Application Centre (VAC), subject to slot availability. Inform TTK of your tentative dates at the earliest.</li>
+      <li>Applicants must visit the VAC in person to provide biometric fingerprint data with a signed application form, appointment letter, and checklist documents.</li>
+      <li>Alternatively, TTK can submit the application if the applicant qualifies for biometric waiver due to previous Schengen visa issuance.</li>
+      <li>Courier service is available by filling out the 'Courier Request Form'. The passport will be sent to the address mentioned in the form.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Processing Time:</strong></p>
+    <ul>
+      <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
+      <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
+      <li>Consular officers may request additional documents or a personal interview if required.</li>
+    </ul> -->
+
+    <p class=""note"">
+      <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+       (To be provided by TTK)
+    </p>
+  </div>
+</body>
+</html>
+",Previous Visas,,,False,,,,,
+info_pane_builder,previous_visas,,,info_pane,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"" />
+  <title>Schengen Visa Application Guidelines</title>
+  <style>
+    .container {
+      background-color: #fefefe;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      color: #111;
+    }
+    .container.schengen {
+      /* width: 540px; */
+      max-width: 100%;
+    }
+    .container p,
+    .container ul,
+    .container li {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #333;
+      margin: 0;
+    }
+    .container p {
+      margin-bottom: 16px;
+    }
+    .container ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .container li {
+      margin-bottom: 8px;
+    }
+    .container .heading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+    }
+    .container .subheading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 16px;
+    }
+    .container .note {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #555;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class=""container schengen"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
+
+    <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
+      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+       Need help with this part? Here’s what you need to know about each field in this section.
+    </p>
+
+    <!-- <p class=""subheading""><strong>Important:</strong></p>
+    <ul>
+      <li>All documents must be printed on A4 size sheets only.</li>
+      <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
+      <li>Required documents must be submitted with the visa application (no fax or email to Embassy accepted).</li>
+      <li>Only documents listed in the checklist will be accepted.</li>
+      <li>If your visa has been refused previously, you must submit the refusal notice or a written explanation of the reason for travel and refusal.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Brief Procedure:</strong></p>
+    <ul>
+      <li>TTK will review your documents and suggest necessary changes before submission.</li>
+      <li>TTK will book an appointment as per jurisdiction at the Visa Application Centre (VAC), subject to slot availability. Inform TTK of your tentative dates at the earliest.</li>
+      <li>Applicants must visit the VAC in person to provide biometric fingerprint data with a signed application form, appointment letter, and checklist documents.</li>
+      <li>Alternatively, TTK can submit the application if the applicant qualifies for biometric waiver due to previous Schengen visa issuance.</li>
+      <li>Courier service is available by filling out the 'Courier Request Form'. The passport will be sent to the address mentioned in the form.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Processing Time:</strong></p>
+    <ul>
+      <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
+      <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
+      <li>Consular officers may request additional documents or a personal interview if required.</li>
+    </ul> -->
+
+    <p class=""note"">
+      <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+       (To be provided by TTK)
+    </p>
+  </div>
+</body>
+</html>
+",Previous Visas,,,False,,,,,operation.save:Save and Continue;verify.verify_handler:VERIFIER_PREVIOUS_VISAS;verify.action_text:verify
 display_field,display_previous_visas_header,,,display_field,,False,"<!-- <p style=""font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;"">
 If you have been granted visas in the past, please provide the details here. <br>
 This helps authorities assess your travel history and support your current application.
@@ -1903,7 +2542,8 @@ fac_country,country_of_issue,,,dropdown,,False,Select Option,Country of Visa Iss
 fac_date,start_date,,,datebox,,False,DD/MM/YYYY,Start Date of Visa,,,False,,,not have_past_visa = 'YES',,
 fac_date,end_date,,,datebox,,False,DD/MM/YYYY,End Date of Visa,,,False,,,not have_past_visa = 'YES',,
 fac_purpose_of_visa_or_travel,purpose_of_visa,,,dropdown,,False,Select Option,Purpose of Visa (at the time of filing your previous visa application),,,False,,,not have_past_visa = 'YES',,
-fac_option,utilized_visa,,,radiobutton,,False,Select Option,Have you utilised/travelled using this Visa?,,,False,,,not have_past_visa = 'YES',,
+fac_option,utilized_visa,,,radiobutton,NO,False,Select Option,Have you utilised/travelled using this Visa?,,,False,,,not have_past_visa = 'YES',,
+fac_str,others_specify,,,textbox,,False,Enter Other Purpose (Please Specify),Other Purpose (Please Specify),,,False,,,"not purpose_of_visa=""OTHER""",,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,fingerprint_details,,,card,,False,,Fingerprint Details,,,False,,,,,
@@ -1915,8 +2555,216 @@ fac_date,date_of_previous_visa,,,datebox,,False,DD/MM/YYYY,Date (If Known),,,Fal
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-section_break,additional_details_section,,,section_break,,False,No Instructions Present,Additional Travel Details,,,False,,,,,
-info_pane_builder,additional_details,,,info_pane,,False,No Instructions Present,Additional Travel Details,,,False,,,,,operation.save:Save and Continue;verify.verify_handler:VERIFIER_ADDITIONAL_TRAVEL_DETAILS;verify.action_text:Verify Additional Details
+section_break,additional_details_section,,,section_break,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"" />
+  <title>Schengen Visa Application Guidelines</title>
+  <style>
+    .container {
+      background-color: #fefefe;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      color: #111;
+    }
+    .container.schengen {
+      /* width: 540px; */
+      max-width: 100%;
+    }
+    .container p,
+    .container ul,
+    .container li {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #333;
+      margin: 0;
+    }
+    .container p {
+      margin-bottom: 16px;
+    }
+    .container ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .container li {
+      margin-bottom: 8px;
+    }
+    .container .heading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+    }
+    .container .subheading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 16px;
+    }
+    .container .note {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #555;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class=""container schengen"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
+
+    <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
+      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+       Need help with this part? Here’s what you need to know about each field in this section.
+    </p>
+
+    <!-- <p class=""subheading""><strong>Important:</strong></p>
+    <ul>
+      <li>All documents must be printed on A4 size sheets only.</li>
+      <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
+      <li>Required documents must be submitted with the visa application (no fax or email to Embassy accepted).</li>
+      <li>Only documents listed in the checklist will be accepted.</li>
+      <li>If your visa has been refused previously, you must submit the refusal notice or a written explanation of the reason for travel and refusal.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Brief Procedure:</strong></p>
+    <ul>
+      <li>TTK will review your documents and suggest necessary changes before submission.</li>
+      <li>TTK will book an appointment as per jurisdiction at the Visa Application Centre (VAC), subject to slot availability. Inform TTK of your tentative dates at the earliest.</li>
+      <li>Applicants must visit the VAC in person to provide biometric fingerprint data with a signed application form, appointment letter, and checklist documents.</li>
+      <li>Alternatively, TTK can submit the application if the applicant qualifies for biometric waiver due to previous Schengen visa issuance.</li>
+      <li>Courier service is available by filling out the 'Courier Request Form'. The passport will be sent to the address mentioned in the form.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Processing Time:</strong></p>
+    <ul>
+      <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
+      <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
+      <li>Consular officers may request additional documents or a personal interview if required.</li>
+    </ul> -->
+
+    <p class=""note"">
+      <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+       (To be provided by TTK)
+    </p>
+  </div>
+</body>
+</html>
+",Additional Travel Details,,,False,,,,,
+info_pane_builder,additional_details,,,info_pane,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"" />
+  <title>Schengen Visa Application Guidelines</title>
+  <style>
+    .container {
+      background-color: #fefefe;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      color: #111;
+    }
+    .container.schengen {
+      /* width: 540px; */
+      max-width: 100%;
+    }
+    .container p,
+    .container ul,
+    .container li {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #333;
+      margin: 0;
+    }
+    .container p {
+      margin-bottom: 16px;
+    }
+    .container ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .container li {
+      margin-bottom: 8px;
+    }
+    .container .heading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+    }
+    .container .subheading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 16px;
+    }
+    .container .note {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #555;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class=""container schengen"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
+
+    <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
+      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+       Need help with this part? Here’s what you need to know about each field in this section.
+    </p>
+
+    <!-- <p class=""subheading""><strong>Important:</strong></p>
+    <ul>
+      <li>All documents must be printed on A4 size sheets only.</li>
+      <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
+      <li>Required documents must be submitted with the visa application (no fax or email to Embassy accepted).</li>
+      <li>Only documents listed in the checklist will be accepted.</li>
+      <li>If your visa has been refused previously, you must submit the refusal notice or a written explanation of the reason for travel and refusal.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Brief Procedure:</strong></p>
+    <ul>
+      <li>TTK will review your documents and suggest necessary changes before submission.</li>
+      <li>TTK will book an appointment as per jurisdiction at the Visa Application Centre (VAC), subject to slot availability. Inform TTK of your tentative dates at the earliest.</li>
+      <li>Applicants must visit the VAC in person to provide biometric fingerprint data with a signed application form, appointment letter, and checklist documents.</li>
+      <li>Alternatively, TTK can submit the application if the applicant qualifies for biometric waiver due to previous Schengen visa issuance.</li>
+      <li>Courier service is available by filling out the 'Courier Request Form'. The passport will be sent to the address mentioned in the form.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Processing Time:</strong></p>
+    <ul>
+      <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
+      <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
+      <li>Consular officers may request additional documents or a personal interview if required.</li>
+    </ul> -->
+
+    <p class=""note"">
+      <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+       (To be provided by TTK)
+    </p>
+  </div>
+</body>
+</html>
+",Additional Travel Details,,,False,,,,,operation.save:Save and Continue;verify.verify_handler:VERIFIER_ADDITIONAL_TRAVEL_DETAILS;verify.action_text:Verify Additional Details
 card_builder,national_id,,,card,,False,,National Identification Number,,,False,,,,,
 table,national_id_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_file,aadhaar_upload_front,,,fileoption,,False,Upload a file,Front Image Of Aadhaar Card,,,False,,,,,
@@ -1954,7 +2802,7 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,family_eu,,,card,,False,,"Family Member of EU, EEA, Swiss, or UK National",,,False,,,,,
 fac_family_member_of_eu,is_family_member,,,radiobutton,NO,False,Select Option,"Do you have a family member who is an EU (European Union), EEA (European Economic Area), or CH (Switzerland) Citizen or a national of the United Kingdom who is a beneficiary of the agreement between the Swiss Confederation and the United Kingdom?",,,False,,,,,
 table,eu_family_member_details,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,given_name,,,textbox,,False,Enter Given Name,Given Name of the Family Member,,,False,,,not is_family_member = 'YES',,
+fac_str,given_name,,,textbox,,False,Enter Given Name,First Name of the Family Member,,,False,,,not is_family_member = 'YES',,
 fac_str,surname,,,textbox,,False,Enter Surname,Surname of the Family Member,,,False,,,not is_family_member = 'YES',,
 fac_str,nationality,,,textbox,,False,Enter Nationality,Nationality of the Family Member,,,False,,,not is_family_member = 'YES',,
 fac_date,date_of_birth,,,datebox,,False,DD/MM/YYYY,Date of Birth of the Family Member,,,False,,,not is_family_member = 'YES',,
@@ -2016,8 +2864,216 @@ fac_str,others_specify_2,,,textbox,,False,Enter Other Means (Please Specify),Oth
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 tab_break,financial_documents_tab,,,tab_break,,False,,Financial Documents,,,False,,,,,
-section_break,salary_slip_section,,,section_break,,False,No Instructions Present,Salary Slips,,,False,,,,,
-info_pane_builder,salary_slip,,,info_pane,,False,No Instructions Present,Salary Slips,,,False,,,,,operation.save:Save and Continue
+section_break,salary_slip_section,,,section_break,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"" />
+  <title>Schengen Visa Application Guidelines</title>
+  <style>
+    .container {
+      background-color: #fefefe;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      color: #111;
+    }
+    .container.schengen {
+      /* width: 540px; */
+      max-width: 100%;
+    }
+    .container p,
+    .container ul,
+    .container li {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #333;
+      margin: 0;
+    }
+    .container p {
+      margin-bottom: 16px;
+    }
+    .container ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .container li {
+      margin-bottom: 8px;
+    }
+    .container .heading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+    }
+    .container .subheading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 16px;
+    }
+    .container .note {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #555;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class=""container schengen"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
+
+    <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
+      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+       Need help with this part? Here’s what you need to know about each field in this section.
+    </p>
+
+    <!-- <p class=""subheading""><strong>Important:</strong></p>
+    <ul>
+      <li>All documents must be printed on A4 size sheets only.</li>
+      <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
+      <li>Required documents must be submitted with the visa application (no fax or email to Embassy accepted).</li>
+      <li>Only documents listed in the checklist will be accepted.</li>
+      <li>If your visa has been refused previously, you must submit the refusal notice or a written explanation of the reason for travel and refusal.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Brief Procedure:</strong></p>
+    <ul>
+      <li>TTK will review your documents and suggest necessary changes before submission.</li>
+      <li>TTK will book an appointment as per jurisdiction at the Visa Application Centre (VAC), subject to slot availability. Inform TTK of your tentative dates at the earliest.</li>
+      <li>Applicants must visit the VAC in person to provide biometric fingerprint data with a signed application form, appointment letter, and checklist documents.</li>
+      <li>Alternatively, TTK can submit the application if the applicant qualifies for biometric waiver due to previous Schengen visa issuance.</li>
+      <li>Courier service is available by filling out the 'Courier Request Form'. The passport will be sent to the address mentioned in the form.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Processing Time:</strong></p>
+    <ul>
+      <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
+      <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
+      <li>Consular officers may request additional documents or a personal interview if required.</li>
+    </ul> -->
+
+    <p class=""note"">
+      <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+       (To be provided by TTK)
+    </p>
+  </div>
+</body>
+</html>
+",Salary Slips,,,False,,,,,
+info_pane_builder,salary_slip,,,info_pane,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"" />
+  <title>Schengen Visa Application Guidelines</title>
+  <style>
+    .container {
+      background-color: #fefefe;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      color: #111;
+    }
+    .container.schengen {
+      /* width: 540px; */
+      max-width: 100%;
+    }
+    .container p,
+    .container ul,
+    .container li {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #333;
+      margin: 0;
+    }
+    .container p {
+      margin-bottom: 16px;
+    }
+    .container ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .container li {
+      margin-bottom: 8px;
+    }
+    .container .heading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+    }
+    .container .subheading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 16px;
+    }
+    .container .note {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #555;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class=""container schengen"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
+
+    <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
+      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+       Need help with this part? Here’s what you need to know about each field in this section.
+    </p>
+
+    <!-- <p class=""subheading""><strong>Important:</strong></p>
+    <ul>
+      <li>All documents must be printed on A4 size sheets only.</li>
+      <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
+      <li>Required documents must be submitted with the visa application (no fax or email to Embassy accepted).</li>
+      <li>Only documents listed in the checklist will be accepted.</li>
+      <li>If your visa has been refused previously, you must submit the refusal notice or a written explanation of the reason for travel and refusal.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Brief Procedure:</strong></p>
+    <ul>
+      <li>TTK will review your documents and suggest necessary changes before submission.</li>
+      <li>TTK will book an appointment as per jurisdiction at the Visa Application Centre (VAC), subject to slot availability. Inform TTK of your tentative dates at the earliest.</li>
+      <li>Applicants must visit the VAC in person to provide biometric fingerprint data with a signed application form, appointment letter, and checklist documents.</li>
+      <li>Alternatively, TTK can submit the application if the applicant qualifies for biometric waiver due to previous Schengen visa issuance.</li>
+      <li>Courier service is available by filling out the 'Courier Request Form'. The passport will be sent to the address mentioned in the form.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Processing Time:</strong></p>
+    <ul>
+      <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
+      <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
+      <li>Consular officers may request additional documents or a personal interview if required.</li>
+    </ul> -->
+
+    <p class=""note"">
+      <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+       (To be provided by TTK)
+    </p>
+  </div>
+</body>
+</html>
+",Salary Slips,,,False,,,,,operation.save:Save and Continue
 display_field,display_salary_slips_header,,,display_field,,False,"<!-- <p style=""font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;"">
 The visa application requires you to carry your Original Salary Slips with your company’s seal and signature. 
 For detailed guideline on this, click on
@@ -2120,8 +3176,216 @@ fac_file,salary_slip,,,fileoption,,False,Upload a file,Salary Slip (Optional),,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 fac_skip_salary_slips,skip_salary_slips,,,checkbox,,False,Select Option,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-section_break,bank_statement_section,,,section_break,,False,No Instructions Present,Bank Statements,,,False,,,,,
-info_pane_builder,bank_statement,,,info_pane,,False,No Instructions Present,Bank Statements,,,False,,,,,operation.save:Save and Continue
+section_break,bank_statement_section,,,section_break,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"" />
+  <title>Schengen Visa Application Guidelines</title>
+  <style>
+    .container {
+      background-color: #fefefe;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      color: #111;
+    }
+    .container.schengen {
+      /* width: 540px; */
+      max-width: 100%;
+    }
+    .container p,
+    .container ul,
+    .container li {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #333;
+      margin: 0;
+    }
+    .container p {
+      margin-bottom: 16px;
+    }
+    .container ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .container li {
+      margin-bottom: 8px;
+    }
+    .container .heading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+    }
+    .container .subheading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 16px;
+    }
+    .container .note {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #555;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class=""container schengen"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
+
+    <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
+      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+       Need help with this part? Here’s what you need to know about each field in this section.
+    </p>
+
+    <!-- <p class=""subheading""><strong>Important:</strong></p>
+    <ul>
+      <li>All documents must be printed on A4 size sheets only.</li>
+      <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
+      <li>Required documents must be submitted with the visa application (no fax or email to Embassy accepted).</li>
+      <li>Only documents listed in the checklist will be accepted.</li>
+      <li>If your visa has been refused previously, you must submit the refusal notice or a written explanation of the reason for travel and refusal.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Brief Procedure:</strong></p>
+    <ul>
+      <li>TTK will review your documents and suggest necessary changes before submission.</li>
+      <li>TTK will book an appointment as per jurisdiction at the Visa Application Centre (VAC), subject to slot availability. Inform TTK of your tentative dates at the earliest.</li>
+      <li>Applicants must visit the VAC in person to provide biometric fingerprint data with a signed application form, appointment letter, and checklist documents.</li>
+      <li>Alternatively, TTK can submit the application if the applicant qualifies for biometric waiver due to previous Schengen visa issuance.</li>
+      <li>Courier service is available by filling out the 'Courier Request Form'. The passport will be sent to the address mentioned in the form.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Processing Time:</strong></p>
+    <ul>
+      <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
+      <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
+      <li>Consular officers may request additional documents or a personal interview if required.</li>
+    </ul> -->
+
+    <p class=""note"">
+      <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+       (To be provided by TTK)
+    </p>
+  </div>
+</body>
+</html>
+",Bank Statements,,,False,,,,,
+info_pane_builder,bank_statement,,,info_pane,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"" />
+  <title>Schengen Visa Application Guidelines</title>
+  <style>
+    .container {
+      background-color: #fefefe;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      color: #111;
+    }
+    .container.schengen {
+      /* width: 540px; */
+      max-width: 100%;
+    }
+    .container p,
+    .container ul,
+    .container li {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #333;
+      margin: 0;
+    }
+    .container p {
+      margin-bottom: 16px;
+    }
+    .container ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .container li {
+      margin-bottom: 8px;
+    }
+    .container .heading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+    }
+    .container .subheading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 16px;
+    }
+    .container .note {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #555;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class=""container schengen"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
+
+    <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
+      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+       Need help with this part? Here’s what you need to know about each field in this section.
+    </p>
+
+    <!-- <p class=""subheading""><strong>Important:</strong></p>
+    <ul>
+      <li>All documents must be printed on A4 size sheets only.</li>
+      <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
+      <li>Required documents must be submitted with the visa application (no fax or email to Embassy accepted).</li>
+      <li>Only documents listed in the checklist will be accepted.</li>
+      <li>If your visa has been refused previously, you must submit the refusal notice or a written explanation of the reason for travel and refusal.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Brief Procedure:</strong></p>
+    <ul>
+      <li>TTK will review your documents and suggest necessary changes before submission.</li>
+      <li>TTK will book an appointment as per jurisdiction at the Visa Application Centre (VAC), subject to slot availability. Inform TTK of your tentative dates at the earliest.</li>
+      <li>Applicants must visit the VAC in person to provide biometric fingerprint data with a signed application form, appointment letter, and checklist documents.</li>
+      <li>Alternatively, TTK can submit the application if the applicant qualifies for biometric waiver due to previous Schengen visa issuance.</li>
+      <li>Courier service is available by filling out the 'Courier Request Form'. The passport will be sent to the address mentioned in the form.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Processing Time:</strong></p>
+    <ul>
+      <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
+      <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
+      <li>Consular officers may request additional documents or a personal interview if required.</li>
+    </ul> -->
+
+    <p class=""note"">
+      <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+       (To be provided by TTK)
+    </p>
+  </div>
+</body>
+</html>
+",Bank Statements,,,False,,,,,operation.save:Save and Continue
 display_field,display_bank_statements_header,,,display_field,,False,"<!-- <p style=""font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;"">
 The visa application requires you to carry your original Bank Statements covering the last 12 months with your Bank’s seal & signature. For detailed guideline, click on
 <span style=""font-weight: 700; font-size: 1em;"">
@@ -2219,8 +3483,216 @@ fac_file,bank_statements,,,fileoption,,False,Upload a file,Bank Statements (Opti
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 fac_skip_bank_statements,skip_bank_statements,,,checkbox,,False,Select Option,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-section_break,itr_section,,,section_break,,False,No Instructions Present,ITR Acknowledgements,,,False,,,,,
-info_pane_builder,itr_acknowledgement,,,info_pane,,False,No Instructions Present,ITR Acknowledgement,,,False,,,,,operation.save:Save and Continue
+section_break,itr_section,,,section_break,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"" />
+  <title>Schengen Visa Application Guidelines</title>
+  <style>
+    .container {
+      background-color: #fefefe;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      color: #111;
+    }
+    .container.schengen {
+      /* width: 540px; */
+      max-width: 100%;
+    }
+    .container p,
+    .container ul,
+    .container li {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #333;
+      margin: 0;
+    }
+    .container p {
+      margin-bottom: 16px;
+    }
+    .container ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .container li {
+      margin-bottom: 8px;
+    }
+    .container .heading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+    }
+    .container .subheading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 16px;
+    }
+    .container .note {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #555;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class=""container schengen"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
+
+    <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
+      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+       Need help with this part? Here’s what you need to know about each field in this section.
+    </p>
+
+    <!-- <p class=""subheading""><strong>Important:</strong></p>
+    <ul>
+      <li>All documents must be printed on A4 size sheets only.</li>
+      <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
+      <li>Required documents must be submitted with the visa application (no fax or email to Embassy accepted).</li>
+      <li>Only documents listed in the checklist will be accepted.</li>
+      <li>If your visa has been refused previously, you must submit the refusal notice or a written explanation of the reason for travel and refusal.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Brief Procedure:</strong></p>
+    <ul>
+      <li>TTK will review your documents and suggest necessary changes before submission.</li>
+      <li>TTK will book an appointment as per jurisdiction at the Visa Application Centre (VAC), subject to slot availability. Inform TTK of your tentative dates at the earliest.</li>
+      <li>Applicants must visit the VAC in person to provide biometric fingerprint data with a signed application form, appointment letter, and checklist documents.</li>
+      <li>Alternatively, TTK can submit the application if the applicant qualifies for biometric waiver due to previous Schengen visa issuance.</li>
+      <li>Courier service is available by filling out the 'Courier Request Form'. The passport will be sent to the address mentioned in the form.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Processing Time:</strong></p>
+    <ul>
+      <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
+      <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
+      <li>Consular officers may request additional documents or a personal interview if required.</li>
+    </ul> -->
+
+    <p class=""note"">
+      <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+       (To be provided by TTK)
+    </p>
+  </div>
+</body>
+</html>
+",ITR Acknowledgements,,,False,,,,,
+info_pane_builder,itr_acknowledgement,,,info_pane,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"" />
+  <title>Schengen Visa Application Guidelines</title>
+  <style>
+    .container {
+      background-color: #fefefe;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      color: #111;
+    }
+    .container.schengen {
+      /* width: 540px; */
+      max-width: 100%;
+    }
+    .container p,
+    .container ul,
+    .container li {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #333;
+      margin: 0;
+    }
+    .container p {
+      margin-bottom: 16px;
+    }
+    .container ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .container li {
+      margin-bottom: 8px;
+    }
+    .container .heading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+    }
+    .container .subheading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 16px;
+    }
+    .container .note {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #555;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class=""container schengen"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
+
+    <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
+      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+       Need help with this part? Here’s what you need to know about each field in this section.
+    </p>
+
+    <!-- <p class=""subheading""><strong>Important:</strong></p>
+    <ul>
+      <li>All documents must be printed on A4 size sheets only.</li>
+      <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
+      <li>Required documents must be submitted with the visa application (no fax or email to Embassy accepted).</li>
+      <li>Only documents listed in the checklist will be accepted.</li>
+      <li>If your visa has been refused previously, you must submit the refusal notice or a written explanation of the reason for travel and refusal.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Brief Procedure:</strong></p>
+    <ul>
+      <li>TTK will review your documents and suggest necessary changes before submission.</li>
+      <li>TTK will book an appointment as per jurisdiction at the Visa Application Centre (VAC), subject to slot availability. Inform TTK of your tentative dates at the earliest.</li>
+      <li>Applicants must visit the VAC in person to provide biometric fingerprint data with a signed application form, appointment letter, and checklist documents.</li>
+      <li>Alternatively, TTK can submit the application if the applicant qualifies for biometric waiver due to previous Schengen visa issuance.</li>
+      <li>Courier service is available by filling out the 'Courier Request Form'. The passport will be sent to the address mentioned in the form.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Processing Time:</strong></p>
+    <ul>
+      <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
+      <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
+      <li>Consular officers may request additional documents or a personal interview if required.</li>
+    </ul> -->
+
+    <p class=""note"">
+      <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+       (To be provided by TTK)
+    </p>
+  </div>
+</body>
+</html>
+",ITR Acknowledgement,,,False,,,,,operation.save:Save and Continue
 display_field,display_itr_acknowledgements_header,,,display_field,,False,"<!-- <p style=""font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;"">
 The visa application requires you to carry the original ITR Documents covering the last 12 months. 
 For detailed guidelines on this, click on
@@ -2322,11 +3794,11 @@ display_field,display_not_filled_itr,,,display_field,,False,"<!DOCTYPE html>
 ",,,,False,,,not @.itr_options = 'NO_ITR',,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 tab_break,additional_documents_tab,,,tab_break,,False,,Additional Information,,,False,,,,,
-section_break,addons_section,,,section_break,,False,No Instructions Present,Add-On Cart,,,False,,,not $.visa_request_information.visa_request.traveller_type = 'Primary',,
-info_pane_builder,addons,,,info_pane,,False,No Instructions Present,Add-On Cart,,,False,,,,,operation.save:Continue;verify.verify_handler:VERIFIER_PAYMENT_INITIALIZATION;verify.action_text:Calculate Payment
+section_break,addons_section,,,section_break,,False,No Instructions Present,Add-On Cart,PROGRESS.IGNORE,,False,,,not $.visa_request_information.visa_request.traveller_type = 'Primary',,
+info_pane_builder,addons,,,info_pane,,False,No Instructions Present,Add-On Cart,PROGRESS.IGNORE,,False,,,,,operation.continue:Continue;verify.verify_handler:VERIFIER_PAYMENT_INITIALIZATION;verify.action_text:Calculate Payment
 fac_str,record_id,,,hidden,,False,Used to get the Record ID,,,,False,,,,,
 card_builder,addon_service_initialization,,,card,,False,,[INTERNAL] Initialized Addon Cart,SAVE_EVEN_IF_HIDDEN,,False,,,True,,
-table,table,,,table,,False,,,,,False,,,,,table.column:1
+table,table,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:1
 group_builder,addon_cart_row,,,table_row,,False,,Addon Table,,,False,,,,,
 fac_str,addon_id,,,hidden,,False,Enter Addon ID,Addon ID,,,False,,,,,
 fac_str,addon_name,,,data_display,,False,Enter Add-Ons,Add-Ons,,,False,,,,,
@@ -2340,8 +3812,8 @@ fac_str,status_internal,,,hidden,,False,Enter Status Internal,Status Internal,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,addon_service,,,card,,False,,Addon Cart,,,False,,,,,
-table,table,,,table,,False,,,,,False,,,,,table.column:1
+card_builder,addon_service,,,card,,False,,Your Transactions,,,False,,,,,
+table,table,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:1
 group_builder,addon_cart_row,,,table_row,,False,,Addon Table,,,False,,,,,
 fac_str,addon_id,,,hidden,,False,Enter Addon ID,Addon ID,,,False,,,,,
 fac_str,addon_name,,,data_display,,False,Enter Add-Ons,Add-Ons,,,False,,,,,
@@ -2355,12 +3827,31 @@ fac_str,status_internal,,,hidden,,False,Enter Status Internal,Status Internal,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+display_field,display_addon_service,,,display_field,,False,"<div style=""
+display: flex;
+justify-content: center;
+align-items: center;"">
+
+<div style=""
+  text-align: center;
+  /* width: 1060px; */
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 32px;
+  color: #000000;
+  text-align: center;
+"">
+Pick the Add-On you want for each Traveller below.
+</div>
+
+</div> ",,,,False,,,,,
 group_builder,addon_group,,,groupbox,,False,,Add On,,,False,,,,,button_label:Add Cart;limits.min:1;limits.max:10;limits.fixed:true
 info_pane_builder,addonservicegroup,,,groupbox,,False,,Your Transactions,,,False,,,,,
 card_builder,addon_card,,,card,,False,,TTK Add-On Services,,,False,,,,,
 display_field,traveler_name,,,data_display,,False,,,,,False,,,,,
 fac_str,traveller_id,,,hidden,,False,,,,,False,,,,,
-table,tables,,,table,,False,,,,,False,,,,,table.column:1
+table,tables,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:1
 group_builder,addon_on_service,,,table_row,,False,,Addon On Service,,,False,,,,,
 fac_str,checkbox_editable,,,hidden,,False,Enter Checkbox Editable,Checkbox Editable,,,False,,,,,
 fac_add_on_op,service_checkbox,,,checkbox,,False,Select Option,,,,False,,,,"not checkbox_editable=""uneditable""",
@@ -2377,7 +3868,7 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 display_field,payment_display,,,data_display,,False,,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,consultant_section,,,section_break,,False,No Instructions Present,TTK Consultant,,,False,,,"CONTAINS(USER.persona,[CLI])",,
-info_pane_builder,consultant_info,,,info_pane,,False,No Instructions Present,TTK Consultant,,,False,,,"CONTAINS(USER.persona,[CLI])",,operation.save:Save and Continue
+info_pane_builder,consultant_info,,,info_pane,,False,No Instructions Present,TTK Consultant,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI])",,operation.save:Save and Continue
 card_builder,appointments,,,card,,False,,Appointments,,,False,,,,"$.appointment.add_on_service_option = ""YES""",
 display_field,display_card_1,,,display_field,,False,"<div style=""
 display: flex;
@@ -2625,7 +4116,7 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,submit_section,,,section_break,,False,No Instructions Present,Submit Application,,,False,,,"CONTAINS(USER.persona,[CLI])",,
-info_pane_builder,submit_info,,,info_pane,,False,No Instructions Present,Submit Application,,,False,,,"CONTAINS(USER.persona,[CLI])",,operation.submit:Submit Application
+info_pane_builder,submit_info,,,info_pane,,False,No Instructions Present,Submit Application,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI])",,operation.submit:Submit Application
 card_builder,docket,,,card,,False,,Docket,,,False,,,,,
 display_field,note,,,display_field,,False,"<div style=""
 display: flex;
@@ -2675,8 +4166,8 @@ fac_confirm_docs_uploaded,docs_uploaded,,,checkbox,,False,Select Option,,,,False
 fac_confirm_uneditable,understand_lock,,,checkbox,,False,Select Option,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-section_break,docket_section,,,section_break,,False,No Instructions Present,Docket,,,False,,,"not $.submit_info.docket.docket_status = ""ENABLE_DOWNLOAD""",,
-info_pane_builder,docket_info,,,info_pane,,False,No Instructions Present,Docket,,,False,,,,,operation.save:Save
+section_break,docket_section,,,section_break,,False,No Instructions Present,Docket,PROGRESS.IGNORE,,False,,,,,
+info_pane_builder,docket_info,,,info_pane,,False,No Instructions Present,Docket,PROGRESS.IGNORE,,False,,,,,operation.save:Save
 display_field,display_header_docket,,,display_field,,False,Download the Completed Docket(/s) here.,,,,False,,,,,
 card_builder,,,,card,,FALSE,,Docket Operation,ACTION.OPERATIONS,,False,,,,,
 fac_str,operation_type,,,,,False,Select Operation type,Select Operation,ACTION.OPERATIONS,,False,,,,,
