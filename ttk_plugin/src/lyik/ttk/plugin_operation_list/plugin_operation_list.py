@@ -8,14 +8,19 @@ from lyikpluginmanager import (
     GenericFormRecordModel,
     PluginException,
 )
-from typing_extensions import Annotated, Doc
-from ..models.forms.new_schengentouristvisa import (
-    Schengentouristvisa,
-)
+from typing_extensions import Annotated, Doc, List
+from ..models.forms.new_schengentouristvisa import Schengentouristvisa, DOCKETSTATUS
+from ..utils.utils import get_personas_from_encoded_token
 import logging
+import jwt
 
 logger = logging.getLogger(__name__)
 impl = pluggy.HookimplMarker(getProjectName())
+
+# Literals for PERSONA
+BOA_PERSONA = "BOA"
+CLIENT_PERSONA = "CLI"
+MAKER_PERSONA = "MKR"
 
 OPR_DOCKET_CREATION = "OP_DOCKET_CREATION"
 
@@ -42,8 +47,16 @@ class OperationListPlugin(OperationsListSpec):
         Doc("The list of operations available for the current form as per user role"),
     ]:
         try:
+            token = context.token
+            if not token:
+                raise ValueError("Token is not provided")
+
+            personas = get_personas_from_encoded_token(token=token)
+
             parsed_record = Schengentouristvisa(**form_record.model_dump())
+            context.token
             user_name = parsed_record.passport.passport_details.first_name or ""
+
             for op in ALL_OPERATIONS:
                 if op.op_id == OPR_DOCKET_CREATION:
                     op.op_name = (
@@ -51,6 +64,16 @@ class OperationListPlugin(OperationsListSpec):
                         if user_name
                         else "Docket creation"
                     )
+
+            if CLIENT_PERSONA in personas:
+                if (
+                    parsed_record.submit_info.docket.docket_status
+                    == DOCKETSTATUS.ENABLE_DOWNLOAD
+                ):
+                    pass
+                else:
+                    return OperationsListResponseModel(operations=[])
+
             return OperationsListResponseModel(operations=ALL_OPERATIONS)
         except Exception as e:
             raise PluginException(

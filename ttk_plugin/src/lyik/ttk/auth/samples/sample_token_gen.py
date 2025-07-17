@@ -16,6 +16,19 @@ payload = {
     # "aud": "https://lyik.com",
 }
 
+# Admin token payload
+# payload = {
+#     "userId": "U001",
+#     "accessType": "admin",
+#     "fullName": "Debasish Client",
+#     "loginTime": "2025-04-25 15:10:30",
+#     "expiryTimestamp": "1781934720",
+#     # "Order ID": "RVIS-03072025-001",
+#     # "relationship": ["user_xyz", "user_1222"],
+#     # "iss": "https://auth.ttk.com/",
+#     # "aud": "https://lyik.com",
+# }
+
 token = jwt.encode(
     payload,
     TTK_TOKEN_SECRET,
