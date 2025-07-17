@@ -20,9 +20,18 @@ import json
 from datetime import date, datetime
 
 from ..models.forms.new_schengentouristvisa import Schengentouristvisa
+from ..models.forms.new_schengentouristvisa import DOCKETSTATUS
+from pydantic import BaseModel
 
 logger = logging.getLogger(__name__)
 impl = pluggy.HookimplMarker(getProjectName())
+
+class TravelerDetailsModel(BaseModel):
+    dateOfArrival: str | None
+    dateOfDeparture: str | None
+    lengthOfStay: int | None
+    validityOfVisa: int | None
+    visaMode: str | None
 
 
 class OrderStatusUpdate(PreActionProcessorSpec):
@@ -71,7 +80,10 @@ class OrderStatusUpdate(PreActionProcessorSpec):
 
             makerConfirmation = False
             appointmentDetails = {}
+            additionalReviewRequired: bool = False
+            travelerDetails: TravelerDetailsModel = TravelerDetailsModel()
 
+            print(f'order_status_update_api: {order_status_update_api}')
             if (
                 parsed_form_rec.submit_info
                 and parsed_form_rec.submit_info.confirm
@@ -81,6 +93,34 @@ class OrderStatusUpdate(PreActionProcessorSpec):
                 == "YES"
             ):
                 makerConfirmation = True
+            if (
+                parsed_form_rec.submit_info
+                and parsed_form_rec.submit_info.docket
+                and parsed_form_rec.submit_info.docket == DOCKETSTATUS.ADDITIONAL_REVIEW
+            ):
+                additionalReviewRequired = True
+            if (
+                parsed_form_rec.visa_request_information
+                and parsed_form_rec.visa_request_information.visa_request
+            ):
+                visa_request = parsed_form_rec.visa_request_information.visa_request
+                travelerDetails = TravelerDetailsModel(
+                    dateOfArrival=visa_request.arrival_date.strftime("%d-%m-%Y")
+                    if visa_request.arrival_date
+                    else None,
+                    dateOfDeparture=visa_request.departure_date.strftime("%d-%m-%Y")
+                    if visa_request.departure_date
+                    else None,
+                    lengthOfStay=visa_request.length_of_stay
+                    if isinstance(visa_request.length_of_stay, int)
+                    else None,
+                    validityOfVisa=visa_request.validity
+                    if isinstance(visa_request.validity, int)
+                    else None,
+                    visaMode=str(visa_request.visa_mode)
+                    if visa_request.visa_mode is not None
+                    else None,
+                )
             if (
                 parsed_form_rec.appointment
                 and parsed_form_rec.appointment.appointment_scheduled
@@ -109,7 +149,11 @@ class OrderStatusUpdate(PreActionProcessorSpec):
                 "travellerId": parsed_form_rec.visa_request_information.visa_request.traveller_id,
                 "makerConfirmation": makerConfirmation,
                 "appointmentDetails": appointmentDetails,
+                "additionalReviewRequired" : additionalReviewRequired,
+                "travelerDetails": travelerDetails.model_dump()
             }
+            print("Order Status Update Body:")
+            print(json.dumps(body, indent=2))
 
             async with httpx.AsyncClient() as client:
                 response = await client.post(
