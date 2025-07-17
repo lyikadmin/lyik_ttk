@@ -17,18 +17,22 @@ from lyikpluginmanager.models import (
     LPSStatus,
     GatewayResponseModel,
 )
+from lyikpluginmanager.annotation import RequiredEnv
 from ..models.forms.new_schengentouristvisa import (
     Schengentouristvisa,
     FieldGrpRootAddonsAddonServiceAddonCartRow,
     RootAddonsAddonService,
     RootAddonsAddonServiceInitialization,
-    RootAddons
+    RootAddons,
 )
+import httpx
+
 import logging
 import base64
 import json
 from ..models.payment.addon_models import AddonSummaryItem, GroupedAddonSummaryItem
 from ..utils.payment import group_addon_summary
+import os
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.info)
@@ -75,12 +79,15 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
         ],
     ) -> Annotated[
         GenericFormRecordModel,
+        RequiredEnv(["TTK_API_BASE_URL"]),
         Doc("The updated form record data."),
     ]:
         """
         This preaction processor will append maker_id into the _owner list of the record.
         """
         try:
+
+            _addons_updated_flag = False
 
             # Define allowed states for rows in addon cart.
             allowed_states = {
@@ -96,10 +103,12 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
                 full_parsed_record.addons = RootAddons()
 
             if not full_parsed_record.addons.addon_service:
-                 full_parsed_record.addons.addon_service = RootAddonsAddonService()
+                full_parsed_record.addons.addon_service = RootAddonsAddonService()
 
             if not full_parsed_record.addons.addon_service_initialization:
-                 full_parsed_record.addons.addon_service_initialization = RootAddonsAddonServiceInitialization()
+                full_parsed_record.addons.addon_service_initialization = (
+                    RootAddonsAddonServiceInitialization()
+                )
 
             addon_rows = (
                 full_parsed_record.addons.addon_service_initialization.addon_cart_row
@@ -188,6 +197,9 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
                         )
                     updated_row = FieldGrpRootAddonsAddonServiceAddonCartRow(**row_dict)
                     addon_cart_rows.append(updated_row)
+
+                    # Mark the flag to indicate that the addons are updated.
+                    _addons_updated_flag = True
                 else:
                     logger.debug(
                         f"Skipping txn_id {row.txnid} - not in filtered LPS map"
@@ -227,8 +239,82 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
             full_parsed_record.addons.payment_display = None
             logger.debug("Cleared payment_display")
 
+            try:
+                if _addons_updated_flag:
+                    api_res = await self.update_ttk_payment(lps_records=lps_records)
+            except Exception as e:
+                logger.error(f"Failed to update ttk payment with API call. {str(e)}")
+
             return GenericFormRecordModel(**full_parsed_record.model_dump())
 
         except Exception as e:
             logger.error(f"Error processing payload: {e}")
             return payload  # Safe fallback on error
+
+    async def update_ttk_payment(self, lps_records: List[LPSRecord]):
+        api_prefix = os.getenv("TTK_API_BASE_URL")
+
+        PAYMENT_UPDATE_API_URL = api_prefix + "api/v2/paymentUpdate/"
+
+        # Mapping LPS statuses to the external API status
+        LPS_STATUS_API_STATUS_MAP = {
+            LPSStatus.PAY_SUCCESS.value: "Successful",
+            LPSStatus.PAY_IN_PROGRESS.value: "Successful",
+            LPSStatus.PAY_FAILURE.value: "Failure",
+            LPSStatus.PAY_REJECTED.value: "Rejected",
+        }
+
+        for lps_record in lps_records:
+            try:
+                status: LPSStatus = lps_record.state
+                if status.value not in LPS_STATUS_API_STATUS_MAP:
+                    continue  # Skip if status is not relevant for the API
+
+                # Decode udf1 data
+                payu_params: PayUParams = PayUParams(**lps_record.data[0])
+                udf1_encoded_data = payu_params.udf1
+                decoded_str = base64.b64decode(udf1_encoded_data).decode("utf-8")
+                addon_items_data = json.loads(decoded_str)
+                addon_items: List[AddonSummaryItem] = [
+                    AddonSummaryItem(**item) for item in addon_items_data
+                ]
+
+                # Group by traveller
+                traveller_map = {}
+                for item in addon_items:
+                    traveller_services = traveller_map.setdefault(item.travellerId, [])
+                    traveller_services.append(
+                        {"serviceId": item.addonId, "amount": str(item.amount)}
+                    )
+
+                # Prepare final API request payload
+                api_payload = {
+                    "orderNo": addon_items[0].orderId if addon_items else "",
+                    "transactionNo": lps_record.txn_id,
+                    "paymentStatus": LPS_STATUS_API_STATUS_MAP[status.value],
+                    "traveller": [
+                        {"travellerId": traveller_id, "service": services}
+                        for traveller_id, services in traveller_map.items()
+                    ],
+                }
+
+                # Make async POST request
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    response = await client.post(
+                        PAYMENT_UPDATE_API_URL, json=api_payload
+                    )
+
+                if response.status_code != 200:
+                    logger.error(
+                        f"Payment update API failed for txn_id {lps_record.txn_id}: "
+                        f"Status {response.status_code}, Response: {response.text}"
+                    )
+                else:
+                    logger.info(
+                        f"Successfully updated payment for txn_id {lps_record.txn_id}"
+                    )
+
+            except Exception as e:
+                logger.error(
+                    f"Error updating payment for txn_id {lps_record.txn_id}: {e}"
+                )
