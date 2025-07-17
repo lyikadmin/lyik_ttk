@@ -8,6 +8,7 @@ from lyikpluginmanager import (
     VerifyHandlerResponseModel,
     VERIFY_RESPONSE_STATUS,
     DocMeta,
+    PluginException,
 )
 from typing import Annotated, List, Union, Tuple, Dict, Any
 from typing_extensions import Doc
@@ -15,6 +16,7 @@ from lyikpluginmanager import invoke, DBDocumentModel, DocumentModel
 from lyikpluginmanager.models.ovd import OVDGenericResponse, OVDPassport, OVDType
 from lyikpluginmanager.core.utils import generate_hash_id_from_dict
 from ..models.forms.new_schengentouristvisa import RootPassportPassportDetails
+from ..utils.verifier_util import validate_pincode, validate_passport_number
 import logging
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
@@ -98,7 +100,6 @@ class PassportVerificationPlugin(VerifyHandlerSpec):
                     payload=payload,
                     response=ovd_response,
                 )
-
                 logger.info("Mapped fields to the payload from OVD response.")
 
                 # Save the images in the DB
@@ -115,35 +116,89 @@ class PassportVerificationPlugin(VerifyHandlerSpec):
                 if image_2:
                     payload.ovd_back = image_2
 
+                # Check if passport number is valid or not.
+                passport_number = payload.passport_number
+                if passport_number:
+                    try:
+                        valid_passport_number = validate_passport_number(
+                            value=passport_number
+                        )
+                        if valid_passport_number:
+                            logger.info("Passport Number is valid.")
+                    except Exception as e:
+                        raise PluginException(
+                            message=str(e),
+                            detailed_message="The Passport Number format is invalid.",
+                        )
+
+                # Check if the PIN Code is valid or not.
+                pincode = payload.pin_code
+                if pincode:
+                    try:
+                        valid_pincode = validate_pincode(value=payload.pin_code)
+                        if valid_pincode:
+                            logger.info("PIN Code is valid.")
+                    except Exception as e:
+                        raise PluginException(
+                            message=str(e),
+                            detailed_message="The PIN Code format is invalid.",
+                        )
+
                 # Check the expiry status of the Passport
                 expiry_validation = check_expiry_validation(payload=payload)
                 if expiry_validation:
                     logger.warning("Passport has expired.")
                     return expiry_validation
-                else:
-                    logger.info("Passport is verified successfully.")
-                    return VerifyHandlerResponseModel(
-                        status=VERIFY_RESPONSE_STATUS.SUCCESS,
-                        message="Verified successfully",
-                        actor="system",
-                        response=payload.model_dump(),
-                    )
+
+                logger.info("Passport is verified successfully.")
+                return VerifyHandlerResponseModel(
+                    status=VERIFY_RESPONSE_STATUS.SUCCESS,
+                    message="Verified successfully",
+                    actor="system",
+                    response=payload.model_dump(),
+                )
             elif isinstance(payload.ovd_front, Dict) and isinstance(
                 payload.ovd_back, Dict
             ):
                 logger.info("Existing passport, initiating verification.")
+                # Check if passport number is valid or not.
+                passport_number = payload.passport_number
+                if passport_number:
+                    try:
+                        valid_passport_number = validate_passport_number(
+                            value=passport_number
+                        )
+                        if valid_passport_number:
+                            logger.info("Passport Number is valid.")
+                    except Exception as e:
+                        raise PluginException(
+                            message=str(e),
+                            detailed_message="The Passport Number format is invalid.",
+                        )
+                # Check if the PIN Code is valid or not.
+                pincode = payload.pin_code
+                if pincode:
+                    try:
+                        valid_pincode = validate_pincode(value=payload.pin_code)
+                        if valid_pincode:
+                            logger.info("PIN Code is valid.")
+                    except Exception as e:
+                        raise PluginException(
+                            message=str(e),
+                            detailed_message="The PIN Code format is invalid.",
+                        )
                 expiry_validation = check_expiry_validation(payload=payload)
                 if expiry_validation:
                     logger.warning("Passport has expired.")
                     return expiry_validation
-                else:
-                    logger.info("Passport is verified successfully.")
-                    return VerifyHandlerResponseModel(
-                        status=VERIFY_RESPONSE_STATUS.SUCCESS,
-                        message=("Verified successfully"),
-                        actor="system",
-                        response=payload.model_dump(),
-                    )
+
+                logger.info("Passport is verified successfully.")
+                return VerifyHandlerResponseModel(
+                    status=VERIFY_RESPONSE_STATUS.SUCCESS,
+                    message=("Verified successfully"),
+                    actor="system",
+                    response=payload.model_dump(),
+                )
             else:
                 logger.error("Passport front and back images are missing.")
                 return VerifyHandlerResponseModel(
@@ -152,6 +207,15 @@ class PassportVerificationPlugin(VerifyHandlerSpec):
                     actor="system",
                     response=payload.model_dump(),
                 )
+
+        except PluginException as pe:
+            logger.error(pe.detailed_message)
+            return VerifyHandlerResponseModel(
+                id=None,
+                status=VERIFY_RESPONSE_STATUS.FAILURE,
+                message=pe.message,
+                actor="system",
+            )
 
         except Exception as e:
             logger.error(f"Failed verification process. {e}")
