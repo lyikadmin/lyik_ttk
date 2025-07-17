@@ -67,8 +67,32 @@ class CONFIRMVIEWEDDATA(str, Enum):
 
 
 class COUNTRY(str, Enum):
-    INDIA = "INDIA"
-    USA = "USA"
+    AUT = "AUT"
+    BEL = "BEL"
+    CZE = "CZE"
+    DNK = "DNK"
+    EST = "EST"
+    FIN = "FIN"
+    FRA = "FRA"
+    DEU = "DEU"
+    GRC = "GRC"
+    HUN = "HUN"
+    ISL = "ISL"
+    ITA = "ITA"
+    LVA = "LVA"
+    LIE = "LIE"
+    LTU = "LTU"
+    LUX = "LUX"
+    MLT = "MLT"
+    NLD = "NLD"
+    NOR = "NOR"
+    POL = "POL"
+    PRT = "PRT"
+    SVK = "SVK"
+    SVN = "SVN"
+    ESP = "ESP"
+    SWE = "SWE"
+    CHE = "CHE"
 
 
 class COUNTRY3(str, Enum):
@@ -470,10 +494,15 @@ class PURPOSEOFVISAORTRAVEL(str, Enum):
 
 
 class RELATIONSHIP(str, Enum):
-    SELF = "SELF"
+    BROTHER = "BROTHER"
+    SISTER = "SISTER"
+    BROTHER_IN_LAW = "BROTHER_IN_LAW"
+    SISTER_IN_LAW = "SISTER_IN_LAW"
     SPOUSE = "SPOUSE"
-    DEPENDENT_PARENT = "DEPENDENT_PARENT"
-    DEPENDENT_CHILD = "DEPENDENT_CHILD"
+    SON = "SON"
+    DAUGHTER = "DAUGHTER"
+    FRIEND = "FRIEND"
+    OTHERS = "OTHERS"
 
 
 class RELATIONSHIPWITHEU(str, Enum):
