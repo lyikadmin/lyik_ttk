@@ -1,4 +1,3 @@
-{# Jinja2 Template: Generate base64url encoded HTML to make payment with Addon Summary #}
 {% set addons = record.udf1 | b64decode | loads %}
 
 {% set grouped_addons = {} %}
@@ -39,7 +38,7 @@
             margin: 0 auto;
             background-color: #ffffff;
             border: 1px solid #ccc;
-            border-radius: 12px;
+            border-radius: 24px;
             padding: 32px;
             text-align: center;
             box-sizing: border-box;
@@ -50,17 +49,6 @@
             font-weight: 600;
             color: #333333;
             margin-bottom: 16px;
-        }
-
-        .amount {
-            font-size: 18px;
-            color: #555555;
-            margin-bottom: 24px;
-        }
-
-        .amount span {
-            font-weight: bold;
-            color: #000000;
         }
 
         .addon-summary {
@@ -97,6 +85,13 @@
             white-space: nowrap;
         }
 
+        .total-amount {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1a237e;
+            margin-top: 24px;
+        }
+
         .submit-button {
             background-color: #3BB9EB;
             color: white;
@@ -106,8 +101,8 @@
             border-radius: 9999px;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
-            width: 100%;
-            margin-top: 24px;
+            width: fit-content;
+            margin-top: 16px;
         }
 
         .submit-button:hover {
@@ -120,27 +115,34 @@
             font-size: 14px;
             color: #777777;
         }
+
+        .divider {
+            border-top: 1px solid #ddd;
+            margin: 12px 0;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Proceed to Payment</h1>
 
-        <p class="amount">
-            Amount to be paid: <span>₹{{ record.amount }}</span>
-        </p>
-
         {% if grouped_addons %}
             <div class="addon-summary">
-                <div class="addon-header">Addon Summary</div>
+                <div class="addon-header">Add-On Summary</div>
+                <div class="divider"></div>
                 {% for name, data in grouped_addons.items() %}
                     <div class="addon-item">
                         <div class="addon-label">{{ name }}</div>
                         <div class="addon-value">{{ data.count }} x ₹{{ "%.2f"|format(data.total / data.count) }} = ₹{{ "%.2f"|format(data.total) }}</div>
                     </div>
                 {% endfor %}
+                 <div class="divider"></div>
             </div>
         {% endif %}
+
+        <p class="total-amount">
+            Total Amount to be paid: ₹{{ record.amount }}
+        </p>
 
         <form id="paymentForm" action="{{ record.payuurl }}" method="post">
             <input type="hidden" name="key" value="{{ record.key }}">
@@ -159,12 +161,8 @@
             <input type="hidden" name="udf4" value="{{ record.udf4 }}">
             <input type="hidden" name="udf5" value="{{ record.udf5 }}">
 
-            <button type="submit" class="submit-button">Make Payment</button>
+            <button type="submit" class="submit-button">Pay Now</button>
         </form>
-
-        <p class="note">
-            Please click the button above to complete your payment securely.
-        </p>
     </div>
 </body>
 </html>
