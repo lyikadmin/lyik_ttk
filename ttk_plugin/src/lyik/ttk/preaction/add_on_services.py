@@ -160,6 +160,11 @@ class PreactionAddonServices(PreActionProcessorSpec):
                     and parsed_form_rec.passport.passport_details
                     else "Traveller 1"
                 )
+                # Add HTML style to traveller name
+                primary_traveller_name = self._stylize_traveller_name(
+                    name=primary_traveller_name
+                )
+
                 primary_addon_group = self._create_addon_group(
                     traveller_id=parsed_form_rec.visa_request_information.visa_request.traveller_id,
                     traveller_name=primary_traveller_name,
@@ -190,6 +195,10 @@ class PreactionAddonServices(PreActionProcessorSpec):
                             if co_traveller.passport
                             and co_traveller.passport.passport_details
                             else f"Traveller {index}"
+                        )
+
+                        traveller_name = self._stylize_traveller_name(
+                            name=traveller_name
                         )
 
                         addon_group = self._create_addon_group(
@@ -239,3 +248,6 @@ class PreactionAddonServices(PreActionProcessorSpec):
             )
         )
         return addon_group
+
+    def _stylize_traveller_name(self, name: str) -> str:
+        return f'<div style="display: flex; justify-content: center;"><span style="font-size: 20px; font-weight: bold; color: #3BB9EB;">{name}</span></div>'

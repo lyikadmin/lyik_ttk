@@ -33,7 +33,7 @@
         }
 
         .container {
-            width: 90%;
+            width: 100%;
             max-width: 1000px;
             margin: 0 auto;
             background-color: #ffffff;
@@ -88,7 +88,7 @@
         .total-amount {
             font-size: 20px;
             font-weight: bold;
-            color: #1a237e;
+            color: #262D64;
             margin-top: 24px;
         }
 
@@ -120,11 +120,16 @@
             border-top: 1px solid #ddd;
             margin: 12px 0;
         }
+
+        .payment-card-title {
+            color: #262D64
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Proceed to Payment</h1>
+        <h1 class="payment-card-title">Proceed to Payment</h1>
 
         {% if grouped_addons %}
             <div class="addon-summary">
