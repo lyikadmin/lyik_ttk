@@ -105,7 +105,10 @@ info_pane_builder,lets_get_started,,,info_pane,,False,"<!DOCTYPE html>
   </div>
 </body>
 </html>
-",Let's Get Started,PROGRESS.IGNORE,,False,,,,,operation.continue:Continue
+",Let's Get Started,,,False,,,,,operation.save:Continue
+fac_str,pct_completion,,,hidden,,False,,,,,False,,,,,
+fac_int,infopanes_completed,,,hidden,,False,,,,,False,,,,,
+fac_int,infopanes_total,,,hidden,,False,,,,,False,,,,,
 display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
@@ -113,10 +116,10 @@ display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
   <title>Visa Application Journey</title>
 </head>
 <body>
-  <div style=""max-width:1000px; margin:0 auto; padding:40px 20px;color:#333;"">
-    <div style=""max-width:800px;margin-left: 5vh;"">
+  <div style=""margin:0 auto; padding:40px 20px;color:#333;"">
+    <div style=""margin-left: 3vh;"">
       <!-- Top row: SVG + headlines -->
-      <div style=""display:flex; align-items:flex-start;align-items: center;"">
+      <div style=""display:flex; align-items:flex-start;align-items: center;margin: auto;justify-content: center;margin-left: auto;"">
         <div style=""margin-left: 3vh;"">
           <svg width=""162"" height=""148"" viewBox=""0 0 162 148"" fill=""none"" xmlns=""http://www.w3.org/2000/svg"">
             <g clip-path=""url(#clip0_25384_203626)"">
@@ -145,7 +148,7 @@ display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
         
         
         <!-- Text beside SVG -->
-        <div style=""line-height: 2.21vh;font-family: 'Inter', sans-serif;font-size: 1.775vh;text-align: center;"">
+        <div style=""line-height: 2.21vh;font-family: 'Inter', sans-serif;font-size: 1.99vh;text-align: center;"">
           <h3 style=""margin:0 15px; color:#2862A9;"">
             Excited for Your Trip?
           </h3>
@@ -156,43 +159,45 @@ display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
       </div>
       
       <!-- Welcome subtitle -->
-      <h2 style=""line-height: 2.21vh;font-family: 'Inter', sans-serif;font-size: 1.775vh;color:#3B83DB; text-align:center;"">
+      <h2 style=""line-height: 2.21vh;font-family: 'Inter', sans-serif;font-size: 1.99vh;color:#3B83DB; text-align:center;"">
         Welcome to your Visa Application Journey!
       </h2>
       
       <!-- Intro paragraph with manual line break -->
-      <p style=""margin:0 0 30px 0; font-size:1.48vh; line-height: 2.21vh; font-weight: 500;font-family: 'Inter', sans-serif;text-align: center;"">
-        Our guided process, along with the support of a TTK Visa Consultant,<br>
-        will help you complete this journey with ease.
+      <p style=""margin:0 0 30px 0; font-size:1.99vh; line-height: 2.21vh; font-weight: 500;font-family: 'Inter', sans-serif;text-align: center;"">
+        Our guided process, along with the support of a TTK Visa Consultant will help you complete this journey with ease.
       </p>
       
       <!-- Welcome subtitle -->
-      <h2 style=""line-height: 2.21vh;font-family: 'Inter', sans-serif;font-size: 1.775vh; color:#3B83DB; text-align:center;"">
+      <h2 style=""line-height: 2.21vh;font-family: 'Inter', sans-serif;font-size: 1.99vh; color:#3B83DB; text-align:center;"">
         What to expect at the end of this process
       </h2>
     </div>
       
     <!-- Bullet list -->
-    <ul style=""margin:0;  font-size:1.48vh; line-height: 2.21vh; font-weight: 500;font-family: 'Inter', sans-serif;max-width:1000px;"">
-      <li style=""margin-bottom:12px;"">
-        Look for your downloadable Docket. Your filled Visa Application Form will be automatically generated, ready for you to print and sign.
-      </li>
-      <li style=""margin-bottom:12px;"">
-        An instruction sheet in the Docket will tell you exactly what to carry, including originals, copies, <br>and any additional documents.
-      </li>
-      <li style=""margin-bottom:12px;"">
-        Our team will continuously review your details and documents to ensure everything is in order.<br> if you need anything at any time, our consultant will always be there to help you.
-      </li>
-      <li style=""margin-bottom:12px;"">
-        A dedicated Visa Consultant will be assigned to assist and guide you at every step.
-      </li>
-      <li style=""margin-bottom:12px;"">
-        For added convenience, you can choose from a range of Add-On Services during your application journey.
-      </li>
-      <li>
-        All your traveller details will be submitted and saved securely.
-      </li>
-    </ul>
+     <div style=""margin:0 0 30px 0;justify-content: center;align-items: center;display: flex;line-height: 2.21vh;"" >
+
+       <ul style=""margin:0;  font-size:1.99vh; line-height: 2.5vh; font-weight: 500;font-family: 'Inter', sans-serif;"">
+         <li style=""margin-bottom:2vh;"">
+           Look for your downloadable Docket. Your filled Visa Application Form will be automatically generated, ready for you to print and sign.
+         </li>
+         <li style=""margin-bottom:2vh;"">
+           An instruction sheet in the Docket will tell you exactly what to carry, including originals, copies, <br>and any additional documents.
+         </li>
+         <li style=""margin-bottom:2vh;"">
+           Our team will continuously review your details and documents to ensure everything is in order.<br> if you need anything at any time, our consultant will always be there to help you.
+         </li>
+         <li style=""margin-bottom:2vh;"">
+           A dedicated Visa Consultant will be assigned to assist and guide you at every step.
+         </li>
+         <li style=""margin-bottom:2vh;"">
+           For added convenience, you can choose from a range of Add-On Services during your application journey.
+         </li>
+         <li>
+           All your traveller details will be submitted and saved securely.
+         </li>
+       </ul>
+     </div>
 
   </div>
 </body>
@@ -356,11 +361,11 @@ fac_str,email_id,,,textbox,,False,Enter Email ID,Email ID,,,False,,,,False,
 fac_country_3,from_country,,,dropdown,,False,Select Option,Travelling From,,,False,,,,False,
 fac_country_3,to_country,,,dropdown,,False,Select Option,Travelling To,,,False,,,,False,
 fac_date,departure_date,,,datebox,,False,DD/MM/YYYY,Date of Departure,,,False,,,,,;only_future: true
-fac_date,arrival_date,,,datebox,,False,DD/MM/YYYY,Date of Arrival,,,False,,,,,;only_future: true
+fac_date,arrival_date,,,datebox,,False,DD/MM/YYYY,Date of Return,,,False,,,,,;only_future: true
 fac_visa_type,visa_type,,,dropdown,,False,Select Option,Type of Visa,,,False,,,,False,
 fac_int,length_of_stay,,,textbox,,False,Enter Length of Stay (in Days),Length of Stay (in Days),,,False,,,,,
 fac_int,validity,,,textbox,,False,Enter Validity of Visa (in Days),Validity of Visa (in Days),,,False,,,,,
-fac_str,no_of_entries,,,textbox,,False,Enter Number of Entries,Number of Entries,,,False,,,,False,
+fac_number_of_entries,no_of_entries,,,dropdown,,False,Select Option,Number of Entries,,,False,,,,False,
 fac_visa_mode,visa_mode,,,dropdown,,False,Select Option,Visa Mode (E-Visa/Paper),,,False,,,,,
 fac_int,no_of_travellers,,,hidden,,False,Enter Number of Travellers,Number of Travellers,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
@@ -822,7 +827,7 @@ fac_str,mother_name,,,textbox,,False,Enter Mother's Name,Mother's Name,,,False,,
 fac_str,spouse_name,,,textbox,,False,Enter Spouse' Name,Spouse' Name,,,False,,,,,
 fac_str,address_line_1,,,textbox,@.passport_page_upload.TRUSTED_OVD.full_address,False,Enter Address Line 1,Address Line 1,,,False,,,,,
 fac_str,address_line_2,,,textbox,@.passport_page_upload.TRUSTED_OVD.address_line_2,False,Enter Address Line 2,Address Line 2,,,False,,,,,
-fac_str,pin_code,,,textbox,@.passport_page_upload.TRUSTED_OVD.postal_code,False,Enter 6 digit Pin Code,PIN Code,,,False,,,,,
+fac_str,pin_code,,,textbox,@.passport_page_upload.TRUSTED_OVD.postal_code,False,6 digit PIN Code,PIN Code,,,False,,,,,
 fac_str,city,,,textbox,@.passport_page_upload.TRUSTED_OVD.city,False,Enter City,City,,,False,,,,,
 fac_str,state,,,textbox,@.passport_page_upload.TRUSTED_OVD.state,False,Enter State,State,,,False,,,,,
 fac_str,country,,,textbox,@.passport_page_upload.TRUSTED_OVD.code,False,Enter Country,Country,,,False,,,,,
@@ -1171,7 +1176,7 @@ fac_address_proof_type,type_of_proof,,,dropdown,,False,Select Option,Type of Pro
 fac_file,address_proof_upload,,,fileoption,,False,Upload a file,Upload Address Proof,,,False,,,,,
 fac_str,address_line_1,,,textbox,,False,Enter Address Line 1,Address Line 1,,,False,,,,,
 fac_str,address_line_2,,,textbox,,False,Enter Address Line 2,Address Line 2,,,False,,,,,
-fac_str,pin_code,,,textbox,,False,Enter 6 digit Pin Code,PIN Code,,,False,,,,,
+fac_str,pin_code,,,textbox,,False,6 digit PIN Code,PIN Code,,,False,,,,,
 fac_str,city,,,textbox,,False,Enter City,City,,,False,,,,,
 fac_str,state,,,textbox,,False,Enter State,State,,,False,,,,,
 fac_str,country,,,textbox,,False,Enter Country,Country,,,False,,,,,
@@ -1181,7 +1186,7 @@ card_builder,residential_address_card_v2,,,card,,False,,Current Residential Addr
 table,residential_address_table_v2,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,address_line_1,,,textbox,,False,Enter Address Line 1,Address Line 1,,,False,,,,False,
 fac_str,address_line_2,,,textbox,,False,Enter Address Line 2,Address Line 2,,,False,,,,False,
-fac_str,pin_code,,,textbox,,False,Enter 6 digit Pin Code,PIN Code,,,False,,,,False,
+fac_str,pin_code,,,textbox,,False,6 digit PIN Code,PIN Code,,,False,,,,False,
 fac_str,city,,,textbox,,False,Enter City,City,,,False,,,,False,
 fac_str,state,,,textbox,,False,Enter State,State,,,False,,,,False,
 fac_str,country,,,textbox,,False,Enter Country,Country,,,False,,,,False,
@@ -1486,7 +1491,7 @@ align-items: center;"">
         please upload it here. Make sure it includes all Schengen countries you're visiting.
     </div>
   </div>",,,,False,,,,,
-fac_file,upload_itinerary,,,fileoption,,False,Upload a file,Itinerary (Optional),,,False,,,,not @.add_on_service_itinerary.add_on_service_itinerary_option = 'YES',file_type:.pdf
+fac_file,upload_itinerary,,,fileoption,,False,Upload a PDF,Itinerary (Optional),,,False,,,,not @.add_on_service_itinerary.add_on_service_itinerary_option = 'YES',file_type:.pdf
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,add_on_service_itinerary,,,card,,False,,Add-On Service,,,False,,,,,
 display_field,display_add_on_service_itinerary,,,display_field,,False,"<!-- <div style=""
@@ -1721,7 +1726,7 @@ align-items: center;"">
        
 ",,,,False,,,,,
 table,accommodation_details_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_file,booking_upload,,,fileoption,,False,Upload a file,Accommodation Booking,,,False,,,,,file_type:.pdf
+fac_file,booking_upload,,,fileoption,,False,Upload a PDF,Accommodation Booking,,,False,,,,,file_type:.pdf
 fac_str,accommodation_name,,,textbox,,False,Enter Name of Accommodation,Name of Accommodation,,,False,,,,,
 fac_str,accommodation_address,,,textbox.row-4,,False,Enter Address of Accommodation,Address of Accommodation,,,False,,,,,
 fac_str,accommodation_email,,,textbox,,False,Enter Email Address of Accommodation,E-mail Address of Accommodation,,,False,,,,,
@@ -1909,7 +1914,7 @@ align-items: center;"">
     </div>
   </div>
 ",,,,False,,,,,
-fac_file,flight_tickets,,,fileoption,,False,Upload a file,Flight Tickets,,,False,,,,,file_type:.pdf
+fac_file,flight_tickets,,,fileoption,,False,Upload a PDF,Flight Tickets,,,False,,,,,file_type:.pdf
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,add_on_service,,,card,,False,,Add-On Service,,,False,,,,,
 display_field,display_add_on,,,display_field,,False,"<!DOCTYPE html>
@@ -2215,7 +2220,7 @@ If you’d like us to <strong> review </strong> your Travel Insurance to make su
 please upload it here. Make sure it includes all Schengen countries you're visiting.
 </div>
 </div>",,,,False,,,,,
-fac_file,flight_reservation_tickets,,,fileoption,,False,Upload a file,Insurance Document,,,False,,,,,file_type:.pdf
+fac_file,flight_reservation_tickets,,,fileoption,,False,Upload a PDF,Insurance Document,,,False,,,,,file_type:.pdf
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,add_on_service,,,card,,False,,Add-On Service,,,False,,,,,
 display_field,display_add_on,,,display_field,,False,"<!-- <div style=""
@@ -2543,7 +2548,7 @@ fac_date,start_date,,,datebox,,False,DD/MM/YYYY,Start Date of Visa,,,False,,,not
 fac_date,end_date,,,datebox,,False,DD/MM/YYYY,End Date of Visa,,,False,,,not have_past_visa = 'YES',,
 fac_purpose_of_visa_or_travel,purpose_of_visa,,,dropdown,,False,Select Option,Purpose of Visa (at the time of filing your previous visa application),,,False,,,not have_past_visa = 'YES',,
 fac_option,utilized_visa,,,radiobutton,NO,False,Select Option,Have you utilised/travelled using this Visa?,,,False,,,not have_past_visa = 'YES',,
-fac_str,others_specify,,,textbox,,False,Enter Other Purpose (Please Specify),Other Purpose (Please Specify),,,False,,,"not purpose_of_visa=""OTHER""",,
+fac_str,others_specify,,,textbox,,False,Enter Other Purpose of Visa,Other Purpose of Visa,,,False,,,"not purpose_of_visa=""OTHER""",,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,fingerprint_details,,,card,,False,,Fingerprint Details,,,False,,,,,
@@ -2769,7 +2774,7 @@ card_builder,national_id,,,card,,False,,National Identification Number,,,False,,
 table,national_id_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_file,aadhaar_upload_front,,,fileoption,,False,Upload a file,Front Image Of Aadhaar Card,,,False,,,,,
 fac_file,aadhaar_upload_back,,,fileoption,,False,Upload a file,Back Image Of Aadhaar Card,,,False,,,,,
-fac_str,aadhaar_number,,,textbox,,False,Enter XXXX-XXXX-XXXX,Aadhaar Card Number,,,False,,,,,
+fac_str,aadhaar_number,,,textbox,,False,XXXX-XXXX-XXXX,Aadhaar Card Number,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,travel_info,,,card,,False,,Travelling to Multiple Countries during this trip,,,False,,,,,
@@ -2791,7 +2796,7 @@ fac_str,surname,,,textbox,,False,Enter Surname,Surname,,,False,,,not application
 fac_str,first_name,,,textbox,,False,Enter First Name,First Name,,,False,,,not application_on_behalf = 'YES',,
 fac_str,address_line_1,,,textbox,,False,Enter Address Line 1,Address Line 1,,,False,,,not application_on_behalf = 'YES',,
 fac_str,address_line_2,,,textbox,,False,Enter Address Line 2,Address Line 2,,,False,,,not application_on_behalf = 'YES',,
-fac_str,pin_code,,,textbox,,False,Enter 6 digit Pin Code,Pin Code,,,False,,,not application_on_behalf = 'YES',,
+fac_str,pin_code,,,textbox,,False,6 digit PIN Code,PIN Code,,,False,,,not application_on_behalf = 'YES',,
 fac_str,city,,,textbox,,False,Enter City,City,,,False,,,not application_on_behalf = 'YES',,
 fac_str,state,,,textbox,,False,Enter State,State,,,False,,,not application_on_behalf = 'YES',,
 fac_str,country,,,textbox,,False,Enter Country,Country,,,False,,,not application_on_behalf = 'YES',,
@@ -3172,7 +3177,7 @@ display_field,display_salary_slips_instructions,,,display_field,,False,"<!-- <di
   </div>
 </body>
 </html>",,,,False,,,,,
-fac_file,salary_slip,,,fileoption,,False,Upload a file,Salary Slip (Optional),,,False,,,,not @.skip_salary_slips = 'YES',file_type:.pdf
+fac_file,salary_slip,,,fileoption,,False,Upload a PDF,Salary Slip (Optional),,,False,,,,not @.skip_salary_slips = 'YES',file_type:.pdf
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 fac_skip_salary_slips,skip_salary_slips,,,checkbox,,False,Select Option,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -3479,7 +3484,7 @@ display_field,display_bank_statements_instructions,,,display_field,,False,"<!-- 
   </div>
 </body>
 </html>",,,,False,,,,,
-fac_file,bank_statements,,,fileoption,,False,Upload a file,Bank Statements (Optional),,,False,,,,not @.skip_bank_statements = 'YES',file_type:.pdf
+fac_file,bank_statements,,,fileoption,,False,Upload a PDF,Bank Statements (Optional),,,False,,,,not @.skip_bank_statements = 'YES',file_type:.pdf
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 fac_skip_bank_statements,skip_bank_statements,,,checkbox,,False,Select Option,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -3756,7 +3761,7 @@ align-items: center;"">
 If you’d like us to <strong> review </strong> your ITR Acknowledgement Document to make sure it meets the guidelines, please upload it here.
 </div>
 </div>",,,,False,,,,,
-fac_file,itr_acknowledgement,,,fileoption,,False,Upload a file,ITR Acknowledgements (Optional),,,False,,,,,file_type:.pdf
+fac_file,itr_acknowledgement,,,fileoption,,False,Upload a PDF,ITR Acknowledgements (Optional),,,False,,,,,file_type:.pdf
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 fac_itr_option_1,itr_options,,,checkbox,,False,Select Option,,,,False,,,,,
 display_field,display_not_filled_itr,,,display_field,,False,"<!DOCTYPE html>
@@ -3795,7 +3800,111 @@ display_field,display_not_filled_itr,,,display_field,,False,"<!DOCTYPE html>
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 tab_break,additional_documents_tab,,,tab_break,,False,,Additional Information,,,False,,,,,
 section_break,addons_section,,,section_break,,False,No Instructions Present,Add-On Cart,PROGRESS.IGNORE,,False,,,not $.visa_request_information.visa_request.traveller_type = 'Primary',,
-info_pane_builder,addons,,,info_pane,,False,No Instructions Present,Add-On Cart,PROGRESS.IGNORE,,False,,,,,operation.continue:Continue;verify.verify_handler:VERIFIER_PAYMENT_INITIALIZATION;verify.action_text:Calculate Payment
+info_pane_builder,addons,,,info_pane,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"" />
+  <title>Schengen Visa Application Guidelines</title>
+  <style>
+    .container {
+      background-color: #fefefe;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      color: #111;
+    }
+    .container.schengen {
+      /* width: 540px; */
+      max-width: 100%;
+    }
+    .container p,
+    .container ul,
+    .container li {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #333;
+      margin: 0;
+    }
+    .container p {
+      margin-bottom: 16px;
+    }
+    .container ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .container li {
+      margin-bottom: 8px;
+    }
+    .container .heading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+    }
+    .container .subheading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 16px;
+    }
+    .container .note {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #555;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class=""container schengen"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
+
+    <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
+      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+       Need help with this part? Here’s what you need to know about each field in this section.
+    </p>
+
+    <!-- <p class=""subheading""><strong>Important:</strong></p>
+    <ul>
+      <li>All documents must be printed on A4 size sheets only.</li>
+      <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
+      <li>Required documents must be submitted with the visa application (no fax or email to Embassy accepted).</li>
+      <li>Only documents listed in the checklist will be accepted.</li>
+      <li>If your visa has been refused previously, you must submit the refusal notice or a written explanation of the reason for travel and refusal.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Brief Procedure:</strong></p>
+    <ul>
+      <li>TTK will review your documents and suggest necessary changes before submission.</li>
+      <li>TTK will book an appointment as per jurisdiction at the Visa Application Centre (VAC), subject to slot availability. Inform TTK of your tentative dates at the earliest.</li>
+      <li>Applicants must visit the VAC in person to provide biometric fingerprint data with a signed application form, appointment letter, and checklist documents.</li>
+      <li>Alternatively, TTK can submit the application if the applicant qualifies for biometric waiver due to previous Schengen visa issuance.</li>
+      <li>Courier service is available by filling out the 'Courier Request Form'. The passport will be sent to the address mentioned in the form.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Processing Time:</strong></p>
+    <ul>
+      <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
+      <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
+      <li>Consular officers may request additional documents or a personal interview if required.</li>
+    </ul> -->
+
+    <p class=""note"">
+      <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+       (To be provided by TTK)
+    </p>
+  </div>
+</body>
+</html>
+",Add-On Cart,PROGRESS.IGNORE,,False,,,,,operation.continue:Continue;verify.verify_handler:VERIFIER_PAYMENT_INITIALIZATION;verify.action_text:Calculate Payment
 fac_str,record_id,,,hidden,,False,Used to get the Record ID,,,,False,,,,,
 card_builder,addon_service_initialization,,,card,,False,,[INTERNAL] Initialized Addon Cart,SAVE_EVEN_IF_HIDDEN,,False,,,True,,
 table,table,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:1
@@ -3848,7 +3957,7 @@ Pick the Add-On you want for each Traveller below.
 </div> ",,,,False,,,,,
 group_builder,addon_group,,,groupbox,,False,,Add On,,,False,,,,,button_label:Add Cart;limits.min:1;limits.max:10;limits.fixed:true
 info_pane_builder,addonservicegroup,,,groupbox,,False,,Your Transactions,,,False,,,,,
-card_builder,addon_card,,,card,,False,,TTK Add-On Services,,,False,,,,,
+card_builder,addon_card,,,card,,False,,Add-Ons,,,False,,,,,
 display_field,traveler_name,,,data_display,,False,,,,,False,,,,,
 fac_str,traveller_id,,,hidden,,False,,,,,False,,,,,
 table,tables,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:1
@@ -3868,7 +3977,111 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 display_field,payment_display,,,data_display,,False,,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,consultant_section,,,section_break,,False,No Instructions Present,TTK Consultant,,,False,,,"CONTAINS(USER.persona,[CLI])",,
-info_pane_builder,consultant_info,,,info_pane,,False,No Instructions Present,TTK Consultant,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI])",,operation.save:Save and Continue
+info_pane_builder,consultant_info,,,info_pane,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"" />
+  <title>Schengen Visa Application Guidelines</title>
+  <style>
+    .container {
+      background-color: #fefefe;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      color: #111;
+    }
+    .container.schengen {
+      /* width: 540px; */
+      max-width: 100%;
+    }
+    .container p,
+    .container ul,
+    .container li {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #333;
+      margin: 0;
+    }
+    .container p {
+      margin-bottom: 16px;
+    }
+    .container ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .container li {
+      margin-bottom: 8px;
+    }
+    .container .heading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+    }
+    .container .subheading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 16px;
+    }
+    .container .note {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #555;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class=""container schengen"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
+
+    <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
+      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+       Need help with this part? Here’s what you need to know about each field in this section.
+    </p>
+
+    <!-- <p class=""subheading""><strong>Important:</strong></p>
+    <ul>
+      <li>All documents must be printed on A4 size sheets only.</li>
+      <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
+      <li>Required documents must be submitted with the visa application (no fax or email to Embassy accepted).</li>
+      <li>Only documents listed in the checklist will be accepted.</li>
+      <li>If your visa has been refused previously, you must submit the refusal notice or a written explanation of the reason for travel and refusal.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Brief Procedure:</strong></p>
+    <ul>
+      <li>TTK will review your documents and suggest necessary changes before submission.</li>
+      <li>TTK will book an appointment as per jurisdiction at the Visa Application Centre (VAC), subject to slot availability. Inform TTK of your tentative dates at the earliest.</li>
+      <li>Applicants must visit the VAC in person to provide biometric fingerprint data with a signed application form, appointment letter, and checklist documents.</li>
+      <li>Alternatively, TTK can submit the application if the applicant qualifies for biometric waiver due to previous Schengen visa issuance.</li>
+      <li>Courier service is available by filling out the 'Courier Request Form'. The passport will be sent to the address mentioned in the form.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Processing Time:</strong></p>
+    <ul>
+      <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
+      <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
+      <li>Consular officers may request additional documents or a personal interview if required.</li>
+    </ul> -->
+
+    <p class=""note"">
+      <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+       (To be provided by TTK)
+    </p>
+  </div>
+</body>
+</html>
+",TTK Consultant,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI])",,operation.save:Save and Continue
 card_builder,appointments,,,card,,False,,Appointments,,,False,,,,"$.appointment.add_on_service_option = ""YES""",
 display_field,display_card_1,,,display_field,,False,"<div style=""
 display: flex;
@@ -4116,7 +4329,111 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,submit_section,,,section_break,,False,No Instructions Present,Submit Application,,,False,,,"CONTAINS(USER.persona,[CLI])",,
-info_pane_builder,submit_info,,,info_pane,,False,No Instructions Present,Submit Application,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI])",,operation.submit:Submit Application
+info_pane_builder,submit_info,,,info_pane,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"" />
+  <title>Schengen Visa Application Guidelines</title>
+  <style>
+    .container {
+      background-color: #fefefe;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      color: #111;
+    }
+    .container.schengen {
+      /* width: 540px; */
+      max-width: 100%;
+    }
+    .container p,
+    .container ul,
+    .container li {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #333;
+      margin: 0;
+    }
+    .container p {
+      margin-bottom: 16px;
+    }
+    .container ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .container li {
+      margin-bottom: 8px;
+    }
+    .container .heading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+    }
+    .container .subheading {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      letter-spacing: 0;
+      margin-bottom: 16px;
+    }
+    .container .note {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 34px;
+      letter-spacing: 0;
+      color: #555;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class=""container schengen"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
+
+    <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
+      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+       Need help with this part? Here’s what you need to know about each field in this section.
+    </p>
+
+    <!-- <p class=""subheading""><strong>Important:</strong></p>
+    <ul>
+      <li>All documents must be printed on A4 size sheets only.</li>
+      <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
+      <li>Required documents must be submitted with the visa application (no fax or email to Embassy accepted).</li>
+      <li>Only documents listed in the checklist will be accepted.</li>
+      <li>If your visa has been refused previously, you must submit the refusal notice or a written explanation of the reason for travel and refusal.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Brief Procedure:</strong></p>
+    <ul>
+      <li>TTK will review your documents and suggest necessary changes before submission.</li>
+      <li>TTK will book an appointment as per jurisdiction at the Visa Application Centre (VAC), subject to slot availability. Inform TTK of your tentative dates at the earliest.</li>
+      <li>Applicants must visit the VAC in person to provide biometric fingerprint data with a signed application form, appointment letter, and checklist documents.</li>
+      <li>Alternatively, TTK can submit the application if the applicant qualifies for biometric waiver due to previous Schengen visa issuance.</li>
+      <li>Courier service is available by filling out the 'Courier Request Form'. The passport will be sent to the address mentioned in the form.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Processing Time:</strong></p>
+    <ul>
+      <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
+      <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
+      <li>Consular officers may request additional documents or a personal interview if required.</li>
+    </ul> -->
+
+    <p class=""note"">
+      <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+       (To be provided by TTK)
+    </p>
+  </div>
+</body>
+</html>
+",Submit Application,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI])",,operation.submit:Submit Application
 card_builder,docket,,,card,,False,,Docket,,,False,,,,,
 display_field,note,,,display_field,,False,"<div style=""
 display: flex;
