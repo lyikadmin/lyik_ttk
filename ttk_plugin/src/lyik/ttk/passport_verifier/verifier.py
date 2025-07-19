@@ -152,8 +152,8 @@ class PassportVerificationPlugin(VerifyHandlerSpec):
 
                 logger.info("Passport is verified successfully.")
                 return VerifyHandlerResponseModel(
-                    status=VERIFY_RESPONSE_STATUS.SUCCESS,
-                    message="Verified successfully",
+                    status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
+                    message="", #verified_successfully
                     actor="system",
                     response=payload.model_dump(),
                 )
@@ -194,8 +194,8 @@ class PassportVerificationPlugin(VerifyHandlerSpec):
 
                 logger.info("Passport is verified successfully.")
                 return VerifyHandlerResponseModel(
-                    status=VERIFY_RESPONSE_STATUS.SUCCESS,
-                    message=("Verified successfully"),
+                    status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
+                    message="", #verified_successfully
                     actor="system",
                     response=payload.model_dump(),
                 )
