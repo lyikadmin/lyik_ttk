@@ -41,8 +41,8 @@ logging.basicConfig(level=logging.info)
 impl = pluggy.HookimplMarker(getProjectName())
 
 LPS_STATUS_USER_STATUS_MAP = {
-    LPSStatus.PAY_SUCCESS.value: "Success", # "Success | Completed"
-    LPSStatus.PAY_IN_PROGRESS.value: "Success", # "Success | In Progress"
+    LPSStatus.PAY_SUCCESS.value: "Success",  # "Success | Completed"
+    LPSStatus.PAY_IN_PROGRESS.value: "Success",  # "Success | In Progress"
     LPSStatus.PAY_INITIATED.value: "Payment Pending",
     LPSStatus.PAY_FAILURE.value: "Failure",
     LPSStatus.PAY_REJECTED.value: "Rejected",
@@ -80,7 +80,7 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
         ],
     ) -> Annotated[
         GenericFormRecordModel,
-        RequiredEnv(["TTK_API_BASE_URL"]),
+        RequiredEnv(["TTK_API_BASE_URL", "TTK_PAYMENT_UPDATE_ROUTE"]),
         Doc("The updated form record data."),
     ]:
         """
@@ -279,7 +279,8 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
 
     async def update_ttk_payment(self, token: str, lps_records: List[LPSRecord]):
         api_prefix = os.getenv("TTK_API_BASE_URL")
-        PAYMENT_UPDATE_API_URL = api_prefix + "api/v2/paymentUpdate/"
+        api_route = os.getenv("TTK_PAYMENT_UPDATE_ROUTE")  # api/v2/paymentUpdate
+        PAYMENT_UPDATE_API_URL = api_prefix + api_route
 
         outer_payload = self._decode_jwt(token=token)
 
