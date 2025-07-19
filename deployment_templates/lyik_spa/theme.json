@@ -81,7 +81,8 @@
       "activeBackgroundColor": "#FFFFFF"
     },
     "progress_bar": {
-      "progress_text": "#000000"
+      "progress_percentage": "#458B58",
+      "text_color": "#00166D"
     }
   }
 }

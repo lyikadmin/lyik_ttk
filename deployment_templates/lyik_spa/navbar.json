@@ -3,39 +3,13 @@
   "showLogo": false,
   "logoSrc": "/assets/images/logo.png",
   "buttons": [
+    
     {
-      "label": "Home",
+      "label": "▒ Back to Dashboard",
       "link": "/",
       "position": "right",
-      "type": "link",
-      "color": "primary"
-    },
-    {
-      "label": "Our Services",
-      "link": "/our-services",
-      "position": "right",
-      "type": "link",
-      "color": "primary"
-    },
-    {
-      "label": "About us",
-      "link": "/about",
-      "position": "right",
-      "type": "link",
-      "color": "primary"
-    },
-    {
-      "label": "Why Choose Us",
-      "link": "/about",
-      "position": "right",
-      "type": "link",
-      "color": "primary"
-    },
-    {
-      "label": "Login",
-      "link": "/login",
-      "position": "right",
-      "type": "button"
+      "type": "button",
+      "color": "#262D64"
     }
   ]
 }
