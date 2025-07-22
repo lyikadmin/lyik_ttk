@@ -6,7 +6,7 @@
     
     {
       "label": "▒ Back to Dashboard",
-      "link": "/",
+      "link": "TPL_TTK_API_BASE_URLdashboard",
       "position": "right",
       "type": "button",
       "color": "#262D64"
