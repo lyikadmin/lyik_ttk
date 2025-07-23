@@ -682,7 +682,7 @@ class RootAccomodationBookedAppointment(BaseModel):
         title="Display Field",
     )
     booking_upload: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a PDF", title="Accommodation Booking"
+        None, description="Upload a Image/PDF", title="Accommodation Booking"
     )
     accommodation_name: Optional[str] = Field(
         None, description="Enter Name of Accommodation", title="Name of Accommodation"
@@ -735,13 +735,13 @@ class RootAccomodationInvitationDetails(BaseModel):
         None, description="Enter Email ID", title="Email ID of Inviter (Family/Friend)"
     )
     passport_bio_page: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a file", title="Front Page of Inviter's Passport"
+        None, description="Upload a Image/PDF", title="Front Page of Inviter's Passport"
     )
     visa_copy_permit: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a file", title="Visa Copy / Resident Permit Card"
+        None, description="Upload a Image/PDF", title="Visa Copy / Resident Permit Card"
     )
     accommodation_proof: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a file", title="Inviter's Accommodation Proof"
+        None, description="Upload a Image/PDF", title="Inviter's Accommodation Proof"
     )
 
 
@@ -816,10 +816,10 @@ class RootAdditionalDetailsNationalId(BaseModel):
         extra="allow",
     )
     aadhaar_upload_front: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a file", title="Front Image Of Aadhaar Card"
+        None, description="Upload a Image/PDF", title="Front Image Of Aadhaar Card"
     )
     aadhaar_upload_back: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a file", title="Back Image Of Aadhaar Card"
+        None, description="Upload a Image/PDF", title="Back Image Of Aadhaar Card"
     )
     aadhaar_number: Optional[str] = Field(
         None, description="XXXX-XXXX-XXXX", title="Aadhaar Card Number"
@@ -931,7 +931,7 @@ class RootAdditionalDetailsTravelInfo(BaseModel):
         None, description="DD/MM/YYYY", title="End Date of Visa"
     )
     visa_copy: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a file", title="Visa Copy"
+        None, description="Upload a Image/PDF", title="Visa Copy"
     )
 
 
@@ -985,7 +985,7 @@ class RootAppointmentAppointmentScheduled(BaseModel):
         None, description="Select Option", title="Scheduled Time (Minutes)"
     )
     upload_appointment: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a PDF", title="Appointment Document"
+        None, description="Upload a Image/PDF", title="Appointment Document"
     )
 
 
@@ -999,7 +999,7 @@ class RootBankStatementUpload(BaseModel):
         title="Display Field",
     )
     bank_statements: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a PDF", title="Bank Statements (Optional)"
+        None, description="Upload a Image/PDF", title="Bank Statements (Optional)"
     )
 
 
@@ -1021,7 +1021,7 @@ class RootConsultantInfoAdditionalDocumentsAdditionaldocumentgroupAdditionalDocu
         None, description="Enter Document Description", title="Document Description"
     )
     file_upload: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a file", title="File Upload"
+        None, description="Upload a Image/PDF", title="File Upload"
     )
 
 
@@ -1047,7 +1047,7 @@ class RootConsultantInfoAppointments(BaseModel):
         None, description="Select Option", title="Scheduled (Minutes)"
     )
     upload_appointment: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a file", title="Appointment Document"
+        None, description="Upload a Image/PDF", title="Appointment Document"
     )
 
 
@@ -1061,7 +1061,7 @@ class RootConsultantInfoConfirmedAccommodation(BaseModel):
         title="Display Field",
     )
     booking_upload: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a file", title="Confirmed Accommodation"
+        None, description="Upload a Image/PDF", title="Confirmed Accommodation"
     )
     accommodation_name: Optional[str] = Field(
         None, description="Enter Name of Accommodation", title="Name of Accommodation"
@@ -1093,7 +1093,7 @@ class RootConsultantInfoConfirmedFlightTicket(BaseModel):
         title="Display Field",
     )
     flight_tickets: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a file", title="Confirmed Flight Ticket"
+        None, description="Upload a Image/PDF", title="Confirmed Flight Ticket"
     )
 
 
@@ -1107,7 +1107,7 @@ class RootConsultantInfoCoverLetter(BaseModel):
         title="Display Field",
     )
     cover_letter: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a file", title="Cover Letter"
+        None, description="Upload a Image/PDF", title="Cover Letter"
     )
 
 
@@ -1121,7 +1121,7 @@ class RootConsultantInfoDummyAccommodation(BaseModel):
         title="Display Field",
     )
     booking_upload: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a file", title="Dummy Accommodation"
+        None, description="Upload a Image/PDF", title="Dummy Accommodation"
     )
     accommodation_name: Optional[str] = Field(
         None, description="Enter Name of Accommodation", title="Name of Accommodation"
@@ -1153,7 +1153,7 @@ class RootConsultantInfoDummyFlightTicket(BaseModel):
         title="Display Field",
     )
     flight_tickets: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a file", title="Dummy Flight Ticket"
+        None, description="Upload a Image/PDF", title="Dummy Flight Ticket"
     )
 
 
@@ -1167,7 +1167,7 @@ class RootConsultantInfoInstructionLetter(BaseModel):
         title="Display Field",
     )
     upload_instruction: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a file", title="Instruction Sheet"
+        None, description="Upload a Image/PDF", title="Instruction Sheet"
     )
 
 
@@ -1181,7 +1181,7 @@ class RootConsultantInfoItineraryAddon(BaseModel):
         title="Display Field",
     )
     upload_itinerary: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a file", title="Itinerary"
+        None, description="Upload a Image/PDF", title="Itinerary"
     )
 
 
@@ -1195,11 +1195,11 @@ class RootConsultantInfoTravelInsurances(BaseModel):
         title="Display Field",
     )
     flight_reservation_tickets: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a file", title="Travel Insurance"
+        None, description="Upload a Image/PDF", title="Travel Insurance"
     )
 
 
-class RootDocketInfoCardBuilder(BaseModel):
+class RootDocketInfoOperationCard(BaseModel):
     model_config = ConfigDict(
         extra="allow",
     )
@@ -1229,7 +1229,7 @@ class RootItineraryAccomodationItineraryCard(BaseModel):
         title="Display Field",
     )
     upload_itinerary: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a PDF", title="Itinerary (Optional)"
+        None, description="Upload a Image/PDF", title="Itinerary (Optional)"
     )
 
 
@@ -1243,7 +1243,7 @@ class RootItrAcknowledgementUpload(BaseModel):
         title="Display Field",
     )
     itr_acknowledgement: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a PDF", title="ITR Acknowledgements (Optional)"
+        None, description="Upload a Image/PDF", title="ITR Acknowledgements (Optional)"
     )
 
 
@@ -1251,6 +1251,7 @@ class RootLetsGetStarted(BaseModel):
     model_config = ConfigDict(
         extra="allow",
     )
+    traveler_details_header: Optional[str] = Field(None, title="")
     pct_completion: Optional[str] = Field(None, title="")
     infopanes_completed: Optional[int] = Field(None, title="")
     infopanes_total: Optional[int] = Field(None, title="")
@@ -1289,10 +1290,10 @@ class RootPassportPassportDetails(BaseModel):
         None, description="Select Option", title="Type of Passport"
     )
     ovd_front: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a file", title="Front Page of Passport"
+        None, description="Upload a Image/PDF", title="Front Page of Passport"
     )
     ovd_back: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a file", title="Back Page of Passport"
+        None, description="Upload a Image/PDF", title="Back Page of Passport"
     )
     display_passport_table_headline: Optional[str] = Field(
         None,
@@ -1300,22 +1301,18 @@ class RootPassportPassportDetails(BaseModel):
         title="Display Field",
     )
     first_name: Optional[str] = Field(
-        "@.passport_page_upload.TRUSTED_OVD.name",
+        None,
         description="Enter Given Name as in Passport",
         title="Given Name as in Passport",
     )
     surname: Optional[str] = Field(
-        "@.passport_page_upload.TRUSTED_OVD.surname",
-        description="Enter Surname as in Passport",
-        title="Surname as in Passport",
+        None, description="Enter Surname as in Passport", title="Surname as in Passport"
     )
     date_of_birth: Optional[date] = Field(
         None, description="DD/MM/YYYY", title="Date of Birth as in Passport"
     )
     passport_number: Optional[str] = Field(
-        "@.passport_page_upload.TRUSTED_OVD.uid",
-        description="Enter Passport Number",
-        title="Passport Number",
+        None, description="Enter Passport Number", title="Passport Number"
     )
     date_of_issue: Optional[date] = Field(
         None, description="DD/MM/YYYY", title="Date of Issue"
@@ -1325,19 +1322,13 @@ class RootPassportPassportDetails(BaseModel):
     )
     gender: Optional[GENDER] = Field(None, description="Select Option", title="Gender")
     place_of_issue: Optional[str] = Field(
-        "@.passport_page_upload.TRUSTED_OVD.place_of_issue",
-        description="Enter Place of Issue",
-        title="Place of Issue",
+        None, description="Enter Place of Issue", title="Place of Issue"
     )
     place_of_birth: Optional[str] = Field(
-        "@.passport_page_upload.TRUSTED_OVD.place_of_birth",
-        description="Enter Place of Birth",
-        title="Place of Birth",
+        None, description="Enter Place of Birth", title="Place of Birth"
     )
     nationality: Optional[str] = Field(
-        "@.passport_page_upload.TRUSTED_OVD.nationality",
-        description="Enter Nationality",
-        title="Nationality",
+        None, description="Enter Nationality", title="Nationality"
     )
     issued_by: Optional[str] = Field(
         "@.passport_page_upload.TRUSTED_OVD.place_of_issue",
@@ -1411,7 +1402,7 @@ class RootPhotographPassportPhoto(BaseModel):
         title="Display Field",
     )
     photo: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a file", title="Passport-Size Photo (Optional)"
+        None, description="Upload a Image/PDF", title="Passport-Size Photo (Optional)"
     )
 
 
@@ -1425,7 +1416,7 @@ class RootPreviousVisasFingerprintDetails(BaseModel):
         title="Have your fingerprints been collected before for a Schengen visa application?",
     )
     previous_visa_file: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a file", title="Previous Visa Copy"
+        None, description="Upload a Image/PDF", title="Previous Visa Copy"
     )
     visa_sticker_number: Optional[str] = Field(
         None, description="Enter Visa (Sticker) Number", title="Visa (Sticker) Number"
@@ -1445,7 +1436,7 @@ class RootPreviousVisasPreviousVisasDetails(BaseModel):
         title="Have you been issued a Schengen visa during the past?",
     )
     previous_visa_copy: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a file", title="Previous Visa Copy"
+        None, description="Upload a Image/PDF", title="Previous Visa Copy"
     )
     visa_number: Optional[str] = Field(
         None, description="Enter Visa Number", title="Visa Number"
@@ -1485,7 +1476,7 @@ class RootResidentialAddressResidentialAddressCardV1(BaseModel):
         None, description="Select Option", title="Type of Proof"
     )
     address_proof_upload: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a file", title="Upload Address Proof"
+        None, description="Upload a Image/PDF", title="Upload Address Proof"
     )
     address_line_1: Optional[str] = Field(
         None, description="Enter Address Line 1", title="Address Line 1"
@@ -1529,7 +1520,7 @@ class RootSalarySlipUpload(BaseModel):
         title="Display Field",
     )
     salary_slip: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a PDF", title="Salary Slip (Optional)"
+        None, description="Upload a Image/PDF", title="Salary Slip (Optional)"
     )
 
 
@@ -1662,7 +1653,7 @@ class RootTravelInsuranceFlightReservationDetails(BaseModel):
         title="Display Field",
     )
     flight_reservation_tickets: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description="Upload a PDF", title="Insurance Document"
+        None, description="Upload a Image/PDF", title="Insurance Document"
     )
 
 
@@ -1710,6 +1701,10 @@ class RootVisaRequestInformationVisaRequest(BaseModel):
     no_of_travellers: Optional[int] = Field(
         None, description="Enter Number of Travellers", title="Number of Travellers"
     )
+    from_country_full_name: Optional[str] = Field(None, title="")
+    to_country_full_name: Optional[str] = Field(None, title="")
+    departure_date_formatted: Optional[str] = Field(None, title="")
+    arrival_date_formatted: Optional[str] = Field(None, title="")
     traveller_type: Optional[str] = Field(None, title="")
     traveller_id: Optional[str] = Field(None, title="")
     order_id: Optional[str] = Field(None, title="")
@@ -1825,13 +1820,13 @@ class RootAppointment(BaseModel):
         description='<!-- <p style="font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;">\n \n  Please upload the details of your\n    Booked Visa\n  appointment below.\n</p> -->\n<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Centered Visa Appointment Text</title>\n  <style>\n    .center-wrapper {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n\n    .message-box {\n      /* width: 1060px; */\n      font-family: \'Inter\', sans-serif;\n      font-weight: 500;\n      font-size: 16px;\n      line-height: 32px;\n      color: #000000;\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <div class="center-wrapper">\n    <div class="message-box">\n        Please upload the details of your Booked Visa Appointment below.\n        <!-- <span style="font-weight: bold; font-size: 1em;">\n          Booked Visa\n        </span>\n        appointment below. -->\n    </div>\n  </div>\n</body>\n</html>\n',
         title="Display Field",
     )
+    add_on_service_option: Optional[ADDONSERVICEAPPOINTMENT] = Field(
+        None, description="Select Option", title=""
+    )
     appointment_scheduled: Optional[RootAppointmentAppointmentScheduled] = Field(
         None, title="My Scheduled Appointment Details"
     )
     lock_appointment: Optional[str] = Field(None, title="")
-    add_on_service_option: Optional[ADDONSERVICEAPPOINTMENT] = Field(
-        None, description="Select Option", title=""
-    )
 
 
 class RootBankStatement(BaseModel):
@@ -1869,7 +1864,7 @@ class RootDocketInfo(BaseModel):
         description="Download the Completed Docket(/s) here.",
         title="Display Field",
     )
-    card_builder: Optional[RootDocketInfoCardBuilder] = Field(
+    operation_card: Optional[RootDocketInfoOperationCard] = Field(
         None, title="Docket Operation"
     )
 
@@ -2205,7 +2200,7 @@ class Schengentouristvisa(BaseModel):
     )
     photograph: Optional[RootPhotograph] = Field(
         None,
-        description='<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <title>Photo Instructions - Switzerland</title>\n</head>\n<body style="margin: 0; font-family: Arial, sans-serif;">\n\n<!-- Full width wrapper with 10% left and right padding -->\n<div style="width: 100%; ">\n\n    <!-- Main card-style container -->\n    <div style="background: white;  border: 1px solid #ccc; width: 100%; padding: 20px; ">\n\n        <!-- <h2 style="color: #002b7f; text-align: center; margin-top: 0;">Instructions</h2> -->\n        <p style="text-align: center; color: #0073cf; font-weight: bold; margin-top: 0;">\n            (From the Government of Switzerland)\n        </p>\n\n        <div style="display: flex; flex-wrap: wrap; justify-content: center; margin-top: 20px;">\n\n            <!-- Photo Boxes -->\n            <div style="margin-bottom: 20px; text-align: center;">\n                <img src="https://d2phdgmkbm5x8b.cloudfront.net/img/schengen-passport-photo-01.webp" alt="Too Close" style="width: 100%; border: 1px solid #ccc; border-radius: 5px;">\n            </div>\n\n        </div>\n\n        <!-- Requirements Section -->\n        <div style="margin-top: 30px;">\n\n            <div style="margin-bottom: 20px;">\n                <h3 style="color: #0073cf; margin-top: 0;">Photograph quality</h3>\n                <ul style="line-height: 1.6; padding-left: 20px; margin-top: 10px;">\n                    <li>Be no more than 6-months old</li>\n                    <li>35–40mm in width</li>\n                    <li>Close up of your head and top of your shoulders so that your face takes up 70–80% of the photograph</li>\n                    <li>In sharp focus and clear</li>\n                    <li>Of high quality with no ink marks or creases</li>\n                </ul>\n            </div>\n\n            <div style="margin-bottom: 20px;">\n                <h3 style="color: #0073cf; margin-top: 0;">The Photographs Must:</h3>\n                <ul style="line-height: 1.6; padding-left: 20px; margin-top: 10px;">\n                    <li>Show you looking directly at the camera</li>\n                    <li>Show your skin tones naturally</li>\n                    <li>Have appropriate brightness and contrast</li>\n                    <li>Be printed on high quality paper, and at high resolution</li>\n                </ul>\n                <p style="margin-top: 10px;">\n                    Photographs taken with a digital camera must be high quality colour and printed on photo-quality paper.\n                </p>\n            </div>\n\n        </div>\n\n    </div>\n\n</div>\n\n</body>\n</html>\n',
+        description='<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <title>Photo Instructions - Switzerland</title>\n</head>\n<style>\n    .container {\n      background-color: #fefefe;\n      padding: 16px;\n      display: flex;\n      flex-direction: column;\n      justify-content: center;\n      font-family: \'Inter\', sans-serif;\n      color: #111;\n    }\n    .container.schengen {\n      /* width: 540px; */\n      max-width: 100%;\n    }\n    .container p,\n    .container ul,\n    .container li {\n      font-weight: 400;\n      font-size: 16px;\n      line-height: 34px;\n      letter-spacing: 0;\n      color: #333;\n      margin: 0;\n    }\n    .container p {\n      margin-bottom: 16px;\n    }\n    .container ul {\n      padding-left: 20px;\n      margin-bottom: 16px;\n    }\n    .container li {\n      margin-bottom: 8px;\n    }\n    .container .heading {\n      font-weight: 400;\n      font-size: 18px;\n      line-height: 34px;\n      letter-spacing: 0;\n      margin-bottom: 8px;\n    }\n    .container .subheading {\n      font-weight: 400;\n      font-size: 18px;\n      line-height: 34px;\n      letter-spacing: 0;\n      margin-bottom: 16px;\n    }\n    .container .note {\n      font-weight: 400;\n      font-size: 16px;\n      line-height: 34px;\n      letter-spacing: 0;\n      color: #555;\n      margin: 0;\n    }\n  </style>\n<body style="margin: 0; font-family: Arial, sans-serif;">\n    <div class="container schengen">\n    <!-- <div class="heading" style="font-size: 30px; font-weight: 600; margin-bottom: 8px;">Schengen Visa Application Guidelines</div> -->\n\n    <p style="font-size: 22px; font-weight: 700; margin-bottom: 16px;">\n      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->\n       Need help with this part? Here’s what you need to know about each field in this section.\n    </p>\n\n<!-- Full width wrapper with 10% left and right padding -->\n<div style="width: 100%; ">\n\n    <!-- Main card-style container -->\n    <div style="background: white;  border: 1px solid #ccc; width: 100%; padding: 20px; ">\n\n        <!-- <h2 style="color: #002b7f; text-align: center; margin-top: 0;">Instructions</h2> -->\n        <p style="text-align: center; color: #0073cf; font-weight: bold; margin-top: 0;">\n            (From the Government of Switzerland)\n        </p>\n\n        <div style="display: flex; flex-wrap: wrap; justify-content: center; margin-top: 20px;">\n\n            <!-- Photo Boxes -->\n            <div style="margin-bottom: 20px; text-align: center;">\n                <img src="https://d2phdgmkbm5x8b.cloudfront.net/img/schengen-passport-photo-01.webp" alt="Too Close" style="width: 100%; border: 1px solid #ccc; border-radius: 5px;">\n            </div>\n\n        </div>\n\n        <!-- Requirements Section -->\n        <div style="margin-top: 30px;">\n\n            <div style="margin-bottom: 20px;">\n                <h3 style="color: #0073cf; margin-top: 0;">Photograph quality</h3>\n                <ul style="line-height: 1.6; padding-left: 20px; margin-top: 10px;">\n                    <li>Be no more than 6-months old</li>\n                    <li>35–40mm in width</li>\n                    <li>Close up of your head and top of your shoulders so that your face takes up 70–80% of the photograph</li>\n                    <li>In sharp focus and clear</li>\n                    <li>Of high quality with no ink marks or creases</li>\n                </ul>\n            </div>\n\n            <div style="margin-bottom: 20px;">\n                <h3 style="color: #0073cf; margin-top: 0;">The Photographs Must:</h3>\n                <ul style="line-height: 1.6; padding-left: 20px; margin-top: 10px;">\n                    <li>Show you looking directly at the camera</li>\n                    <li>Show your skin tones naturally</li>\n                    <li>Have appropriate brightness and contrast</li>\n                    <li>Be printed on high quality paper, and at high resolution</li>\n                </ul>\n                <p style="margin-top: 10px;">\n                    Photographs taken with a digital camera must be high quality colour and printed on photo-quality paper.\n                </p>\n            </div>\n\n        </div>\n\n    </div>\n\n</div>\n\n</body>\n</html>\n',
         title="Photograph",
     )
     residential_address: Optional[RootResidentialAddress] = Field(
