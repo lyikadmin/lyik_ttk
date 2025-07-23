@@ -167,13 +167,16 @@ class PctCompletion(PreActionProcessorSpec):
             completed += shared_count
 
         percentage = round((completed / total) * 100) if total else 0
+        pct_str = str(percentage)
+        if not pct_str.endswith('%'):
+            pct_str += '%'
 
         record = form.model_dump()
         # get or create the nested dict
         lets = record.get("lets_get_started") or {}
         lets["infopanes_total"]     = total
         lets["infopanes_completed"] = completed
-        lets["pct_completion"]      = str(percentage)
+        lets["pct_completion"]      = pct_str
         record["lets_get_started"] = lets
 
         return GenericFormRecordModel.model_validate(record)

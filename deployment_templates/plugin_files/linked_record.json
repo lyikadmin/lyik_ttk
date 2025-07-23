@@ -22,16 +22,31 @@
   {
     "link_attribute_name": "From Country",
     "link_attribute_order": 5,
-    "link_attribute_value_path": "$.visa_request_information.visa_request.from_country"
+    "link_attribute_value_path": "$.visa_request_information.visa_request.from_country_full_name"
   },
   {
     "link_attribute_name": "To Country",
     "link_attribute_order": 6,
-    "link_attribute_value_path": "$.visa_request_information.visa_request.to_country"
+    "link_attribute_value_path": "$.visa_request_information.visa_request.to_country_full_name"
+  },
+  {
+    "link_attribute_name": "Departure Date",
+    "link_attribute_order": 7,
+    "link_attribute_value_path": "$.visa_request_information.visa_request.departure_date_formatted"
+  },
+  {
+    "link_attribute_name": "Return Date",
+    "link_attribute_order": 8,
+    "link_attribute_value_path": "$.visa_request_information.visa_request.arrival_date_formatted"
   },
   {
     "link_attribute_name": "Description",
-    "link_attribute_order": 7,
+    "link_attribute_order": 9,
     "link_attribute_value_path": "$.lets_get_started.form_status"
+  },
+  {
+    "link_attribute_name": "Progress",
+    "link_attribute_order": 10,
+    "link_attribute_value_path": "$.lets_get_started.pct_completion"
   }
 ]

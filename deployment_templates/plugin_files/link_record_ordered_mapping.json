@@ -26,34 +26,52 @@
       "order": 4
     },
     {
-      "link_attribute": "status",
-      "title": "_status",
+      "link_attribute": "Departure Date",
+      "title": "Departure Date",
       "enable": true,
       "order": 5
+    },
+    {
+      "link_attribute": "Return Date",
+      "title": "Return Date",
+      "enable": true,
+      "order": 6
     },
     {
       "link_attribute": "Description",
       "title": "Status",
       "enable": true,
-      "order": 6
+      "order": 7
+    },
+    {
+      "link_attribute": "Progress",
+      "title": "Progress",
+      "enable": true,
+      "order": 8
+    },
+    {
+      "link_attribute": "status",
+      "title": "_status",
+      "enable": true,
+      "order": 9
     },
     {
       "link_attribute": "Traveller ID",
       "title": "_Traveller ID",
       "enable": true,
-      "order": 7
+      "order": 10
     },
     {
       "link_attribute": "created_on",
       "title": "_created_on",
       "enable": true,
-      "order": 8
+      "order": 11
     },
     {
       "link_attribute": "last_updated",
       "title": "_last_updated",
       "enable": true,
-      "order": 9
+      "order": 12
     }
   ]
 }
