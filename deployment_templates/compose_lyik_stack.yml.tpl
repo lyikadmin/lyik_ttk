@@ -52,7 +52,8 @@ services:
       - ./lyik_spa/theme.json:/app/public/config/theme.json
       - ./lyik_spa/theme.json:/usr/share/nginx/html/config/theme.json
       - ./lyik_spa/fonts:/usr/share/nginx/html/assets/fonts
-      # - ./lyik_spa/navbar.json:/app/public/config/navbar.json
+      # - ./lyik_spa/navbar.json:/app/public/config/navbar.config.json
+      - ./lyik_spa/navbar.json:/usr/share/nginx/html/config/navbar.config.json
     logging:
       driver: "json-file"
       options:

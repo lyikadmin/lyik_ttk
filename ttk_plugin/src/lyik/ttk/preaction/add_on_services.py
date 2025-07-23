@@ -9,7 +9,7 @@ from lyikpluginmanager import (
     GenericFormRecordModel,
 )
 from typing import List, Dict, Any
-from ..utils.add_on_loader_util import AddonLoader
+from ..utils.loader_utils import AddonLoader
 from ..models.forms.new_schengentouristvisa import (
     Schengentouristvisa,
     RootAddons,

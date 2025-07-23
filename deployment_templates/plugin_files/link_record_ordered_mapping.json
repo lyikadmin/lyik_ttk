@@ -1,0 +1,59 @@
+{
+  "enable": true,
+  "order": [
+    {
+      "link_attribute": "Full Name",
+      "title": "Name of Traveller",
+      "enable": true,
+      "order": 1
+    },
+    {
+      "link_attribute": "Traveller Type",
+      "title": "Type of traveller",
+      "enable": true,
+      "order": 2
+    },
+    {
+      "link_attribute": "Order ID",
+      "title": "Case ID",
+      "enable": true,
+      "order": 3
+    },
+    {
+      "link_attribute": "To Country",
+      "title": "Travelling To",
+      "enable": true,
+      "order": 4
+    },
+    {
+      "link_attribute": "status",
+      "title": "_status",
+      "enable": true,
+      "order": 5
+    },
+    {
+      "link_attribute": "Description",
+      "title": "Status",
+      "enable": true,
+      "order": 6
+    },
+    {
+      "link_attribute": "Traveller ID",
+      "title": "_Traveller ID",
+      "enable": true,
+      "order": 7
+    },
+    {
+      "link_attribute": "created_on",
+      "title": "_created_on",
+      "enable": true,
+      "order": 8
+    },
+    {
+      "link_attribute": "last_updated",
+      "title": "_last_updated",
+      "enable": true,
+      "order": 9
+    }
+  ]
+}

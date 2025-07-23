@@ -59,8 +59,12 @@ class FormStatusDisplay(PreActionProcessorSpec):
         if not data_dict.get("state"):
             data_dict["state"] = "INITIALIZED"
 
+        if action.value == "SUBMIT":
+            data_dict["state"] = "SUBMIT"
+
         # 2)  Look up human label
         form_state: str | None = data_dict["state"]
+        logger.info("form_state: %s", form_state)
         user_friendly_label = _DISPLAY_STATE.get(form_state, form_state or "INITIALIZED")
 
         # 3)  get the lets_get_started dict value
