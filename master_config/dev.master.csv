@@ -4,6 +4,7 @@ TPL_BASEURL,https://forms-test.ttkservices.com
 TPL_DEV_VAR,dev
 TPL_PLUGIN_MAX_WEIGHT,899,GENERIC
 TPL_SPA_DOMAIN_URL,https://forms-test.ttkservices.com,GENERIC
-TPL_TTK_API_BASE_URL,https://ttkvisasv2-test.ttkvisas.com/,TTK
+TPL_TTK_FRONTEND_URL,https://ttkvisasv2-test.ttkvisas.com/dashboard,TTK
+TPL_TTK_API_BASE_URL,https://ttkcrmv2-test.ttkservices.com/,TTK
 TPL_TTK_ORDER_UPDATE_ROUTE,api/v2/orderUpdate,TTK
 TPL_TTK_PAYMENT_UPDATE_ROUTE,api/v2/paymentUpdate,TTK
