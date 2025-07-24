@@ -821,7 +821,7 @@ fac_str,surname,,,textbox,@.passport_page_upload.TRUSTED_OVD.surname,False,Enter
 fac_date,date_of_birth,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_birth,False,DD/MM/YYYY,Date of Birth as in Passport,,,False,,,,,;only_past: true
 fac_str,passport_number,,,textbox,@.passport_page_upload.TRUSTED_OVD.uid,False,Enter Passport Number,Passport Number,,,False,,,,,
 fac_date,date_of_issue,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_issue,False,DD/MM/YYYY,Date of Issue,,,False,,,,,;only_past: true
-fac_date,date_of_expiry,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_expiry,False,DD/MM/YYYY,Date of Expiry,,,False,,,,,;only_past: true
+fac_date,date_of_expiry,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_expiry,False,DD/MM/YYYY,Date of Expiry,,,False,,,,,
 fac_gender,gender,,,dropdown,@.passport_page_upload.TRUSTED_OVD.gender,False,Select Option,Gender,,,False,,,,,
 fac_str,place_of_issue,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_issue,False,Enter Place of Issue,Place of Issue,,,False,,,,,
 fac_str,place_of_birth,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_birth,False,Enter Place of Birth,Place of Birth,,,False,,,,,
@@ -1381,7 +1381,7 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,education_details,,,card,,False,,Education Details,,,False,,,"current_occupation_status = ""EMPLOYEE""",,
 table,educational_establishment_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,establishment_name,,,textbox,,False,Enter Name of Establishment,Educational Establishment,,,False,,,not @.current_occupation_status = 'STUDENT',,
-fac_date,date_of_admission,,,datebox,,False,DD/MM/YYYY,Date of Admission,,,False,,,not @.current_occupation_status='STUDENT',,;only_past: true
+fac_date,date_of_admission,,,datebox,,False,DD/MM/YYYY,Date of Admission,,,False,,,not @.current_occupation_status='STUDENT',,
 fac_str,establishment_address,,,textbox.row-4,,False,Enter Address,Address of Educational Establishment,,,False,,,not @.current_occupation_status='STUDENT',,
 fac_str,establishment_contact,,,textbox,,False,Enter Phone Number,Contact of Educational Establishment,,,False,,,not @.current_occupation_status='STUDENT',,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
@@ -2614,7 +2614,7 @@ fac_str,visa_number,,,textbox,,False,Enter Visa Number,Visa Number,,,False,,,not
 fac_str,visa_type,,,textbox,,False,Enter Visa Type,Visa Type,,,False,,,not have_past_visa = 'YES',,
 fac_country,country_of_issue,,,dropdown,,False,Select Option,Country of Visa Issued from,,,False,,,not have_past_visa = 'YES',,
 fac_date,start_date,,,datebox,,False,DD/MM/YYYY,Start Date of Visa,,,False,,,not have_past_visa = 'YES',,;only_past: true
-fac_date,end_date,,,datebox,,False,DD/MM/YYYY,End Date of Visa,,,False,,,not have_past_visa = 'YES',,;only_past: true
+fac_date,end_date,,,datebox,,False,DD/MM/YYYY,End Date of Visa,,,False,,,not have_past_visa = 'YES',,
 fac_purpose_of_visa_or_travel,purpose_of_visa,,,dropdown,,False,Select Option,Purpose of Visa (at the time of filing your previous visa application),,,False,,,not have_past_visa = 'YES',,
 fac_option,utilized_visa,,,radiobutton,NO,False,Select Option,Have you utilised/travelled using this Visa?,,,False,,,not have_past_visa = 'YES',,
 fac_str,others_specify,,,textbox,,False,Enter Other Purpose of Visa,Other Purpose of Visa,,,False,,,"not purpose_of_visa=""OTHER""",,
@@ -2625,7 +2625,7 @@ fac_option,fingerprint_collected,,,radiobutton,NO,False,Select Option,Have your 
 table,previous_visa_upload,,,table,,False,,,,,False,,,,,table.column:2
 fac_file,previous_visa_file,,,fileoption,,False,Upload a Image/PDF,Previous Visa Copy,,,False,,,not fingerprint_collected = 'YES',,"file_type:.pdf,.jpg,.jpeg,.png"
 fac_str,visa_sticker_number,,,textbox,,False,Enter Visa (Sticker) Number,Visa (Sticker) Number,,,False,,,not fingerprint_collected = 'YES',,
-fac_date,date_of_previous_visa,,,datebox,,False,DD/MM/YYYY,Date (If Known),,,False,,,not fingerprint_collected = 'YES',,;only_past: true
+fac_date,date_of_previous_visa,,,datebox,,False,DD/MM/YYYY,Date (If Known),,,False,,,not fingerprint_collected = 'YES',,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -2853,8 +2853,8 @@ fac_country_3,country_of_travel,,,dropdown,,False,Select Option,Country of Trave
 fac_option,valid_visa_for_country,,,radiobutton,NO,False,Select Option,Do you have a valid visa for the country mentioned above?,,,False,,,not travelling_to_other_country = 'YES',,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 table,visa_details_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_date,start_date_of_visa,,,datebox,,False,DD/MM/YYYY,Start Date of Visa,,,False,,,not valid_visa_for_country = 'YES',,;only_past: true
-fac_date,end_date_of_visa,,,datebox,,False,DD/MM/YYYY,End Date of Visa,,,False,,,not valid_visa_for_country = 'YES',,;only_past: true
+fac_date,start_date_of_visa,,,datebox,,False,DD/MM/YYYY,Start Date of Visa,,,False,,,not valid_visa_for_country = 'YES',,
+fac_date,end_date_of_visa,,,datebox,,False,DD/MM/YYYY,End Date of Visa,,,False,,,not valid_visa_for_country = 'YES',,
 fac_file,visa_copy,,,fileoption,,False,Upload a Image/PDF,Visa Copy,,,False,,,not valid_visa_for_country = 'YES',,"file_type:.pdf,.jpg,.jpeg,.png"
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -2879,7 +2879,7 @@ table,eu_family_member_details,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,given_name,,,textbox,,False,Enter Given Name,First Name of the Family Member,,,False,,,not is_family_member = 'YES',,
 fac_str,surname,,,textbox,,False,Enter Surname,Surname of the Family Member,,,False,,,not is_family_member = 'YES',,
 fac_str,nationality,,,textbox,,False,Enter Nationality,Nationality of the Family Member,,,False,,,not is_family_member = 'YES',,
-fac_date,date_of_birth,,,datebox,,False,DD/MM/YYYY,Date of Birth of the Family Member,,,False,,,not is_family_member = 'YES',,;only_past: true
+fac_date,date_of_birth,,,datebox,,False,DD/MM/YYYY,Date of Birth of the Family Member,,,False,,,not is_family_member = 'YES',,
 fac_str,travel_document_id,,,textbox,,False,Enter document/ID number,Travel document/ ID card number,,,False,,,not is_family_member = 'YES',,
 fac_relationship_with_eu,relationship,,,dropdown,,False,Select Option,Relationship,,,False,,,not is_family_member = 'YES',,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
@@ -4173,7 +4173,7 @@ Enter the appointment details scheduled for the Traveller.
 </div> ",,,,False,,,,,
 table,appointments_consultant_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_pref_loc,scheduled_location,,,dropdown,,False,Select Option,Scheduled Location,,,False,,,,,
-fac_date,scheduled_date,,,datebox,,False,DD/MM/YYYY,Scheduled Date,,,False,,,,,;only_past: true
+fac_date,scheduled_date,,,datebox,,False,DD/MM/YYYY,Scheduled Date,,,False,,,,,
 fac_hour_select,scheduled_hour,,,dropdown,,False,Select Option,Scheduled (Hour),,,False,,,,,
 fac_minute_select,scheduled_minute,,,dropdown,,False,Select Option,Scheduled (Minutes),,,False,,,,,
 fac_file,upload_appointment,,,fileoption,,False,Upload a Image/PDF,Appointment Document,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png"
