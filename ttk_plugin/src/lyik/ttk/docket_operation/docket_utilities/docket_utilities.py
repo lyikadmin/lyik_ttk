@@ -68,7 +68,6 @@ class DocketUtilities:
                 pdf_model.visa_applicant_diff_tel_num = (
                     visa_info.visa_request.phone_number
                 )
-
                 pdf_model.visa_mem_main_dst = visa_info.visa_request.to_country.value
 
             passport = schengen_visa_data.passport
@@ -119,7 +118,7 @@ class DocketUtilities:
                     pdf_model.visa_val_til = (
                         passport.passport_details.date_of_expiry.strftime("%d-%m-%Y")
                     )
-                pdf_model.visa_issued_by_ctry = passport.passport_details.issued_by
+                pdf_model.visa_issued_by_ctry = passport.passport_details.country
 
             if passport and passport.other_details:
                 pdf_model.visa_oth_natl = passport.other_details.other_nationality
@@ -153,21 +152,9 @@ class DocketUtilities:
                 pdf_model.visa_civil_widow = (
                     passport.other_details.civil_status == CIVILMARITALSTATUS.WIDOWED
                 )
-
-            if (
-                passport
-                and passport.other_details
-                and passport.other_details.nationality_of_birth
-            ):
                 pdf_model.visa_natl_at_birth = (
                     passport.other_details.nationality_of_birth
                 )
-            elif (
-                passport
-                and passport.passport_details
-                and passport.passport_details.nationality
-            ):
-                pdf_model.visa_natl_at_birth = passport.passport_details.nationality
 
             # pdf_model.visa_civil_sts_reg_partner=schengen_visa_data.passport.other_details.civil_status== CIVILMARITALSTATUS.REGISTERED_PARTNER
             # pdf_model.visa_parental_auth = (
@@ -259,18 +246,18 @@ class DocketUtilities:
                     additional_details.family_eu.relationship
                     == RELATIONSHIPWITHEU.OTHER
                 )
-                pdf_model.visa_fam_rs_eu_oth_txt = (
-                    additional_details.family_eu.relationship.value
-                    if additional_details.family_eu.relationship
-                    not in [
-                        RELATIONSHIPWITHEU.SPOUSE,
-                        RELATIONSHIPWITHEU.CHILD,
-                        RELATIONSHIPWITHEU.GRANDCHILD,
-                        RELATIONSHIPWITHEU.REGISTERED_PARTNER,
-                        RELATIONSHIPWITHEU.OTHER,
-                    ]
-                    else ""
-                )
+                # pdf_model.visa_fam_rs_eu_oth_txt = (
+                #     additional_details.family_eu.relationship.value
+                #     if additional_details.family_eu.relationship
+                #     not in [
+                #         RELATIONSHIPWITHEU.SPOUSE,
+                #         RELATIONSHIPWITHEU.CHILD,
+                #         RELATIONSHIPWITHEU.GRANDCHILD,
+                #         RELATIONSHIPWITHEU.REGISTERED_PARTNER,
+                #         RELATIONSHIPWITHEU.OTHER,
+                #     ]
+                #     else ""
+                # )
 
             if additional_details and additional_details.travel_info:
                 if additional_details.travel_info.start_date_of_visa:
@@ -385,12 +372,13 @@ class DocketUtilities:
                     previous_visas.previous_visas_details.purpose_of_visa
                     == PURPOSEOFVISAORTRAVEL.OTHER
                 )
-                if pdf_model.visa_jrn_purpose_oth:
-                    pass
+                # if pdf_model.visa_jrn_purpose_oth:
+                #     pass
                 # pdf_model.visa_jrn_purpose_oth_txt=schengen_visa_data.previous_visas.previous_visas_details.
-
                 pdf_model.visa_permit_final_ctry_dest_issued_by = (
                     previous_visas.previous_visas_details.country_of_issue.value
+                    if previous_visas.previous_visas_details.country_of_issue
+                    else ""
                 )
                 if previous_visas.previous_visas_details.start_date:
                     pdf_model.visa_permit_final_ctry_dest_valid_from = (
