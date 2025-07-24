@@ -778,7 +778,7 @@ display_field,display_passport_header,,,display_field,,False,"
 </html>
 ",,,,False,,,,,
 card_builder,passport_details,,,card,,False,,Passport Details,,,False,,,,,verify.verify_handler:VERIFIER_PASSPORT_DATE;verify.action_text:Auto-fill Details
-fac_passport_type,type_of_passport,,,dropdown,ORDINARY,True,Select Option,Type of Passport,,,False,,,,,
+fac_passport_type,type_of_passport,,,dropdown,ORDINARY,False,Select Option,Type of Passport,,,False,,,,,
 table,passport_page_upload,,,table,,False,,,,,False,,,,,table.column:2
 fac_file,ovd_front,,,fileoption,,False,Upload a Image/PDF,Front Page of Passport,,,False,,,,,"file_type:.pdf, .jpg, .jpeg, .png"
 fac_file,ovd_back,,,fileoption,,False,Upload a Image/PDF,Back Page of Passport,,,False,,,,,"file_type:.pdf, .jpg, .jpeg, .png"
@@ -816,16 +816,16 @@ display_field,display_passport_table_headline,,,display_field,,False,"<!DOCTYPE 
 </html>
 ",,,,False,,,,,
 table,passport_info_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,first_name,,,textbox,@.passport_page_upload.TRUSTED_OVD.name,True,Enter Given Name as in Passport,Given Name as in Passport,,,False,,,,,
-fac_str,surname,,,textbox,@.passport_page_upload.TRUSTED_OVD.surname,True,Enter Surname as in Passport,Surname as in Passport,,,False,,,,,
-fac_date,date_of_birth,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_birth,True,DD/MM/YYYY,Date of Birth as in Passport,,,False,,,,,;only_past: true
-fac_str,passport_number,,,textbox,@.passport_page_upload.TRUSTED_OVD.uid,True,Enter Passport Number,Passport Number,,,False,,,,,
-fac_date,date_of_issue,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_issue,True,DD/MM/YYYY,Date of Issue,,,False,,,,,;only_past: true
-fac_date,date_of_expiry,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_expiry,True,DD/MM/YYYY,Date of Expiry,,,False,,,,,;only_past: true
-fac_gender,gender,,,dropdown,@.passport_page_upload.TRUSTED_OVD.gender,True,Select Option,Gender,,,False,,,,,
-fac_str,place_of_issue,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_issue,True,Enter Place of Issue,Place of Issue,,,False,,,,,
-fac_str,place_of_birth,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_birth,True,Enter Place of Birth,Place of Birth,,,False,,,,,
-fac_str,nationality,,,textbox,@.passport_page_upload.TRUSTED_OVD.nationality,True,Enter Nationality,Nationality,,,False,,,,,
+fac_str,first_name,,,textbox,@.passport_page_upload.TRUSTED_OVD.name,False,Enter Given Name as in Passport,Given Name as in Passport,,,False,,,,,
+fac_str,surname,,,textbox,@.passport_page_upload.TRUSTED_OVD.surname,False,Enter Surname as in Passport,Surname as in Passport,,,False,,,,,
+fac_date,date_of_birth,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_birth,False,DD/MM/YYYY,Date of Birth as in Passport,,,False,,,,,;only_past: true
+fac_str,passport_number,,,textbox,@.passport_page_upload.TRUSTED_OVD.uid,False,Enter Passport Number,Passport Number,,,False,,,,,
+fac_date,date_of_issue,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_issue,False,DD/MM/YYYY,Date of Issue,,,False,,,,,;only_past: true
+fac_date,date_of_expiry,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_expiry,False,DD/MM/YYYY,Date of Expiry,,,False,,,,,;only_past: true
+fac_gender,gender,,,dropdown,@.passport_page_upload.TRUSTED_OVD.gender,False,Select Option,Gender,,,False,,,,,
+fac_str,place_of_issue,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_issue,False,Enter Place of Issue,Place of Issue,,,False,,,,,
+fac_str,place_of_birth,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_birth,False,Enter Place of Birth,Place of Birth,,,False,,,,,
+fac_str,nationality,,,textbox,@.passport_page_upload.TRUSTED_OVD.nationality,False,Enter Nationality,Nationality,,,False,,,,,
 fac_str,issued_by,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_issue,False,Enter Issued By (Authority/City),Issued By (Authority/City),,,False,,,,,
 fac_str,father_name,,,textbox,,False,Enter Father's Name,Father's Name,,,False,,,,,
 fac_str,mother_name,,,textbox,,False,Enter Mother's Name,Mother's Name,,,False,,,,,
