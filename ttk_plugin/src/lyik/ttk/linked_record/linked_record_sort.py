@@ -23,7 +23,7 @@ class LinkedRecordSortPlugin(LinkRecordSortSpec):
     ]:
         sort_mapping = OrderedDict()
 
-        sort_mapping["Traveller Type"] = SortOrder.DESC
         sort_mapping["Order ID"] = SortOrder.ASC
+        sort_mapping["Traveller Type"] = SortOrder.DESC
 
         return sort_mapping
