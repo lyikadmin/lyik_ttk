@@ -26,12 +26,17 @@ from ..models.forms.new_schengentouristvisa import (
     FieldGrpRootAddonsAddonServiceAddonCartRow,
     RootAddonsAddonService,
 )
+from datetime import datetime
 import logging
 import base64
 from ..utils.encode import decode_base64_to_str
 
 from ..models.payment.addon_models import AddonSummaryItem
-from ..utils.payment import group_addon_summary
+from ..utils.payment import (
+    group_addon_summary,
+    create_styled_traveller_name_list_string_for_traveller_ids,
+    create_traveller_id_list_string_for_traveller_ids,
+)
 import json
 
 logger = logging.getLogger(__name__)
@@ -64,6 +69,8 @@ class AddOnPaymentInitializeVerifier(VerifyHandlerSpec):
         total_amount = 0
         addon_summary_models: List[AddonSummaryItem] = []
 
+        traveller_id_name_mapping = {}
+
         if payload.addon_group:
             for group in payload.addon_group:
                 card = (
@@ -75,6 +82,9 @@ class AddOnPaymentInitializeVerifier(VerifyHandlerSpec):
                     continue
 
                 traveller_id = card.traveller_id
+                traveller_id_name_mapping.update(
+                    {str(traveller_id): str(card.traveller_name_internal)}
+                )
 
                 for item in card.addon_on_service:
                     if item.service_checkbox == ADDONOP.DONE and item.amount_internal:
@@ -170,15 +180,37 @@ class AddOnPaymentInitializeVerifier(VerifyHandlerSpec):
                     unique_key = (addon_id, lps_record.txn_id)
                     if unique_key in seen_combinations:
                         continue
+                    traveller_id_list_string = ",".join(
+                        str(item) for item in summary.travellerIds
+                    )
+
+                    traveller_id_list_string = (
+                        create_traveller_id_list_string_for_traveller_ids(
+                            traveller_id_list=summary.travellerIds
+                        )
+                    )
+
+                    traveller_name_list_string = (
+                        create_styled_traveller_name_list_string_for_traveller_ids(
+                            traveller_id_list=summary.travellerIds,
+                            traveller_id_name_mapping=traveller_id_name_mapping,
+                        )
+                    )
+
+                    current_date = str(datetime.now().strftime("%d/%m/%Y"))
+
                     row = FieldGrpRootAddonsAddonServiceAddonCartRow(
                         addon_id=addon_id,
                         addon_name=summary.addonName,
-                        txnid=lps_record.txn_id,
-                        refid=None,
                         quantity=str(summary.count),
                         amount=str(summary.totalAddonCost),
-                        amt_internal=str(summary.totalAddonCost),
+                        traveller_names=traveller_name_list_string,
+                        date=current_date,
                         status=lps_record.state.value,
+                        txnid=lps_record.txn_id,
+                        refid=None,
+                        traveller_ids_internal=traveller_id_list_string,
+                        amt_internal=str(summary.totalAddonCost),
                         status_internal=lps_record.state.value,
                     )
                     addon_cart_rows.append(row)

@@ -31,9 +31,13 @@ import httpx
 import logging
 import base64
 import json
-from ..models.payment.addon_models import AddonSummaryItem, GroupedAddonSummaryItem
-from ..utils.payment import group_addon_summary
+from ..models.payment.addon_models import AddonSummaryItem
 import os
+from ..utils.payment import (
+    create_styled_traveller_name_list_string_for_traveller_ids,
+    get_traveller_ids_from_traveller_id_list_string,
+)
+
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.info)
@@ -111,6 +115,45 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
                 full_parsed_record.addons.addon_service_initialization = (
                     RootAddonsAddonServiceInitialization()
                 )
+
+            # Update the traveller names in 'Your Transactions' Card if changed.
+            try:
+                # Create mapping for each traveller id to updated traveller name
+                traveller_id_name_mapping: dict = {}
+
+                for traveller_addon_card in full_parsed_record.addons.addon_group:
+                    traveller_name_internal = (
+                        traveller_addon_card.addonservicegroup.addon_card.traveller_name_internal
+                        if traveller_addon_card.addonservicegroup.addon_card.traveller_name_internal
+                        else traveller_addon_card.addonservicegroup.addon_card.traveller_id
+                    )
+
+                    traveller_id = (
+                        traveller_addon_card.addonservicegroup.addon_card.traveller_id
+                    )
+                    traveller_id_name_mapping.update(
+                        {traveller_id: traveller_name_internal}
+                    )
+
+                for (
+                    payment_transaction_row
+                ) in full_parsed_record.addons.addon_service.addon_cart_row:
+                    traveller_ids_for_payment_row_list = get_traveller_ids_from_traveller_id_list_string(
+                        traveller_id_list_string=payment_transaction_row.traveller_ids_internal
+                    )
+                    traveller_name_display_list_string = (
+                        create_styled_traveller_name_list_string_for_traveller_ids(
+                            traveller_id_list=traveller_ids_for_payment_row_list,
+                            traveller_id_name_mapping=traveller_id_name_mapping,
+                        )
+                    )
+
+                    payment_transaction_row.traveller_names = (
+                        traveller_name_display_list_string
+                    )
+
+            except Exception as e:
+                logger.error(f"Could not update traveller names {e}")
 
             addon_rows = (
                 full_parsed_record.addons.addon_service_initialization.addon_cart_row
@@ -316,7 +359,9 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
                 # Group by traveller
                 traveller_map = {}
                 for item in addon_items:
-                    traveller_services = traveller_map.setdefault(item.travellerId, [])
+                    traveller_services: list = traveller_map.setdefault(
+                        item.travellerId, []
+                    )
                     traveller_services.append(
                         {"serviceId": item.addonId, "amount": str(item.amount)}
                     )

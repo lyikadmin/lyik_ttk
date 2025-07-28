@@ -161,13 +161,14 @@ class PreactionAddonServices(PreActionProcessorSpec):
                     else "Traveller 1"
                 )
                 # Add HTML style to traveller name
-                primary_traveller_name = self._stylize_traveller_name(
+                primary_traveller_name_styled = self._stylize_traveller_name(
                     name=primary_traveller_name
                 )
 
                 primary_addon_group = self._create_addon_group(
                     traveller_id=parsed_form_rec.visa_request_information.visa_request.traveller_id,
-                    traveller_name=primary_traveller_name,
+                    traveller_name_styled=primary_traveller_name_styled,
+                    traveller_name_internal=primary_traveller_name,
                     addon_on_service=addon_on_service,
                 )
 
@@ -197,13 +198,14 @@ class PreactionAddonServices(PreActionProcessorSpec):
                             else f"Traveller {index}"
                         )
 
-                        traveller_name = self._stylize_traveller_name(
+                        traveller_name_styled = self._stylize_traveller_name(
                             name=traveller_name
                         )
 
                         addon_group = self._create_addon_group(
                             traveller_id=traveller_id,
-                            traveller_name=traveller_name,
+                            traveller_name_styled=traveller_name_styled,
+                            traveller_name_internal=traveller_name,
                             addon_on_service=addon_on_service,
                         )
 
@@ -233,7 +235,8 @@ class PreactionAddonServices(PreActionProcessorSpec):
     def _create_addon_group(
         self,
         traveller_id: str,
-        traveller_name: str,
+        traveller_name_styled: str,
+        traveller_name_internal: str,
         addon_on_service: List[
             FieldGrpRootAddonsAddonGroupAddonservicegroupAddonCardAddonOnService
         ],
@@ -242,7 +245,8 @@ class PreactionAddonServices(PreActionProcessorSpec):
             addonservicegroup=RootAddonsAddonGroupAddonservicegroup(
                 addon_card=RootAddonsAddonGroupAddonservicegroupAddonCard(
                     traveller_id=traveller_id,
-                    traveler_name=traveller_name,
+                    traveller_name_display=traveller_name_styled,
+                    traveller_name_internal=traveller_name_internal,
                     addon_on_service=addon_on_service,
                 )
             )

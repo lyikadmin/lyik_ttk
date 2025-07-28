@@ -17,3 +17,4 @@ def get_personas_from_encoded_token(token: str) -> List[str] | None:
         return personas
     except Exception as e:
         return None
+
