@@ -106,7 +106,7 @@ info_pane_builder,lets_get_started,,,info_pane,,False,"<!DOCTYPE html>
 </body>
 </html>
 ",Let's Get Started,,,False,,,,,operation.save:Continue
-fac_str,traveler_details_header,,,data_display,,False,,,,,False,,,,,
+fac_str,traveler_details_header,,,data_display,,False,,,,,False,,,,False,
 fac_str,pct_completion,,,hidden,,False,,,,,False,,,,,
 fac_int,infopanes_completed,,,hidden,,False,,,,,False,,,,,
 fac_int,infopanes_total,,,hidden,,False,,,,,False,,,,,
@@ -3979,13 +3979,16 @@ card_builder,addon_service_initialization,,,card,,False,,[INTERNAL] Initialized 
 table,table,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:1
 group_builder,addon_cart_row,,,table_row,,False,,Addon Table,,,False,,,,,
 fac_str,addon_id,,,hidden,,False,Enter Addon ID,Addon ID,,,False,,,,,
-fac_str,addon_name,,,data_display,,False,Enter Add-Ons,Add-Ons,,,False,,,,,
-fac_str,txnid,,,data_display,,False,Enter Txn ID,Txn ID,,,False,,,,,
-fac_str,refid,,,data_display,,False,Enter Ref ID,Ref ID,,,False,,,,,
+fac_str,addon_name,,,data_display,,False,Enter Add-Ons,Add-Ons,,,False,,,,,align:left
 fac_str,quantity,,,data_display,,False,Enter Quantity,Quantity,,,False,,,,,
 fac_str,amount,,,data_display,,False,Enter Amount,Amount,,,False,,,,,
-fac_str,amt_internal,,,hidden,,False,Enter Amount Internal,Amount Internal,,,False,,,,,
+fac_str,traveller_names,,,data_display,,False,Enter Traveller Name,Traveller Name,,,False,,,,,align:left
+fac_str,date,,,data_display,,False,Enter Date,Date,,,False,,,,,
 fac_str,status,,,data_display,,False,Enter Status,Status,,,False,,,,,
+fac_str,txnid,,,data_display,,False,Enter Txn ID,Txn ID,,,False,,,,,
+fac_str,refid,,,data_display,,False,Enter Ref ID,Ref ID,,,False,,,,,
+fac_str,traveller_ids_internal,,,hidden,,False,Enter Traveller ID,Traveller ID,,,False,,,,,
+fac_str,amt_internal,,,hidden,,False,Enter Amount Internal,Amount Internal,,,False,,,,,
 fac_str,status_internal,,,hidden,,False,Enter Status Internal,Status Internal,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
@@ -3994,13 +3997,16 @@ card_builder,addon_service,,,card,,False,,Your Transactions,,,False,,,,,
 table,table,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:1
 group_builder,addon_cart_row,,,table_row,,False,,Addon Table,,,False,,,,,
 fac_str,addon_id,,,hidden,,False,Enter Addon ID,Addon ID,,,False,,,,,
-fac_str,addon_name,,,data_display,,False,Enter Add-Ons,Add-Ons,,,False,,,,,
-fac_str,txnid,,,data_display,,False,Enter Txn ID,Txn ID,,,False,,,,,
-fac_str,refid,,,data_display,,False,Enter Ref ID,Ref ID,,,False,,,,,
+fac_str,addon_name,,,data_display,,False,Enter Add-Ons,Add-Ons,,,False,,,,,align:left
 fac_str,quantity,,,data_display,,False,Enter Quantity,Quantity,,,False,,,,,
 fac_str,amount,,,data_display,,False,Enter Amount,Amount,,,False,,,,,
-fac_str,amt_internal,,,hidden,,False,Enter Amount Internal,Amount Internal,,,False,,,,,
+fac_str,traveller_names,,,data_display,,False,Enter Traveller Name,Traveller Name,,,False,,,,,align:left
+fac_str,date,,,data_display,,False,Enter Date,Date,,,False,,,,,
 fac_str,status,,,data_display,,False,Enter Status,Status,,,False,,,,,
+fac_str,txnid,,,data_display,,False,Enter Txn ID,Txn ID,,,False,,,,,
+fac_str,refid,,,data_display,,False,Enter Ref ID,Ref ID,,,False,,,,,
+fac_str,traveller_ids_internal,,,hidden,,False,Enter Traveller ID,Traveller ID,,,False,,,,,
+fac_str,amt_internal,,,hidden,,False,Enter Amount Internal,Amount Internal,,,False,,,,,
 fac_str,status_internal,,,hidden,,False,Enter Status Internal,Status Internal,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
@@ -4027,7 +4033,8 @@ Pick the Add-On you want for each Traveller below.
 group_builder,addon_group,,,groupbox,,False,,Add On,,,False,,,,,button_label:Add Cart;limits.min:1;limits.max:10;limits.fixed:true
 info_pane_builder,addonservicegroup,,,groupbox,,False,,Your Transactions,,,False,,,,,
 card_builder,addon_card,,,card,,False,,Add-Ons,,,False,,,,,
-display_field,traveler_name,,,data_display,,False,,,,,False,,,,,
+display_field,traveller_name_display,,,data_display,,False,,,,,False,,,,,
+fac_str,traveller_name_internal,,,hidden,,False,,,,,False,,,,,
 fac_str,traveller_id,,,hidden,,False,,,,,False,,,,,
 table,tables,,,table,,False,,,,,False,,,,,table.span:best_fit;table.row_spacing:compact;table.column:1
 group_builder,addon_on_service,,,table_row,,False,,Addon On Service,,,False,,,,,

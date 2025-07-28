@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import List
 
 
 class AddonSummaryItem(BaseModel):
@@ -13,3 +14,5 @@ class GroupedAddonSummaryItem(BaseModel):
     count: int
     singleAddonCost: int
     totalAddonCost: int
+    travellerIds: List[str]
+    
