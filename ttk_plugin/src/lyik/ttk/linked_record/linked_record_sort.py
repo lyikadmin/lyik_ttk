@@ -16,7 +16,7 @@ impl = pluggy.HookimplMarker(getProjectName())
 class LinkedRecordSortPlugin(LinkRecordSortSpec):
     @impl
     async def sort_linked_records(self, context: ContextModel) -> Annotated[
-        OrderedDict | None,
+        OrderedDict[str, SortOrder] | None,
         Doc(
             "This is the sort mapping, where key is the source field name and value is the sort order."
         ),
