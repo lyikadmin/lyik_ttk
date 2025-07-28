@@ -155,14 +155,21 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
             except Exception as e:
                 logger.error(f"Could not update traveller names {e}")
 
+
             addon_rows = (
                 full_parsed_record.addons.addon_service_initialization.addon_cart_row
-                if full_parsed_record.addons.addon_service_initialization
+                if full_parsed_record.addons.addon_service_initialization and full_parsed_record.addons.addon_service_initialization.addon_cart_row
                 else []
             )
             logger.debug(f"Fetched {len(addon_rows)} addon_rows from initialization")
 
+            if not addon_rows:
+                # If there are no addon initialization rows, we can return early as the 
+                # further processes are all on updating the your transactions table, which is not required anymore.
+                return GenericFormRecordModel(**full_parsed_record.model_dump())
+
             txn_ids = {row.txnid for row in addon_rows if row.txnid}
+
             logger.debug(f"Extracted txn_ids from initialization rows: {txn_ids}")
 
             lps_records: List[LPSRecord] = []
@@ -193,6 +200,7 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
                             GatewayResponseModel(**last_data_entry)
                         )
                         ref_id = last_gateway_response.ref_id
+
                 except Exception as ref_err:
                     logger.error(
                         f"Error extracting ref_id for txn_id {lps_record.txn_id}: {ref_err}"
