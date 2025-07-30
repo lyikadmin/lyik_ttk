@@ -155,16 +155,16 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
             except Exception as e:
                 logger.error(f"Could not update traveller names {e}")
 
-
             addon_rows = (
                 full_parsed_record.addons.addon_service_initialization.addon_cart_row
-                if full_parsed_record.addons.addon_service_initialization and full_parsed_record.addons.addon_service_initialization.addon_cart_row
+                if full_parsed_record.addons.addon_service_initialization
+                and full_parsed_record.addons.addon_service_initialization.addon_cart_row
                 else []
             )
             logger.debug(f"Fetched {len(addon_rows)} addon_rows from initialization")
 
             if not addon_rows:
-                # If there are no addon initialization rows, we can return early as the 
+                # If there are no addon initialization rows, we can return early as the
                 # further processes are all on updating the your transactions table, which is not required anymore.
                 return GenericFormRecordModel(**full_parsed_record.model_dump())
 
@@ -251,6 +251,14 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
                     updated_row = FieldGrpRootAddonsAddonServiceAddonCartRow(**row_dict)
                     addon_cart_rows.append(updated_row)
 
+                    # Setting a flag to denote when a payment redirect flow is successful.
+                    # This can be used later to determine if the checkbox values must be cleared out or not.
+                    # In a successful payment redirect flow, the status we get back is 'LPSStatus.PAY_IN_PROGRESS'
+                    if updated_row.status_internal == LPSStatus.PAY_IN_PROGRESS.value:
+                        _successful_payment_flag = True
+                    else:
+                        _successful_payment_flag = False
+
                     # Mark the flag to indicate that the addons are updated.
                     _addons_updated_flag = True
                 else:
@@ -280,17 +288,29 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
             )
             logger.debug("Cleared addon_service_initialization")
 
-            # Clear the addon selections
-            for group_traveller in full_parsed_record.addons.addon_group:
-                for (
-                    addon_table_row
-                ) in group_traveller.addonservicegroup.addon_card.addon_on_service:
-                    addon_table_row.service_checkbox = None
-            logger.debug("Cleared addon_group.service_checkbox")
+            # Only clearing out the checkboxes and payment card after successful payment flow
+            if _addons_updated_flag and _successful_payment_flag:
 
-            # Clear the verifier payment request:
-            full_parsed_record.addons.payment_display = None
-            logger.debug("Cleared payment_display")
+                # Clear the addon selections
+                for group_traveller in full_parsed_record.addons.addon_group:
+                    for (
+                        addon_table_row
+                    ) in group_traveller.addonservicegroup.addon_card.addon_on_service:
+                        addon_table_row.service_checkbox = None
+                logger.debug("Cleared addon_group.service_checkbox")
+
+                # Clear the verifier payment request:
+                full_parsed_record.addons.payment_display = None
+                logger.debug("Cleared payment_display")
+
+            if _addons_updated_flag and not _successful_payment_flag:
+                # Need the logic to update the payment button to say "retry" if possible.
+                if "Pay Now" in full_parsed_record.addons.payment_display:
+                    full_parsed_record.addons.payment_display = (
+                        full_parsed_record.addons.payment_display.replace(
+                            "Pay Now", "Retry Payment"
+                        )
+                    )
 
             try:
                 if _addons_updated_flag:
