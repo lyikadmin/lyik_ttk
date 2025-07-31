@@ -2,7 +2,7 @@
   {
     "link_attribute_name": "Full Name",
     "link_attribute_order": 1,
-    "link_attribute_value_path": "$.passport.passport_details.first_name"
+    "link_attribute_value_path": "$.scratch_pad.form_title"
   },
   {
     "link_attribute_name": "Traveller ID",

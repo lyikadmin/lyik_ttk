@@ -82,6 +82,22 @@ class NormalizeFields(PreActionProcessorSpec):
             else None
         )
 
+        traveller_details = (
+            form.visa_request_information.visa_request.traveller_type
+            if form.visa_request_information.visa_request and
+            form.visa_request_information.visa_request.traveller_type else None
+        )
+
+        # get the passport details
+        details = getattr(getattr(form, 'passport', None), 'passport_details', None)
+        # join first and/or last name (if present), else None
+        traveller_full_name = ' '.join(filter(None, (
+            getattr(details, 'first_name', None),
+            getattr(details, 'surname',    None),
+        ))) or None
+
+        sub_title :str|None = context.form_name
+
         if not visa_request:
             return payload
 
@@ -128,9 +144,50 @@ class NormalizeFields(PreActionProcessorSpec):
                     f"Formatted {src}: '{val}' -> '{formatted}' into '{target}'"
                 )
 
+        updated_data = form.model_dump()
+
+        # --- ADD Traveler Details header ---
+        try:
+            lets = updated_data.get("lets_get_started", {})
+            if traveller_details:
+                if sub_title:
+                    lets["traveler_details_header"] = f"<h1>{traveller_details} | {context.form_name}</h1>"
+                else:
+                    lets["traveler_details_header"] = f"<h1>{traveller_details}</h1>"
+            else:
+                lets.setdefault("traveler_details_header", "")
+            updated_data["lets_get_started"] = lets
+            modified = True
+        except Exception as e:
+            logger.error(f"Failed to set traveler_details_header: {e}")
+            updated_data.setdefault("lets_get_started", {})["traveler_details_header"] = ""
+            modified = True
+
+        # --- UPDATE THE FORM TITLE ---
+        try:
+            scratch = updated_data.get("scratch_pad") or {}
+            scratch["form_title"] = traveller_full_name or ""
+            updated_data["scratch_pad"] = scratch
+            modified = True
+        except Exception as e:
+            logger.error(f"Failed to set form_title: {e}")
+            # guarantee you still return a dict
+            updated_data.setdefault("scratch_pad", {})["form_title"] = ""
+            modified = True
+
+        # --- UPDATE THE FORM SUBTITLE ---
+        try:
+            scratch = updated_data.get("scratch_pad") or {}
+            scratch["form_sub_title"] = sub_title or ""
+            updated_data["scratch_pad"] = scratch
+            modified = True
+        except Exception as e:
+            logger.error(f"Failed to set form_sub_title: {e}")
+            updated_data.setdefault("scratch_pad", {})["form_sub_title"] = ""
+            modified = True
+
         # Return original payload if no change was made
         if not modified:
             return payload
 
-        updated_data = form.model_dump(mode="json")
         return GenericFormRecordModel.model_validate(updated_data)

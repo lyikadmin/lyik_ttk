@@ -46,8 +46,8 @@ class CopyPassportAddress(PreActionProcessorSpec):
 
         res_addr = form.residential_address
         # Only proceed if the checkbox is present and checked
-        if not res_addr or res_addr.same_as_passport_address != SAMEASPASSADDR.SAME_AS_PASS_ADDR:
-            return payload
+        # if not res_addr or res_addr.same_as_passport_address != SAMEASPASSADDR.SAME_AS_PASS_ADDR:
+        #     return payload
 
         # Grab the passport address
         pp_addr: RootPassportPassportDetails | None = (
