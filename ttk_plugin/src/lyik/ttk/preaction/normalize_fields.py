@@ -103,6 +103,10 @@ class NormalizeFields(PreActionProcessorSpec):
 
         modified = False
 
+        if (form.visa_request_information and
+        form.visa_request_information.visa_request):
+            form.visa_request_information.visa_request.form_title = traveller_full_name
+
         # --- ISO3 → Full Country Name Mapping ---
         field_map = {
             "from_country": "from_country_full_name",

@@ -1742,6 +1742,7 @@ class RootVisaRequestInformationVisaRequest(BaseModel):
     from_country_full_name: Optional[str] = Field(None, title="")
     to_country_full_name: Optional[str] = Field(None, title="")
     departure_date_formatted: Optional[str] = Field(None, title="")
+    form_title: Optional[str] = Field(None, title="")
     arrival_date_formatted: Optional[str] = Field(None, title="")
     traveller_type: Optional[str] = Field(None, title="")
     traveller_id: Optional[str] = Field(None, title="")
