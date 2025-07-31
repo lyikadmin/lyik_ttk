@@ -29,6 +29,7 @@ dependencies = [
 [project.entry-points."LYIK"]
 _150_CUSTOM_LINKED_RECORD_FILTER = "lyik.ttk.linked_record.linked_record_filters:CustomLinkedRecordFiltersPlugin"
 _150_CUSTOM_LINKED_RECORD_ORDERED_MAPPING = "lyik.ttk.linked_record.linked_record_ordered_column:LinkRecordColumnOrderPlugin"
+_150_CUSTOM_LINKED_RECORD_SORT = "lyik.ttk.linked_record.linked_record_sort:LinkedRecordSortPlugin"
 _150_PREACTION_ADD_ON_SERVICE = "lyik.ttk.preaction.add_on_services:PreactionAddonServices"
 _150_PREACTION_COPY_PASSPORT_DETAILS = "lyik.ttk.preaction.copy_passport_details:CopyPassportAddress"
 _150_01_PREACTION_NORMALIZE_COUNTRY_CODES = "lyik.ttk.preaction.normalize_country_codes:NormalizeCountryCodes"
