@@ -1,0 +1,71 @@
+ERROR CODE,DESCRIPTION,CONTEXT
+LYIK_ERR_0001,%1 is not a valid passport number (expected format: A1234567).,Passport verification
+LYIK_ERR_0002,"Verification failed, Passport has expired. Please upload a valid passport.",Passport verification
+LYIK_ERR_0003,Failed to verify the Passport. Please contact admin.,Passport verification
+LYIK_ERR_0004,%1 is not a valid 6-digit pincode.,PIN code verification
+LYIK_ERR_0005,%1 is not a valid 12-digit Aadhaar number.,Aadhaar number verification
+LYIK_ERR_0006,%1 is not a valid email address.,Email address verification
+LYIK_ERR_0007,%1 does not seem like a valid phone number.,Phone number verification
+LYIK_ERR_0008,Please enter only digits in phone number.,Phone number verification
+LYIK_ERR_0009,Something went wrong. Please contact admin.,GENERIC
+LYIK_ERR_0010,Unable to extract data from the attached files. Please try with different image(s).,OCR
+LYIK_ERR_0011,Values have changed. Please Re-verify.,Verfication status checker
+LYIK_ERR_0012,Internal error occured. Please contact support.,GENERIC
+LYIK_ERR_DEFAULT_VALIDATION_ERROR,Invalid Data. Please Re-enter.,The default error message for pydantic validation errors.
+LYIK_ERR_value_error,Invalid value provided.,"Used when the Pydantic error type is 'value_error', indicating a generic validation failure not tied to a specific data type."
+LYIK_ERR_integer_default,Only numeric values are allowed.,"Used when the Pydantic error type is 'int_parsing', indicating that a non-integer value was provided where an integer was expected."
+LYIK_ERR_string_default,Text input expected.,"Used when the Pydantic error type is 'string_type', indicating that a non-string value was provided where a string was expected."
+LYIK_ERR_missing,Invalid value. Please re-enter.,"Used when the Pydantic error type is 'missing', indicating that a required field was not provided in the input."
+LYIK_ERR_default,Invalid value. Please re-enter.,Used as a fallback for unknown or unhandled Pydantic error types.
+LYIK_ERR_ACCOMMODATIONARRANGEMENT,Invalid Accommodationarrangement value.,Used when the Enum field 'ACCOMMODATIONARRANGEMENT' receives a value that is not among the allowed options.
+LYIK_ERR_ADDRESSPROOFTYPE,Invalid Addressprooftype value.,Used when the Enum field 'ADDRESSPROOFTYPE' receives a value that is not among the allowed options.
+LYIK_ERR_ADDONOP,Invalid Addonop value.,Used when the Enum field 'ADDONOP' receives a value that is not among the allowed options.
+LYIK_ERR_ADDONSERVICEAPPOINTMENT,Invalid Addonserviceappointment value.,Used when the Enum field 'ADDONSERVICEAPPOINTMENT' receives a value that is not among the allowed options.
+LYIK_ERR_ADOSI,Invalid Adosi value.,Used when the Enum field 'ADOSI' receives a value that is not among the allowed options.
+LYIK_ERR_CIVILMARITALSTATUS,Invalid Civilmaritalstatus value.,Used when the Enum field 'CIVILMARITALSTATUS' receives a value that is not among the allowed options.
+LYIK_ERR_CONFIRMADDONS,Invalid Confirmaddons value.,Used when the Enum field 'CONFIRMADDONS' receives a value that is not among the allowed options.
+LYIK_ERR_CONFIRMAPTBOOKED,Invalid Confirmaptbooked value.,Used when the Enum field 'CONFIRMAPTBOOKED' receives a value that is not among the allowed options.
+LYIK_ERR_CONFIRMDOCSUPLOADED,Invalid Confirmdocsuploaded value.,Used when the Enum field 'CONFIRMDOCSUPLOADED' receives a value that is not among the allowed options.
+LYIK_ERR_CONFIRMUNEDITABLE,Invalid Confirmuneditable value.,Used when the Enum field 'CONFIRMUNEDITABLE' receives a value that is not among the allowed options.
+LYIK_ERR_CONFIRMVIEWEDDATA,Invalid Confirmvieweddata value.,Used when the Enum field 'CONFIRMVIEWEDDATA' receives a value that is not among the allowed options.
+LYIK_ERR_COUNTRY,Invalid Country value.,Used when the Enum field 'COUNTRY' receives a value that is not among the allowed options.
+LYIK_ERR_COUNTRY_3,Invalid Country3 value.,Used when the Enum field 'COUNTRY3' receives a value that is not among the allowed options.
+LYIK_ERR_CURRENTOCCUPATIONSTATUS,Invalid Currentoccupationstatus value.,Used when the Enum field 'CURRENTOCCUPATIONSTATUS' receives a value that is not among the allowed options.
+LYIK_ERR_DOCKETSTATUS,Invalid Docketstatus value.,Used when the Enum field 'DOCKETSTATUS' receives a value that is not among the allowed options.
+LYIK_ERR_EXPENSECOVERAGE1,Invalid Expensecoverage1 value.,Used when the Enum field 'EXPENSECOVERAGE1' receives a value that is not among the allowed options.
+LYIK_ERR_EXPENSECOVERAGE2,Invalid Expensecoverage2 value.,Used when the Enum field 'EXPENSECOVERAGE2' receives a value that is not among the allowed options.
+LYIK_ERR_EXPENSECOVERAGE3,Invalid Expensecoverage3 value.,Used when the Enum field 'EXPENSECOVERAGE3' receives a value that is not among the allowed options.
+LYIK_ERR_EXPENSECOVERAGE4,Invalid Expensecoverage4 value.,Used when the Enum field 'EXPENSECOVERAGE4' receives a value that is not among the allowed options.
+LYIK_ERR_EXPENSECOVERAGE5,Invalid Expensecoverage5 value.,Used when the Enum field 'EXPENSECOVERAGE5' receives a value that is not among the allowed options.
+LYIK_ERR_FAMILYMEMBEROFEU,Invalid Familymemberofeu value.,Used when the Enum field 'FAMILYMEMBEROFEU' receives a value that is not among the allowed options.
+LYIK_ERR_GENDER,Invalid Gender value.,Used when the Enum field 'GENDER' receives a value that is not among the allowed options.
+LYIK_ERR_HOURSELECT,Invalid Hourselect value.,Used when the Enum field 'HOURSELECT' receives a value that is not among the allowed options.
+LYIK_ERR_INSURANCEPLAN,Invalid Insuranceplan value.,Used when the Enum field 'INSURANCEPLAN' receives a value that is not among the allowed options.
+LYIK_ERR_ITROPTION1,Invalid Itroption1 value.,Used when the Enum field 'ITROPTION1' receives a value that is not among the allowed options.
+LYIK_ERR_MINUTESELECT,Invalid Minuteselect value.,Used when the Enum field 'MINUTESELECT' receives a value that is not among the allowed options.
+LYIK_ERR_NUMBEROFENTRIES,Invalid Numberofentries value.,Used when the Enum field 'NUMBEROFENTRIES' receives a value that is not among the allowed options.
+LYIK_ERR_OPTION,Invalid Option value.,Used when the Enum field 'OPTION' receives a value that is not among the allowed options.
+LYIK_ERR_PASSPORTTYPE,Invalid Passporttype value.,Used when the Enum field 'PASSPORTTYPE' receives a value that is not among the allowed options.
+LYIK_ERR_PAYMENTMETHOD1,Invalid Paymentmethod1 value.,Used when the Enum field 'PAYMENTMETHOD1' receives a value that is not among the allowed options.
+LYIK_ERR_PAYMENTMETHOD2,Invalid Paymentmethod2 value.,Used when the Enum field 'PAYMENTMETHOD2' receives a value that is not among the allowed options.
+LYIK_ERR_PAYMENTMETHOD3,Invalid Paymentmethod3 value.,Used when the Enum field 'PAYMENTMETHOD3' receives a value that is not among the allowed options.
+LYIK_ERR_PAYMENTMETHOD4,Invalid Paymentmethod4 value.,Used when the Enum field 'PAYMENTMETHOD4' receives a value that is not among the allowed options.
+LYIK_ERR_PAYMENTMETHOD5,Invalid Paymentmethod5 value.,Used when the Enum field 'PAYMENTMETHOD5' receives a value that is not among the allowed options.
+LYIK_ERR_PAYMENTMETHOD6,Invalid Paymentmethod6 value.,Used when the Enum field 'PAYMENTMETHOD6' receives a value that is not among the allowed options.
+LYIK_ERR_PHOTOGRAPHAPPOINTMENT,Invalid Photographappointment value.,Used when the Enum field 'PHOTOGRAPHAPPOINTMENT' receives a value that is not among the allowed options.
+LYIK_ERR_PREFLOC,Invalid Prefloc value.,Used when the Enum field 'PREFLOC' receives a value that is not among the allowed options.
+LYIK_ERR_PURPOSEOFVISAORTRAVEL,Invalid Purposeofvisaortravel value.,Used when the Enum field 'PURPOSEOFVISAORTRAVEL' receives a value that is not among the allowed options.
+LYIK_ERR_RELATIONSHIP,Invalid Relationship value.,Used when the Enum field 'RELATIONSHIP' receives a value that is not among the allowed options.
+LYIK_ERR_RELATIONSHIPWITHEU,Invalid Relationshipwitheu value.,Used when the Enum field 'RELATIONSHIPWITHEU' receives a value that is not among the allowed options.
+LYIK_ERR_SAMEACCOMMODATIONASPRIMARY,Invalid Sameaccommodationasprimary value.,Used when the Enum field 'SAMEACCOMMODATIONASPRIMARY' receives a value that is not among the allowed options.
+LYIK_ERR_SAMEASPASSADDR,Invalid Sameaspassaddr value.,Used when the Enum field 'SAMEASPASSADDR' receives a value that is not among the allowed options.
+LYIK_ERR_SAMEFLIGHTTICKETASPRIMARY,Invalid Sameflightticketasprimary value.,Used when the Enum field 'SAMEFLIGHTTICKETASPRIMARY' receives a value that is not among the allowed options.
+LYIK_ERR_SAMEITINERARYASPRIMARY,Invalid Sameitineraryasprimary value.,Used when the Enum field 'SAMEITINERARYASPRIMARY' receives a value that is not among the allowed options.
+LYIK_ERR_SKIPBANKSTATEMENTS,Invalid Skipbankstatements value.,Used when the Enum field 'SKIPBANKSTATEMENTS' receives a value that is not among the allowed options.
+LYIK_ERR_SKIPSALARYSLIPS,Invalid Skipsalaryslips value.,Used when the Enum field 'SKIPSALARYSLIPS' receives a value that is not among the allowed options.
+LYIK_ERR_SPONSORTYPE1,Invalid Sponsortype1 value.,Used when the Enum field 'SPONSORTYPE1' receives a value that is not among the allowed options.
+LYIK_ERR_SPONSORTYPE2,Invalid Sponsortype2 value.,Used when the Enum field 'SPONSORTYPE2' receives a value that is not among the allowed options.
+LYIK_ERR_SPONSORTYPE3,Invalid Sponsortype3 value.,Used when the Enum field 'SPONSORTYPE3' receives a value that is not among the allowed options.
+LYIK_ERR_SPONSORTYPE4,Invalid Sponsortype4 value.,Used when the Enum field 'SPONSORTYPE4' receives a value that is not among the allowed options.
+LYIK_ERR_VISAMODE,Invalid Visamode value.,Used when the Enum field 'VISAMODE' receives a value that is not among the allowed options.
+LYIK_ERR_VISATYPE,Invalid Visatype value.,Used when the Enum field 'VISATYPE' receives a value that is not among the allowed options.
