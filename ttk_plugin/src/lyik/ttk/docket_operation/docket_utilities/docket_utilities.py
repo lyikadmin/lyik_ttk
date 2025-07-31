@@ -3,6 +3,8 @@ from ...models.forms.new_schengentouristvisa import (
     CIVILMARITALSTATUS,
     PASSPORTTYPE,
     SPONSORTYPE1,
+    SPONSORTYPE2,
+    SPONSORTYPE3,
     SPONSORTYPE4,
     PAYMENTMETHOD1,
     PAYMENTMETHOD2,
@@ -12,8 +14,16 @@ from ...models.forms.new_schengentouristvisa import (
     PAYMENTMETHOD6,
     RELATIONSHIPWITHEU,
     OPTION,
-    PURPOSEOFVISAORTRAVEL,
     GENDER,
+    SAMEASPASSADDR,
+    CURRENTOCCUPATIONSTATUS,
+    NUMBEROFENTRIES,
+    EXPENSECOVERAGE1,
+    EXPENSECOVERAGE2,
+    EXPENSECOVERAGE3,
+    EXPENSECOVERAGE4,
+    EXPENSECOVERAGE5,
+    ACCOMMODATIONARRANGEMENT,
 )
 from lyikpluginmanager import PluginException
 from datetime import date, datetime
@@ -58,392 +68,419 @@ class DocketUtilities:
         pdf_model = PDFModel()
 
         try:
+            pdf_model.visa_jrn_purpose_tour = True  #
             visa_info = schengen_visa_data.visa_request_information
             if visa_info and visa_info.visa_request:
-                if visa_info.visa_request.arrival_date:
-                    pdf_model.visa_1st_arrival_date = (
-                        visa_info.visa_request.arrival_date.strftime("%d-%m-%Y")
-                    )
-                pdf_model.visa_addl_stay_info = visa_info.visa_request.visa_type.value
-                pdf_model.visa_applicant_diff_tel_num = (
-                    visa_info.visa_request.phone_number
+                pdf_model.visa_app_tel_num = visa_info.visa_request.phone_number  #
+                pdf_model.visa_entry_num_req_single = (
+                    visa_info.visa_request.no_of_entries == NUMBEROFENTRIES.Single  #
                 )
-                pdf_model.visa_mem_main_dst = visa_info.visa_request.to_country.value
+                pdf_model.visa_entry_num_req_two = (
+                    visa_info.visa_request.no_of_entries == NUMBEROFENTRIES.Two  #
+                )
+                pdf_model.visa_entry_num_req_multi = (
+                    visa_info.visa_request.no_of_entries == NUMBEROFENTRIES.Multiple  #
+                )
+                if visa_info.visa_request.departure_date:
+                    pdf_model.visa_1st_arrival_date = (
+                        visa_info.visa_request.departure_date.strftime("%d-%m-%Y")  #
+                    )
+                if visa_info.visa_request.arrival_date:
+                    pdf_model.visa_dptr_date = (
+                        visa_info.visa_request.arrival_date.strftime("%d-%m-%Y")  #
+                    )
 
             passport = schengen_visa_data.passport
             if passport and passport.passport_details:
-                pdf_model.visa_first_name = passport.passport_details.first_name
-                pdf_model.visa_surname_family_name = passport.passport_details.surname
-                pdf_model.visa_surname_at_birth = passport.passport_details.surname
+                pdf_model.visa_surname_family_name = (
+                    passport.passport_details.surname
+                )  #
+                pdf_model.visa_first_name = passport.passport_details.first_name  #
                 if passport.passport_details.date_of_birth:
                     pdf_model.visa_dob = (
-                        passport.passport_details.date_of_birth.strftime("%d-%m-%Y")
+                        passport.passport_details.date_of_birth.strftime("%d-%m-%Y")  #
                     )
-                pdf_model.visa_pob = passport.passport_details.place_of_birth
-                pdf_model.visa_cob = passport.passport_details.country
-                pdf_model.visa_sex_male = passport.passport_details.gender == GENDER.M
-                pdf_model.visa_sex_female = passport.passport_details.gender == GENDER.F
+                pdf_model.visa_pob = passport.passport_details.place_of_birth  #
+                pdf_model.visa_curr_natl = passport.passport_details.nationality  #
+                pdf_model.visa_sex_male = (
+                    passport.passport_details.gender == GENDER.M
+                )  #
+                pdf_model.visa_sex_female = (
+                    passport.passport_details.gender == GENDER.F
+                )  #
                 pdf_model.visa_sex_oth = (
                     passport.passport_details.gender != GENDER.M
-                    and passport.passport_details.gender != GENDER.F
+                    and passport.passport_details.gender != GENDER.F  #
                 )
 
-                pdf_model.visa_curr_natl = passport.passport_details.nationality
                 pdf_model.visa_typ_trav_doc_ord = (
-                    passport.passport_details.type_of_passport == PASSPORTTYPE.ORDINARY
+                    passport.passport_details.type_of_passport
+                    == PASSPORTTYPE.ORDINARY  #
                 )
                 pdf_model.visa_typ_trav_doc_service = (
-                    passport.passport_details.type_of_passport == PASSPORTTYPE.OFFICIAL
+                    passport.passport_details.type_of_passport
+                    == PASSPORTTYPE.SERVICE  #
                 )
                 pdf_model.visa_typ_trav_doc_special = (
-                    passport.passport_details.type_of_passport == PASSPORTTYPE.SPECIAL
+                    passport.passport_details.type_of_passport
+                    == PASSPORTTYPE.SPECIAL  #
                 )
                 pdf_model.visa_typ_trav_doc_diplomatic = (
                     passport.passport_details.type_of_passport
-                    == PASSPORTTYPE.DIPLOMATIC
+                    == PASSPORTTYPE.DIPLOMATIC  #
                 )
                 pdf_model.visa_typ_trav_doc_official = (
-                    passport.passport_details.type_of_passport == PASSPORTTYPE.OFFICIAL
+                    passport.passport_details.type_of_passport
+                    == PASSPORTTYPE.OFFICIAL  #
+                )
+                pdf_model.visa_typ_trav_doc_oth = (
+                    passport.passport_details.type_of_passport == PASSPORTTYPE.OTHER  #
                 )
 
-                pdf_model.visa_num_trav_doc = passport.passport_details.passport_number
-                pdf_model.visa_typ_trav_doc_oth = (
-                    passport.passport_details.type_of_passport == PASSPORTTYPE.OTHER
-                )
+                pdf_model.visa_num_trav_doc = (
+                    passport.passport_details.passport_number
+                )  #
+
                 if passport.passport_details.date_of_issue:
                     pdf_model.visa_doi = (
-                        passport.passport_details.date_of_issue.strftime("%d-%m-%Y")
+                        passport.passport_details.date_of_issue.strftime("%d-%m-%Y")  #
                     )
                 if passport.passport_details.date_of_expiry:
                     pdf_model.visa_val_til = (
-                        passport.passport_details.date_of_expiry.strftime("%d-%m-%Y")
+                        passport.passport_details.date_of_expiry.strftime("%d-%m-%Y")  #
                     )
-                pdf_model.visa_issued_by_ctry = passport.passport_details.country
+                pdf_model.visa_issued_by_ctry = passport.passport_details.issued_by  #
 
             if passport and passport.other_details:
-                pdf_model.visa_oth_natl = passport.other_details.other_nationality
+                pdf_model.visa_oth_natl = passport.other_details.other_nationality  #
                 pdf_model.visa_civil_sts_single = (
-                    passport.other_details.civil_status == CIVILMARITALSTATUS.SINGLE
+                    passport.other_details.civil_status == CIVILMARITALSTATUS.SINGLE  #
                 )
                 pdf_model.visa_civil_sts_married = (
-                    passport.other_details.civil_status == CIVILMARITALSTATUS.MARRIED
+                    passport.other_details.civil_status == CIVILMARITALSTATUS.MARRIED  #
                 )
                 pdf_model.visa_civil_sts_seperated = (
-                    passport.other_details.civil_status == CIVILMARITALSTATUS.SEPARATED
+                    passport.other_details.civil_status
+                    == CIVILMARITALSTATUS.SEPARATED  #
                 )
                 pdf_model.visa_civil_sts_divorced = (
-                    passport.other_details.civil_status == CIVILMARITALSTATUS.DIVORCED
+                    passport.other_details.civil_status
+                    == CIVILMARITALSTATUS.DIVORCED  #
                 )
-                pdf_model.visa_civil_widow = (
-                    passport.other_details.civil_status == CIVILMARITALSTATUS.WIDOWED
-                )
-                pdf_model.visa_civil_sts_single = (
-                    passport.other_details.civil_status == CIVILMARITALSTATUS.SINGLE
-                )
-                pdf_model.visa_civil_sts_married = (
-                    passport.other_details.civil_status == CIVILMARITALSTATUS.MARRIED
-                )
-                pdf_model.visa_civil_sts_seperated = (
-                    passport.other_details.civil_status == CIVILMARITALSTATUS.SEPARATED
-                )
-                pdf_model.visa_civil_sts_divorced = (
-                    passport.other_details.civil_status == CIVILMARITALSTATUS.DIVORCED
-                )
-                pdf_model.visa_civil_widow = (
-                    passport.other_details.civil_status == CIVILMARITALSTATUS.WIDOWED
+                pdf_model.visa_civil_sts_widow = (
+                    passport.other_details.civil_status == CIVILMARITALSTATUS.WIDOWED  #
                 )
                 pdf_model.visa_natl_at_birth = (
-                    passport.other_details.nationality_of_birth
+                    passport.other_details.nationality_of_birth  #
                 )
 
-            # pdf_model.visa_civil_sts_reg_partner=schengen_visa_data.passport.other_details.civil_status== CIVILMARITALSTATUS.REGISTERED_PARTNER
-            # pdf_model.visa_parental_auth = (
-            #     schengen_visa_data.passport.passport_details.father_name
-            #     + " & "
-            #     + schengen_visa_data.passport.passport_details.mother_name
-            # )
             additional_details = schengen_visa_data.additional_details
             if additional_details and additional_details.sponsorship:
                 pdf_model.visa_trav_cost_self = (
-                    additional_details.sponsorship.sponsorship_options_1
+                    additional_details.sponsorship.sponsorship_options_1  #
                     == SPONSORTYPE1.SELF
                 )
-                pdf_model.visa_trav_cost_self_cash = (
-                    additional_details.sponsorship.support_means_cash
-                    == PAYMENTMETHOD1.CASH
+                if pdf_model.visa_trav_cost_self:
+                    pdf_model.visa_trav_cost_self_cash = (
+                        additional_details.sponsorship.support_means_cash
+                        == PAYMENTMETHOD1.CASH
+                    )
+                    pdf_model.visa_trav_cost_self_tc = (
+                        additional_details.sponsorship.support_means_travellers_cheque
+                        == PAYMENTMETHOD2.TRAVELLERS_CHEQUE
+                    )
+                    pdf_model.visa_trav_cost_self_cc = (
+                        additional_details.sponsorship.support_means_credit_card
+                        == PAYMENTMETHOD3.CREDIT_CARD
+                    )
+                    pdf_model.visa_trav_cost_self_ppa = (
+                        additional_details.sponsorship.support_means_prepaid_accommodation
+                        == PAYMENTMETHOD4.PREPAID_ACCOMMODATION
+                    )
+                    pdf_model.visa_trav_cost_self_ppt = (
+                        additional_details.sponsorship.support_means_prepaid_transport
+                        == PAYMENTMETHOD5.PREPAID_TRANSPORT
+                    )
+                    pdf_model.visa_trav_cost_self_oth = (
+                        additional_details.sponsorship.support_means_other
+                        == PAYMENTMETHOD6.OTHER
+                    )
+                    if pdf_model.visa_trav_cost_self_oth:
+                        pdf_model.visa_trav_cost_self_oth_txt = (
+                            additional_details.sponsorship.others_specify_1
+                        )
+
+                pdf_model.visa_trav_cost_spons = (
+                    additional_details.sponsorship.sponsorship_options_2  #
+                    == SPONSORTYPE2.SPONSOR
                 )
-                pdf_model.visa_trav_cost_self_tc = (
-                    additional_details.sponsorship.support_means_travellers_cheque
-                    == PAYMENTMETHOD2.TRAVELLERS_CHEQUE
+                pdf_model.visa_trav_cost_31_32 = (
+                    additional_details.sponsorship.sponsorship_options_3  #
+                    == SPONSORTYPE3.INVITER
                 )
-                pdf_model.visa_trav_cost_self_cc = (
-                    additional_details.sponsorship.support_means_credit_card
-                    == PAYMENTMETHOD3.CREDIT_CARD
-                )
-                pdf_model.visa_trav_cost_self_ppa = (
-                    additional_details.sponsorship.support_means_prepaid_accommodation
-                    == PAYMENTMETHOD4.PREPAID_ACCOMMODATION
-                )
-                pdf_model.visa_trav_cost_self_ppt = (
-                    additional_details.sponsorship.support_means_prepaid_transport
-                    == PAYMENTMETHOD5.PREPAID_TRANSPORT
-                )
-                pdf_model.visa_trav_cost_self_oth = (
-                    additional_details.sponsorship.sponsorship_options_4
+                pdf_model.visa_trav_cost_oth = (
+                    additional_details.sponsorship.sponsorship_options_4  #
                     == SPONSORTYPE4.OTHER
                 )
-                if pdf_model.visa_trav_cost_self_oth:
-                    pdf_model.visa_trav_cost_self_oth_txt = (
-                        additional_details.sponsorship.others_specify
+                if pdf_model.visa_trav_cost_oth:
+                    pdf_model.visa_trav_cost_oth_txt = (
+                        additional_details.sponsorship.others_specify  #
                     )
-                pdf_model.visa_means_supportoth_oth = (
-                    additional_details.sponsorship.support_means_other
-                    == PAYMENTMETHOD6.OTHER
-                )
-                if pdf_model.visa_means_supportoth_oth:
-                    pdf_model.visa_means_support_oth_txt = (
-                        additional_details.sponsorship.others_specify_1
+                if (
+                    pdf_model.visa_trav_cost_spons
+                    | pdf_model.visa_trav_cost_31_32
+                    | pdf_model.visa_trav_cost_oth
+                ):  #
+                    pdf_model.visa_means_support_oth_cash = (
+                        additional_details.sponsorship.coverage_expense_cash
+                        == EXPENSECOVERAGE1.CASH
                     )
+                    pdf_model.visa_means_support_oth_ap = (
+                        additional_details.sponsorship.coverage_accommodation_provided
+                        == EXPENSECOVERAGE2.ACCOMMODATION_PROVIDED
+                    )
+                    pdf_model.visa_means_support_oth_expn_covered = (
+                        additional_details.sponsorship.coverage_all_covered
+                        == EXPENSECOVERAGE3.ALL_COVERED
+                    )
+                    pdf_model.visa_means_support_oth_ppt = (
+                        additional_details.sponsorship.coverage_prepaid_transport
+                        == EXPENSECOVERAGE4.PREPAID_TRANSPORT
+                    )
+                    pdf_model.visa_means_support_oth = (
+                        additional_details.sponsorship.coverage_other
+                        == EXPENSECOVERAGE5.OTHER
+                    )
+                    if pdf_model.visa_means_support_oth:
+                        pdf_model.visa_means_support_oth_txt = (
+                            additional_details.sponsorship.others_specify_2
+                        )
 
             if additional_details and additional_details.national_id:
-                # pdf_model.visa_trav_cost_31_32=
                 pdf_model.visa_nat_id_num = (
-                    additional_details.national_id.aadhaar_number
+                    additional_details.national_id.aadhaar_number  #
                 )
 
             if additional_details and additional_details.family_eu:
+                pdf_model.visa_fam_mem_eu_surname = (
+                    additional_details.family_eu.surname
+                )  #
                 pdf_model.visa_fam_mem_eu_1st_nm = (
-                    additional_details.family_eu.given_name
+                    additional_details.family_eu.given_name  #
                 )
-                pdf_model.visa_fam_mem_eu_surname = additional_details.family_eu.surname
                 if additional_details.family_eu.date_of_birth:
                     pdf_model.visa_fam_mem_eu_dob = (
-                        additional_details.family_eu.date_of_birth.strftime("%d-%m-%Y")
+                        additional_details.family_eu.date_of_birth.strftime(
+                            "%d-%m-%Y"
+                        )  #
                     )
                 pdf_model.visa_fam_mem_eu_natl = (
-                    additional_details.family_eu.nationality
+                    additional_details.family_eu.nationality  #
                 )
                 pdf_model.visa_fam_mem_eu_num_trav_doc = (
-                    additional_details.family_eu.travel_document_id
+                    additional_details.family_eu.travel_document_id  #
                 )
                 pdf_model.visa_fam_rs_eu_spouse = (
                     additional_details.family_eu.relationship
-                    == RELATIONSHIPWITHEU.SPOUSE
+                    == RELATIONSHIPWITHEU.SPOUSE  #
                 )
                 pdf_model.visa_fam_rs_eu_child = (
                     additional_details.family_eu.relationship
-                    == RELATIONSHIPWITHEU.CHILD
+                    == RELATIONSHIPWITHEU.CHILD  #
                 )
                 pdf_model.visa_fam_rs_eu_gc = (
                     additional_details.family_eu.relationship
-                    == RELATIONSHIPWITHEU.GRANDCHILD
+                    == RELATIONSHIPWITHEU.GRANDCHILD  #
+                )
+                pdf_model.visa_fam_rs_eu_dependent = (
+                    additional_details.family_eu.relationship
+                    == RELATIONSHIPWITHEU.DEPENDENT_ASCENDANT  #
                 )
                 pdf_model.visa_fam_rs_eu_registered = (
                     additional_details.family_eu.relationship
-                    == RELATIONSHIPWITHEU.REGISTERED_PARTNER
+                    == RELATIONSHIPWITHEU.REGISTERED_PARTNER  #
                 )
                 pdf_model.visa_fam_rs_eu_oth = (
                     additional_details.family_eu.relationship
-                    == RELATIONSHIPWITHEU.OTHER
+                    == RELATIONSHIPWITHEU.OTHER  #
                 )
-                # pdf_model.visa_fam_rs_eu_oth_txt = (
-                #     additional_details.family_eu.relationship.value
-                #     if additional_details.family_eu.relationship
-                #     not in [
-                #         RELATIONSHIPWITHEU.SPOUSE,
-                #         RELATIONSHIPWITHEU.CHILD,
-                #         RELATIONSHIPWITHEU.GRANDCHILD,
-                #         RELATIONSHIPWITHEU.REGISTERED_PARTNER,
-                #         RELATIONSHIPWITHEU.OTHER,
-                #     ]
-                #     else ""
-                # )
 
-            if additional_details and additional_details.travel_info:
-                if additional_details.travel_info.start_date_of_visa:
-                    pdf_model.visa_mem_1st_entry = (
-                        additional_details.travel_info.start_date_of_visa.strftime(
-                            "%d-%m-%Y"
-                        )
-                    )
-                if additional_details.travel_info.end_date_of_visa:
-                    pdf_model.visa_dptr_date = (
-                        additional_details.travel_info.end_date_of_visa.strftime(
-                            "%d-%m-%Y"
-                        )
-                    )
+            resi_address = schengen_visa_data.residential_address
+            if (
+                resi_address
+                and resi_address.same_as_passport_address
+                == SAMEASPASSADDR.SAME_AS_PASS_ADDR
+            ):
+                resi_addr_card = resi_address.residential_address_card_v2
 
-                pdf_model.visa_entry_num_req_single = (
-                    additional_details.travel_info.travelling_to_other_country
-                    == OPTION.NO
-                )
-                pdf_model.visa_entry_num_req_two = (
-                    additional_details.travel_info.travelling_to_other_country
-                    == OPTION.YES
-                )
-            # pdf_model.visa_fam_rs_eu_dependent=schengen_visa_data.additional_details.family_eu.relationship == RELATIONSHIPWITHEU.DEPENDENT
-            if additional_details and additional_details.app_details:
-                app_details = additional_details.app_details
+                line1 = resi_addr_card.address_line_1 or ""
+                line2 = resi_addr_card.address_line_2 or ""
+                city = resi_addr_card.city or ""
+                state = resi_addr_card.state or ""
+                pin = resi_addr_card.pin_code or ""
+                country = resi_addr_card.country or ""
+                email = ""
 
-                line1 = app_details.address_line_1 or ""
-                line2 = app_details.address_line_2 or ""
-                city = app_details.city or ""
-                state = app_details.state or ""
-                pin = app_details.pin_code or ""
-                country = app_details.country or ""
-                email = app_details.email_address or ""
+                if visa_info and visa_info.visa_request:
+                    email = visa_info.visa_request.email_id or ""
 
                 pdf_model.visa_app_addr = ", ".join(
                     part
-                    for part in [line1, line2, city, state, pin, country, email]
+                    for part in [line1, line2, city, state, pin, country, email]  #
+                    if part.strip()
+                )
+            else:
+                resi_addr_card = resi_address.residential_address_card_v1
+
+                line1 = resi_addr_card.address_line_1 or ""
+                line2 = resi_addr_card.address_line_2 or ""
+                city = resi_addr_card.city or ""
+                state = resi_addr_card.state or ""
+                pin = resi_addr_card.pin_code or ""
+                country = resi_addr_card.country or ""
+                email = ""
+
+                if visa_info and visa_info.visa_request:
+                    email = visa_info.visa_request.email_id or ""
+
+                pdf_model.visa_app_addr = ", ".join(
+                    part
+                    for part in [
+                        line1,
+                        line2,
+                        city,
+                        state,
+                        pin,
+                        country,
+                        email,
+                    ]  #
                     if part.strip()
                 )
 
-                pdf_model.visa_app_addr = pdf_model.visa_app_addr.strip(", ")
-                pdf_model.visa_app_tel_num = (
-                    additional_details.app_details.telephone_mobile_number
-                )
+            if additional_details and additional_details.app_details:
                 app_details = additional_details.app_details
 
                 first_name = app_details.first_name or ""
                 surname = app_details.surname or ""
 
                 pdf_model.visa_applicant_diff_surnm_nm = ", ".join(
-                    part for part in [first_name, surname] if part.strip()
+                    part for part in [first_name, surname] if part.strip()  #
+                )
+
+                app_line1 = app_details.address_line_1 or ""
+                app_line2 = app_details.address_line_2 or ""
+                app_city = app_details.city or ""
+                app_state = app_details.state or ""
+                app_pin = app_details.pin_code or ""
+                app_country = app_details.country or ""
+                app_email = app_details.email_address or ""
+
+                pdf_model.visa_applicant_diff_addr = ", ".join(
+                    part
+                    for part in [
+                        app_line1,
+                        app_line2,
+                        app_city,
+                        app_state,
+                        app_pin,
+                        app_country,
+                        app_email,
+                    ]
+                    if part.strip()  #
+                )
+
+                pdf_model.visa_applicant_diff_tel_num = (
+                    app_details.telephone_mobile_number  #
                 )
 
             previous_visas = schengen_visa_data.previous_visas
             if previous_visas and previous_visas.fingerprint_details:
                 pdf_model.visa_fingerprint_no = (
-                    previous_visas.fingerprint_details.fingerprint_collected
+                    previous_visas.fingerprint_details.fingerprint_collected  #
                     == OPTION.NO
                 )
                 pdf_model.visa_fingerprint_yes = (
-                    previous_visas.fingerprint_details.fingerprint_collected
+                    previous_visas.fingerprint_details.fingerprint_collected  #
                     == OPTION.YES
                 )
                 if pdf_model.visa_fingerprint_yes:
                     if previous_visas.fingerprint_details.date_of_previous_visa:
-                        pdf_model.visa_fingerprint_yes_date = previous_visas.fingerprint_details.date_of_previous_visa.strftime(
+                        pdf_model.visa_fingerprint_yes_date = previous_visas.fingerprint_details.date_of_previous_visa.strftime(  #
                             "%d-%m-%Y"
                         )
                     pdf_model.visa_fingerprint_yes_sticker_num = (
-                        previous_visas.fingerprint_details.visa_sticker_number
-                    )
-
-            if previous_visas and previous_visas.previous_visas_details:
-                pdf_model.visa_jrn_purpose_visit_fnf = (
-                    previous_visas.previous_visas_details.purpose_of_visa
-                    == PURPOSEOFVISAORTRAVEL.VISIT_FAMILY_FRIENDS
-                )
-                pdf_model.visa_jrn_purpose_tour = (
-                    previous_visas.previous_visas_details.purpose_of_visa
-                    == PURPOSEOFVISAORTRAVEL.TOURISM
-                )
-                pdf_model.visa_jrn_purpose_business = (
-                    previous_visas.previous_visas_details.purpose_of_visa
-                    == PURPOSEOFVISAORTRAVEL.BUSINESS
-                )
-                pdf_model.visa_jrn_purpose_culture = (
-                    previous_visas.previous_visas_details.purpose_of_visa
-                    == PURPOSEOFVISAORTRAVEL.CULTURAL
-                )
-                pdf_model.visa_jrn_purpose_official = (
-                    previous_visas.previous_visas_details.purpose_of_visa
-                    == PURPOSEOFVISAORTRAVEL.OFFICIAL_VISIT
-                )
-                pdf_model.visa_jrn_purpose_study = (
-                    previous_visas.previous_visas_details.purpose_of_visa
-                    == PURPOSEOFVISAORTRAVEL.STUDY
-                )
-                pdf_model.visa_jrn_purpose_med = (
-                    previous_visas.previous_visas_details.purpose_of_visa
-                    == PURPOSEOFVISAORTRAVEL.MEDICAL
-                )
-                pdf_model.visa_jrn_purpose_sports = (
-                    previous_visas.previous_visas_details.purpose_of_visa
-                    == PURPOSEOFVISAORTRAVEL.SPORTS
-                )
-                pdf_model.visa_jrn_purpose_transit = (
-                    previous_visas.previous_visas_details.purpose_of_visa
-                    == PURPOSEOFVISAORTRAVEL.AIRPORT_TRANSIT
-                )
-                pdf_model.visa_jrn_purpose_oth = (
-                    previous_visas.previous_visas_details.purpose_of_visa
-                    == PURPOSEOFVISAORTRAVEL.OTHER
-                )
-                # if pdf_model.visa_jrn_purpose_oth:
-                #     pass
-                # pdf_model.visa_jrn_purpose_oth_txt=schengen_visa_data.previous_visas.previous_visas_details.
-                pdf_model.visa_permit_final_ctry_dest_issued_by = (
-                    previous_visas.previous_visas_details.country_of_issue.value
-                    if previous_visas.previous_visas_details.country_of_issue
-                    else ""
-                )
-                if previous_visas.previous_visas_details.start_date:
-                    pdf_model.visa_permit_final_ctry_dest_valid_from = (
-                        previous_visas.previous_visas_details.start_date.strftime(
-                            "%d-%m-%Y"
-                        )
-                    )
-                if previous_visas.previous_visas_details.end_date:
-                    pdf_model.visa_permit_final_ctry_dest_til = (
-                        previous_visas.previous_visas_details.end_date.strftime(
-                            "%d-%m-%Y"
-                        )
+                        previous_visas.fingerprint_details.visa_sticker_number  #
                     )
 
             work_address = schengen_visa_data.work_address
             if work_address and work_address.work_details:
-                pdf_model.visa_invite_temp_accom_tel_mun = (
-                    work_address.work_details.work_phone
-                )
-                pdf_model.visa_invite_org_comm_details = (
-                    work_address.work_details.work_address
-                )
-                pdf_model.visa_invite_org = work_address.work_details.employer_name
-                pdf_model.visa_curr_occ = work_address.work_details.occupation
+                pdf_model.visa_curr_occ = work_address.work_details.occupation  #
+
+            if (
+                work_address
+                and work_address.current_occupation_status
+                == CURRENTOCCUPATIONSTATUS.EMPLOYEE
+            ):
                 work_details = work_address.work_details
 
-                employer = work_details.employer_name or ""
-                address = work_details.work_address or ""
-                phone = work_details.work_phone or ""
+                if work_details:
+                    employer = work_details.employer_name or ""
+                    address = work_details.work_address or ""
+                    phone = work_details.work_phone or ""
 
-                pdf_model.visa_emp_stu_add_tel = ", ".join(
-                    part for part in [employer, address, phone] if part.strip()
-                )
+                    pdf_model.visa_emp_stu_add_tel = ", ".join(
+                        part for part in [employer, address, phone] if part.strip()  #
+                    )
+            else:
+                edu_details = work_address.education_details
+
+                if edu_details:
+                    edu_estb = edu_details.establishment_name or ""
+                    edu_estb_addr = edu_details.establishment_address or ""
+                    edu_estb_phone = edu_details.establishment_contact or ""
+
+                    pdf_model.visa_emp_stu_add_tel = ", ".join(
+                        part
+                        for part in [edu_estb, edu_estb_addr, edu_estb_phone]  #
+                        if part.strip()
+                    )
 
             accomodation = schengen_visa_data.accomodation
-            if accomodation and accomodation.invitation_details:
-                pdf_model.visa_invite_temp_accom_tel_num = (
-                    accomodation.invitation_details.mobile_number
-                )
-                pdf_model.visa_invite_temp_accom = (
-                    accomodation.invitation_details.inviter_name
-                )
-                address = accomodation.invitation_details.inviter_address or ""
-                email = accomodation.invitation_details.email_id or ""
+            if (
+                accomodation
+                and accomodation.accommodation_choice
+                and accomodation.accommodation_choice.accommodation_option
+                == ACCOMMODATIONARRANGEMENT.BOOKED
+            ):
+                booked = accomodation.booked_appointment
 
-                # Join only non-empty parts with comma
-                pdf_model.visa_invite_temp_accom_comm_details = ", ".join(
-                    part for part in [address, email] if part.strip()
-                )
+                if booked:
+                    pdf_model.visa_invite_temp_accom = booked.accommodation_name
+                    pdf_model.visa_invite_temp_accom_tel_num = (
+                        booked.accommodation_phone
+                    )
 
-            resi_address = schengen_visa_data.residential_address
-            if resi_address and resi_address.residential_address_card_v1:
-                # pdf_model.visa_oth_trav_doc_txt=schengen_visa_data.shared_travell_info.
-                res_address = resi_address.residential_address_card_v1
+                    address = booked.accommodation_address or ""
+                    email = booked.accommodation_email or ""
 
-                # Extract each field safely
-                line1 = res_address.address_line_1 or ""
-                line2 = res_address.address_line_2 or ""
-                city = res_address.city or ""
-                country = res_address.country or ""
+                    # Join only non-empty parts with comma
+                    pdf_model.visa_invite_temp_accom_comm_details = ", ".join(  #
+                        part for part in [address, email] if part.strip()
+                    )
+            else:
+                inviter = accomodation.invitation_details
 
-                # Join non-empty, stripped values with commas
-                pdf_model.visa_applicant_diff_addr = ", ".join(
-                    part for part in [line1, line2, city, country] if part.strip()
-                )
+                if inviter:
+                    pdf_model.visa_invite_temp_accom = inviter.inviter_name
+                    pdf_model.visa_invite_temp_accom_tel_num = inviter.mobile_number
+
+                    address = inviter.inviter_address or ""
+                    email = inviter.email_id or ""
+
+                    # Join only non-empty parts with comma
+                    pdf_model.visa_invite_temp_accom_comm_details = ", ".join(  #
+                        part for part in [address, email] if part.strip()
+                    )
 
             return pdf_model
 
