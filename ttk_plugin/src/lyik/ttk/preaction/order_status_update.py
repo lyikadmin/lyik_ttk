@@ -84,8 +84,14 @@ class OrderStatusUpdate(PreActionProcessorSpec):
             makerConfirmation = False
             appointmentDetails = {}
             additionalReviewRequired: bool = False
+            form_status:str | None = None
             travelerDetails: TravelerDetailsModel = TravelerDetailsModel()
 
+            if (
+                parsed_form_rec.lets_get_started
+                and parsed_form_rec.lets_get_started.form_status
+            ):
+                form_status = parsed_form_rec.lets_get_started.form_status
             if (
                 parsed_form_rec.submit_info
                 and parsed_form_rec.submit_info.confirm
@@ -166,6 +172,7 @@ class OrderStatusUpdate(PreActionProcessorSpec):
                 "makerConfirmation": makerConfirmation,
                 "appointmentDetails": appointmentDetails,
                 "additionalReviewRequired": additionalReviewRequired,
+                "form_status": form_status,
                 "travelerDetails": travelerDetails.model_dump(),
             }
             logger.debug("Order Status Update Body:")
