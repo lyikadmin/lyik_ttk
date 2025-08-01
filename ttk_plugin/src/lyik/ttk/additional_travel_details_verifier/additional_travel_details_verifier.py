@@ -138,8 +138,9 @@ class AdditionalTravelDetailsVerifier(VerifyHandlerSpec):
                         value=application_details.telephone_mobile_number,
                         country_code=default_country_code,
                     )
-                    payload.app_details.telephone_mobile_number = valid_phone_number
-                    logger.info("Phone number is validated.")
+                    # payload.app_details.telephone_mobile_number = valid_phone_number
+                    if valid_phone_number:
+                        logger.info("Phone number is validated.")
                 except Exception as e:
                     raise PluginException(
                         message=str(e),
@@ -168,7 +169,7 @@ class AdditionalTravelDetailsVerifier(VerifyHandlerSpec):
                 status=VERIFY_RESPONSE_STATUS.SUCCESS,
                 actor="system",
                 message="Verified successfully by the system.",
-                response=payload.model_dump(),
+                # response=payload.model_dump(),
             )
 
         except PluginException as pe:
