@@ -47,15 +47,9 @@ class ClientActionGuard(PreActionProcessorSpec):
         # Step 1: Decode outer token
         # --- decode outer JWT (no signature check) ---
         try:
-            outer = jwt.decode(token, options={"verify_signature": False}, algorithms=["HS256"])
+            outer = self._decode_jwt(token)
         except Exception as e:
             logger.error("Failed to decode JWT: %s", e)
-            return payload
-
-        # Step 2: Search for 'token'
-        inner_token = self.find_token_field(payload)
-        if not inner_token:
-            logger.error("Inner token not found in the decoded payload.")
             return payload
         
         # --- extract persona list ---
@@ -85,25 +79,6 @@ class ClientActionGuard(PreActionProcessorSpec):
                     "Once your docket has been enabled for download, you may no longer save or submit this application."
                 )
 
-        # 2) Appointment date must be before departure date
-        # --- 2) appointment < departure ---
-        appt = (
-            form.appointment
-            and form.appointment.appointment_scheduled
-            and form.appointment.appointment_scheduled.scheduled_date
-        )
-        print(f'apt date {appt}')
-        dep = (
-            form.visa_request_information
-            and form.visa_request_information.visa_request
-            and form.visa_request_information.visa_request.departure_date
-        )
-        print(f'dep date{dep}')
-        if isinstance(appt, date) and isinstance(dep, date) and appt >= dep:
-            raise PluginException(
-                f"Appointment date ({appt}) must be before your departure date ({dep})."
-            )
-
         # Nothing to modify – hand back the original record
         return payload
     
@@ -118,13 +93,3 @@ class ClientActionGuard(PreActionProcessorSpec):
                 message="Internal error occurred. Please contact support.",
                 detailed_message=f"Something went wrong while decoding payload: {e}",
             )
-        
-    def find_token_field(self, data: Dict[str, Any]) -> Union[str, None]:
-        if isinstance(data, dict):
-            provider_info = data.get("provider_info")
-            if isinstance(provider_info, dict):
-                token = provider_info.get("token")
-                if isinstance(token, str):
-                    return token
-
-        return None
