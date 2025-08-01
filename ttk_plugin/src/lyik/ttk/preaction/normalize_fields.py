@@ -82,11 +82,12 @@ class NormalizeFields(PreActionProcessorSpec):
             else None
         )
 
-        traveller_details = (
-            form.visa_request_information.visa_request.traveller_type
-            if form.visa_request_information.visa_request and
-            form.visa_request_information.visa_request.traveller_type else None
-        )
+        traveller_details = "Primary traveller" if (form.visa_request_information.visa_request and 
+                                                    form.visa_request_information.visa_request.traveller_type == "Primary") else (form.visa_request_information.visa_request.traveller_type 
+                                                                                                                                  if form.visa_request_information.visa_request and 
+                                                                                                                                  form.visa_request_information.visa_request.traveller_type 
+                                                                                                                                  else None)
+
 
         # get the passport details
         details = getattr(getattr(form, 'passport', None), 'passport_details', None)
@@ -155,9 +156,9 @@ class NormalizeFields(PreActionProcessorSpec):
             lets = updated_data.get("lets_get_started", {})
             if traveller_details:
                 if sub_title:
-                    lets["traveler_details_header"] = f"<h1>{traveller_details} | {context.form_name}</h1>"
+                    lets["traveler_details_header"] = f"<h1 style='text-align: center'>{traveller_details} | {context.form_name}</h1>"
                 else:
-                    lets["traveler_details_header"] = f"<h1>{traveller_details}</h1>"
+                    lets["traveler_details_header"] = f"<h1 style='text-align: center'>{traveller_details}</h1>"
             else:
                 lets.setdefault("traveler_details_header", "")
             updated_data["lets_get_started"] = lets
