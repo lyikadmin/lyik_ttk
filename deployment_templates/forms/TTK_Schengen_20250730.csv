@@ -107,9 +107,6 @@ info_pane_builder,lets_get_started,,,info_pane,,False,"<!DOCTYPE html>
 </html>
 ",Let's Get Started,,,False,,,,,operation.save:Continue
 fac_str,traveler_details_header,,,data_display,,False,,,,,False,,,,False,
-fac_str,pct_completion,,,hidden,,False,,,,,False,,,,,
-fac_int,infopanes_completed,,,hidden,,False,,,,,False,,,,,
-fac_int,infopanes_total,,,hidden,,False,,,,,False,,,,,
 display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
@@ -149,7 +146,7 @@ display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
         
         
         <!-- Text beside SVG -->
-        <div style=""line-height: 2.21vh;font-family: 'Inter', sans-serif;font-size: 1.99vh;text-align: center;"">
+        <div style=""line-height: 2.21vh;font-family: 'Inter', sans-serif;font-size:1.66vh;text-align: center;"">
           <h3 style=""margin:0 15px; color:#2862A9;"">
             Excited for Your Trip?
           </h3>
@@ -160,17 +157,17 @@ display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
       </div>
       
       <!-- Welcome subtitle -->
-      <h2 style=""line-height: 2.21vh;font-family: 'Inter', sans-serif;font-size: 1.99vh;color:#3B83DB; text-align:center;"">
+      <h2 style=""line-height: 2.21vh;font-family: 'Inter', sans-serif;font-size:1.66vh;color:#3B83DB; text-align:center;"">
         Welcome to your Visa Application Journey!
       </h2>
       
       <!-- Intro paragraph with manual line break -->
-      <p style=""margin:0 0 30px 0; font-size:1.99vh; line-height: 2.21vh; font-weight: 500;font-family: 'Inter', sans-serif;text-align: center;"">
+      <p style=""margin:0 0 30px 0; font-size:1.66vh; line-height: 2.21vh; font-weight: 500;font-family: 'Inter', sans-serif;text-align: center;"">
         Our guided process, along with the support of a TTK Visa Consultant will help you complete this journey with ease.
       </p>
       
       <!-- Welcome subtitle -->
-      <h2 style=""line-height: 2.21vh;font-family: 'Inter', sans-serif;font-size: 1.99vh; color:#3B83DB; text-align:center;"">
+      <h2 style=""line-height: 2.21vh;font-family: 'Inter', sans-serif;font-size:1.66vh; color:#3B83DB; text-align:center;"">
         What to expect at the end of this process
       </h2>
     </div>
@@ -178,7 +175,7 @@ display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
     <!-- Bullet list -->
      <div style=""margin:0 0 30px 0;justify-content: center;align-items: center;display: flex;line-height: 2.21vh;"" >
 
-       <ul style=""margin:0;  font-size:1.99vh; line-height: 2.5vh; font-weight: 500;font-family: 'Inter', sans-serif;"">
+       <ul style=""margin:0;  font-size:1.66vh; line-height: 2.5vh; font-weight: 500;font-family: 'Inter', sans-serif;"">
          <li style=""margin-bottom:2vh;"">
            Look for your downloadable Docket. Your filled Visa Application Form will be automatically generated, ready for you to print and sign.
          </li>
@@ -204,6 +201,9 @@ display_field,instruction_display,,,display_field,,False,"<!DOCTYPE html>
 </body>
 </html>
 ",,,,False,,,,,
+fac_str,pct_completion,,,hidden,,False,,,,,False,,,,,
+fac_int,infopanes_completed,,,hidden,,False,,,,,False,,,,,
+fac_int,infopanes_total,,,hidden,,False,,,,,False,,,,,
 fac_str,form_status,,,hidden,,False,Used for form status,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,visa_req_section,,,section_break,,False,No Instructions Present,Visa Request Summary,,,False,,,,,
@@ -364,10 +364,11 @@ fac_country_3,to_country,,,dropdown,,False,Select Option,Travelling To,,,False,,
 fac_date,departure_date,,,datebox,,False,DD/MM/YYYY,Date of Departure,,,False,,,,,;only_future: true
 fac_date,arrival_date,,,datebox,,False,DD/MM/YYYY,Date of Return,,,False,,,,,;only_future: true
 fac_visa_type,visa_type,,,dropdown,,False,Select Option,Type of Visa,,,False,,,,False,
+fac_str,purpose_of_stay,,,textbox,,True,Enter Additional Purpose of Stay,Additional Purpose of Stay,,,False,,,,,
 fac_int,length_of_stay,,,textbox,,False,Enter Length of Stay (in Days),Length of Stay (in Days),,,False,,,,,
-fac_int,validity,,,textbox,,False,Enter Validity of Visa (in Days),Validity of Visa (in Days),,,False,,,,,
-fac_number_of_entries,no_of_entries,,,dropdown,,True,Select Option,Number of Entries,,,False,,,,False,
-fac_visa_mode,visa_mode,,,dropdown,,False,Select Option,Visa Mode (E-Visa/Paper),,,False,,,,,
+fac_int,validity,,,textbox,,False,Enter Validity of Visa (in Days),Validity of Visa (in Days),,,False,,,,False,
+fac_number_of_entries,no_of_entries,,,dropdown,,True,Select Option,Number of Entries,,,False,,,,,
+fac_visa_mode,visa_mode,,,dropdown,Paper,False,Select Option,Visa Mode (E-Visa/Paper),,,False,,,,False,
 fac_int,no_of_travellers,,,hidden,,False,Enter Number of Travellers,Number of Travellers,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 fac_str,from_country_full_name,,,hidden,,False,,,,,False,,,,,
@@ -376,6 +377,7 @@ fac_str,departure_date_formatted,,,hidden,,False,,,,,False,,,,,
 fac_str,arrival_date_formatted,,,hidden,,False,,,,,False,,,,,
 fac_str,traveller_type,,,hidden,,False,,,,,False,,,,,
 fac_str,traveller_id,,,hidden,,False,,,,,False,,,,,
+fac_str,form_title,,,hidden,,False,,,,,False,,,,,
 fac_str,order_id,,,hidden,,False,,,,,False,,,,,
 fac_str,earliest_appointment_availability,,,hidden,,False,,,,,False,,,,,
 fac_str,visa_processing_type,,,hidden,,False,,,,,False,,,,,
@@ -590,7 +592,7 @@ info_pane_builder,appointment,,,info_pane,,False,"<!DOCTYPE html>
   </div>
 </body>
 </html>
-",Appointment Details,,,False,,,,,operation.save:Save and Continue
+",Appointment Details,,,False,,,,,operation.save:Save and Continue;verify.verify_handler:VERIFIER_APPOINTMENT_DETAILS;verify.action_text:Verify
 display_field,display_appointment_details_header,,,display_field,,False,"<!-- <p style=""font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;"">
  
   Please upload the details of your
@@ -633,7 +635,7 @@ display_field,display_appointment_details_header,,,display_field,,False,"<!-- <p
 </body>
 </html>
 ",,,,False,,,,,
-fac_add_on_service_appointment,add_on_service_option,,,checkbox,,False,Select Option,,,,False,,,,not lock_appointment = 'Lock',
+fac_add_on_service_appointment,add_on_service_option,,,checkbox,,False,Select Option,,,,False,,,,not (EXISTS(@.appointment_scheduled.upload_appointment)),
 card_builder,appointment_scheduled,,,card,,False,,My Scheduled Appointment Details,,,False,,,,not @.add_on_service_option = 'YES',
 table,appointment_details_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_pref_loc,scheduled_location,,,dropdown,,False,Select Option,Scheduled Location (City),,,False,,,,,
@@ -777,12 +779,13 @@ display_field,display_passport_header,,,display_field,,False,"
 </body>
 </html>
 ",,,,False,,,,,
-card_builder,passport_details,,,card,,False,,Passport Details,,,False,,,,,verify.verify_handler:VERIFIER_PASSPORT_DATE;verify.action_text:Auto-fill Details
-fac_passport_type,type_of_passport,,,dropdown,ORDINARY,False,Select Option,Type of Passport,,,False,,,,,
+card_builder,passport_details,,,card,,False,,Passport Details,,,False,,,,,
+fac_passport_type,type_of_passport,,,dropdown,ORDINARY,True,Select Option,Type of Passport,,,False,,,,,
 table,passport_page_upload,,,table,,False,,,,,False,,,,,table.column:2
 fac_file,ovd_front,,,fileoption,,False,Upload a Image/PDF,Front Page of Passport,,,False,,,,,"file_type:.pdf, .jpg, .jpeg, .png"
 fac_file,ovd_back,,,fileoption,,False,Upload a Image/PDF,Back Page of Passport,,,False,,,,,"file_type:.pdf, .jpg, .jpeg, .png"
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
+fac_str,cta_passport,,,cta_button,Auto-fill details,False,Automatically fill in passport details,Auto-fill Passport Details,,,False,,,,,verify.verify_handler:VERIFIER_PASSPORT_DATE;verify.action_text:Auto-fill Details;align:center
 display_field,display_passport_table_headline,,,display_field,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
@@ -816,16 +819,17 @@ display_field,display_passport_table_headline,,,display_field,,False,"<!DOCTYPE 
 </html>
 ",,,,False,,,,,
 table,passport_info_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,first_name,,,textbox,@.passport_page_upload.TRUSTED_OVD.name,False,Enter Given Name as in Passport,Given Name as in Passport,,,False,,,,,
-fac_str,surname,,,textbox,@.passport_page_upload.TRUSTED_OVD.surname,False,Enter Surname as in Passport,Surname as in Passport,,,False,,,,,
-fac_date,date_of_birth,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_birth,False,DD/MM/YYYY,Date of Birth as in Passport,,,False,,,,,;only_past: true
-fac_str,passport_number,,,textbox,@.passport_page_upload.TRUSTED_OVD.uid,False,Enter Passport Number,Passport Number,,,False,,,,,
-fac_date,date_of_issue,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_issue,False,DD/MM/YYYY,Date of Issue,,,False,,,,,;only_past: true
+fac_str,first_name,,,textbox,@.passport_page_upload.TRUSTED_OVD.name,True,Enter Given Name as in Passport,Given Name as in Passport,,,False,,,,,
+fac_str,surname,,,textbox,@.passport_page_upload.TRUSTED_OVD.surname,True,Enter Surname as in Passport,Surname as in Passport,,,False,,,,,
+fac_str,surname_at_birth,,,textbox,,True,Enter Surname at birth/Former family name,Surname at birth/Former family name,,,False,,,,,
+fac_date,date_of_birth,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_birth,True,DD/MM/YYYY,Date of Birth as in Passport,,,False,,,,,;only_past: true
+fac_str,passport_number,,,textbox,@.passport_page_upload.TRUSTED_OVD.uid,True,Enter Passport Number,Passport Number,,,False,,,,,
+fac_date,date_of_issue,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_issue,True,DD/MM/YYYY,Date of Issue,,,False,,,,,;only_past: true
 fac_date,date_of_expiry,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_expiry,False,DD/MM/YYYY,Date of Expiry,,,False,,,,,
-fac_gender,gender,,,dropdown,@.passport_page_upload.TRUSTED_OVD.gender,False,Select Option,Gender,,,False,,,,,
-fac_str,place_of_issue,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_issue,False,Enter Place of Issue,Place of Issue,,,False,,,,,
-fac_str,place_of_birth,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_birth,False,Enter Place of Birth,Place of Birth,,,False,,,,,
-fac_str,nationality,,,textbox,@.passport_page_upload.TRUSTED_OVD.nationality,False,Enter Nationality,Nationality,,,False,,,,,
+fac_gender,gender,,,dropdown,@.passport_page_upload.TRUSTED_OVD.gender,True,Select Option,Gender,,,False,,,,,
+fac_str,place_of_issue,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_issue,True,Enter Place of Issue,Place of Issue,,,False,,,,,
+fac_str,place_of_birth,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_birth,True,Enter Place of Birth,Place of Birth,,,False,,,,,
+fac_str,nationality,,,textbox,@.passport_page_upload.TRUSTED_OVD.nationality,True,Enter Nationality,Nationality,,,False,,,,,
 fac_str,issued_by,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_issue,False,Enter Issued By (Authority/City),Issued By (Authority/City),,,False,,,,,
 fac_str,father_name,,,textbox,,False,Enter Father's Name,Father's Name,,,False,,,,,
 fac_str,mother_name,,,textbox,,False,Enter Mother's Name,Mother's Name,,,False,,,,,
@@ -836,6 +840,7 @@ fac_str,pin_code,,,textbox,@.passport_page_upload.TRUSTED_OVD.postal_code,False,
 fac_str,city,,,textbox,@.passport_page_upload.TRUSTED_OVD.city,False,Enter City,City,,,False,,,,,
 fac_str,state,,,textbox,@.passport_page_upload.TRUSTED_OVD.state,False,Enter State,State,,,False,,,,,
 fac_str,country,,,textbox,@.passport_page_upload.TRUSTED_OVD.code,False,Enter Country,Country,,,False,,,,,
+fac_country_3,country_of_birth,,,dropdown,IND,True,Select Option,Country of Birth,,,False,,,,,
 fac_str,desired_validity,,,hidden,6,False,This is the minimum duration for which the passport should be valid,,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -844,6 +849,17 @@ table,other_details_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_civil_marital_status,civil_status,,,dropdown,,False,Select Option,Civil/Marital Status,,,False,,,,,
 fac_str,nationality_of_birth,,,textbox,,False,Enter Nationality of Birth (if different),Nationality of Birth (if different),,,False,,,,,
 fac_str,other_nationality,,,textbox,,False,Enter Other Nationality,Other Nationality,,,False,,,,,
+fac_option,minor_status,,,radiobutton,NO,False,Select Option,Are you a Minor?,,,False,,,,,
+break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,parental_guardian_details,,,card,,False,,Parental Authority/Legal Guardian Details,,,False,,,"other_details.minor_status = ""NO""",,
+table,parental_detals_table,,,table,,False,,,,,False,,,,,table.column:2
+fac_str,first_name,,,textbox,,True,Enter First Name,First Name of Parent/Guardian,,,False,,,,,
+fac_str,surname,,,textbox,,True,Enter Surname,Surname of Parent/Guardian,,,False,,,,,
+fac_str,phone_number,,,textbox,,True,Enter Phone Number,Phone Number of Parent/Guardian,,,False,,,,,
+fac_str,email_address,,,textbox,,True,Enter Email Address,Email Address of Parent/Guardian,,,False,,,,,
+fac_str,address,,,textbox,,True,Enter Address,Address of Guardian,,,False,,,,,
+fac_str,nationality,,,textbox,,False,Enter Nationality,Nationality,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -912,13 +928,33 @@ info_pane_builder,photograph,,,info_pane,,False,"<!DOCTYPE html>
     }
   </style>
 <body style=""margin: 0; font-family: Arial, sans-serif;"">
-    <div class=""container schengen"">
-    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
+    <div class=""container passport"">
+    <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Guidelines for Passport</div> -->
 
-    <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
-      <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
-       Need help with this part? Here’s what you need to know about each field in this section.
-    </p>
+    <div class=""subheading"" style=""font-size: 22px; font-weight: 700; margin-bottom: 16px;"">
+      Need help with this part? Here’s what you need to know.
+    </div>
+
+    <ul>
+      <li>
+        Always get your photo clicked at a professional studio, as per the photo specification guideline provided.
+      </li>
+      <li>
+        Avoid selfies or old passport photos or photos used for your earlier visa request. 
+      </li>
+      <li>
+        Ensure the photo is recent (taken within the last 6 months) and reflects your current appearance—especially if your look has changed. 
+      </li>
+      <li>
+        Old or unclear photos may cause delays in processing. We recommend to avoid Photos used during your previous visa application
+      </li>
+      <li>
+        This ensures faster processing and prevents rejection due to minor errors.
+      </li>
+    </ul>
+    </div>
+
+
 
 <!-- Full width wrapper with 10% left and right padding -->
 <div style=""width: 100%; "">
@@ -1023,6 +1059,7 @@ in the top-right corner of this section.
 </body>
 </html>
 ",,,,False,,,,,
+fac_photograph_appointment,appointment_photo_option,,,checkbox,,False,Select Option,,,,False,,,,not EXISTS(@.passport_photo.photo),
 card_builder,passport_photo,,,card,,False,,Review my Passport-Sized Photo (Optional),,,False,,,,"not @.appointment_photo_option =""YES""",
 display_field,upload_photo_display,,,display_field,,False,"<!-- <div style=""
   display: flex;
@@ -1054,7 +1091,6 @@ please upload it here.
 </div>",,,,False,,,,,
 fac_file,photo,,,fileoption,,False,Upload a Image/PDF,Passport-Size Photo (Optional),,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png"
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-fac_photograph_appointment,appointment_photo_option,,,checkbox,,False,Select Option,,,,False,,,,,
 card_builder,add_on_service_photo,,,card,,False,,Add-On Service,,,False,,,,,
 display_field,display_add_on_service,,,display_field,,False,"<!-- <div style=""
   display: flex;
@@ -1238,7 +1274,7 @@ in the top-right corner of this section.
 </body>
 </html>
 ",,,,False,,,,,
-fac_same_as_pass_addr,same_as_passport_address,,,checkbox,,False,Select Option,,,,False,,,,,
+fac_same_as_pass_addr,same_as_passport_address,,,checkbox,,False,Select Option,,,,False,,,,not EXISTS(@.residential_address_card_v1.address_proof_upload),
 card_builder,residential_address_card_v1,,,card,,False,,Current Residential Address,,,False,,,same_as_passport_address = 'SAME_AS_PASS_ADDR',,
 table,residential_address_table_v1,,,table,,False,,,,,False,,,,,table.column:2
 fac_address_proof_type,type_of_proof,,,dropdown,,False,Select Option,Type of Proof,,,False,,,,,
@@ -1251,7 +1287,7 @@ fac_str,state,,,textbox,,False,Enter State,State,,,False,,,,,
 fac_str,country,,,textbox,,False,Enter Country,Country,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,residential_address_card_v2,,,card,,False,,Current Residential Address,,,False,,,not same_as_passport_address = 'SAME_AS_PASS_ADDR',,
+card_builder,residential_address_card_v2,,,card,,False,,Current Residential Address,SAVE_EVEN_IF_HIDDEN,,False,,,not same_as_passport_address = 'SAME_AS_PASS_ADDR',,
 table,residential_address_table_v2,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,address_line_1,,,textbox,,False,Enter Address Line 1,Address Line 1,,,False,,,,False,
 fac_str,address_line_2,,,textbox,,False,Enter Address Line 2,Address Line 2,,,False,,,,False,
@@ -1259,6 +1295,14 @@ fac_str,pin_code,,,textbox,,False,6 digit PIN Code,PIN Code,,,False,,,,False,
 fac_str,city,,,textbox,,False,Enter City,City,,,False,,,,False,
 fac_str,state,,,textbox,,False,Enter State,State,,,False,,,,False,
 fac_str,country,,,textbox,,False,Enter Country,Country,,,False,,,,False,
+break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+fac_option,other_nationality,,,radiobutton,NO,True,Select Option,Are you residing in a country other than the country of current nationality?,,,False,,,,,
+card_builder,resident_in_other_country,,,card,,False,,Residence in another Country,,,False,,,"not other_nationality = ""YES""",,
+table,resident_in_other_country_table,,,table,,False,,,,,False,,,,,table.column:2
+fac_file,address_proof,,,fileoption,,True,Upload a PDF,Upload Address Proof,,,False,,,,,file_type:.pdf
+fac_str,residence_permit_number,,,textbox,,True,Enter Residence Permit Number,Residence Permit Number,,,False,,,,,
+fac_date,permit_date_of_expiry,,,datebox,,True,DD/MM/YYYY,Permit Date of Expiry,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -1389,6 +1433,7 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,shared_traveller_section,,,section_break,,False,,Shared Traveller Details,,,False,,,$.visa_request_information.visa_request.traveller_type = 'Primary',,
 info_pane_builder,shared_travell_info,,,info_pane,,False,,Shared Traveller Details,,,False,,,,,operation.save:Save & Continue
+display_field,instruction,,,display_field,,False,You may have details in common with the Primary Traveller. Select the ones that apply to you below.,,,,False,,,,,
 card_builder,shared,,,card,,False,,Same as Primary Traveller,,,False,,,,,
 fac_same_itinerary_as_primary,itinerary_same,,,checkbox,,False,Select Option,,,,False,,,,,
 fac_same_accommodation_as_primary,accommodation_same,,,checkbox,,False,Select Option,,,,False,,,,,
@@ -1561,41 +1606,6 @@ align-items: center;"">
     </div>
   </div>",,,,False,,,,,
 fac_file,upload_itinerary,,,fileoption,,False,Upload a Image/PDF,Itinerary (Optional),,,False,,,,not @.add_on_service_itinerary.add_on_service_itinerary_option = 'YES',"file_type:.pdf,.jpg,.jpeg,.png"
-ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,add_on_service_itinerary,,,card,,False,,Add-On Service,,,False,,,,,
-display_field,display_add_on_service_itinerary,,,display_field,,False,"<!-- <div style=""
-  display: flex;
-  align-items: left;
-  justify-content: left;
-  text-align: left;
-  margin-left: 15px;
-"">
-  To know the cost, please refer the <strong>&nbsp;Add-On Cart Section</strong>.
-</div> -->
-<!DOCTYPE html>
-<html lang=""en"">
-<head>
-  <meta charset=""UTF-8"">
-  <title>Centered Paragraph</title>
-  <style>
-    .message-box {
-      font-family: 'Inter', sans-serif;
-      font-weight: 425;
-      font-size: 16px;
-      text-align: left;
-      
-    }
-  </style>
-</head>
-<body>
-    <div class=""message-box"">
-      <span>
-        <span style=""font-weight: 600;"">Need assistance with creating your itinerary?</span> <br>
-        Visit the Add-On Cart to avail this service for a small fee.
-      </span>
-    </div>
-</body>
-</html>",,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,accomodation_section,,,section_break,,False,,Accommodation,,,False,,,"CONTAINS($.shared_travell_info.shared.accommodation_same,ACCOMMODATION)",,
@@ -2269,7 +2279,7 @@ in the top-right corner of this section.
 </body>
 </html>",,,,False,,,,,
 fac_str,lock_travel_insurance,,,hidden,,False,,,,,False,,,,,
-card_builder,flight_reservation_details,,,card,,False,,Insurance Details,,,False,,,,"not (lock_travel_insurance=""Lock"" or @.add_on_card.add_on_service_option=""INSURANCE"")",
+card_builder,flight_reservation_details,,,card,,False,,Insurance Details,,,False,,,,"not (lock_travel_insurance=""Lock"" or add_on_service_option=""INSURANCE"")",
 display_field,display_flight_reservation_details,,,display_field,,False,"<div style=""
 display: flex;
 justify-content: center;
@@ -2290,6 +2300,36 @@ please upload it here. Make sure it includes all Schengen countries you're visit
 </div>
 </div>",,,,False,,,,,
 fac_file,flight_reservation_tickets,,,fileoption,,False,Upload a Image/PDF,Insurance Document,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png"
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+fac_adosi,add_on_service_option,,,checkbox,,False,Select Option,,,,False,,,,not EXISTS(@.flight_reservation_details.flight_reservation_tickets),
+card_builder,add_on_card,,,card,,False,,Details Required for Insurance,,,False,,,"not add_on_service_option = ""INSURANCE""",not EXISTS(@.flight_reservation_details.flight_reservation_tickets),
+display_field,instruction_display,,,display_field,,False,"<div style=""
+display: flex;
+justify-content: center;
+align-items: center;"">
+
+<div style=""
+  text-align: center;
+  /* width: 1060px; */
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 32px;
+  color: #000000;
+  text-align: center;
+"">
+        To help us buy the insurance for you, kindly enter the details below.
+    </div>
+  </div>
+       
+",,,,False,,,"not @.add_on_card.add_on_service_option=""INSURANCE""",,
+table,details_table,,,table,,False,,,,,False,,,,,table.column:2
+fac_str,nominee_name,,,textbox,,False,Enter Name of Nominee,Name of Nominee,,,False,,,,,
+fac_relationship,relationship_with_nominee,,,dropdown,,False,Select Option,Relationship with Nominee,,,False,,,,,
+fac_str,pre_existing_disease,,,textbox,,False,Enter Any pre-existing Disease?,Any pre-existing Disease?,,,False,,,,,
+fac_str,pre_existing_disease_details,,,textbox,,False,Enter Details of Pre-Existing Disease,Details of Pre-Existing Disease,,,False,,,,,
+fac_insurance_plan,plan_sum_insured,,,dropdown,,False,Select Option,Plan (Sum Insured),,,False,,,,,
+break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,add_on_service,,,card,,False,,Add-On Service,,,False,,,,,
 display_field,display_add_on,,,display_field,,False,"<!-- <div style=""
@@ -2326,36 +2366,6 @@ To know the cost, please refer to the <strong>&nbsp;Add-On Cart Section</strong>
     </div>
 </body>
 </html>",,,,False,,,,,
-ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,add_on_card,,,card,,False,,Add-On Service: Details Required,,,False,,,,"not lock_travel_insurance=""Lock""",
-fac_adosi,add_on_service_option,,,checkbox,,False,Select Option,,,,False,,,,,
-display_field,instruction_display,,,display_field,,False,"<div style=""
-display: flex;
-justify-content: center;
-align-items: center;"">
-
-<div style=""
-  text-align: center;
-  /* width: 1060px; */
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 32px;
-  color: #000000;
-  text-align: center;
-"">
-        To help us buy the insurance for you, kindly enter the details below.
-    </div>
-  </div>
-       
-",,,,False,,,"not @.add_on_card.add_on_service_option=""INSURANCE""",,
-table,details_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,nominee_name,,,textbox,,False,Enter Name of Nominee,Name of Nominee,,,False,,,"not add_on_service_option = ""INSURANCE""",,
-fac_relationship,relationship_with_nominee,,,dropdown,,False,Select Option,Relationship with Nominee,,,False,,,"not add_on_service_option = ""INSURANCE""",,
-fac_str,pre_existing_disease,,,textbox,,False,Enter Any pre-existing Disease?,Any pre-existing Disease?,,,False,,,"not add_on_service_option = ""INSURANCE""",,
-fac_str,pre_existing_disease_details,,,textbox,,False,Enter Details of Pre-Existing Disease,Details of Pre-Existing Disease,,,False,,,"not add_on_service_option = ""INSURANCE""",,
-fac_insurance_plan,plan_sum_insured,,,dropdown,,False,Select Option,Plan (Sum Insured),,,False,,,"not add_on_service_option = ""INSURANCE""",,
-break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,previous_visas_section,,,section_break,,False,"<!DOCTYPE html>
@@ -2606,26 +2616,26 @@ This helps authorities assess your travel history and support your current appli
 </body>
 </html>
 ",,,,False,,,,,
-card_builder,previous_visas_details,,,card,,False,,Previous Visa Details,,,False,,,,,
-fac_option,have_past_visa,,,radiobutton,NO,False,Select Option,Have you been issued a Schengen visa during the past?,,,False,,,,,
-table,past_visa_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_file,previous_visa_copy,,,fileoption,,False,Upload a Image/PDF,Previous Visa Copy,,,False,,,not have_past_visa = 'YES',,"file_type:.pdf,.jpg,.jpeg,.png"
-fac_str,visa_number,,,textbox,,False,Enter Visa Number,Visa Number,,,False,,,not have_past_visa = 'YES',,
-fac_str,visa_type,,,textbox,,False,Enter Visa Type,Visa Type,,,False,,,not have_past_visa = 'YES',,
-fac_country,country_of_issue,,,dropdown,,False,Select Option,Country of Visa Issued from,,,False,,,not have_past_visa = 'YES',,
-fac_date,start_date,,,datebox,,False,DD/MM/YYYY,Start Date of Visa,,,False,,,not have_past_visa = 'YES',,;only_past: true
-fac_date,end_date,,,datebox,,False,DD/MM/YYYY,End Date of Visa,,,False,,,not have_past_visa = 'YES',,
-fac_purpose_of_visa_or_travel,purpose_of_visa,,,dropdown,,False,Select Option,Purpose of Visa (at the time of filing your previous visa application),,,False,,,not have_past_visa = 'YES',,
-fac_option,utilized_visa,,,radiobutton,NO,False,Select Option,Have you utilised/travelled using this Visa?,,,False,,,not have_past_visa = 'YES',,
-fac_str,others_specify,,,textbox,,False,Enter Other Purpose of Visa,Other Purpose of Visa,,,False,,,"not purpose_of_visa=""OTHER""",,
+fac_option,fingerprint_collected,,,radiobutton,NO,False,Select Option,Have your fingerprints been collected before for a Schengen visa application?,,,False,,,,,
+card_builder,fingerprint_details,,,card,,False,,Fingerprint Details,,,False,,,not fingerprint_collected = 'YES',,
+table,previous_visa_upload,,,table,,False,,,,,False,,,,,table.column:2
+fac_file,previous_visa_file,,,fileoption,,False,Upload a Image/PDF,Previous Visa Copy,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png"
+fac_str,visa_sticker_number,,,textbox,,False,Enter Visa (Sticker) Number,Visa (Sticker) Number,,,False,,,,,
+fac_date,date_of_previous_visa,,,datebox,,False,DD/MM/YYYY,Date (If Known),,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,fingerprint_details,,,card,,False,,Fingerprint Details,,,False,,,,,
-fac_option,fingerprint_collected,,,radiobutton,NO,False,Select Option,Have your fingerprints been collected before for a Schengen visa application?,,,False,,,,,
-table,previous_visa_upload,,,table,,False,,,,,False,,,,,table.column:2
-fac_file,previous_visa_file,,,fileoption,,False,Upload a Image/PDF,Previous Visa Copy,,,False,,,not fingerprint_collected = 'YES',,"file_type:.pdf,.jpg,.jpeg,.png"
-fac_str,visa_sticker_number,,,textbox,,False,Enter Visa (Sticker) Number,Visa (Sticker) Number,,,False,,,not fingerprint_collected = 'YES',,
-fac_date,date_of_previous_visa,,,datebox,,False,DD/MM/YYYY,Date (If Known),,,False,,,not fingerprint_collected = 'YES',,
+fac_option,have_past_visa,,,radiobutton,NO,False,Select Option,Have you been issued a Schengen visa during the past?,,,False,,,,,
+card_builder,previous_visas_details,,,card,,False,,Previous Visa Details,,,False,,,not have_past_visa = 'YES',,
+table,past_visa_table,,,table,,False,,,,,False,,,,,table.column:2
+fac_file,previous_visa_copy,,,fileoption,,False,Upload a Image/PDF,Previous Visa Copy,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png"
+fac_str,visa_number,,,textbox,,False,Enter Visa Number,Visa Number,,,False,,,,,
+fac_str,visa_type,,,textbox,,False,Enter Visa Type,Visa Type,,,False,,,,,
+fac_country,country_of_issue,,,dropdown,,False,Select Option,Country of Visa Issued from,,,False,,,,,
+fac_date,start_date,,,datebox,,False,DD/MM/YYYY,Start Date of Visa,,,False,,,,,;only_past: true
+fac_date,end_date,,,datebox,,False,DD/MM/YYYY,End Date of Visa,,,False,,,,,
+fac_purpose_of_visa_or_travel,purpose_of_visa,,,dropdown,,False,Select Option,Purpose of Visa (at the time of filing your previous visa application),,,False,,,,,
+fac_option,utilized_visa,,,radiobutton,NO,False,Select Option,Have you utilised/travelled using this Visa?,,,False,,,,,
+fac_str,others_specify,,,textbox,,False,Enter Other Purpose of Visa,Other Purpose of Visa,,,False,,,"not purpose_of_visa=""OTHER""",,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -2843,14 +2853,22 @@ card_builder,national_id,,,card,,False,,National Identification Number,,,False,,
 table,national_id_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_file,aadhaar_upload_front,,,fileoption,,False,Upload a Image/PDF,Front Image Of Aadhaar Card,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png"
 fac_file,aadhaar_upload_back,,,fileoption,,False,Upload a Image/PDF,Back Image Of Aadhaar Card,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png"
-fac_str,aadhaar_number,,,textbox,,False,XXXX-XXXX-XXXX,Aadhaar Card Number,,,False,,,,,
+fac_str,aadhaar_number,,,textbox,,True,XXXX-XXXX-XXXX,Aadhaar Card Number,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,travel_info,,,card,,False,,Travelling to Multiple Countries during this trip,,,False,,,,,
-table,travel_country_table,,,table,,False,,,,,False,,,,,table.column:1
+fac_option,travel_other,,,radiobutton,NO,True,Select Option,Are you traveling to any other Schengen Country(s) during this trip?,,,False,,,,,
+card_builder,other_schengen_countries,,,card,,False,,Other Schengen Countries,,,False,,,not travel_other = 'YES',,
+table,other_schengen_table,,,table,,False,,,,,False,,,,,table.column:2
+fac_country,schengen_country_arrival,,,dropdown,,True,Select Option,Schengen Country of Arrival,,,False,,,,,
+fac_country,schengen_country_departure,,,dropdown,,True,Select Option,Schengen Country of Departure,,,False,,,,,
+fac_country,any_other_schengen_country,,,dropdown,,True,Select Option,Any Other Schengen Country,,,False,,,,,
+break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 fac_option,travelling_to_other_country,,,radiobutton,NO,False,Select Option,"Are you traveling to any other country during this trip, apart from Schengen area?",,,False,,,,,
-fac_country_3,country_of_travel,,,dropdown,,False,Select Option,Country of Travel,,,False,,,not travelling_to_other_country = 'YES',,
-fac_option,valid_visa_for_country,,,radiobutton,NO,False,Select Option,Do you have a valid visa for the country mentioned above?,,,False,,,not travelling_to_other_country = 'YES',,
+card_builder,travel_info,,,card,,False,,Travelling to Multiple Countries during this trip,,,False,,,not travelling_to_other_country='YES',,
+table,travel_country_table,,,table,,False,,,,,False,,,,,table.column:2
+fac_country_3,country_of_travel,,,dropdown,,False,Select Option,Country of Travel,,,False,,,,,
+fac_option,valid_visa_for_country,,,radiobutton,NO,False,Select Option,Do you have a valid visa for the country mentioned above?,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 table,visa_details_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_date,start_date_of_visa,,,datebox,,False,DD/MM/YYYY,Start Date of Visa,,,False,,,not valid_visa_for_country = 'YES',,
@@ -2858,33 +2876,32 @@ fac_date,end_date_of_visa,,,datebox,,False,DD/MM/YYYY,End Date of Visa,,,False,,
 fac_file,visa_copy,,,fileoption,,False,Upload a Image/PDF,Visa Copy,,,False,,,not valid_visa_for_country = 'YES',,"file_type:.pdf,.jpg,.jpeg,.png"
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,app_details,,,card,,False,,Application Details,,,False,,,,,
-fac_option,application_on_behalf,,,radiobutton,NO,False,Select Option,Are you submitting this Schengen Visa application on behalf of the other person?,,,False,,,,,
+fac_option,application_on_behalf,,,radiobutton,NO,True,Select Option,Are you submitting this Schengen Visa application on behalf of the other person?,,,False,,,,,
+card_builder,app_details,,,card,,False,,Submitting on Behalf of Someone Else,,,False,,,not application_on_behalf='YES',,
 table,application_details_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,surname,,,textbox,,False,Enter Surname,Surname,,,False,,,not application_on_behalf = 'YES',,
-fac_str,first_name,,,textbox,,False,Enter First Name,First Name,,,False,,,not application_on_behalf = 'YES',,
-fac_str,address_line_1,,,textbox,,False,Enter Address Line 1,Address Line 1,,,False,,,not application_on_behalf = 'YES',,
-fac_str,address_line_2,,,textbox,,False,Enter Address Line 2,Address Line 2,,,False,,,not application_on_behalf = 'YES',,
-fac_str,pin_code,,,textbox,,False,6 digit PIN Code,PIN Code,,,False,,,not application_on_behalf = 'YES',,
-fac_str,city,,,textbox,,False,Enter City,City,,,False,,,not application_on_behalf = 'YES',,
-fac_str,state,,,textbox,,False,Enter State,State,,,False,,,not application_on_behalf = 'YES',,
-fac_str,country,,,textbox,,False,Enter Country,Country,,,False,,,not application_on_behalf = 'YES',,
-fac_str,email_address,,,textbox,,False,Enter Email Address,Email Address,,,False,,,not application_on_behalf = 'YES',,
-fac_str,telephone_mobile_number,,,textbox,,False,Enter Telephone / Mobile Number,Telephone / Mobile Number,,,False,,,not application_on_behalf = 'YES',,
+fac_str,first_name,,,textbox,,True,Enter First Name,First Name,,,False,,,,,
+fac_str,surname,,,textbox,,True,Enter Surname,Surname,,,False,,,,,
+fac_str,address_line_1,,,textbox,,True,Enter Address Line 1,Address Line 1,,,False,,,,,
+fac_str,address_line_2,,,textbox,,True,Enter Address Line 2,Address Line 2,,,False,,,,,
+fac_str,pin_code,,,textbox,,True,6 digit PIN Code,PIN Code,,,False,,,,,
+fac_str,city,,,textbox,,True,Enter City,City,,,False,,,,,
+fac_str,state,,,textbox,,True,Enter State,State,,,False,,,,,
+fac_str,country,,,textbox,,False,Enter Country,Country,,,False,,,,,
+fac_str,email_address,,,textbox,,False,Enter Email Address,Email Address,,,False,,,,,
+fac_str,telephone_mobile_number,,,textbox,,False,Enter Telephone / Mobile Number,Telephone / Mobile Number,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,family_eu,,,card,,False,,"Family Member of EU, EEA, Swiss, or UK National",,,False,,,,,
 fac_family_member_of_eu,is_family_member,,,radiobutton,NO,False,Select Option,"Do you have a family member who is an EU (European Union), EEA (European Economic Area), or CH (Switzerland) Citizen or a national of the United Kingdom who is a beneficiary of the agreement between the Swiss Confederation and the United Kingdom?",,,False,,,,,
+card_builder,family_eu,,,card,,False,,"Family Member of EU, EEA, Swiss, or UK National",,,False,,,not is_family_member = 'YES',,
 table,eu_family_member_details,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,given_name,,,textbox,,False,Enter Given Name,First Name of the Family Member,,,False,,,not is_family_member = 'YES',,
-fac_str,surname,,,textbox,,False,Enter Surname,Surname of the Family Member,,,False,,,not is_family_member = 'YES',,
-fac_str,nationality,,,textbox,,False,Enter Nationality,Nationality of the Family Member,,,False,,,not is_family_member = 'YES',,
-fac_date,date_of_birth,,,datebox,,False,DD/MM/YYYY,Date of Birth of the Family Member,,,False,,,not is_family_member = 'YES',,
-fac_str,travel_document_id,,,textbox,,False,Enter document/ID number,Travel document/ ID card number,,,False,,,not is_family_member = 'YES',,
-fac_relationship_with_eu,relationship,,,dropdown,,False,Select Option,Relationship,,,False,,,not is_family_member = 'YES',,
+fac_str,given_name,,,textbox,,False,Enter Given Name,First Name of the Family Member,,,False,,,,,
+fac_str,surname,,,textbox,,False,Enter Surname,Surname of the Family Member,,,False,,,,,
+fac_str,nationality,,,textbox,,False,Enter Nationality,Nationality of the Family Member,,,False,,,,,
+fac_date,date_of_birth,,,datebox,,False,DD/MM/YYYY,Date of Birth of the Family Member,,,False,,,,,
+fac_str,travel_document_id,,,textbox,,False,Enter document/ID number,Travel document/ ID card number,,,False,,,,,
+fac_relationship_with_eu,relationship,,,dropdown,,False,Select Option,Relationship,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,sponsorship,,,card,,False,,Sponsorship Details,,,False,,,,,row_spacing:compact
 display_field,display_sponsorship_details,,,display_field,,False,"<div style=""
   display: flex;
   align-items: left;
@@ -2900,6 +2917,7 @@ fac_sponsor_type_2,sponsorship_options_2,,,checkbox,,False,Select Option,,,,Fals
 fac_sponsor_type_3,sponsorship_options_3,,,checkbox,,False,Select Option,,,,False,,,,,
 fac_sponsor_type_4,sponsorship_options_4,,,checkbox,,False,Select Option,,,,False,,,,,
 fac_str,others_specify,,,textbox,,False,Enter Other Sponsor (Please Specify),Other Sponsor (Please Specify),,,False,,,"not sponsorship_options_4=""OTHER""",,
+card_builder,means_of_support_myself,,,card,,False,,Means of Support - Myself,,,False,,,not sponsorship_options_1 = 'SELF',,
 display_field,display_sponsorship_support,,,display_field,,False,"<div style=""
   display: flex;
   align-items: left;
@@ -2912,13 +2930,15 @@ display_field,display_sponsorship_support,,,display_field,,False,"<div style=""
             You can select more than one.
 </div>
 ",,,,False,,,not sponsorship_options_1 = 'SELF',,
-fac_payment_method_1,support_means_cash,,,checkbox,,False,Select Option,,,,False,,,not sponsorship_options_1 = 'SELF',,
-fac_payment_method_2,support_means_travellers_cheque,,,checkbox,,False,Select Option,,,,False,,,not sponsorship_options_1 = 'SELF',,
-fac_payment_method_3,support_means_credit_card,,,checkbox,,False,Select Option,,,,False,,,not sponsorship_options_1 = 'SELF',,
-fac_payment_method_4,support_means_prepaid_accommodation,,,checkbox,,False,Select Option,,,,False,,,not sponsorship_options_1 = 'SELF',,
-fac_payment_method_5,support_means_prepaid_transport,,,checkbox,,False,Select Option,,,,False,,,not sponsorship_options_1 = 'SELF',,
-fac_payment_method_6,support_means_other,,,checkbox,,False,Select Option,,,,False,,,not sponsorship_options_1 = 'SELF',,
+fac_payment_method_1,support_means_cash,,,checkbox,,False,Select Option,,,,False,,,,,
+fac_payment_method_2,support_means_travellers_cheque,,,checkbox,,False,Select Option,,,,False,,,,,
+fac_payment_method_3,support_means_credit_card,,,checkbox,,False,Select Option,,,,False,,,,,
+fac_payment_method_4,support_means_prepaid_accommodation,,,checkbox,,False,Select Option,,,,False,,,,,
+fac_payment_method_5,support_means_prepaid_transport,,,checkbox,,False,Select Option,,,,False,,,,,
+fac_payment_method_6,support_means_other,,,checkbox,,False,Select Option,,,,False,,,,,
 fac_str,others_specify_1,,,textbox,,False,Enter Other Means (Please Specify),Other Means (Please Specify),,,False,,,"not support_means_other=""OTHER""",,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,means_of_support_sponser,,,card,,False,,Means of Support - Sponsor(s),,,False,,,not (sponsorship_options_2 = 'SPONSOR' or sponsorship_options_3 = 'INVITER' or sponsorship_options_4 = 'OTHER'),,
 display_field,display_sponsorship_coverage,,,display_field,,False,"<div style=""
   display: flex;
   align-items: left;
@@ -2928,12 +2948,12 @@ display_field,display_sponsorship_coverage,,,display_field,,False,"<div style=""
 "">
   Please enter the Means of Support for the sponsor(s). You can select more than one.
 </div>
-",,,,False,,,not (sponsorship_options_2 = 'SPONSOR' or sponsorship_options_3 = 'INVITER' or sponsorship_options_4 = 'OTHER'),,
-fac_expense_coverage_1,coverage_expense_cash,,,checkbox,,False,Select Option,,,,False,,,not (sponsorship_options_2 = 'SPONSOR' or sponsorship_options_3 = 'INVITER' or sponsorship_options_4 = 'OTHER'),,
-fac_expense_coverage_2,coverage_accommodation_provided,,,checkbox,,False,Select Option,,,,False,,,not (sponsorship_options_2 = 'SPONSOR' or sponsorship_options_3 = 'INVITER' or sponsorship_options_4 = 'OTHER'),,
-fac_expense_coverage_3,coverage_all_covered,,,checkbox,,False,Select Option,,,,False,,,not (sponsorship_options_2 = 'SPONSOR' or sponsorship_options_3 = 'INVITER' or sponsorship_options_4 = 'OTHER'),,
-fac_expense_coverage_4,coverage_prepaid_transport,,,checkbox,,False,Select Option,,,,False,,,not (sponsorship_options_2 = 'SPONSOR' or sponsorship_options_3 = 'INVITER' or sponsorship_options_4 = 'OTHER'),,
-fac_expense_coverage_5,coverage_other,,,checkbox,,False,Select Option,,,,False,,,not (sponsorship_options_2 = 'SPONSOR' or sponsorship_options_3 = 'INVITER' or sponsorship_options_4 = 'OTHER'),,
+",,,,False,,,,,
+fac_expense_coverage_1,coverage_expense_cash,,,checkbox,,False,Select Option,,,,False,,,,,
+fac_expense_coverage_2,coverage_accommodation_provided,,,checkbox,,False,Select Option,,,,False,,,,,
+fac_expense_coverage_3,coverage_all_covered,,,checkbox,,False,Select Option,,,,False,,,,,
+fac_expense_coverage_4,coverage_prepaid_transport,,,checkbox,,False,Select Option,,,,False,,,,,
+fac_expense_coverage_5,coverage_other,,,checkbox,,False,Select Option,,,,False,,,,,
 fac_str,others_specify_2,,,textbox,,False,Enter Other Means (Please Specify),Other Means (Please Specify),,,False,,,"not coverage_other=""OTHER""",,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -3196,6 +3216,7 @@ in the top-right corner of this section.
 </body>
 </html>
 ",,,,False,,,,,
+fac_skip_salary_slips,skip_salary_slips,,,checkbox,,False,Select Option,,,,False,,,,not EXISTS(@.upload.salary_slip),
 card_builder,upload,,,card,,False,,Salary Slips (Optional),,,False,,,,,
 display_field,display_salary_slips_instructions,,,display_field,,False,"<!-- <div style=""
   display: flex;
@@ -3246,9 +3267,8 @@ display_field,display_salary_slips_instructions,,,display_field,,False,"<!-- <di
   </div>
 </body>
 </html>",,,,False,,,,,
-fac_file,salary_slip,,,fileoption,,False,Upload a Image/PDF,Salary Slip (Optional),,,False,,,,not @.skip_salary_slips = 'YES',"file_type:.pdf,.jpg,.jpeg,.png"
+fac_file,salary_slip,,,fileoption,,False,Upload a file,Salary Slip (Optional),,,False,,,,not @.skip_salary_slips = 'YES',"file_type:.pdf,.jpg,.jpeg,.png,.zip"
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-fac_skip_salary_slips,skip_salary_slips,,,checkbox,,False,Select Option,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,bank_statement_section,,,section_break,,False,"<!DOCTYPE html>
 <html lang=""en"">
@@ -3504,6 +3524,7 @@ in the top-right corner of this section.
 </body>
 </html>
 ",,,,False,,,,,
+fac_skip_bank_statements,skip_bank_statements,,,checkbox,,False,Select Option,,,,False,,,,not EXISTS(@.upload.bank_statements),
 card_builder,upload,,,card,,False,,Bank Statements (Optional),,,False,,,,,
 display_field,display_bank_statements_instructions,,,display_field,,False,"<!-- <div style=""
   display: flex;
@@ -3553,9 +3574,8 @@ display_field,display_bank_statements_instructions,,,display_field,,False,"<!-- 
   </div>
 </body>
 </html>",,,,False,,,,,
-fac_file,bank_statements,,,fileoption,,False,Upload a Image/PDF,Bank Statements (Optional),,,False,,,,not @.skip_bank_statements = 'YES',"file_type:.pdf,.jpg,.jpeg,.png"
+fac_file,bank_statements,,,fileoption,,False,Upload a file,Bank Statements (Optional),,,False,,,,not @.skip_bank_statements = 'YES',"file_type:.pdf,.jpg,.jpeg,.png,.zip"
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-fac_skip_bank_statements,skip_bank_statements,,,checkbox,,False,Select Option,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,itr_section,,,section_break,,False,"<!DOCTYPE html>
 <html lang=""en"">
@@ -3811,6 +3831,7 @@ in the top-right corner of this section.
     </div>
 </body>
 </html>",,,,False,,,,,
+fac_itr_option_1,itr_options,,,checkbox,,False,Select Option,,,,False,,,,not EXISTS(@.upload.itr_acknowledgement),
 card_builder,upload,,,card,,False,,ITR Acknowledgements (Optional),,,False,,,,not (@.itr_options = 'SKIP' or @.itr_options = 'NO_ITR'),
 display_field,display_itr_acknowledgement_instructions,,,display_field,,False,"<div style=""
 display: flex;
@@ -3830,9 +3851,8 @@ align-items: center;"">
 If you’d like us to <strong> review </strong> your ITR Acknowledgement Document to make sure it meets the guidelines, please upload it here.
 </div>
 </div>",,,,False,,,,,
-fac_file,itr_acknowledgement,,,fileoption,,False,Upload a Image/PDF,ITR Acknowledgements (Optional),,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png"
+fac_file,itr_acknowledgement,,,fileoption,,False,Upload a file,ITR Acknowledgements (Optional),,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png,.zip"
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-fac_itr_option_1,itr_options,,,checkbox,,False,Select Option,,,,False,,,,,
 display_field,display_not_filled_itr,,,display_field,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
@@ -3973,20 +3993,20 @@ info_pane_builder,addons,,,info_pane,,False,"<!DOCTYPE html>
   </div>
 </body>
 </html>
-",Add-On Cart,PROGRESS.IGNORE,,False,,,,,operation.continue:Continue;verify.verify_handler:VERIFIER_PAYMENT_INITIALIZATION;verify.action_text:Calculate Payment
+",Add-On Cart,PROGRESS.IGNORE,,False,,,,,operation.continue:Continue
 fac_str,record_id,,,hidden,,False,Used to get the Record ID,,,,False,,,,,
 card_builder,addon_service_initialization,,,card,,False,,[INTERNAL] Initialized Addon Cart,SAVE_EVEN_IF_HIDDEN,,False,,,True,,
 table,table,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:1
 group_builder,addon_cart_row,,,table_row,,False,,Addon Table,,,False,,,,,
 fac_str,addon_id,,,hidden,,False,Enter Addon ID,Addon ID,,,False,,,,,
 fac_str,addon_name,,,data_display,,False,Enter Add-Ons,Add-Ons,,,False,,,,,align:left
-fac_str,quantity,,,data_display,,False,Enter Quantity,Quantity,,,False,,,,,
-fac_str,amount,,,data_display,,False,Enter Amount,Amount,,,False,,,,,
+fac_str,quantity,,,hidden,,False,Enter Quantity,Quantity,,,False,,,,,
 fac_str,traveller_names,,,data_display,,False,Enter Traveller Name,Traveller Name,,,False,,,,,align:left
+fac_str,amount,,,data_display,,False,Enter Amount,Amount,,,False,,,,,
 fac_str,date,,,data_display,,False,Enter Date,Date,,,False,,,,,
 fac_str,status,,,data_display,,False,Enter Status,Status,,,False,,,,,
 fac_str,txnid,,,data_display,,False,Enter Txn ID,Txn ID,,,False,,,,,
-fac_str,refid,,,data_display,,False,Enter Ref ID,Ref ID,,,False,,,,,
+fac_str,refid,,,hidden,,False,Enter Ref ID,Ref ID,,,False,,,,,
 fac_str,traveller_ids_internal,,,hidden,,False,Enter Traveller ID,Traveller ID,,,False,,,,,
 fac_str,amt_internal,,,hidden,,False,Enter Amount Internal,Amount Internal,,,False,,,,,
 fac_str,status_internal,,,hidden,,False,Enter Status Internal,Status Internal,,,False,,,,,
@@ -3998,13 +4018,13 @@ table,table,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:1
 group_builder,addon_cart_row,,,table_row,,False,,Addon Table,,,False,,,,,
 fac_str,addon_id,,,hidden,,False,Enter Addon ID,Addon ID,,,False,,,,,
 fac_str,addon_name,,,data_display,,False,Enter Add-Ons,Add-Ons,,,False,,,,,align:left
-fac_str,quantity,,,data_display,,False,Enter Quantity,Quantity,,,False,,,,,
-fac_str,amount,,,data_display,,False,Enter Amount,Amount,,,False,,,,,
+fac_str,quantity,,,hidden,,False,Enter Quantity,Quantity,,,False,,,,,
 fac_str,traveller_names,,,data_display,,False,Enter Traveller Name,Traveller Name,,,False,,,,,align:left
+fac_str,amount,,,data_display,,False,Enter Amount,Amount,,,False,,,,,
 fac_str,date,,,data_display,,False,Enter Date,Date,,,False,,,,,
 fac_str,status,,,data_display,,False,Enter Status,Status,,,False,,,,,
 fac_str,txnid,,,data_display,,False,Enter Txn ID,Txn ID,,,False,,,,,
-fac_str,refid,,,data_display,,False,Enter Ref ID,Ref ID,,,False,,,,,
+fac_str,refid,,,hidden,,False,Enter Ref ID,Ref ID,,,False,,,,,
 fac_str,traveller_ids_internal,,,hidden,,False,Enter Traveller ID,Traveller ID,,,False,,,,,
 fac_str,amt_internal,,,hidden,,False,Enter Amount Internal,Amount Internal,,,False,,,,,
 fac_str,status_internal,,,hidden,,False,Enter Status Internal,Status Internal,,,False,,,,,
@@ -4051,6 +4071,7 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 display_field,payment_display,,,data_display,,False,,,,,False,,,,,
+fac_str,payment_cta_button,,,cta_button,Calculate Payment,False,Addons Payment,Calculate Payment,,,False,,,,,verify.verify_handler:VERIFIER_PAYMENT_INITIALIZATION;verify.action_text:Calculate Payment;align:center
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,consultant_section,,,section_break,,False,No Instructions Present,TTK Consultant,,,False,,,"CONTAINS(USER.persona,[CLI])",,
 info_pane_builder,consultant_info,,,info_pane,,False,"<!DOCTYPE html>
@@ -4375,6 +4396,28 @@ Upload the Travel Insurance prepared for the Traveller.
 </div> ",,,,False,,,,,
 fac_file,flight_reservation_tickets,,,fileoption,,False,Upload a Image/PDF,Travel Insurance,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png"
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,application_form_embassy,,,card,,False,,Application Form from Embassy,,,False,,,not ($.visa_request_information.visa_request.to_country = 'BEL' or $.visa_request_information.visa_request.to_country = 'HRV' or $.visa_request_information.visa_request.to_country = 'DNK' or $.visa_request_information.visa_request.to_country = 'EST' or $.visa_request_information.visa_request.to_country = 'FIN' or $.visa_request_information.visa_request.to_country = 'FRA' or $.visa_request_information.visa_request.to_country = 'DEU' or $.visa_request_information.visa_request.to_country = 'GRC' or $.visa_request_information.visa_request.to_country = 'HUN' or $.visa_request_information.visa_request.to_country = 'ISL' or $.visa_request_information.visa_request.to_country = 'LVA' or $.visa_request_information.visa_request.to_country = 'LTU' or $.visa_request_information.visa_request.to_country = 'NLD' or $.visa_request_information.visa_request.to_country = 'NOR' or $.visa_request_information.visa_request.to_country = 'SVK' or $.visa_request_information.visa_request.to_country = 'ESP' or $.visa_request_information.visa_request.to_country = 'ROU'),,
+display_field,instruction,,,display_field,,False,"<div style=""
+display: flex;
+justify-content: center;
+align-items: center;"">
+
+<div style=""
+  text-align: center;
+  /* width: 1060px; */
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 32px;
+  color: #000000;
+  text-align: center;
+"">
+Upload the Application Form saved from the Embassy Portal.
+</div>
+
+</div> ",,,,False,,,,,
+fac_file,application_form,,,fileoption,,False,Upload a PDF,Application Form,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png"
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 group_builder,additional_documents,,,groupbox,,False,,Additional Document,,,False,,,,,button_label:Add Another Document;limits.min:1;limits.max:3
 info_pane_builder,additionaldocumentgroup,,,groupbox,,False,,Additional Document,,,False,,,,,
 card_builder,additional_documents_card,,,card,,False,,Additional Document,,,False,,,,,
@@ -4565,4 +4608,9 @@ display_field,display_header_docket,,,display_field,,False,Download the Complete
 card_builder,operation_card,,,card,,FALSE,,Docket Operation,ACTION.OPERATIONS,,False,,,,,
 fac_str,operation_type,,,,,False,Select Operation type,Select Operation,ACTION.OPERATIONS,,False,,,,,
 ender_field,,ender,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+section_break,scratch_pad_section,,,section_break,,False,,Scratch Pad,,,False,,,"CONTAINS(USER.persona,[CLI, ADMIN, CREATOR, MKR, CKR])",,
+info_pane_builder,scratch_pad,,,info_pane,,False,,Scratch Pad,SAVE_EVEN_IF_HIDDEN,,False,,,,,
+fac_str,form_title,,,textbox,,False,,,,,False,,,,,
+fac_str,form_sub_title,,,textbox,,False,,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
