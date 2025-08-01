@@ -1,16 +1,13 @@
-ERROR CODE,DESCRIPTION,CONTEXT
-LYIK_ERR_0001,%1 is not a valid passport number (expected format: A1234567).,Passport verification
-LYIK_ERR_0002,"Verification failed, Passport has expired. Please upload a valid passport.",Passport verification
-LYIK_ERR_0003,Failed to verify the Passport. Please contact admin.,Passport verification
-LYIK_ERR_0004,%1 is not a valid 6-digit pincode.,PIN code verification
-LYIK_ERR_0005,%1 is not a valid 12-digit Aadhaar number.,Aadhaar number verification
-LYIK_ERR_0006,%1 is not a valid email address.,Email address verification
-LYIK_ERR_0007,%1 does not seem like a valid phone number.,Phone number verification
-LYIK_ERR_0008,Please enter only digits in phone number.,Phone number verification
-LYIK_ERR_0009,Something went wrong. Please contact admin.,GENERIC
-LYIK_ERR_0010,Unable to extract data from the attached files. Please try with different image(s).,OCR
-LYIK_ERR_0011,Values have changed. Please Re-verify.,Verfication status checker
-LYIK_ERR_0012,Internal error occured. Please contact support.,GENERIC
+MESSAGE CODE,DESCRIPTION,CONTEXT
+LYIK_ERR_0001,"""%1"" is not a valid Passport Number. Please use the correct format (e.g., A1234567).",Passport verification
+LYIK_ERR_0002,It seems your Passport has expired. Kindly upload a non-expired Passport to proceed.,Passport verification
+LYIK_ERR_0003,Something went wrong. Please try again.,Passport verification
+LYIK_ERR_0004,"""%1"" is not a valid Pincode. Please check the format and try again.",PIN code verification
+LYIK_ERR_0005,"""%1"" is not a valid Aadhaar Number. Please check the format and try again.",Aadhaar number verification
+LYIK_ERR_0006,"""%1"" is not a valid Email Address. Please check the format and try again.",Email address verification
+LYIK_ERR_0007,"""%1"" is not a valid Phone Number. Please check and try again.",Phone number verification
+LYIK_ERR_0008,Unable to read the uploaded files. Kindly upload clearer or different image(s) and try again.,OCR
+LYIK_ERR_0009,Values were modified. Please Verify again to continue.,Verfication status checker
 LYIK_ERR_DEFAULT_VALIDATION_ERROR,Invalid Data. Please Re-enter.,The default error message for pydantic validation errors.
 LYIK_ERR_value_error,Invalid value provided.,"Used when the Pydantic error type is 'value_error', indicating a generic validation failure not tied to a specific data type."
 LYIK_ERR_integer_default,Only numeric values are allowed.,"Used when the Pydantic error type is 'int_parsing', indicating that a non-integer value was provided where an integer was expected."
