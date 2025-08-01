@@ -15,6 +15,7 @@ from typing_extensions import Doc
 from lyikpluginmanager import invoke, DBDocumentModel, DocumentModel
 from lyikpluginmanager.models.ovd import OVDGenericResponse, OVDPassport, OVDType
 from lyikpluginmanager.core.utils import generate_hash_id_from_dict
+from lyikpluginmanager.annotation import RequiresValidation
 from ..models.forms.new_schengentouristvisa import RootPassportPassportDetails
 from ..utils.verifier_util import validate_pincode, validate_passport_number
 import logging
@@ -24,6 +25,7 @@ import tempfile
 import base64
 import mimetypes
 import textwrap
+
 
 logger = logging.getLogger(__name__)
 
@@ -45,6 +47,7 @@ class PassportVerificationPlugin(VerifyHandlerSpec):
         ],
     ) -> Annotated[
         VerifyHandlerResponseModel,
+        RequiresValidation(False),
         Doc("Response after validating the passport."),
     ]:
         """
@@ -153,7 +156,7 @@ class PassportVerificationPlugin(VerifyHandlerSpec):
                 logger.info("Passport is verified successfully.")
                 return VerifyHandlerResponseModel(
                     status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
-                    message="", #verified_successfully
+                    message="",  # verified_successfully
                     actor="system",
                     response=payload.model_dump(),
                 )
@@ -195,7 +198,7 @@ class PassportVerificationPlugin(VerifyHandlerSpec):
                 logger.info("Passport is verified successfully.")
                 return VerifyHandlerResponseModel(
                     status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
-                    message="", #verified_successfully
+                    message="",  # verified_successfully
                     actor="system",
                     response=payload.model_dump(),
                 )
