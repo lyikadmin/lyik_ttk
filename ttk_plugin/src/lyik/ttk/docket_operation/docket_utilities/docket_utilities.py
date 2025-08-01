@@ -89,6 +89,9 @@ class DocketUtilities:
                     pdf_model.visa_dptr_date = (
                         visa_info.visa_request.arrival_date.strftime("%d-%m-%Y")  #
                     )
+                pdf_model.visa_mem_main_dst = (
+                    visa_info.visa_request.to_country_full_name  #
+                )
 
             passport = schengen_visa_data.passport
             if passport and passport.passport_details:
