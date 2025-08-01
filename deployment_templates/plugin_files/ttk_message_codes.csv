@@ -1,4 +1,4 @@
-MESSAGE CODE,DESCRIPTION,CONTEXT,REVIEWED :  REPHRASED DESCRIPTION,,REPHRASED DESCRIPTION
+MESSAGE CODES,DESCRIPTION,CONTEXT,REVIEWED :  REPHRASED DESCRIPTION,,REPHRASED DESCRIPTION
 TTK_ERR_0001,Passport Image(s) are missing. Please ensure that both the front and back images are uploaded before trying again.,Passport verification,Passport Image(s) are missing. Please ensure that both the front and back images are uploaded before trying again.,,Missing passport image detected. Please ensure that both the front and back images are uploaded before trying again.
 TTK_ERR_0002,Please upload a Valid Passport for this step. Other documents aren’t accepted.,Passport verification,Please upload a Valid Passport for this step. Other documents aren’t accepted.,,Please upload a valid passport for this step. Other documents aren’t supported.
 TTK_ERR_0003,Please enter the Date of Expiry and try again.,Passport verification,Please enter the Date of Expiry and try again.,,We couldn’t complete the verification. Please enter the date of expiry and try again.

@@ -1,4 +1,4 @@
-MESSAGE CODE,DESCRIPTION,CONTEXT
+MESSAGE CODES,DESCRIPTION,CONTEXT
 LYIK_ERR_0001,"""%1"" is not a valid Passport Number. Please use the correct format (e.g., A1234567).",Passport verification
 LYIK_ERR_0002,It seems your Passport has expired. Kindly upload a non-expired Passport to proceed.,Passport verification
 LYIK_ERR_0003,Something went wrong. Please try again.,Passport verification
