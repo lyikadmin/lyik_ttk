@@ -44,6 +44,26 @@ impl = pluggy.HookimplMarker(getProjectName())
 PRIMARY_TRAVELLER = "Primary"
 CO_TRAVELLER = "Co-traveller"
 COLLECTION_NAME = "primary_travellers"
+CODES = [
+    "BEL",
+    "HRV",
+    "DNK",
+    "EST",
+    "FIN",
+    "FRA",
+    "DEU",
+    "GRC",
+    "ISL",
+    "LVA",
+    "LTU",
+    "NLD",
+    "NOR",
+    "POL",
+    "ROU",
+    "SVK",
+    "ESP",
+    "SWE",
+]
 
 
 class DocketOperation(OperationPluginSpec):
@@ -210,6 +230,8 @@ class DocketOperation(OperationPluginSpec):
                     message="Travelling to country is not set. Please ensure filling this field to continue. If error persists, please contact support.",
                     detailed_message="to_country field is not filled in visa_request_information.",
                 )
+
+            final_template_id = "REF_PDF" if template_id in CODES else template_id
 
             transformed_data: TransformerResponseModel = (
                 await invoke.template_generate_pdf(
