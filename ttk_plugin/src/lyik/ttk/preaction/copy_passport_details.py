@@ -12,6 +12,7 @@ from ..models.forms.new_schengentouristvisa import (
     SAMEASPASSADDR,
     RootPassportPassportDetails,
     RootResidentialAddressResidentialAddressCardV2,
+    RootResidentialAddress
 )
 
 logger = logging.getLogger(__name__)
@@ -44,17 +45,12 @@ class CopyPassportAddress(PreActionProcessorSpec):
             logger.error("Failed to parse form payload for address copy: %s", e)
             return payload
 
-        res_addr = form.residential_address
-        # Only proceed if the checkbox is present and checked
-        # if not res_addr or res_addr.same_as_passport_address != SAMEASPASSADDR.SAME_AS_PASS_ADDR:
-        #     return payload
-
-        # Grab the passport address
+        # Grab the passport details
         pp_addr: RootPassportPassportDetails | None = (
             form.passport.passport_details if form.passport else None
         )
         if not pp_addr:
-            logger.warning("same_as_passport_address set but no passport_address found")
+            logger.warning("no Passport Details found")
             return payload
 
         # Build new residential_address_card
@@ -67,12 +63,16 @@ class CopyPassportAddress(PreActionProcessorSpec):
             country=pp_addr.country,
         )
 
-        # Dump back to dict and inject
-        data = form.model_dump(mode="json")
-        data.setdefault("residential_address", {})["residential_address_card_v2"] = new_card.model_dump()
+        # 1. Make sure the Pydantic model has a residential_address
+        if form.residential_address is None:
+            form.residential_address = RootResidentialAddress()
 
-        # Validate and return
-        return GenericFormRecordModel.model_validate(data)
+        # 2. Assign the `RootResidentialAddressResidentialAddressCardV2` instance to it
+        form.residential_address.residential_address_card_v2 = new_card
+
+        # 3. Dump back to a dict and re-validate
+        new_payload_dict = form.model_dump()  # default is a dict
+        return GenericFormRecordModel.model_validate(new_payload_dict)
 
 
 # # Type alias for an “operation” that inspects and possibly mutates the form
