@@ -178,56 +178,52 @@ class DocketUtilities:
                 )
 
             additional_details = schengen_visa_data.additional_details
-            if additional_details and additional_details.sponsorship:
+            if additional_details:
                 pdf_model.visa_trav_cost_self = (
-                    additional_details.sponsorship.sponsorship_options_1  #
-                    == SPONSORTYPE1.SELF
+                    additional_details.sponsorship_options_1 == SPONSORTYPE1.SELF  #
                 )
                 if pdf_model.visa_trav_cost_self:
                     pdf_model.visa_trav_cost_self_cash = (
-                        additional_details.sponsorship.support_means_cash
+                        additional_details.means_of_support_myself.support_means_cash
                         == PAYMENTMETHOD1.CASH
                     )
                     pdf_model.visa_trav_cost_self_tc = (
-                        additional_details.sponsorship.support_means_travellers_cheque
+                        additional_details.means_of_support_myself.support_means_travellers_cheque
                         == PAYMENTMETHOD2.TRAVELLERS_CHEQUE
                     )
                     pdf_model.visa_trav_cost_self_cc = (
-                        additional_details.sponsorship.support_means_credit_card
+                        additional_details.means_of_support_myself.support_means_credit_card
                         == PAYMENTMETHOD3.CREDIT_CARD
                     )
                     pdf_model.visa_trav_cost_self_ppa = (
-                        additional_details.sponsorship.support_means_prepaid_accommodation
+                        additional_details.means_of_support_myself.support_means_prepaid_accommodation
                         == PAYMENTMETHOD4.PREPAID_ACCOMMODATION
                     )
                     pdf_model.visa_trav_cost_self_ppt = (
-                        additional_details.sponsorship.support_means_prepaid_transport
+                        additional_details.means_of_support_myself.support_means_prepaid_transport
                         == PAYMENTMETHOD5.PREPAID_TRANSPORT
                     )
                     pdf_model.visa_trav_cost_self_oth = (
-                        additional_details.sponsorship.support_means_other
+                        additional_details.means_of_support_myself.support_means_other
                         == PAYMENTMETHOD6.OTHER
                     )
                     if pdf_model.visa_trav_cost_self_oth:
                         pdf_model.visa_trav_cost_self_oth_txt = (
-                            additional_details.sponsorship.others_specify_1
+                            additional_details.means_of_support_myself.others_specify_1
                         )
 
                 pdf_model.visa_trav_cost_spons = (
-                    additional_details.sponsorship.sponsorship_options_2  #
-                    == SPONSORTYPE2.SPONSOR
+                    additional_details.sponsorship_options_2 == SPONSORTYPE2.SPONSOR  #
                 )
                 pdf_model.visa_trav_cost_31_32 = (
-                    additional_details.sponsorship.sponsorship_options_3  #
-                    == SPONSORTYPE3.INVITER
+                    additional_details.sponsorship_options_3 == SPONSORTYPE3.INVITER  #
                 )
                 pdf_model.visa_trav_cost_oth = (
-                    additional_details.sponsorship.sponsorship_options_4  #
-                    == SPONSORTYPE4.OTHER
+                    additional_details.sponsorship_options_4 == SPONSORTYPE4.OTHER  #
                 )
                 if pdf_model.visa_trav_cost_oth:
                     pdf_model.visa_trav_cost_oth_txt = (
-                        additional_details.sponsorship.others_specify  #
+                        additional_details.others_specify  #
                     )
                 if (
                     pdf_model.visa_trav_cost_spons
@@ -235,28 +231,28 @@ class DocketUtilities:
                     | pdf_model.visa_trav_cost_oth
                 ):  #
                     pdf_model.visa_means_support_oth_cash = (
-                        additional_details.sponsorship.coverage_expense_cash
+                        additional_details.means_of_support_sponser.coverage_expense_cash
                         == EXPENSECOVERAGE1.CASH
                     )
                     pdf_model.visa_means_support_oth_ap = (
-                        additional_details.sponsorship.coverage_accommodation_provided
+                        additional_details.means_of_support_sponser.coverage_accommodation_provided
                         == EXPENSECOVERAGE2.ACCOMMODATION_PROVIDED
                     )
                     pdf_model.visa_means_support_oth_expn_covered = (
-                        additional_details.sponsorship.coverage_all_covered
+                        additional_details.means_of_support_sponser.coverage_all_covered
                         == EXPENSECOVERAGE3.ALL_COVERED
                     )
                     pdf_model.visa_means_support_oth_ppt = (
-                        additional_details.sponsorship.coverage_prepaid_transport
+                        additional_details.means_of_support_sponser.coverage_prepaid_transport
                         == EXPENSECOVERAGE4.PREPAID_TRANSPORT
                     )
                     pdf_model.visa_means_support_oth = (
-                        additional_details.sponsorship.coverage_other
+                        additional_details.means_of_support_sponser.coverage_other
                         == EXPENSECOVERAGE5.OTHER
                     )
                     if pdf_model.visa_means_support_oth:
                         pdf_model.visa_means_support_oth_txt = (
-                            additional_details.sponsorship.others_specify_2
+                            additional_details.means_of_support_sponser.others_specify_2
                         )
 
             if additional_details and additional_details.national_id:
@@ -397,23 +393,21 @@ class DocketUtilities:
                 )
 
             previous_visas = schengen_visa_data.previous_visas
-            if previous_visas and previous_visas.fingerprint_details:
-                pdf_model.visa_fingerprint_no = (
-                    previous_visas.fingerprint_details.fingerprint_collected  #
-                    == OPTION.NO
-                )
-                pdf_model.visa_fingerprint_yes = (
-                    previous_visas.fingerprint_details.fingerprint_collected  #
-                    == OPTION.YES
-                )
-                if pdf_model.visa_fingerprint_yes:
-                    if previous_visas.fingerprint_details.date_of_previous_visa:
-                        pdf_model.visa_fingerprint_yes_date = previous_visas.fingerprint_details.date_of_previous_visa.strftime(  #
-                            "%d-%m-%Y"
-                        )
-                    pdf_model.visa_fingerprint_yes_sticker_num = (
-                        previous_visas.fingerprint_details.visa_sticker_number  #
+
+            pdf_model.visa_fingerprint_no = (
+                previous_visas.fingerprint_collected == OPTION.NO  #
+            )
+            pdf_model.visa_fingerprint_yes = (
+                previous_visas.fingerprint_collected == OPTION.YES  #
+            )
+            if pdf_model.visa_fingerprint_yes:
+                if previous_visas.fingerprint_details.date_of_previous_visa:
+                    pdf_model.visa_fingerprint_yes_date = previous_visas.fingerprint_details.date_of_previous_visa.strftime(  #
+                        "%d-%m-%Y"
                     )
+                pdf_model.visa_fingerprint_yes_sticker_num = (
+                    previous_visas.fingerprint_details.visa_sticker_number  #
+                )
 
             work_address = schengen_visa_data.work_address
             if work_address and work_address.work_details:
