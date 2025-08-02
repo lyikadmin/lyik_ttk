@@ -36,6 +36,9 @@ from typing import Annotated, Dict, List
 from typing_extensions import Doc
 import logging
 import os
+import io
+import zipfile
+
 
 logger = logging.getLogger(__name__)
 
@@ -44,6 +47,28 @@ impl = pluggy.HookimplMarker(getProjectName())
 PRIMARY_TRAVELLER = "Primary"
 CO_TRAVELLER = "Co-traveller"
 COLLECTION_NAME = "primary_travellers"
+CODES = [
+    "BEL",
+    "HRV",
+    "DNK",
+    "EST",
+    "FIN",
+    "FRA",
+    "DEU",
+    "GRC",
+    "ISL",
+    "LVA",
+    "LTU",
+    "NLD",
+    "NOR",
+    "POL",
+    "ROU",
+    "SVK",
+    "ESP",
+    "SWE",
+]
+ACCEPTED_MIME_PREFIXES = ("image/",)
+ACCEPTED_MIME_TYPES = ("application/pdf",)
 
 
 class DocketOperation(OperationPluginSpec):
@@ -211,13 +236,15 @@ class DocketOperation(OperationPluginSpec):
                     detailed_message="to_country field is not filled in visa_request_information.",
                 )
 
+            final_template_id = "REF_PDF" if template_id in CODES else template_id
+
             transformed_data: TransformerResponseModel = (
                 await invoke.template_generate_pdf(
                     org_id=context.org_id,
                     config=context.config,
                     form_id=context.form_id,
                     additional_args={"record_id": record_id},
-                    template_id=template_id,
+                    template_id=final_template_id,
                     form_name="schengenpdf",
                     record=data_dict,
                 )
@@ -421,8 +448,8 @@ class DocketOperation(OperationPluginSpec):
             files_in_rec_with_filename["Bank_Statements"] = (
                 bank_statement.upload.bank_statements
             )
-        if itr:
-            files_in_rec_with_filename["ITR_Document"] = itr.itr_options
+        if itr and itr.upload:
+            files_in_rec_with_filename["ITR_Document"] = itr.upload.itr_acknowledgement
         if accommodation and accommodation.invitation_details:
             files_in_rec_with_filename["Inviter_Passport"] = (
                 accommodation.invitation_details.passport_bio_page
@@ -452,11 +479,14 @@ class DocketOperation(OperationPluginSpec):
                         "doc_id"
                     )
                 ):
-                    key_name = f"Additional_Doc{idx:02d}"
+                    key_name = (
+                        add_docs.additionaldocumentgroup.additional_documents_card.document_name
+                        if add_docs.additionaldocumentgroup.additional_documents_card.document_name
+                        else f"Additional_Doc{idx:02d}"
+                    )
                     files_in_rec_with_filename[key_name] = (
                         add_docs.additionaldocumentgroup.additional_documents_card.file_upload
                     )
-        # "passport_size_photo": parsed_form_model.photograph.passport_photo.photo, ## Where is this in the CSV?
 
         return files_in_rec_with_filename
 
@@ -524,6 +554,13 @@ class DocketOperation(OperationPluginSpec):
         try:
             output_docs: List[DocumentModel] = []
 
+            keys_to_process = ["Salary_Slips", "Bank_Statements", "ITR_Document"]
+
+            for key in keys_to_process:
+                doc = fetched_documents_by_key.get(key)
+                if doc:
+                    self.maybe_unzip_and_replace(key, doc, fetched_documents_by_key)
+
             for index, (key, doc) in enumerate(
                 fetched_documents_by_key.items(), start=1
             ):
@@ -578,6 +615,61 @@ class DocketOperation(OperationPluginSpec):
                 message="Internal error occurred. Please try again.",
                 detailed_message=f"Error while processing the documents: {str(e)}",
             )
+
+    def maybe_unzip_and_replace(
+        self, key: str, doc: DBDocumentModel, fetched_dict: dict[str, DBDocumentModel]
+    ):
+        if doc.metadata.doc_type == "application/zip" and doc.doc_content:
+            extracted_docs = self.create_extracted_documents_from_zip(doc, key)
+            # Remove the original key
+            fetched_dict.pop(key, None)
+            # Add extracted documents with new keys
+            fetched_dict.update(extracted_docs)
+
+    def create_extracted_documents_from_zip(
+        self, original_doc: DBDocumentModel, base_key: str
+    ) -> dict[str, DBDocumentModel]:
+        new_entries = {}
+
+        with zipfile.ZipFile(io.BytesIO(original_doc.doc_content)) as zip_file:
+            valid_files = [f for f in zip_file.infolist() if not f.is_dir()]
+
+            # Check all file types first
+            unsupported_files = []
+            for f in valid_files:
+                mime_type, _ = mimetypes.guess_type(f.filename)
+                if not self.is_accepted_mime(mime_type):
+                    unsupported_files.append(f.filename)
+
+            if unsupported_files:
+                raise ValueError(
+                    f"Zip file '{original_doc.doc_name}' contains unsupported files: {unsupported_files}"
+                )
+
+            for i, file_info in enumerate(valid_files):
+                file_bytes = zip_file.read(file_info)
+                doc = DBDocumentModel(
+                    doc_id=None,
+                    doc_name=file_info.filename,
+                    doc_size=len(file_bytes),
+                    doc_content=file_bytes,
+                    metadata=original_doc.metadata.model_copy(deep=True),
+                )
+
+                # Key naming logic
+                if len(valid_files) == 1:
+                    key_name = base_key
+                else:
+                    key_name = f"{base_key}_{i+1}"
+
+                new_entries[key_name] = doc
+
+        return new_entries
+
+    def is_accepted_mime(self, mime_type: str | None) -> bool:
+        return mime_type in ACCEPTED_MIME_TYPES or any(
+            mime_type and mime_type.startswith(pfx) for pfx in ACCEPTED_MIME_PREFIXES
+        )
 
     def obfuscate_string(self, data_str: str, static_key: str) -> str:
         """
