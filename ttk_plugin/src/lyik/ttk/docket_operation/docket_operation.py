@@ -588,7 +588,7 @@ class DocketOperation(OperationPluginSpec):
                 if not doc or not doc.doc_content:
                     raise PluginException(
                         message="Internal error occurred. Please contact support.",
-                        detailed_message=f"The document object or the document content is missing for the key: {key}, hence the exception. Error: {str(e)}",
+                        detailed_message=f"The document object or the document content is missing for the key: {key}, hence the exception.",
                     )
 
                 mime_type = doc.metadata.doc_type if doc.metadata else None
