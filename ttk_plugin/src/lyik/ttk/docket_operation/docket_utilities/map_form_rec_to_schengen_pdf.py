@@ -325,43 +325,43 @@ class DocketUtilities:
 
             if additional_details and additional_details.travel_other == OPTION.YES:
 
-                other_schengen_countries = (
-                    additional_details.other_schengen_countries or {}
-                )
+                other_schengen_countries = additional_details.other_schengen_countries
 
-                def get_country_name(code: str | None) -> str:
-                    return (
-                        ISO3ToCountryModel(iso3_input=code).country_name()
-                        if code
-                        else ""
+                if other_schengen_countries:
+
+                    def get_country_name(code: str | None) -> str:
+                        return (
+                            ISO3ToCountryModel(iso3_input=code).country_name()
+                            if code
+                            else ""
+                        )
+
+                    pdf_model.visa_mem_1st_entry = get_country_name(
+                        other_schengen_countries.schengen_country_arrival  #
                     )
 
-                pdf_model.visa_mem_1st_entry = get_country_name(
-                    other_schengen_countries.schengen_country_arrival  #
-                )
-
-                to_country_full_name = visa_info.visa_request.to_country_full_name
-                arrival_country = get_country_name(
-                    other_schengen_countries.schengen_country_arrival
-                )
-                departure_country = get_country_name(
-                    other_schengen_countries.schengen_country_departure
-                )
-                any_other_schengen_country = get_country_name(
-                    other_schengen_countries.any_other_schengen_country
-                )
-
-                pdf_model.visa_mem_main_dst = ", ".join(  #
-                    filter(
-                        None,
-                        [
-                            to_country_full_name,
-                            arrival_country,
-                            departure_country,
-                            any_other_schengen_country,
-                        ],
+                    to_country_full_name = visa_info.visa_request.to_country_full_name
+                    arrival_country = get_country_name(
+                        other_schengen_countries.schengen_country_arrival
                     )
-                )
+                    departure_country = get_country_name(
+                        other_schengen_countries.schengen_country_departure
+                    )
+                    any_other_schengen_country = get_country_name(
+                        other_schengen_countries.any_other_schengen_country
+                    )
+
+                    pdf_model.visa_mem_main_dst = ", ".join(  #
+                        filter(
+                            None,
+                            [
+                                to_country_full_name,
+                                arrival_country,
+                                departure_country,
+                                any_other_schengen_country,
+                            ],
+                        )
+                    )
             else:
                 pdf_model.visa_mem_main_dst = (
                     visa_info.visa_request.to_country_full_name  #
@@ -383,12 +383,15 @@ class DocketUtilities:
                         else ""
                     )
                     if travel_info.valid_visa_for_country == OPTION.YES:
-                        pdf_model.visa_permit_final_ctry_dest_valid_from = (
-                            travel_info.start_date_of_visa.strftime("%d-%m-%Y")  #
-                        )
-                        pdf_model.visa_permit_final_ctry_dest_til = (
-                            travel_info.end_date_of_visa.strftime("%d-%m-%Y")  #
-                        )
+                        if travel_info.start_date_of_visa:
+                            pdf_model.visa_permit_final_ctry_dest_valid_from = (
+                                travel_info.start_date_of_visa.strftime("%d-%m-%Y")  #
+                            )
+
+                        if travel_info.end_date_of_visa:
+                            pdf_model.visa_permit_final_ctry_dest_til = (
+                                travel_info.end_date_of_visa.strftime("%d-%m-%Y")  #
+                            )
 
             resi_address = schengen_visa_data.residential_address
             if resi_address:
@@ -451,13 +454,15 @@ class DocketUtilities:
                 )  #
 
                 if pdf_model.visa_oth_natl_yes:
-                    pdf_model.visa_oth_natl_yes_res_num = (
-                        resi_address.resident_in_other_country.residence_permit_number
-                    )  #
-                    if resi_address.resident_in_other_country.permit_date_of_expiry:
-                        pdf_model.visa_oth_natl_yes_val_til = resi_address.resident_in_other_country.permit_date_of_expiry.strftime(  #
-                            "%d-%m-%Y"
-                        )
+                    res_oth_country = resi_address.resident_in_other_country
+                    if res_oth_country:
+                        pdf_model.visa_oth_natl_yes_res_num = (
+                            resi_address.resident_in_other_country.residence_permit_number
+                        )  #
+                        if resi_address.resident_in_other_country.permit_date_of_expiry:
+                            pdf_model.visa_oth_natl_yes_val_til = resi_address.resident_in_other_country.permit_date_of_expiry.strftime(  #
+                                "%d-%m-%Y"
+                            )
 
             if additional_details and additional_details.app_details:
                 app_details = additional_details.app_details
