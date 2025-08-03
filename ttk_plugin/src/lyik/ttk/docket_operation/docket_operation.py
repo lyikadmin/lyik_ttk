@@ -68,6 +68,7 @@ CODES = [
 ]
 ACCEPTED_MIME_PREFIXES = ("image/",)
 ACCEPTED_MIME_TYPES = ("application/pdf",)
+GENERATED_DOC_ID = "GENERATED_DOC"
 
 
 class DocketOperation(OperationPluginSpec):
@@ -274,6 +275,7 @@ class DocketOperation(OperationPluginSpec):
                 pdf = pdfs[0]
 
                 generated_pdf_doc = DBDocumentModel(
+                    doc_id=GENERATED_DOC_ID,
                     doc_name=f"{parsed_form_model.passport.passport_details.first_name}_{parsed_form_model.visa_request_information.visa_request.to_country_full_name}_Application",
                     doc_content=pdf.doc_content,
                     doc_size=len(pdf.doc_content),
@@ -296,7 +298,7 @@ class DocketOperation(OperationPluginSpec):
                 if isinstance(file_data, dict):
                     try:
                         doc = DBDocumentModel(**file_data)
-                        if not generated_pdf_doc:
+                        if doc.doc_id != GENERATED_DOC_ID:
                             fetched_docs: List[DBDocumentModel] = (
                                 await invoke.fetchDocument(
                                     config=context.config,
