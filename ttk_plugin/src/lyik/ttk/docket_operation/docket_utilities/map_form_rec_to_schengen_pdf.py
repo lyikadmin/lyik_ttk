@@ -378,7 +378,9 @@ class DocketUtilities:
 
                 if travel_info:
                     pdf_model.visa_permit_final_ctry_dest_issued_by = (  #
-                        ISO3ToCountryModel(travel_info.country_of_travel).country_name()
+                        ISO3ToCountryModel(
+                            iso3_input=travel_info.country_of_travel
+                        ).country_name()
                         if travel_info.country_of_travel
                         else ""
                     )

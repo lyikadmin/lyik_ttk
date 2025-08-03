@@ -66,8 +66,7 @@ CODES = [
     "ESP",
     "SWE",
 ]
-ACCEPTED_MIME_PREFIXES = ("image/",)
-ACCEPTED_MIME_TYPES = ("application/pdf",)
+ALLOWED_MIME_TYPES = {"application/pdf", "image/jpeg", "image/png"}
 GENERATED_DOC_ID = "GENERATED_DOC"
 
 
@@ -644,55 +643,68 @@ class DocketOperation(OperationPluginSpec):
     ):
         if doc.metadata.doc_type == "application/zip" and doc.doc_content:
             extracted_docs = self.create_extracted_documents_from_zip(doc, key)
-            # Remove the original key
-            fetched_dict.pop(key, None)
-            # Add extracted documents with new keys
-            fetched_dict.update(extracted_docs)
+
+            # Preserve order
+            new_dict = {}
+            for existing_key in list(fetched_dict.keys()):
+                if existing_key == key:
+                    new_dict.update(extracted_docs)
+                else:
+                    new_dict[existing_key] = fetched_dict[existing_key]
+            fetched_dict.clear()
+            fetched_dict.update(new_dict)
+        else:
+            pass
 
     def create_extracted_documents_from_zip(
         self, original_doc: DBDocumentModel, base_key: str
     ) -> dict[str, DBDocumentModel]:
-        new_entries = {}
+        """
+        Extracts files from a zip if they are PDF or image, and builds
+        DBDocumentModels for them. Keys are formed using `key_prefix`.
+
+        Raises:
+            ValueError: If extracted file is not a supported type.
+        """
+        new_entries: Dict[str, DBDocumentModel] = {}
 
         with zipfile.ZipFile(io.BytesIO(original_doc.doc_content)) as zip_file:
-            valid_files = [f for f in zip_file.infolist() if not f.is_dir()]
+            valid_files = [
+                f
+                for f in zip_file.infolist()
+                if not f.is_dir()
+                and not f.filename.startswith("__MACOSX")
+                and not os.path.basename(f.filename).startswith("._")
+            ]
 
-            # Check all file types first
-            unsupported_files = []
-            for f in valid_files:
-                mime_type, _ = mimetypes.guess_type(f.filename)
-                if not self.is_accepted_mime(mime_type):
-                    unsupported_files.append(f.filename)
-
-            if unsupported_files:
-                raise ValueError(
-                    f"Zip file '{original_doc.doc_name}' contains unsupported files: {unsupported_files}"
-                )
-
-            for i, file_info in enumerate(valid_files):
+            for index, file_info in enumerate(valid_files):
                 file_bytes = zip_file.read(file_info)
-                doc = DBDocumentModel(
-                    doc_id=None,
-                    doc_name=file_info.filename,
-                    doc_size=len(file_bytes),
-                    doc_content=file_bytes,
-                    metadata=original_doc.metadata.model_copy(deep=True),
-                )
+                mime_type, _ = mimetypes.guess_type(file_info.filename)
 
-                # Key naming logic
+                if mime_type not in ALLOWED_MIME_TYPES:
+                    raise ValueError(
+                        f"Unsupported file type inside zip: {file_info.filename} ({mime_type})"
+                    )
+
+                # Override MIME type while preserving other metadata
+                new_metadata = original_doc.metadata.model_copy(deep=True)
+                new_metadata.doc_type = mime_type
+
+                # Set key
                 if len(valid_files) == 1:
                     key_name = base_key
                 else:
-                    key_name = f"{base_key}_{i+1}"
+                    key_name = f"{base_key}_{index + 1}"
 
-                new_entries[key_name] = doc
+                new_entries[key_name] = DBDocumentModel(
+                    doc_id=None,
+                    doc_name=os.path.basename(file_info.filename),
+                    doc_size=len(file_bytes),
+                    doc_content=file_bytes,
+                    metadata=new_metadata,
+                )
 
         return new_entries
-
-    def is_accepted_mime(self, mime_type: str | None) -> bool:
-        return mime_type in ACCEPTED_MIME_TYPES or any(
-            mime_type and mime_type.startswith(pfx) for pfx in ACCEPTED_MIME_PREFIXES
-        )
 
     def obfuscate_string(self, data_str: str, static_key: str) -> str:
         """
