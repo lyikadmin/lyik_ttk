@@ -30,7 +30,7 @@ from ..models.forms.new_schengentouristvisa import (
     Schengentouristvisa,
 )
 from ..ttk_storage_util.ttk_storage import TTKStorage
-from .docket_utilities.docket_utilities import DocketUtilities
+from .docket_utilities.map_form_rec_to_schengen_pdf import DocketUtilities
 from ..models.pdf.pdf_model import PDFModel
 from typing import Annotated, Dict, List
 from typing_extensions import Doc
@@ -61,7 +61,6 @@ CODES = [
     "LTU",
     "NLD",
     "NOR",
-    "POL",
     "ROU",
     "SVK",
     "ESP",
@@ -216,72 +215,79 @@ class DocketOperation(OperationPluginSpec):
                         detailed_message=f"Exception raised during fetch primary traveller details. Error: {str(e)}",
                     )
 
-            docket_util = DocketUtilities()
+            generated_pdf_doc = None
 
-            mapped_data: PDFModel = docket_util.map_schengen_to_pdf_model(
-                schengen_visa_data=parsed_form_model
-            )
-
-            data_dict: Dict = mapped_data.model_dump(mode="json")
-
-            template_id = ""
-
-            if parsed_form_model.visa_request_information.visa_request.to_country:
-                template_id = (
-                    parsed_form_model.visa_request_information.visa_request.to_country
-                )
-            else:
-                raise PluginException(
-                    message="Travelling to country is not set. Please ensure filling this field to continue. If error persists, please contact support.",
-                    detailed_message="to_country field is not filled in visa_request_information.",
-                )
-
-            final_template_id = "REF_PDF" if template_id in CODES else template_id
-
-            transformed_data: TransformerResponseModel = (
-                await invoke.template_generate_pdf(
-                    org_id=context.org_id,
-                    config=context.config,
-                    form_id=context.form_id,
-                    additional_args={"record_id": record_id},
-                    template_id=final_template_id,
-                    form_name="schengenpdf",
-                    record=data_dict,
-                )
-            )
-
-            if not transformed_data or not isinstance(
-                transformed_data, TransformerResponseModel
+            if (
+                not parsed_form_model.consultant_info.application_form_embassy
+                or not parsed_form_model.consultant_info.application_form_embassy.application_form
             ):
-                raise PluginException(
-                    message="PDF generation failed for the current operation. Please try again or contact support.",
-                    detailed_message=f"PDF generation failed. Error:{str(e),}",
+
+                docket_util = DocketUtilities()
+
+                mapped_data: PDFModel = docket_util.map_schengen_to_pdf_model(
+                    schengen_visa_data=parsed_form_model
                 )
 
-            if transformed_data.status != TRANSFORMER_RESPONSE_STATUS.SUCCESS:
-                return OperationResponseModel(
-                    status=OperationStatus.FAILED,
-                    message="Failed to create Docket. Please try again or contact support.",
+                data_dict: Dict = mapped_data.model_dump(mode="json")
+
+                template_id = ""
+
+                if parsed_form_model.visa_request_information.visa_request.to_country:
+                    template_id = (
+                        parsed_form_model.visa_request_information.visa_request.to_country
+                    )
+                else:
+                    raise PluginException(
+                        message="Travelling to country is not set. Please ensure filling this field to continue. If error persists, please contact support.",
+                        detailed_message="to_country field is not filled in visa_request_information.",
+                    )
+
+                final_template_id = "REF_PDF" if template_id in CODES else template_id
+
+                transformed_data: TransformerResponseModel = (
+                    await invoke.template_generate_pdf(
+                        org_id=context.org_id,
+                        config=context.config,
+                        form_id=context.form_id,
+                        additional_args={"record_id": record_id},
+                        template_id=final_template_id,
+                        form_name="schengenpdf",
+                        record=data_dict,
+                    )
                 )
 
-            pdfs: List[TemplateDocumentModel] = transformed_data.response
-            pdf = pdfs[0]
+                if not transformed_data or not isinstance(
+                    transformed_data, TransformerResponseModel
+                ):
+                    raise PluginException(
+                        message="PDF generation failed for the current operation. Please try again or contact support.",
+                        detailed_message=f"PDF generation failed. Error:{str(e),}",
+                    )
 
-            pdf_doc_model = DBDocumentModel(
-                doc_name=f"{parsed_form_model.passport.passport_details.first_name}_{parsed_form_model.visa_request_information.visa_request.to_country}_Application",
-                doc_content=pdf.doc_content,
-                doc_size=len(pdf.doc_content),
-                metadata=DocMeta(
-                    org_id=context.org_id,
-                    form_id=context.form_id,
-                    record_id=record_id,
-                    doc_type=pdf.doc_type,
-                ),
-            )
+                if transformed_data.status != TRANSFORMER_RESPONSE_STATUS.SUCCESS:
+                    return OperationResponseModel(
+                        status=OperationStatus.FAILED,
+                        message="Failed to create Docket. Please try again or contact support.",
+                    )
+
+                pdfs: List[TemplateDocumentModel] = transformed_data.response
+                pdf = pdfs[0]
+
+                generated_pdf_doc = DBDocumentModel(
+                    doc_name=f"{parsed_form_model.passport.passport_details.first_name}_{parsed_form_model.visa_request_information.visa_request.to_country_full_name}_Application",
+                    doc_content=pdf.doc_content,
+                    doc_size=len(pdf.doc_content),
+                    metadata=DocMeta(
+                        org_id=context.org_id,
+                        form_id=context.form_id,
+                        record_id=record_id,
+                        doc_type=pdf.doc_type,
+                    ),
+                )
 
             files_in_rec_with_filename = self.get_files_from_record(
                 parsed_form_model=parsed_form_model,
-                pdf_doc_model=pdf_doc_model,
+                pdf_doc_model=generated_pdf_doc,
             )
 
             fetched_documents_by_key: Dict[str, DBDocumentModel] = {}
@@ -290,7 +296,7 @@ class DocketOperation(OperationPluginSpec):
                 if isinstance(file_data, dict):
                     try:
                         doc = DBDocumentModel(**file_data)
-                        if doc.doc_name != pdf_doc_model.doc_name:
+                        if not generated_pdf_doc:
                             fetched_docs: List[DBDocumentModel] = (
                                 await invoke.fetchDocument(
                                     config=context.config,
@@ -370,7 +376,7 @@ class DocketOperation(OperationPluginSpec):
     def get_files_from_record(
         self,
         parsed_form_model: Schengentouristvisa,
-        pdf_doc_model: DBDocumentModel,
+        pdf_doc_model: DBDocumentModel | None,
     ) -> Dict[str, any]:
         files_in_rec_with_filename = {}
 
@@ -408,12 +414,10 @@ class DocketOperation(OperationPluginSpec):
             files_in_rec_with_filename["Previous_Visa"] = (
                 previous_visa.previous_visas_details.previous_visa_copy
             )
-        # "fingerprint_previous_visa_copy": parsed_form_model.previous_visas.fingerprint_details.previous_visa_file, ## Needs clarification,
         if additional_details and additional_details.travel_info:
             files_in_rec_with_filename["Non-Schengen Visa"] = (
                 additional_details.travel_info.visa_copy
             )
-        # Name_Country_Application: Not present in form,
         if consultant_info and consultant_info.cover_letter:
             files_in_rec_with_filename["Cover_Letter"] = (
                 consultant_info.cover_letter.cover_letter
@@ -422,6 +426,19 @@ class DocketOperation(OperationPluginSpec):
             files_in_rec_with_filename[pdf_doc_model.doc_name] = (
                 pdf_doc_model.model_dump()
             )
+        elif (
+            consultant_info
+            and consultant_info.application_form_embassy
+            and consultant_info.application_form_embassy.application_form
+        ):
+            files_in_rec_with_filename[
+                f"{parsed_form_model.passport.passport_details.first_name}_{parsed_form_model.visa_request_information.visa_request.to_country_full_name}_Application"
+            ] = consultant_info.application_form_embassy.application_form
+        else:
+            raise PluginException(
+                message="Missing Application Form from Embassy. Please Upload and try again."
+            )
+
         if itinerary and itinerary.itinerary_card:
             files_in_rec_with_filename["Itinerary"] = (
                 itinerary.itinerary_card.upload_itinerary
@@ -429,6 +446,10 @@ class DocketOperation(OperationPluginSpec):
         if address and address.residential_address_card_v1:
             files_in_rec_with_filename["Address_Proof"] = (
                 address.residential_address_card_v1.address_proof_upload
+            )
+        if address and address.resident_in_other_country:
+            files_in_rec_with_filename["Foreign_Address_Proof"] = (
+                address.resident_in_other_country.address_proof
             )
         if flight and flight.flight_tickets:
             files_in_rec_with_filename["Flight_Tickets"] = (

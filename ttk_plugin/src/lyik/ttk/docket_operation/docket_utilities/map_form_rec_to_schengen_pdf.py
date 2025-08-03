@@ -28,29 +28,13 @@ from ...models.forms.new_schengentouristvisa import (
 from lyikpluginmanager import PluginException
 from datetime import date, datetime
 from ...models.pdf.pdf_model import PDFModel
+from .utils import ISO3ToCountryModel
 import logging
 
 logger = logging.getLogger(__name__)
 
 
 class DocketUtilities:
-
-    def format_date(
-        self,
-        raw_date: date | datetime | None | str,
-    ) -> str:
-        """
-        This function formats the date  and datetime object and returns as date str.
-        """
-        if isinstance(raw_date, str):
-            return raw_date
-        formatted_date = ""
-        if isinstance(raw_date, date):
-            formatted_date = raw_date.strftime("%d/%m/%Y")
-        if isinstance(raw_date, datetime):
-            formatted_date = raw_date.strftime("%d/%m/%Y %H:%M:%S")
-
-        return formatted_date
 
     def map_schengen_to_pdf_model(
         self,
@@ -89,8 +73,9 @@ class DocketUtilities:
                     pdf_model.visa_dptr_date = (
                         visa_info.visa_request.arrival_date.strftime("%d-%m-%Y")  #
                     )
-                pdf_model.visa_mem_main_dst = (
-                    visa_info.visa_request.to_country_full_name  #
+
+                pdf_model.visa_addl_stay_info = (
+                    visa_info.visa_request.purpose_of_stay  #
                 )
 
             passport = schengen_visa_data.passport
@@ -98,12 +83,22 @@ class DocketUtilities:
                 pdf_model.visa_surname_family_name = (
                     passport.passport_details.surname
                 )  #
+                pdf_model.visa_surname_at_birth = (
+                    passport.passport_details.surname_at_birth
+                )  #
                 pdf_model.visa_first_name = passport.passport_details.first_name  #
                 if passport.passport_details.date_of_birth:
                     pdf_model.visa_dob = (
                         passport.passport_details.date_of_birth.strftime("%d-%m-%Y")  #
                     )
                 pdf_model.visa_pob = passport.passport_details.place_of_birth  #
+                pdf_model.visa_cob = (
+                    ISO3ToCountryModel(
+                        iso3_input=passport.passport_details.country_of_birth
+                    ).country_name()
+                    if passport.passport_details.country_of_birth
+                    else ""
+                )  #
                 pdf_model.visa_curr_natl = passport.passport_details.nationality  #
                 pdf_model.visa_sex_male = (
                     passport.passport_details.gender == GENDER.M
@@ -176,6 +171,30 @@ class DocketUtilities:
                 pdf_model.visa_natl_at_birth = (
                     passport.other_details.nationality_of_birth  #
                 )
+
+                if passport.other_details.minor_status == OPTION.YES:
+                    parent_details = passport.parental_guardian_details
+
+                    if parent_details:
+                        parent_surname = parent_details.surname or ""
+                        parent_first_name = parent_details.first_name or ""
+                        parent_addr = parent_details.address or ""
+                        parent_phone = parent_details.phone_number or ""
+                        parent_email = parent_details.email_address or ""
+                        parent_nationality = parent_details.nationality or ""
+
+                        pdf_model.visa_parental_auth = ", ".join(
+                            part
+                            for part in [
+                                parent_surname,
+                                parent_first_name,
+                                parent_addr,
+                                parent_phone,
+                                parent_email,
+                                parent_nationality,
+                            ]
+                            if part.strip()  #
+                        )
 
             additional_details = schengen_visa_data.additional_details
             if additional_details:
@@ -304,57 +323,141 @@ class DocketUtilities:
                     == RELATIONSHIPWITHEU.OTHER  #
                 )
 
-            resi_address = schengen_visa_data.residential_address
-            if (
-                resi_address
-                and resi_address.same_as_passport_address
-                == SAMEASPASSADDR.SAME_AS_PASS_ADDR
-            ):
-                resi_addr_card = resi_address.residential_address_card_v2
+            if additional_details and additional_details.travel_other == OPTION.YES:
 
-                line1 = resi_addr_card.address_line_1 or ""
-                line2 = resi_addr_card.address_line_2 or ""
-                city = resi_addr_card.city or ""
-                state = resi_addr_card.state or ""
-                pin = resi_addr_card.pin_code or ""
-                country = resi_addr_card.country or ""
-                email = ""
+                other_schengen_countries = (
+                    additional_details.other_schengen_countries or {}
+                )
 
-                if visa_info and visa_info.visa_request:
-                    email = visa_info.visa_request.email_id or ""
+                def get_country_name(code: str | None) -> str:
+                    return (
+                        ISO3ToCountryModel(iso3_input=code).country_name()
+                        if code
+                        else ""
+                    )
 
-                pdf_model.visa_app_addr = ", ".join(
-                    part
-                    for part in [line1, line2, city, state, pin, country, email]  #
-                    if part.strip()
+                pdf_model.visa_mem_1st_entry = get_country_name(
+                    other_schengen_countries.schengen_country_arrival  #
+                )
+
+                to_country_full_name = visa_info.visa_request.to_country_full_name
+                arrival_country = get_country_name(
+                    other_schengen_countries.schengen_country_arrival
+                )
+                departure_country = get_country_name(
+                    other_schengen_countries.schengen_country_departure
+                )
+                any_other_schengen_country = get_country_name(
+                    other_schengen_countries.any_other_schengen_country
+                )
+
+                pdf_model.visa_mem_main_dst = ", ".join(  #
+                    filter(
+                        None,
+                        [
+                            to_country_full_name,
+                            arrival_country,
+                            departure_country,
+                            any_other_schengen_country,
+                        ],
+                    )
                 )
             else:
-                resi_addr_card = resi_address.residential_address_card_v1
-
-                line1 = resi_addr_card.address_line_1 or ""
-                line2 = resi_addr_card.address_line_2 or ""
-                city = resi_addr_card.city or ""
-                state = resi_addr_card.state or ""
-                pin = resi_addr_card.pin_code or ""
-                country = resi_addr_card.country or ""
-                email = ""
-
-                if visa_info and visa_info.visa_request:
-                    email = visa_info.visa_request.email_id or ""
-
-                pdf_model.visa_app_addr = ", ".join(
-                    part
-                    for part in [
-                        line1,
-                        line2,
-                        city,
-                        state,
-                        pin,
-                        country,
-                        email,
-                    ]  #
-                    if part.strip()
+                pdf_model.visa_mem_main_dst = (
+                    visa_info.visa_request.to_country_full_name  #
                 )
+                pdf_model.visa_mem_1st_entry = (
+                    visa_info.visa_request.to_country_full_name
+                )  #
+
+            if (
+                additional_details
+                and additional_details.travelling_to_other_country == OPTION.YES
+            ):
+                travel_info = additional_details.travel_info
+
+                if travel_info:
+                    pdf_model.visa_permit_final_ctry_dest_issued_by = (  #
+                        ISO3ToCountryModel(travel_info.country_of_travel).country_name()
+                        if travel_info.country_of_travel
+                        else ""
+                    )
+                    if travel_info.valid_visa_for_country == OPTION.YES:
+                        pdf_model.visa_permit_final_ctry_dest_valid_from = (
+                            travel_info.start_date_of_visa.strftime("%d-%m-%Y")  #
+                        )
+                        pdf_model.visa_permit_final_ctry_dest_til = (
+                            travel_info.end_date_of_visa.strftime("%d-%m-%Y")  #
+                        )
+
+            resi_address = schengen_visa_data.residential_address
+            if resi_address:
+                if (
+                    resi_address.same_as_passport_address
+                    == SAMEASPASSADDR.SAME_AS_PASS_ADDR
+                ):
+                    resi_addr_card2 = resi_address.residential_address_card_v2
+
+                    line1 = resi_addr_card2.address_line_1 or ""
+                    line2 = resi_addr_card2.address_line_2 or ""
+                    city = resi_addr_card2.city or ""
+                    state = resi_addr_card2.state or ""
+                    pin = resi_addr_card2.pin_code or ""
+                    country = resi_addr_card2.country or ""
+                    email = ""
+
+                    if visa_info and visa_info.visa_request:
+                        email = visa_info.visa_request.email_id or ""
+
+                    pdf_model.visa_app_addr = ", ".join(
+                        part
+                        for part in [line1, line2, city, state, pin, country, email]  #
+                        if part.strip()
+                    )
+                else:
+                    resi_addr_card = resi_address.residential_address_card_v1
+
+                    if resi_addr_card:
+                        line1 = resi_addr_card.address_line_1 or ""
+                        line2 = resi_addr_card.address_line_2 or ""
+                        city = resi_addr_card.city or ""
+                        state = resi_addr_card.state or ""
+                        pin = resi_addr_card.pin_code or ""
+                        country = resi_addr_card.country or ""
+                        email = ""
+
+                        if visa_info and visa_info.visa_request:
+                            email = visa_info.visa_request.email_id or ""
+
+                        pdf_model.visa_app_addr = ", ".join(
+                            part
+                            for part in [
+                                line1,
+                                line2,
+                                city,
+                                state,
+                                pin,
+                                country,
+                                email,
+                            ]
+                            if part.strip()  #
+                        )
+
+                pdf_model.visa_oth_natl_no = (
+                    resi_address.other_nationality == OPTION.NO
+                )  #
+                pdf_model.visa_oth_natl_yes = (
+                    resi_address.other_nationality == OPTION.YES
+                )  #
+
+                if pdf_model.visa_oth_natl_yes:
+                    pdf_model.visa_oth_natl_yes_res_num = (
+                        resi_address.resident_in_other_country.residence_permit_number
+                    )  #
+                    if resi_address.resident_in_other_country.permit_date_of_expiry:
+                        pdf_model.visa_oth_natl_yes_val_til = resi_address.resident_in_other_country.permit_date_of_expiry.strftime(  #
+                            "%d-%m-%Y"
+                        )
 
             if additional_details and additional_details.app_details:
                 app_details = additional_details.app_details
