@@ -12,6 +12,7 @@ from typing_extensions import Doc
 from ..models.forms.new_schengentouristvisa import (
     RootPreviousVisas,
     PURPOSEOFVISAORTRAVEL,
+    OPTION,
 )
 import logging
 from datetime import date
@@ -39,8 +40,6 @@ class PreviousVisasVerifier(VerifyHandlerSpec):
         Returns:
             VerifyHandlerResponseModel: VerifyHandlerResponseModel with the verification status.
         """
-
-        logger.info("Started Previous visas verification process.")
         try:
             if payload is None:
                 raise PluginException(
@@ -48,30 +47,28 @@ class PreviousVisasVerifier(VerifyHandlerSpec):
                     detailed_message="The payload is missing. Ensure the payload is properly available.",
                 )
 
-            previous_visas_details = payload.previous_visas_details
+            collected_fingerprint_flag = (
+                payload.fingerprint_collected == OPTION.YES.value
+            )
+            have_past_visa_flag = payload.have_past_visa == OPTION.YES.value
 
-            if not previous_visas_details:
-                raise PluginException(
-                    message="Internal configuration error. Please contact support.",
-                    detailed_message="The payload is missing Previous Visas Details.",
-                )
-
-            if previous_visas_details.have_past_visa.value == "NO":
-                logger.info(
-                    "User has not been issued previous Schengen visa. Verified successfully."
-                )
+            if not have_past_visa_flag:
                 return VerifyHandlerResponseModel(
                     status=VERIFY_RESPONSE_STATUS.SUCCESS,
                     actor="system",
                     message="Verified successfully by the system.",
                 )
             else:
+                
                 # Check all required fields are filled
                 missing_fields = []
-                for field_name, value in previous_visas_details.model_dump().items():
+                for (
+                    field_name,
+                    value,
+                ) in payload.previous_visas_details.model_dump().items():
                     if (not value) and (field_name == "others_specify"):
                         if (
-                            previous_visas_details.purpose_of_visa
+                            payload.previous_visas_details.purpose_of_visa
                             == PURPOSEOFVISAORTRAVEL.OTHER
                         ):
                             missing_fields.append(field_name)
@@ -90,18 +87,14 @@ class PreviousVisasVerifier(VerifyHandlerSpec):
                     )
 
                 # Check end date of visa is in the past
-                end_date = previous_visas_details.end_date
+                end_date = payload.previous_visas_details.end_date
                 if end_date is None or end_date >= date.today():
-                    logger.error("The end date of visa is not a past date.")
                     return VerifyHandlerResponseModel(
                         status=VERIFY_RESPONSE_STATUS.FAILURE,
                         actor="system",
                         message="End Date of Visa must be a past. Try again or contact support.",
                     )
 
-                logger.info(
-                    "User has previous visa and all fields are valid. Verified successfully."
-                )
                 return VerifyHandlerResponseModel(
                     status=VERIFY_RESPONSE_STATUS.SUCCESS,
                     actor="system",

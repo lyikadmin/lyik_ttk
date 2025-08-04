@@ -282,14 +282,14 @@ class UpdatePaymentInfo(PreActionProcessorSpec):
                 f"Appended {len(addon_cart_rows)} rows to addon_service.addon_cart_row"
             )
 
-            # Clear the initialization table
-            full_parsed_record.addons.addon_service_initialization = (
-                RootAddonsAddonServiceInitialization()
-            )
-            logger.debug("Cleared addon_service_initialization")
-
             # Only clearing out the checkboxes and payment card after successful payment flow
             if _addons_updated_flag and _successful_payment_flag:
+
+                # Clear the initialization table if successfull
+                full_parsed_record.addons.addon_service_initialization = (
+                    RootAddonsAddonServiceInitialization()
+                )
+                logger.debug("Cleared addon_service_initialization")
 
                 # Clear the addon selections
                 for group_traveller in full_parsed_record.addons.addon_group:

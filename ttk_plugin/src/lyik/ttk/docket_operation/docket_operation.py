@@ -18,7 +18,6 @@ from lyikpluginmanager import (
     DocumentModel,
     TRANSFORMER_RESPONSE_STATUS,
     TemplateDocumentModel,
-    get_operation_html_message,
 )
 from lyikpluginmanager.annotation import RequiredVars, RequiredEnv
 from io import BytesIO
@@ -30,12 +29,16 @@ from ..models.forms.new_schengentouristvisa import (
     Schengentouristvisa,
 )
 from ..ttk_storage_util.ttk_storage import TTKStorage
-from .docket_utilities.docket_utilities import DocketUtilities
+from ..utils.operation_html_message import get_docket_operation_html_message
+from .docket_utilities.map_form_rec_to_schengen_pdf import DocketUtilities
 from ..models.pdf.pdf_model import PDFModel
 from typing import Annotated, Dict, List
 from typing_extensions import Doc
 import logging
 import os
+import io
+import zipfile
+
 
 logger = logging.getLogger(__name__)
 
@@ -44,6 +47,27 @@ impl = pluggy.HookimplMarker(getProjectName())
 PRIMARY_TRAVELLER = "Primary"
 CO_TRAVELLER = "Co-traveller"
 COLLECTION_NAME = "primary_travellers"
+CODES = [
+    "BEL",
+    "HRV",
+    "DNK",
+    "EST",
+    "FIN",
+    "FRA",
+    "DEU",
+    "GRC",
+    "ISL",
+    "LVA",
+    "LTU",
+    "NLD",
+    "NOR",
+    "ROU",
+    "SVK",
+    "ESP",
+    "SWE",
+]
+ALLOWED_MIME_TYPES = {"application/pdf", "image/jpeg", "image/png"}
+GENERATED_DOC_ID = "GENERATED_DOC"
 
 
 class DocketOperation(OperationPluginSpec):
@@ -191,70 +215,80 @@ class DocketOperation(OperationPluginSpec):
                         detailed_message=f"Exception raised during fetch primary traveller details. Error: {str(e)}",
                     )
 
-            docket_util = DocketUtilities()
+            generated_pdf_doc = None
 
-            mapped_data: PDFModel = docket_util.map_schengen_to_pdf_model(
-                schengen_visa_data=parsed_form_model
-            )
-
-            data_dict: Dict = mapped_data.model_dump(mode="json")
-
-            template_id = ""
-
-            if parsed_form_model.visa_request_information.visa_request.to_country:
-                template_id = (
-                    parsed_form_model.visa_request_information.visa_request.to_country
-                )
-            else:
-                raise PluginException(
-                    message="Travelling to country is not set. Please ensure filling this field to continue. If error persists, please contact support.",
-                    detailed_message="to_country field is not filled in visa_request_information.",
-                )
-
-            transformed_data: TransformerResponseModel = (
-                await invoke.template_generate_pdf(
-                    org_id=context.org_id,
-                    config=context.config,
-                    form_id=context.form_id,
-                    additional_args={"record_id": record_id},
-                    template_id=template_id,
-                    form_name="schengenpdf",
-                    record=data_dict,
-                )
-            )
-
-            if not transformed_data or not isinstance(
-                transformed_data, TransformerResponseModel
+            if (
+                not parsed_form_model.consultant_info.application_form_embassy
+                or not parsed_form_model.consultant_info.application_form_embassy.application_form
             ):
-                raise PluginException(
-                    message="PDF generation failed for the current operation. Please try again or contact support.",
-                    detailed_message=f"PDF generation failed. Error:{str(e),}",
+
+                docket_util = DocketUtilities()
+
+                mapped_data: PDFModel = docket_util.map_schengen_to_pdf_model(
+                    schengen_visa_data=parsed_form_model
                 )
 
-            if transformed_data.status != TRANSFORMER_RESPONSE_STATUS.SUCCESS:
-                return OperationResponseModel(
-                    status=OperationStatus.FAILED,
-                    message="Failed to create Docket. Please try again or contact support.",
+                data_dict: Dict = mapped_data.model_dump(mode="json")
+
+                template_id = ""
+
+                if parsed_form_model.visa_request_information.visa_request.to_country:
+                    template_id = (
+                        parsed_form_model.visa_request_information.visa_request.to_country
+                    )
+                else:
+                    raise PluginException(
+                        message="Travelling to country is not set. Please ensure filling this field to continue. If error persists, please contact support.",
+                        detailed_message="to_country field is not filled in visa_request_information.",
+                    )
+
+                final_template_id = "REF_PDF" if template_id in CODES else template_id
+
+                transformed_data: TransformerResponseModel = (
+                    await invoke.template_generate_pdf(
+                        org_id=context.org_id,
+                        config=context.config,
+                        form_id=context.form_id,
+                        additional_args={"record_id": record_id},
+                        template_id=final_template_id,
+                        form_name="schengenpdf",
+                        record=data_dict,
+                    )
                 )
 
-            pdfs: List[TemplateDocumentModel] = transformed_data.response
-            pdf = pdfs[0]
+                if not transformed_data or not isinstance(
+                    transformed_data, TransformerResponseModel
+                ):
+                    raise PluginException(
+                        message="PDF generation failed for the current operation. Please try again or contact support.",
+                        detailed_message=f"PDF generation failed. Error:{str(e),}",
+                    )
 
-            pdf_doc_model = DBDocumentModel(
-                doc_name=f"{parsed_form_model.passport.passport_details.first_name}_{parsed_form_model.visa_request_information.visa_request.to_country}_Application",
-                doc_content=pdf.doc_content,
-                doc_size=len(pdf.doc_content),
-                metadata=DocMeta(
-                    org_id=context.org_id,
-                    form_id=context.form_id,
-                    record_id=record_id,
-                    doc_type=pdf.doc_type,
-                ),
-            )
+                if transformed_data.status != TRANSFORMER_RESPONSE_STATUS.SUCCESS:
+                    return OperationResponseModel(
+                        status=OperationStatus.FAILED,
+                        message="Failed to create Docket. Please try again or contact support.",
+                    )
+
+                pdfs: List[TemplateDocumentModel] = transformed_data.response
+                pdf = pdfs[0]
+
+                generated_pdf_doc = DBDocumentModel(
+                    doc_id=GENERATED_DOC_ID,
+                    doc_name=f"{parsed_form_model.passport.passport_details.first_name}_{parsed_form_model.visa_request_information.visa_request.to_country_full_name}_Application",
+                    doc_content=pdf.doc_content,
+                    doc_size=len(pdf.doc_content),
+                    metadata=DocMeta(
+                        org_id=context.org_id,
+                        form_id=context.form_id,
+                        record_id=record_id,
+                        doc_type=pdf.doc_type,
+                    ),
+                )
 
             files_in_rec_with_filename = self.get_files_from_record(
                 parsed_form_model=parsed_form_model,
-                pdf_doc_model=pdf_doc_model,
+                pdf_doc_model=generated_pdf_doc,
             )
 
             fetched_documents_by_key: Dict[str, DBDocumentModel] = {}
@@ -263,7 +297,7 @@ class DocketOperation(OperationPluginSpec):
                 if isinstance(file_data, dict):
                     try:
                         doc = DBDocumentModel(**file_data)
-                        if doc.doc_name != pdf_doc_model.doc_name:
+                        if doc.doc_id != GENERATED_DOC_ID:
                             fetched_docs: List[DBDocumentModel] = (
                                 await invoke.fetchDocument(
                                     config=context.config,
@@ -317,11 +351,15 @@ class DocketOperation(OperationPluginSpec):
             download_url = api_domain + download_doc_endpoint + f"{obfus_str}.zip"
 
             # Return the successful operation response with the download URL
-            html_msg = get_operation_html_message(
-                title_text="Docket generated successfully.",
-                message_text="Click the download button to download the Docket.",
-                action_text="Download",
+            html_msg = get_docket_operation_html_message(
+                title_text="Your application is now ready to be submitted at your Visa Appointment!",
+                instruction_points=[
+                    "Download your Docket Zip File.",
+                    "This ZIP file contains all necessary documents (excluding the originals you need to carry) along with an <strong>‘Instruction Sheet’</strong>.",
+                    "Kindly print the documents, arrange them in the order specified in the Instruction Sheet, and bring them to your Visa Appointment.",
+                ],
                 url=download_url,
+                action_text="Download Docket",
             )
             return OperationResponseModel(
                 status=OperationStatus.SUCCESS,
@@ -343,7 +381,7 @@ class DocketOperation(OperationPluginSpec):
     def get_files_from_record(
         self,
         parsed_form_model: Schengentouristvisa,
-        pdf_doc_model: DBDocumentModel,
+        pdf_doc_model: DBDocumentModel | None,
     ) -> Dict[str, any]:
         files_in_rec_with_filename = {}
 
@@ -381,12 +419,10 @@ class DocketOperation(OperationPluginSpec):
             files_in_rec_with_filename["Previous_Visa"] = (
                 previous_visa.previous_visas_details.previous_visa_copy
             )
-        # "fingerprint_previous_visa_copy": parsed_form_model.previous_visas.fingerprint_details.previous_visa_file, ## Needs clarification,
         if additional_details and additional_details.travel_info:
             files_in_rec_with_filename["Non-Schengen Visa"] = (
                 additional_details.travel_info.visa_copy
             )
-        # Name_Country_Application: Not present in form,
         if consultant_info and consultant_info.cover_letter:
             files_in_rec_with_filename["Cover_Letter"] = (
                 consultant_info.cover_letter.cover_letter
@@ -395,6 +431,19 @@ class DocketOperation(OperationPluginSpec):
             files_in_rec_with_filename[pdf_doc_model.doc_name] = (
                 pdf_doc_model.model_dump()
             )
+        elif (
+            consultant_info
+            and consultant_info.application_form_embassy
+            and consultant_info.application_form_embassy.application_form
+        ):
+            files_in_rec_with_filename[
+                f"{parsed_form_model.passport.passport_details.first_name}_{parsed_form_model.visa_request_information.visa_request.to_country_full_name}_Application"
+            ] = consultant_info.application_form_embassy.application_form
+        else:
+            raise PluginException(
+                message="Missing Application Form from Embassy. Please Upload and try again."
+            )
+
         if itinerary and itinerary.itinerary_card:
             files_in_rec_with_filename["Itinerary"] = (
                 itinerary.itinerary_card.upload_itinerary
@@ -402,6 +451,10 @@ class DocketOperation(OperationPluginSpec):
         if address and address.residential_address_card_v1:
             files_in_rec_with_filename["Address_Proof"] = (
                 address.residential_address_card_v1.address_proof_upload
+            )
+        if address and address.resident_in_other_country:
+            files_in_rec_with_filename["Foreign_Address_Proof"] = (
+                address.resident_in_other_country.address_proof
             )
         if flight and flight.flight_tickets:
             files_in_rec_with_filename["Flight_Tickets"] = (
@@ -421,8 +474,8 @@ class DocketOperation(OperationPluginSpec):
             files_in_rec_with_filename["Bank_Statements"] = (
                 bank_statement.upload.bank_statements
             )
-        if itr:
-            files_in_rec_with_filename["ITR_Document"] = itr.itr_options
+        if itr and itr.upload:
+            files_in_rec_with_filename["ITR_Document"] = itr.upload.itr_acknowledgement
         if accommodation and accommodation.invitation_details:
             files_in_rec_with_filename["Inviter_Passport"] = (
                 accommodation.invitation_details.passport_bio_page
@@ -452,11 +505,14 @@ class DocketOperation(OperationPluginSpec):
                         "doc_id"
                     )
                 ):
-                    key_name = f"Additional_Doc{idx:02d}"
+                    key_name = (
+                        add_docs.additionaldocumentgroup.additional_documents_card.document_name
+                        if add_docs.additionaldocumentgroup.additional_documents_card.document_name
+                        else f"Additional_Doc{idx:02d}"
+                    )
                     files_in_rec_with_filename[key_name] = (
                         add_docs.additionaldocumentgroup.additional_documents_card.file_upload
                     )
-        # "passport_size_photo": parsed_form_model.photograph.passport_photo.photo, ## Where is this in the CSV?
 
         return files_in_rec_with_filename
 
@@ -524,13 +580,20 @@ class DocketOperation(OperationPluginSpec):
         try:
             output_docs: List[DocumentModel] = []
 
+            keys_to_process = ["Salary_Slips", "Bank_Statements", "ITR_Document"]
+
+            for key in keys_to_process:
+                doc = fetched_documents_by_key.get(key)
+                if doc:
+                    self.maybe_unzip_and_replace(key, doc, fetched_documents_by_key)
+
             for index, (key, doc) in enumerate(
                 fetched_documents_by_key.items(), start=1
             ):
                 if not doc or not doc.doc_content:
                     raise PluginException(
                         message="Internal error occurred. Please contact support.",
-                        detailed_message=f"The document object or the document content is missing for the key: {key}, hence the exception. Error: {str(e)}",
+                        detailed_message=f"The document object or the document content is missing for the key: {key}, hence the exception.",
                     )
 
                 mime_type = doc.metadata.doc_type if doc.metadata else None
@@ -578,6 +641,74 @@ class DocketOperation(OperationPluginSpec):
                 message="Internal error occurred. Please try again.",
                 detailed_message=f"Error while processing the documents: {str(e)}",
             )
+
+    def maybe_unzip_and_replace(
+        self, key: str, doc: DBDocumentModel, fetched_dict: dict[str, DBDocumentModel]
+    ):
+        if doc.metadata.doc_type == "application/zip" and doc.doc_content:
+            extracted_docs = self.create_extracted_documents_from_zip(doc, key)
+
+            # Preserve order
+            new_dict = {}
+            for existing_key in list(fetched_dict.keys()):
+                if existing_key == key:
+                    new_dict.update(extracted_docs)
+                else:
+                    new_dict[existing_key] = fetched_dict[existing_key]
+            fetched_dict.clear()
+            fetched_dict.update(new_dict)
+        else:
+            pass
+
+    def create_extracted_documents_from_zip(
+        self, original_doc: DBDocumentModel, base_key: str
+    ) -> dict[str, DBDocumentModel]:
+        """
+        Extracts files from a zip if they are PDF or image, and builds
+        DBDocumentModels for them. Keys are formed using `key_prefix`.
+
+        Raises:
+            ValueError: If extracted file is not a supported type.
+        """
+        new_entries: Dict[str, DBDocumentModel] = {}
+
+        with zipfile.ZipFile(io.BytesIO(original_doc.doc_content)) as zip_file:
+            valid_files = [
+                f
+                for f in zip_file.infolist()
+                if not f.is_dir()
+                and not f.filename.startswith("__MACOSX")
+                and not os.path.basename(f.filename).startswith("._")
+            ]
+
+            for index, file_info in enumerate(valid_files):
+                file_bytes = zip_file.read(file_info)
+                mime_type, _ = mimetypes.guess_type(file_info.filename)
+
+                if mime_type not in ALLOWED_MIME_TYPES:
+                    raise ValueError(
+                        f"Unsupported file type inside zip: {file_info.filename} ({mime_type})"
+                    )
+
+                # Override MIME type while preserving other metadata
+                new_metadata = original_doc.metadata.model_copy(deep=True)
+                new_metadata.doc_type = mime_type
+
+                # Set key
+                if len(valid_files) == 1:
+                    key_name = base_key
+                else:
+                    key_name = f"{base_key}_{index + 1}"
+
+                new_entries[key_name] = DBDocumentModel(
+                    doc_id=None,
+                    doc_name=os.path.basename(file_info.filename),
+                    doc_size=len(file_bytes),
+                    doc_content=file_bytes,
+                    metadata=new_metadata,
+                )
+
+        return new_entries
 
     def obfuscate_string(self, data_str: str, static_key: str) -> str:
         """
