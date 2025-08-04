@@ -14,6 +14,14 @@
   "show_csv_export": false,
   "show_records_search": false,
   "show_back_button": false,
-  "home_title": "Customer Applications",
-  "home_cta_label": "View Details"
+  "home_title": "Visa Applications",
+  "home_cta_label": "Open Form",
+  "show_logout": false,
+  "size_limit_mb": 10,
+  "show_verify_button": false,
+  "verification_status": {
+    "success": "Saved",
+    "failure": "Not Saved",
+    "indeterminate": "Need to Check"
+  }
 }
