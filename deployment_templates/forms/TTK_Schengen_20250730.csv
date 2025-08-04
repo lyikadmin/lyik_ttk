@@ -635,7 +635,7 @@ display_field,display_appointment_details_header,,,display_field,,False,"<!-- <p
 </body>
 </html>
 ",,,,False,,,,,
-fac_add_on_service_appointment,add_on_service_option,,,checkbox,,False,Select Option,,,,False,,,,not (EXISTS(@.appointment_scheduled.upload_appointment)),
+fac_add_on_service_appointment,add_on_service_option,,,checkbox,,False,Select Option,,,,False,,,,not EXISTS(@.appointment_scheduled.upload_appointment),
 card_builder,appointment_scheduled,,,card,,False,,My Scheduled Appointment Details,,,False,,,,not @.add_on_service_option = 'YES',
 table,appointment_details_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_pref_loc,scheduled_location,,,dropdown,,False,Select Option,Scheduled Location (City),,,False,,,,,
@@ -849,7 +849,7 @@ table,other_details_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_civil_marital_status,civil_status,,,dropdown,,False,Select Option,Civil/Marital Status,,,False,,,,,
 fac_str,nationality_of_birth,,,textbox,,False,Enter Nationality of Birth (if different),Nationality of Birth (if different),,,False,,,,,
 fac_str,other_nationality,,,textbox,,False,Enter Other Nationality,Other Nationality,,,False,,,,,
-fac_option,minor_status,,,radiobutton,NO,False,Select Option,Are you a Minor?,,,False,,,,,
+fac_option,minor_status,,,radiobutton,NO,False,Select Option,Are you a Minor?,,,False,,,,,align:center
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,parental_guardian_details,,,card,,False,,Parental Authority/Legal Guardian Details,,,False,,,"other_details.minor_status = ""NO""",,
@@ -1752,7 +1752,7 @@ fac_str,lock_accommodation,,,hidden,,False,,,,,False,,,,,
 card_builder,accommodation_choice,,,card,,False,,Accommodation,,,False,,,,not lock_accommodation='Lock',
 fac_accommodation_arrangement,accommodation_option,,,radiobutton,BOOKED,False,Select Option,Please let us know how your stay is arranged:,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,invitation_details,,,card,,False,,Details of Stay with Family/Friends (Invitation),,,False,,,accommodation_choice.accommodation_option != 'WITH_FAMILY',,
+card_builder,invitation_details,,,card,,False,,Details of Stay with Family/Friends (Invitation),,,False,,,(accommodation_choice.accommodation_option = 'BOOKED' or accommodation_choice.accommodation_option = 'TTK_ASSITANCE'),,
 display_field,display_accomodation,,,display_field,,False,"<div style=""
 display: flex;
 justify-content: center;
@@ -1783,7 +1783,7 @@ fac_file,visa_copy_permit,,,fileoption,,False,Upload a Image/PDF,Visa Copy / Res
 fac_file,accommodation_proof,,,fileoption,,False,Upload a Image/PDF,Inviter's Accommodation Proof,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png"
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,booked_appointment,,,card,,False,,Booked Accommodation,,,False,,,accommodation_choice.accommodation_option = 'WITH_FAMILY',not lock_accommodation='Lock',
+card_builder,booked_appointment,,,card,,False,,Booked Accommodation,,,False,,,(accommodation_choice.accommodation_option = 'WITH_FAMILY' or accommodation_choice.accommodation_option = 'TTK_ASSITANCE'),not lock_accommodation='Lock',
 display_field,display_accommodation_instruction,,,display_field,,False,"<div style=""
 display: flex;
 justify-content: center;
@@ -2633,8 +2633,8 @@ fac_str,visa_type,,,textbox,,False,Enter Visa Type,Visa Type,,,False,,,,,
 fac_country,country_of_issue,,,dropdown,,False,Select Option,Country of Visa Issued from,,,False,,,,,
 fac_date,start_date,,,datebox,,False,DD/MM/YYYY,Start Date of Visa,,,False,,,,,;only_past: true
 fac_date,end_date,,,datebox,,False,DD/MM/YYYY,End Date of Visa,,,False,,,,,
-fac_purpose_of_visa_or_travel,purpose_of_visa,,,dropdown,,False,Select Option,Purpose of Visa (at the time of filing your previous visa application),,,False,,,,,
-fac_option,utilized_visa,,,radiobutton,NO,False,Select Option,Have you utilised/travelled using this Visa?,,,False,,,,,
+fac_purpose_of_visa_or_travel,purpose_of_visa,,,dropdown,VISIT_FAMILY_FRIENDS,False,Select Option,Purpose of Visa (at the time of filing your previous visa application),,,False,,,,,
+fac_option,utilized_visa,,,radiobutton,NO,False,Select Option,Have you utilised/travelled using this Visa?,,,False,,,,,align:center
 fac_str,others_specify,,,textbox,,False,Enter Other Purpose of Visa,Other Purpose of Visa,,,False,,,"not purpose_of_visa=""OTHER""",,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -2853,7 +2853,7 @@ card_builder,national_id,,,card,,False,,National Identification Number,,,False,,
 table,national_id_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_file,aadhaar_upload_front,,,fileoption,,False,Upload a Image/PDF,Front Image Of Aadhaar Card,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png"
 fac_file,aadhaar_upload_back,,,fileoption,,False,Upload a Image/PDF,Back Image Of Aadhaar Card,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png"
-fac_str,aadhaar_number,,,textbox,,True,XXXX-XXXX-XXXX,Aadhaar Card Number,,,False,,,,,
+fac_aadhaar,aadhaar_number,,,textbox,,True,Enter 12-digit Aadhaar Number,Aadhaar Card Number,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 fac_option,travel_other,,,radiobutton,NO,True,Select Option,Are you traveling to any other Schengen Country(s) during this trip?,,,False,,,,,
@@ -2888,7 +2888,7 @@ fac_str,city,,,textbox,,True,Enter City,City,,,False,,,,,
 fac_str,state,,,textbox,,True,Enter State,State,,,False,,,,,
 fac_str,country,,,textbox,,False,Enter Country,Country,,,False,,,,,
 fac_str,email_address,,,textbox,,False,Enter Email Address,Email Address,,,False,,,,,
-fac_str,telephone_mobile_number,,,textbox,,False,Enter Telephone / Mobile Number,Telephone / Mobile Number,,,False,,,,,
+fac_phone,telephone_mobile_number,,,textbox,,False,Enter Telephone / Mobile Number,Telephone / Mobile Number,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 fac_family_member_of_eu,is_family_member,,,radiobutton,NO,False,Select Option,"Do you have a family member who is an EU (European Union), EEA (European Economic Area), or CH (Switzerland) Citizen or a national of the United Kingdom who is a beneficiary of the agreement between the Swiss Confederation and the United Kingdom?",,,False,,,,,
@@ -2903,11 +2903,11 @@ fac_relationship_with_eu,relationship,,,dropdown,,False,Select Option,Relationsh
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 display_field,display_sponsorship_details,,,display_field,,False,"<div style=""
-  display: flex;
-  align-items: left;
-  justify-content: left;
+  width: 600px;
+  margin: 0 auto;
+  display: block;
   font-weight: 500;
-  margin-right: 3px;
+  text-align: left;
 "">
   Please select the type of your sponsor(s). You may add more than one.
 </div>
@@ -4013,7 +4013,7 @@ fac_str,status_internal,,,hidden,,False,Enter Status Internal,Status Internal,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,addon_service,,,card,,False,,Your Transactions,,,False,,,,,
+card_builder,addon_service,,,card,,False,,Your Transactions,,,False,,,not EXISTS(@.addon_service.addon_cart_row),,
 table,table,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:1
 group_builder,addon_cart_row,,,table_row,,False,,Addon Table,,,False,,,,,
 fac_str,addon_id,,,hidden,,False,Enter Addon ID,Addon ID,,,False,,,,,
@@ -4552,7 +4552,7 @@ info_pane_builder,submit_info,,,info_pane,,False,"<!DOCTYPE html>
   </div>
 </body>
 </html>
-",Submit Application,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI])",,operation.submit:Submit Application
+",Submit Application,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI])",,operation.save:Save and Continue
 card_builder,docket,,,card,,False,,Docket,,,False,,,,,
 display_field,note,,,display_field,,False,"<div style=""
 display: flex;
