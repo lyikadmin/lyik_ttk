@@ -1,52 +1,72 @@
 [
   {
-    "id": 10,
-    "addon_name": "Travel Insurance",
-    "charges": 350
+    "id": 62000,
+    "addon_name": "Travel Insurance TTK Service fee",
+    "charges": 413
   },
   {
-    "id": 20,
+    "id": 62010,
     "addon_name": "Passport Delivery at Airport",
-    "charges": 1500
+    "charges": 1770
   },
   {
-    "id": 30,
+    "id": 62020,
     "addon_name": "Meet & Greet",
-    "charges": 1250
+    "charges": 1475
   },
   {
-    "id": 40,
+    "id": 62030,
     "addon_name": "Preparation of Affidavit",
-    "charges": 1500
+    "charges": 1770
   },
   {
-    "id": 50,
+    "id": 62040,
     "addon_name": "Notary Attestation",
-    "charges": 500
+    "charges": 590
   },
   {
-    "id": 60,
+    "id": 62050,
     "addon_name": "Travel Charges",
-    "charges": 350
+    "charges": 413
   },
   {
-    "id": 70,
+    "id": 62060,
     "addon_name": "Courier Charges",
-    "charges": 500
+    "charges": 590
   },
   {
-    "id": 80,
+    "id": 62070,
     "addon_name": "Demand Draft Preparation/Cancellation",
-    "charges": 250
+    "charges": 295
   },
   {
-    "id": 90,
+    "id": 62080,
     "addon_name": "Photograph Development",
-    "charges": 400
+    "charges": 472
   },
   {
-    "id": 100,
+    "id": 62090,
     "addon_name": "Visa Appointment - Rescheduling",
-    "charges": 500
+    "charges": 590
+  },
+  {
+    "id": 62100,
+    "addon_name": "Collection of documents",
+    "charges": 415
+  },
+  {
+    "id": 62110,
+    "addon_name": "Delivery of documents",
+    "charges": 413
+  },
+  {
+    "id": 62120,
+    "addon_name": "Dummy Ticket for visa purpose TTK service fee",
+    "charges": 413
+  },
+  {
+    "id": 62130,
+    "addon_name": "Dummy Hotel accommodation for visa purpose TTK service fee",
+    "charges": 413
   }
 ]
