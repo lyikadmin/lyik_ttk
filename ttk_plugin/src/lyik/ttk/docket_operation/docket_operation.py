@@ -18,7 +18,6 @@ from lyikpluginmanager import (
     DocumentModel,
     TRANSFORMER_RESPONSE_STATUS,
     TemplateDocumentModel,
-    get_operation_html_message,
 )
 from lyikpluginmanager.annotation import RequiredVars, RequiredEnv
 from io import BytesIO
@@ -30,6 +29,7 @@ from ..models.forms.new_schengentouristvisa import (
     Schengentouristvisa,
 )
 from ..ttk_storage_util.ttk_storage import TTKStorage
+from ..utils.operation_html_message import get_docket_operation_html_message
 from .docket_utilities.map_form_rec_to_schengen_pdf import DocketUtilities
 from ..models.pdf.pdf_model import PDFModel
 from typing import Annotated, Dict, List
@@ -351,11 +351,15 @@ class DocketOperation(OperationPluginSpec):
             download_url = api_domain + download_doc_endpoint + f"{obfus_str}.zip"
 
             # Return the successful operation response with the download URL
-            html_msg = get_operation_html_message(
-                title_text="Docket generated successfully.",
-                message_text="Click the download button to download the Docket.",
-                action_text="Download",
+            html_msg = get_docket_operation_html_message(
+                title_text="Your application is now ready to be submitted at your Visa Appointment!",
+                instruction_points=[
+                    "Download your Docket Zip File.",
+                    "This ZIP file contains all necessary documents (excluding the originals you need to carry) along with an <strong>‘Instruction Sheet’</strong>.",
+                    "Kindly print the documents, arrange them in the order specified in the Instruction Sheet, and bring them to your Visa Appointment.",
+                ],
                 url=download_url,
+                action_text="Download Docket",
             )
             return OperationResponseModel(
                 status=OperationStatus.SUCCESS,
