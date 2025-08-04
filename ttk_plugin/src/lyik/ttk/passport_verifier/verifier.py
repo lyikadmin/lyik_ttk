@@ -66,7 +66,7 @@ class PassportVerificationPlugin(VerifyHandlerSpec):
             if not payload.ovd_front and not payload.ovd_back:
                 logger.error("Front or Back image of the passport is not uploaded.")
                 return VerifyHandlerResponseModel(
-                    status=VERIFY_RESPONSE_STATUS.FAILURE,
+                    status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
                     message="Either front or back image of the passport is missing. Please upload and try again.",
                 )
 
@@ -84,7 +84,7 @@ class PassportVerificationPlugin(VerifyHandlerSpec):
                 if not ovd_response.document_type:
                     logger.error(f"Document type is not present in the ovd response.")
                     return VerifyHandlerResponseModel(
-                        status=VERIFY_RESPONSE_STATUS.FAILURE,
+                        status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
                         message="Internal error occured. Please contact support.",
                     )
 
@@ -94,7 +94,7 @@ class PassportVerificationPlugin(VerifyHandlerSpec):
                         f"The OVDType is expected to be Passport. Instead received type: {ovd_response.document_type.value}"
                     )
                     return VerifyHandlerResponseModel(
-                        status=VERIFY_RESPONSE_STATUS.FAILURE,
+                        status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
                         message="Only passport is supported for this verification step. Please upload a valid passport.",
                     )
 
@@ -205,7 +205,7 @@ class PassportVerificationPlugin(VerifyHandlerSpec):
             else:
                 logger.error("Passport front and back images are missing.")
                 return VerifyHandlerResponseModel(
-                    status=VERIFY_RESPONSE_STATUS.FAILURE,
+                    status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
                     message="Verification failed. Please upload front and back image of you passport and try again.",
                     actor="system",
                     response=payload.model_dump(),
@@ -215,7 +215,7 @@ class PassportVerificationPlugin(VerifyHandlerSpec):
             logger.error(pe.detailed_message)
             return VerifyHandlerResponseModel(
                 id=None,
-                status=VERIFY_RESPONSE_STATUS.FAILURE,
+                status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
                 message=pe.message,
                 actor="system",
             )
@@ -224,7 +224,7 @@ class PassportVerificationPlugin(VerifyHandlerSpec):
             logger.error(f"Failed verification process. {e}")
             return VerifyHandlerResponseModel(
                 id=None,
-                status=VERIFY_RESPONSE_STATUS.FAILURE,
+                status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
                 message="Something went wrong. Please contact admin.",
                 actor="system",
             )
@@ -280,7 +280,7 @@ def check_expiry_validation(
     if payload.date_of_expiry is None:
         logger.error("Date of expiry ios not provided.")
         return VerifyHandlerResponseModel(
-            status=VERIFY_RESPONSE_STATUS.FAILURE,
+            status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
             message=f"Verification failed, Date of expiry is required. Please try again.",
             actor="system",
         )
@@ -291,7 +291,7 @@ def check_expiry_validation(
     if doe < date.today():
         logger.error("The passport has already expired.")
         return VerifyHandlerResponseModel(
-            status=VERIFY_RESPONSE_STATUS.FAILURE,
+            status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
             message=f"Verification failed, The ID has expired. Please upload a valid ID.",
             actor="system",
         )
@@ -302,7 +302,7 @@ def check_expiry_validation(
     if not (1 <= int(desired_validity) <= 24):
         logger.error("Desired validity must be between 1 and 24. Please try again.")
         return VerifyHandlerResponseModel(
-            status=VERIFY_RESPONSE_STATUS.FAILURE,
+            status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
             message=f"Desired validity must be between 1 and 24. Please try again.",
             actor="system",
         )
@@ -314,7 +314,7 @@ def check_expiry_validation(
     if doe < validity_duration:
         logger.error("Failed to verify the Passport. Please contact admin.")
         return VerifyHandlerResponseModel(
-            status=VERIFY_RESPONSE_STATUS.FAILURE,
+            status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
             message=f"Failed to verify the Passport. Please contact admin.",
             actor="system",
         )
@@ -464,7 +464,7 @@ def check_if_verified(payload: dict) -> VerifyHandlerResponseModel | None:
             if str(current_id) == str(generated_id):
                 return ver_Status
             else:
-                ver_Status.status = VERIFY_RESPONSE_STATUS.FAILURE
+                ver_Status.status = VERIFY_RESPONSE_STATUS.DATA_ONLY
                 ver_Status.message = "Values have changed. Please Re-verify"
                 return ver_Status
 
@@ -514,7 +514,7 @@ async def get_ocr_data(
     except Exception as e:
         logger.exception(e)
         return VerifyHandlerResponseModel(
-            status=VERIFY_RESPONSE_STATUS.FAILURE,
+            status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
             message=f"Unable to extract data from the attached files. Please try with a different image(s)",
             actor="system",
         )

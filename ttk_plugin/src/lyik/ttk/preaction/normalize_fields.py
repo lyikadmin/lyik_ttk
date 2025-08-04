@@ -155,10 +155,11 @@ class NormalizeFields(PreActionProcessorSpec):
         try:
             lets = updated_data.get("lets_get_started", {})
             if traveller_details:
-                if sub_title:
-                    lets["traveler_details_header"] = f"<h1 style='text-align: center'>{traveller_details} | {context.form_name}</h1>"
-                else:
-                    lets["traveler_details_header"] = f"<h1 style='text-align: center'>{traveller_details}</h1>"
+                lets["traveler_details_header"] = f"<h2 style='text-align: center'>{traveller_details}</h2>"
+                # if sub_title:
+                #     lets["traveler_details_header"] = f"<h1 style='text-align: center'>{traveller_details} | {context.form_name}</h1>"
+                # else:
+                #     lets["traveler_details_header"] = f"<h1 style='text-align: center'>{traveller_details}</h1>"
             else:
                 lets.setdefault("traveler_details_header", "")
             updated_data["lets_get_started"] = lets

@@ -68,7 +68,8 @@ class AdditionalTravelDetailsVerifier(VerifyHandlerSpec):
                     )
 
             if (
-                payload.means_of_support_myself.support_means_other
+                payload.means_of_support_myself
+                and payload.means_of_support_myself.support_means_other
                 == PAYMENTMETHOD6.OTHER.value
             ):
                 if not payload.means_of_support_myself.others_specify_1:
@@ -77,7 +78,8 @@ class AdditionalTravelDetailsVerifier(VerifyHandlerSpec):
                     ] = "Please Enter Mandatory Field."
 
             if (
-                payload.means_of_support_sponser.coverage_other
+                payload.means_of_support_sponser
+                and payload.means_of_support_sponser.coverage_other
                 == EXPENSECOVERAGE5.OTHER.value
             ):
                 if not payload.means_of_support_sponser.others_specify_2:
