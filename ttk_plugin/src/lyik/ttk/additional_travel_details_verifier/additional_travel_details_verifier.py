@@ -16,6 +16,7 @@ from ..models.forms.new_schengentouristvisa import (
     PAYMENTMETHOD6,
     EXPENSECOVERAGE5,
 )
+from ..utils.message import get_error_message
 import logging
 from ..utils.verifier_util import (
     check_if_verified,
@@ -55,7 +56,7 @@ class AdditionalTravelDetailsVerifier(VerifyHandlerSpec):
         try:
             if payload is None:
                 raise PluginException(
-                    message="Internal configuration error. Please contact support.",
+                    message=get_error_message(error_message_code="TTK_ERR_0005"),
                     detailed_message="The payload is missing. Ensure the payload is properly available.",
                 )
 
@@ -90,7 +91,7 @@ class AdditionalTravelDetailsVerifier(VerifyHandlerSpec):
             if error_paths:
                 return VerifyHandlerResponseModel(
                     status=VERIFY_RESPONSE_STATUS.FAILURE,
-                    message="Please Enter Mandatory Fields.",
+                    message=get_error_message(error_message_code="TTK_ERR_0011"),
                     path_messages=error_paths,
                     actor="system",
                 )
@@ -225,5 +226,5 @@ class AdditionalTravelDetailsVerifier(VerifyHandlerSpec):
             return VerifyHandlerResponseModel(
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
                 actor="system",
-                message="Something went wrong while verification. Please contact support.",
+                message=get_error_message(error_message_code="TTK_ERR_0006"),
             )

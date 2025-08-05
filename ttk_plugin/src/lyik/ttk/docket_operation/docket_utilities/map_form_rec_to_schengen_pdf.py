@@ -29,6 +29,7 @@ from lyikpluginmanager import PluginException
 from datetime import date, datetime
 from ...models.pdf.pdf_model import PDFModel
 from .utils import ISO3ToCountryModel
+from ...utils.message import get_error_message
 import logging
 
 logger = logging.getLogger(__name__)
@@ -596,6 +597,6 @@ class DocketUtilities:
 
         except Exception as e:
             raise PluginException(
-                message="Internal error occurred. Please contact support.",
+                message=get_error_message(error_message_code="TTK_ERR_0005"),
                 detailed_message=f"Unhandled exception occurred during field mapping for PDF. Error: {str(e)}",
             )

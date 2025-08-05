@@ -1,4 +1,5 @@
 from lyikpluginmanager import VerifyHandlerResponseModel, VERIFY_RESPONSE_STATUS
+from .message import get_error_message
 import phonenumbers
 from phonenumbers.phonenumberutil import NumberParseException
 from pydantic import EmailStr, TypeAdapter
@@ -32,9 +33,13 @@ def validate_phone(value: str, country_code: int) -> str:
             region=phonenumbers.region_code_for_country_code(country_code),
         )
     except NumberParseException as e:
-        raise ValueError(f"Could not parse phone number: {value}") from e
+        raise ValueError(
+            get_error_message(error_message_code="LYIK_ERR_0007", parameters=[value])
+        ) from e
     if not phonenumbers.is_valid_number(phone):
-        raise ValueError(f"{value} does not seem like a valid phone number")
+        raise ValueError(
+            get_error_message(error_message_code="LYIK_ERR_0007", parameters=[value])
+        )
 
     return phonenumbers.format_number(phone, phonenumbers.PhoneNumberFormat.E164)
 
@@ -56,7 +61,9 @@ def validate_email(value: str) -> str:
         email = email_adapter.validate_python(value)
         return str(email)  # Ensures plain string return
     except Exception as e:
-        raise ValueError(f"{value} is not a valid email address") from e
+        raise ValueError(
+            get_error_message(error_message_code="LYIK_ERR_0006", parameters=[value])
+        ) from e
 
 
 def validate_pincode(value: str) -> str:
@@ -74,7 +81,9 @@ def validate_pincode(value: str) -> str:
     """
     if len(value) == 6 and value.isdigit():
         return value
-    raise ValueError(f"{value} is not a valid 6-digit pincode")
+    raise ValueError(
+        get_error_message(error_message_code="LYIK_ERR_0004", parameters=[value])
+    )
 
 
 def validate_aadhaar_number(value: str) -> str:
@@ -92,7 +101,9 @@ def validate_aadhaar_number(value: str) -> str:
     """
     if len(value) == 12 and value.isdigit():
         return value
-    raise ValueError(f"{value} is not a valid 12-digit Aadhaar number")
+    raise ValueError(
+        get_error_message(error_message_code="LYIK_ERR_0005", parameters=[value])
+    )
 
 
 def validate_passport_number(value: str) -> str:
@@ -113,5 +124,5 @@ def validate_passport_number(value: str) -> str:
     if re.fullmatch(r"^[A-Z][0-9]{7}$", value):
         return value
     raise ValueError(
-        f"{value} is not a valid passport number (expected format: A1234567)"
+        get_error_message(error_message_code="LYIK_ERR_0001", parameters=[value])
     )

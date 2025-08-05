@@ -10,6 +10,7 @@ from lyikpluginmanager import (
 from typing import Annotated
 from typing_extensions import Doc
 from ..models.forms.new_schengentouristvisa import RootAccomodation
+from ..utils.message import get_error_message
 import logging
 from datetime import datetime
 from ..utils.verifier_util import check_if_verified, validate_email
@@ -102,6 +103,6 @@ class AccommodationVerifier(VerifyHandlerSpec):
             logger.error(f"Unhandled exception occurred. Error: {str(e)}")
             return VerifyHandlerResponseModel(
                 actor=ACTOR,
-                message="Verification failed. Please try again or contact support",
+                message=get_error_message(error_message_code="TTK_ERR_0006"),
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
             )

@@ -13,6 +13,7 @@ from typing_extensions import Doc
 from ..models.forms.new_schengentouristvisa import RootWorkAddress
 import logging
 from ..utils.verifier_util import check_if_verified, validate_phone
+from ..utils.message import get_error_message
 
 logger = logging.getLogger(__name__)
 
@@ -42,7 +43,7 @@ class WorkEducationVerifier(VerifyHandlerSpec):
 
         if not context or not context.config:
             raise PluginException(
-                message="Internal configuration error. Please contact support.",
+                message=get_error_message(error_message_code="TTK_ERR_0005"),
                 detailed_message="The context is missing or config is missing in context.",
             )
 
@@ -50,7 +51,7 @@ class WorkEducationVerifier(VerifyHandlerSpec):
 
         if not default_country_code:
             raise PluginException(
-                message="Internal configuration error. Please contact support.",
+                message=get_error_message(error_message_code="TTK_ERR_0005"),
                 detailed_message="The DEFAULT_COUNTRY_CODE is missing in config.",
             )
 
@@ -130,6 +131,6 @@ class WorkEducationVerifier(VerifyHandlerSpec):
             logger.error(f"Unhandled exception occurred. Error: {str(e)}")
             return VerifyHandlerResponseModel(
                 actor=ACTOR,
-                message="Verification failed. Please try again or contact support",
+                message=get_error_message(error_message_code="TTK_ERR_0006"),
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
             )

@@ -30,6 +30,7 @@ from ..models.forms.new_schengentouristvisa import (
 )
 from ..ttk_storage_util.ttk_storage import TTKStorage
 from ..utils.operation_html_message import get_docket_operation_html_message
+from ..utils.message import get_error_message
 from .docket_utilities.map_form_rec_to_schengen_pdf import DocketUtilities
 from ..models.pdf.pdf_model import PDFModel
 from typing import Annotated, Dict, List
@@ -89,7 +90,7 @@ class DocketOperation(OperationPluginSpec):
         try:
             if not context or not context.config:
                 raise PluginException(
-                    message="Internal configuration error. Please contact support.",
+                    message=get_error_message(error_message_code="TTK_ERR_0005"),
                     detailed_message="The context or config is missing.",
                 )
             config = context.config
@@ -97,14 +98,14 @@ class DocketOperation(OperationPluginSpec):
             conn_url = config.DB_CONN_URL
             if not conn_url:
                 raise PluginException(
-                    message="Internal configuration error. Please contact support.",
+                    message=get_error_message(error_message_code="TTK_ERR_0005"),
                     detailed_message="DB_CONN_URL is missing in the config.",
                 )
 
             org_id = context.org_id
             if not org_id:
                 raise PluginException(
-                    message="Internal configuration error. Please contact support.",
+                    message=get_error_message(error_message_code="TTK_ERR_0005"),
                     detailed_message="org_id is missing in the context.",
                 )
 
@@ -115,14 +116,14 @@ class DocketOperation(OperationPluginSpec):
             )
             if not traveller_type:
                 raise PluginException(
-                    message="Traveller type is missing in Visa Request Summary. Please enure it is filled and try again. If issue persists, please contact support.",
+                    message=get_error_message(error_message_code="TTK_ERR_0005"),
                     detailed_message="traveller_type is missing in payload, hence the exception.",
                 )
 
             order_id = parsed_form_model.visa_request_information.visa_request.order_id
             if not order_id:
                 raise PluginException(
-                    message="Internal configuration error. Please contact support.",
+                    message=get_error_message(error_message_code="TTK_ERR_0005"),
                     detailed_message="order_id is missing in the payload.",
                 )
 
@@ -139,7 +140,9 @@ class DocketOperation(OperationPluginSpec):
 
                     if not fetched_data:
                         raise PluginException(
-                            message="Internal error occurred. Please contact support.",
+                            message=get_error_message(
+                                error_message_code="TTK_ERR_0005"
+                            ),
                             detailed_message="Failed to fetch the Primary traveller details.",
                         )
 
@@ -167,7 +170,9 @@ class DocketOperation(OperationPluginSpec):
                                 or not primary_traveller_itinerary.itinerary_card
                             ):
                                 raise PluginException(
-                                    message="Please ensure the Initerary section of the Primary traveller is filled and try again. If issue persists, contact support.",
+                                    message=get_error_message(
+                                        error_message_code="TTK_ERR_0015"
+                                    ),
                                     detailed_message="Primary traveller itinerary data is missing in the form record.",
                                 )
                             parsed_form_model.itinerary_accomodation = (
@@ -183,7 +188,9 @@ class DocketOperation(OperationPluginSpec):
                             )
                             if not primary_traveller_accommodation:
                                 raise PluginException(
-                                    message="Please ensure the Accommodation section of the Primary traveller is filled and try again. If issue persists, contact support.",
+                                    message=get_error_message(
+                                        error_message_code="TTK_ERR_0016"
+                                    ),
                                     detailed_message="Primary traveller Accommodation data is missing in the form record.",
                                 )
                             parsed_form_model.accomodation = (
@@ -202,7 +209,9 @@ class DocketOperation(OperationPluginSpec):
                                 or not primary_traveller_flight_ticket.flight_tickets
                             ):
                                 raise PluginException(
-                                    message="Please ensure the Flight Tickets section of the Primary traveller is filled and try again. If issue persists, contact support.",
+                                    message=get_error_message(
+                                        error_message_code="TTK_ERR_0017"
+                                    ),
                                     detailed_message="Primary traveller Flight Tickets data is missing in the form record.",
                                 )
                             parsed_form_model.ticketing = (
@@ -211,7 +220,7 @@ class DocketOperation(OperationPluginSpec):
 
                 except Exception as e:
                     raise PluginException(
-                        "Internal error occurred. Please contact support.",
+                        get_error_message(error_message_code="TTK_ERR_0005"),
                         detailed_message=f"Exception raised during fetch primary traveller details. Error: {str(e)}",
                     )
 
@@ -238,7 +247,7 @@ class DocketOperation(OperationPluginSpec):
                     )
                 else:
                     raise PluginException(
-                        message="Travelling to country is not set. Please ensure filling this field to continue. If error persists, please contact support.",
+                        message=get_error_message(error_message_code="TTK_ERR_0018"),
                         detailed_message="to_country field is not filled in visa_request_information.",
                     )
 
@@ -260,14 +269,14 @@ class DocketOperation(OperationPluginSpec):
                     transformed_data, TransformerResponseModel
                 ):
                     raise PluginException(
-                        message="PDF generation failed for the current operation. Please try again or contact support.",
+                        message=get_error_message(error_message_code="LYIK_ERR_0003"),
                         detailed_message=f"PDF generation failed. Error:{str(e),}",
                     )
 
                 if transformed_data.status != TRANSFORMER_RESPONSE_STATUS.SUCCESS:
                     return OperationResponseModel(
                         status=OperationStatus.FAILED,
-                        message="Failed to create Docket. Please try again or contact support.",
+                        message=get_error_message(error_message_code="TTK_ERR_0019"),
                     )
 
                 pdfs: List[TemplateDocumentModel] = transformed_data.response
@@ -313,7 +322,9 @@ class DocketOperation(OperationPluginSpec):
 
                     except Exception as e:
                         raise PluginException(
-                            message=f"Internal error occurred. Please contact support.",
+                            message=get_error_message(
+                                error_message_code="TTK_ERR_0005"
+                            ),
                             detailed_message=f"Error while fetching document: {str(e)}",
                         )
 
@@ -375,7 +386,7 @@ class DocketOperation(OperationPluginSpec):
             logger.error(f"Exception during Docket creation. Error: {str(e)}")
             return OperationResponseModel(
                 status=OperationStatus.FAILED,
-                message="Failed to generate the Docket.",
+                message=get_error_message(error_message_code="TTK_ERR_0020"),
             )
 
     def get_files_from_record(
@@ -441,7 +452,8 @@ class DocketOperation(OperationPluginSpec):
             ] = consultant_info.application_form_embassy.application_form
         else:
             raise PluginException(
-                message="Missing Application Form from Embassy. Please Upload and try again."
+                message=get_error_message(error_message_code="TTK_ERR_0021"),
+                detailed_message="Application Form from Embassy is not uploaded.",
             )
 
         if itinerary and itinerary.itinerary_card:
@@ -562,7 +574,7 @@ class DocketOperation(OperationPluginSpec):
                 )
             except Exception as e:
                 raise PluginException(
-                    message="Internal error occurred. Please contact support.",
+                    message=get_error_message(error_message_code="TTK_ERR_0005"),
                     detailed_message=f"Failed to save the document. Error:{str(e)}",
                 )
 
@@ -592,14 +604,14 @@ class DocketOperation(OperationPluginSpec):
             ):
                 if not doc or not doc.doc_content:
                     raise PluginException(
-                        message="Internal error occurred. Please contact support.",
+                        message=get_error_message(error_message_code="TTK_ERR_0005"),
                         detailed_message=f"The document object or the document content is missing for the key: {key}, hence the exception.",
                     )
 
                 mime_type = doc.metadata.doc_type if doc.metadata else None
                 if not mime_type:
                     raise PluginException(
-                        message="Internal error occurred. Please contact support.",
+                        message=get_error_message(error_message_code="TTK_ERR_0005"),
                         detailed_message=f"Missing MIME type for document key: {key}",
                     )
 
@@ -638,7 +650,7 @@ class DocketOperation(OperationPluginSpec):
 
         except Exception as e:
             raise PluginException(
-                message="Internal error occurred. Please try again.",
+                message=get_error_message(error_message_code="TTK_ERR_0005"),
                 detailed_message=f"Error while processing the documents: {str(e)}",
             )
 
@@ -735,6 +747,6 @@ class DocketOperation(OperationPluginSpec):
 
         except Exception as e:
             raise PluginException(
-                message="Internal error occurred. Please contact support.",
+                message=get_error_message(error_message_code="TTK_ERR_0005"),
                 detailed_message=f"Failed to obfuscate the string. Error: {str(e)}",
             )

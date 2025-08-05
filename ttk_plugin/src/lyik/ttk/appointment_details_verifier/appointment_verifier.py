@@ -13,6 +13,7 @@ from typing_extensions import Doc
 import logging
 from datetime import datetime
 from ..utils.verifier_util import check_if_verified, validate_phone, validate_email
+from ..utils.message import get_error_message
 from datetime import date
 from ..models.forms.new_schengentouristvisa import (
     Schengentouristvisa,
@@ -61,7 +62,7 @@ class AppointmentDetailsVerifier(VerifyHandlerSpec):
 
         if not context or not context.config:
             raise PluginException(
-                message="Internal configuration error. Please contact support.",
+                message=get_error_message(error_message_code="TTK_ERR_0005"),
                 detailed_message="The context is missing or config is missing in context.",
             )
 
@@ -80,7 +81,7 @@ class AppointmentDetailsVerifier(VerifyHandlerSpec):
         )
 
         if not appointment_date:
-            error = f"Please Fill the Scheduled Date first."
+            error = get_error_message(error_message_code="TTK_ERR_0012")
             return VerifyHandlerResponseModel(
                 actor=ACTOR,
                 message=error,
@@ -88,9 +89,7 @@ class AppointmentDetailsVerifier(VerifyHandlerSpec):
             )
 
         if not departure_date:
-            error = (
-                f"Please Fill the Departure Date in Visa Request Summary Section first."
-            )
+            error = get_error_message(error_message_code="TTK_ERR_0013")
             return VerifyHandlerResponseModel(
                 actor=ACTOR,
                 message=error,
@@ -102,7 +101,13 @@ class AppointmentDetailsVerifier(VerifyHandlerSpec):
             and isinstance(departure_date, date)
             and appointment_date >= departure_date
         ):
-            error = f"Appointment date ({format_date_to_string(appointment_date)}) must be before your departure date ({format_date_to_string(departure_date)})."
+            error = get_error_message(
+                error_message_code="TTK_ERR_0014",
+                parameters=[
+                    format_date_to_string(appointment_date),
+                    format_date_to_string(departure_date),
+                ],
+            )
             return VerifyHandlerResponseModel(
                 actor=ACTOR,
                 message=error,
