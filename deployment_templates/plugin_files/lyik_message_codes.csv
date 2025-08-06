@@ -1,4 +1,10 @@
 MESSAGE CODES,DESCRIPTION,CONTEXT
+LYIK_ERR_default,Invalid value. Please re-enter.,Used as a fallback for unknown or unhandled Pydantic error types.
+LYIK_ERR_DEFAULT_VALIDATION_ERROR,Invalid Data. Please Re-enter.,The default error message for pydantic validation errors.
+LYIK_ERR_value_error,Invalid value provided.,"Used when the Pydantic error type is 'value_error', indicating a generic validation failure not tied to a specific data type."
+LYIK_ERR_integer_default,Only numeric values are allowed.,"Used when the Pydantic error type is 'int_parsing', indicating that a non-integer value was provided where an integer was expected."
+LYIK_ERR_string_default,Text input expected.,"Used when the Pydantic error type is 'string_type', indicating that a non-string value was provided where a string was expected."
+LYIK_ERR_missing,Invalid value. Please re-enter.,"Used when the Pydantic error type is 'missing', indicating that a required field was not provided in the input."
 LYIK_ERR_0001,"""%1"" is not a valid Passport Number. Please use the correct format (e.g., A1234567).",Passport verification
 LYIK_ERR_0002,It seems your Passport has expired. Kindly upload a non-expired Passport to proceed.,Passport verification
 LYIK_ERR_0003,Something went wrong. Please try again.,Passport verification
@@ -8,12 +14,6 @@ LYIK_ERR_0006,"""%1"" is not a valid Email Address. Please check the format and 
 LYIK_ERR_0007,"""%1"" is not a valid Phone Number. Please check and try again.",Phone number verification
 LYIK_ERR_0008,Unable to read the uploaded files. Kindly upload clearer or different image(s) and try again.,OCR
 LYIK_ERR_0009,Values were modified. Please Verify again to continue.,Verfication status checker
-LYIK_ERR_DEFAULT_VALIDATION_ERROR,Invalid Data. Please Re-enter.,The default error message for pydantic validation errors.
-LYIK_ERR_value_error,Invalid value provided.,"Used when the Pydantic error type is 'value_error', indicating a generic validation failure not tied to a specific data type."
-LYIK_ERR_integer_default,Only numeric values are allowed.,"Used when the Pydantic error type is 'int_parsing', indicating that a non-integer value was provided where an integer was expected."
-LYIK_ERR_string_default,Text input expected.,"Used when the Pydantic error type is 'string_type', indicating that a non-string value was provided where a string was expected."
-LYIK_ERR_missing,Invalid value. Please re-enter.,"Used when the Pydantic error type is 'missing', indicating that a required field was not provided in the input."
-LYIK_ERR_default,Invalid value. Please re-enter.,Used as a fallback for unknown or unhandled Pydantic error types.
 LYIK_ERR_ACCOMMODATIONARRANGEMENT,Invalid Accommodationarrangement value.,Used when the Enum field 'ACCOMMODATIONARRANGEMENT' receives a value that is not among the allowed options.
 LYIK_ERR_ADDRESSPROOFTYPE,Invalid Addressprooftype value.,Used when the Enum field 'ADDRESSPROOFTYPE' receives a value that is not among the allowed options.
 LYIK_ERR_ADDONOP,Invalid Addonop value.,Used when the Enum field 'ADDONOP' receives a value that is not among the allowed options.

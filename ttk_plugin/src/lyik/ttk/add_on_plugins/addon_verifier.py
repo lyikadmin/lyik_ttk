@@ -30,6 +30,7 @@ from datetime import datetime
 import logging
 import base64
 from ..utils.encode import decode_base64_to_str
+from ..utils.message import get_error_message
 
 from ..models.payment.addon_models import AddonSummaryItem
 from ..utils.payment import (
@@ -133,7 +134,7 @@ class AddOnPaymentInitializeVerifier(VerifyHandlerSpec):
             logger.error(f"Failed to create payu params. {str(ae)}")
             return VerifyHandlerResponseModel(
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
-                message=f"Please fill your first name and last name in passport section first.",
+                message=get_error_message(error_message_code="TTK_ERR_0004"),
                 response=full_form_record.addons.model_dump(),
             )
 

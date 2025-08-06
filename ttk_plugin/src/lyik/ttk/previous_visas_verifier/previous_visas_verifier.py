@@ -14,6 +14,7 @@ from ..models.forms.new_schengentouristvisa import (
     PURPOSEOFVISAORTRAVEL,
     OPTION,
 )
+from ..utils.message import get_error_message
 import logging
 from datetime import date
 
@@ -43,7 +44,7 @@ class PreviousVisasVerifier(VerifyHandlerSpec):
         try:
             if payload is None:
                 raise PluginException(
-                    message="Internal configuration error. Please contact support.",
+                    message=get_error_message(error_message_code="TTK_ERR_0005"),
                     detailed_message="The payload is missing. Ensure the payload is properly available.",
                 )
 
@@ -59,7 +60,7 @@ class PreviousVisasVerifier(VerifyHandlerSpec):
                     message="Verified successfully by the system.",
                 )
             else:
-                
+
                 # Check all required fields are filled
                 missing_fields = []
                 for (
@@ -83,7 +84,7 @@ class PreviousVisasVerifier(VerifyHandlerSpec):
                     return VerifyHandlerResponseModel(
                         status=VERIFY_RESPONSE_STATUS.FAILURE,
                         actor="system",
-                        message="Please ensure all the details are filled if you have been issued a Schengen visa in the past.",
+                        message=get_error_message(error_message_code="TTK_ERR_0009"),
                     )
 
                 # Check end date of visa is in the past
@@ -92,7 +93,7 @@ class PreviousVisasVerifier(VerifyHandlerSpec):
                     return VerifyHandlerResponseModel(
                         status=VERIFY_RESPONSE_STATUS.FAILURE,
                         actor="system",
-                        message="End Date of Visa must be a past. Try again or contact support.",
+                        message=get_error_message(error_message_code="TTK_ERR_0010"),
                     )
 
                 return VerifyHandlerResponseModel(
@@ -113,5 +114,5 @@ class PreviousVisasVerifier(VerifyHandlerSpec):
             return VerifyHandlerResponseModel(
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
                 actor="system",
-                message="Something went wrong while verification. Please contact support.",
+                message=get_error_message(error_message_code="TTK_ERR_0006"),
             )
