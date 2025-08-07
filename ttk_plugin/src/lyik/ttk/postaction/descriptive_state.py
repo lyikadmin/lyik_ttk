@@ -19,11 +19,11 @@ logger = logging.getLogger(__name__)
 impl = pluggy.HookimplMarker(getProjectName())
 
 _DISPLAY_STATE: dict[str, str] = {
-    "SAVE": "Form Saved",
-    "SUBMIT": "Form Submitted",
-    "APPROVED": "Form Approved",
-    "DISCREPANCY": "Form Needs Attention",
-    "COMPLETED": "Application Completed",
+    "SAVE": "Saved",
+    "SUBMIT": "Completed",
+    "APPROVED": "Approved",
+    "DISCREPANCY": "Needs Correction",
+    "COMPLETED": "Finalised",
     "INITIALIZED": "Form Created",
 }
 
@@ -38,8 +38,8 @@ class FormStatusDisplay(PostActionProcessorSpec):
         self,
         context: ContextModel,
         action: Annotated[str, "Sates of actions"],
-        current_state: Annotated[str | None, "previous record state"],
-        new_state: Annotated[str | None, "new record state"],
+        previous_state: Annotated[str | None, "previous record state"],
+        current_state: Annotated[str | None, "new record state"],
         payload: Annotated[GenericFormRecordModel, "entire form record model"],
     ) -> Annotated[
         GenericFormRecordModel,
@@ -53,22 +53,23 @@ class FormStatusDisplay(PostActionProcessorSpec):
             return payload
 
         # If no state at all, set it to 'INITIALIZED'
-        if not new_state:
+        if not current_state:
             form_state = "INITIALIZED"
+        else:
+            form_state = current_state
+
 
         if action.value == "SUBMIT":
             form_state = "SUBMIT"
 
         # 2)  Look up human label
-        user_friendly_label = _DISPLAY_STATE.get(
-            form_state, form_state or "INITIALIZED"
-        )
+        user_friendly_label = _DISPLAY_STATE.get(form_state, form_state or "INITIALIZED")
 
         # 3)  get the lets_get_started dict value
         # 3.1) add/update the user understandable message as per the form state
         if not form.lets_get_started:
             form.lets_get_started = RootLetsGetStarted()
-            
+
         form.lets_get_started.form_status = user_friendly_label
 
         data_dict = form.model_dump()
