@@ -15,7 +15,7 @@ from datetime import datetime
 from ..utils.verifier_util import check_if_verified, validate_phone, validate_email
 from ..utils.message import get_error_message
 from datetime import date
-from ..models.forms.new_schengentouristvisa import (
+from ..models.forms.schengentouristvisa import (
     Schengentouristvisa,
     RootAppointment,
     ADDONSERVICEAPPOINTMENT,

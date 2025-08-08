@@ -19,7 +19,7 @@ from lyikpluginmanager.models.lyik_payment_system_model import (
     PayUParams,
 )
 from lyikpluginmanager.core.utils import generate_hash_id_from_dict
-from ..models.forms.new_schengentouristvisa import (
+from ..models.forms.schengentouristvisa import (
     RootAddons,
     ADDONOP,
     Schengentouristvisa,

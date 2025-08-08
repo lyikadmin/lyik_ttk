@@ -19,7 +19,7 @@ from lyikpluginmanager.models import (
     GatewayResponseModel,
 )
 from lyikpluginmanager.annotation import RequiredEnv
-from ..models.forms.new_schengentouristvisa import (
+from ..models.forms.schengentouristvisa import (
     Schengentouristvisa,
     FieldGrpRootAddonsAddonServiceAddonCartRow,
     RootAddonsAddonService,

@@ -8,7 +8,7 @@ from lyikpluginmanager import (
     GenericFormRecordModel,
     PreActionProcessorSpec
 )
-from ..models.forms.new_schengentouristvisa import Schengentouristvisa
+from ..models.forms.schengentouristvisa import Schengentouristvisa
 import logging
 
 logger = logging.getLogger(__name__)

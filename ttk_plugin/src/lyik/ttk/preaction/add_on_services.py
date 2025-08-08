@@ -10,7 +10,7 @@ from lyikpluginmanager import (
 )
 from typing import List, Dict, Any
 from ..utils.loader_utils import AddonLoader
-from ..models.forms.new_schengentouristvisa import (
+from ..models.forms.schengentouristvisa import (
     Schengentouristvisa,
     RootAddons,
     FieldGrpRootAddonsAddonGroup,

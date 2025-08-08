@@ -9,7 +9,7 @@ from lyikpluginmanager import (
 )
 from typing import Annotated
 from typing_extensions import Doc
-from ..models.forms.new_schengentouristvisa import RootResidentialAddress
+from ..models.forms.schengentouristvisa import RootResidentialAddress
 import logging
 from ..utils.verifier_util import check_if_verified, validate_pincode
 from ..utils.message import get_error_message

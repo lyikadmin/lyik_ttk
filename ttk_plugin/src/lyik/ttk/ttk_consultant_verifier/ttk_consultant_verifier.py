@@ -9,7 +9,7 @@ from lyikpluginmanager import (
 )
 from typing import Annotated
 from typing_extensions import Doc
-from ..models.forms.new_schengentouristvisa import RootConsultantInfo
+from ..models.forms.schengentouristvisa import RootConsultantInfo
 import logging
 from datetime import datetime
 from ..utils.verifier_util import check_if_verified, validate_email

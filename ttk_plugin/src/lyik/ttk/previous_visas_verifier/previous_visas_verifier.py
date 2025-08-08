@@ -9,7 +9,7 @@ from lyikpluginmanager import (
 )
 from typing import Annotated
 from typing_extensions import Doc
-from ..models.forms.new_schengentouristvisa import (
+from ..models.forms.schengentouristvisa import (
     RootPreviousVisas,
     PURPOSEOFVISAORTRAVEL,
     OPTION,

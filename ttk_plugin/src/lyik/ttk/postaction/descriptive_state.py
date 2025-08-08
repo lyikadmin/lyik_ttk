@@ -13,7 +13,7 @@ from lyikpluginmanager import (
 )
 from typing_extensions import Doc
 
-from ..models.forms.new_schengentouristvisa import Schengentouristvisa, RootLetsGetStarted  # adjust path
+from ..models.forms.schengentouristvisa import Schengentouristvisa, RootLetsGetStarted  # adjust path
 
 logger = logging.getLogger(__name__)
 impl = pluggy.HookimplMarker(getProjectName())

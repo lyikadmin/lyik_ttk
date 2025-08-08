@@ -1,4 +1,4 @@
-from ...models.forms.new_schengentouristvisa import (
+from ...models.forms.schengentouristvisa import (
     Schengentouristvisa,
     CIVILMARITALSTATUS,
     PASSPORTTYPE,

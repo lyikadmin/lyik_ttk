@@ -9,7 +9,7 @@ from lyikpluginmanager import (
 )
 from typing import Annotated
 from typing_extensions import Doc
-from ..models.forms.new_schengentouristvisa import RootAccomodation
+from ..models.forms.schengentouristvisa import RootAccomodation
 from ..utils.message import get_error_message
 import logging
 from datetime import datetime

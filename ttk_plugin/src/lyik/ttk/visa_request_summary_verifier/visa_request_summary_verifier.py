@@ -10,7 +10,7 @@ from lyikpluginmanager import (
 from lyikpluginmanager.annotation import RequiredVars
 from typing import Annotated
 from typing_extensions import Doc
-from ..models.forms.new_schengentouristvisa import RootVisaRequestInformation
+from ..models.forms.schengentouristvisa import RootVisaRequestInformation
 import logging
 from datetime import datetime
 from ..utils.verifier_util import check_if_verified, validate_phone, validate_email

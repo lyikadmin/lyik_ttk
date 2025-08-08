@@ -25,7 +25,7 @@ from PIL import Image
 from pypdf import PdfWriter, PdfReader
 import mimetypes
 import mimetypes
-from ..models.forms.new_schengentouristvisa import (
+from ..models.forms.schengentouristvisa import (
     Schengentouristvisa,
 )
 from ..ttk_storage_util.ttk_storage import TTKStorage

@@ -16,7 +16,7 @@ from lyikpluginmanager import invoke, DBDocumentModel, DocumentModel
 from lyikpluginmanager.models.ovd import OVDGenericResponse, OVDPassport, OVDType
 from lyikpluginmanager.core.utils import generate_hash_id_from_dict
 from lyikpluginmanager.annotation import RequiresValidation
-from ..models.forms.new_schengentouristvisa import RootPassportPassportDetails
+from ..models.forms.schengentouristvisa import RootPassportPassportDetails
 from ..utils.verifier_util import validate_pincode, validate_passport_number
 from ..utils.message import get_error_message
 import logging
