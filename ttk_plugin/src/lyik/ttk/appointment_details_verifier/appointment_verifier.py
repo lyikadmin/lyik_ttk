@@ -62,7 +62,9 @@ class AppointmentDetailsVerifier(VerifyHandlerSpec):
 
         if not context or not context.config:
             raise PluginException(
-                message=get_error_message(error_message_code="TTK_ERR_0005"),
+                message=get_error_message(
+                    error_message_code="LYIK_ERR_UNEXPECTED_ERROR"
+                ),
                 detailed_message="The context is missing or config is missing in context.",
             )
 
@@ -81,7 +83,9 @@ class AppointmentDetailsVerifier(VerifyHandlerSpec):
         )
 
         if not appointment_date:
-            error = get_error_message(error_message_code="TTK_ERR_0012")
+            error = get_error_message(
+                error_message_code="LYIK_ERR_MISSING_SCH_DATE_APT"
+            )
             return VerifyHandlerResponseModel(
                 actor=ACTOR,
                 message=error,
@@ -89,7 +93,7 @@ class AppointmentDetailsVerifier(VerifyHandlerSpec):
             )
 
         if not departure_date:
-            error = get_error_message(error_message_code="TTK_ERR_0013")
+            error = get_error_message(error_message_code="LYIK_ERR_MISSING_DD_VRS_APT")
             return VerifyHandlerResponseModel(
                 actor=ACTOR,
                 message=error,
@@ -102,7 +106,7 @@ class AppointmentDetailsVerifier(VerifyHandlerSpec):
             and appointment_date >= departure_date
         ):
             error = get_error_message(
-                error_message_code="TTK_ERR_0014",
+                error_message_code="LYIK_ERR_INVALID_APT_DATE",
                 parameters=[
                     format_date_to_string(appointment_date),
                     format_date_to_string(departure_date),

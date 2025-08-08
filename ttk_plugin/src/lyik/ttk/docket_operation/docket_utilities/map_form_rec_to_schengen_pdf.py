@@ -597,6 +597,8 @@ class DocketUtilities:
 
         except Exception as e:
             raise PluginException(
-                message=get_error_message(error_message_code="TTK_ERR_0005"),
+                message=get_error_message(
+                    error_message_code="LYIK_ERR_UNEXPECTED_ERROR"
+                ),
                 detailed_message=f"Unhandled exception occurred during field mapping for PDF. Error: {str(e)}",
             )

@@ -91,6 +91,6 @@ class AddressVerifier(VerifyHandlerSpec):
             logger.error(f"Unhandled exception occurred. Error: {str(e)}")
             return VerifyHandlerResponseModel(
                 actor=ACTOR,
-                message=get_error_message(error_message_code="TTK_ERR_0006"),
+                message=get_error_message(error_message_code="LYIK_ERR_SAVE_FAILURE"),
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
             )

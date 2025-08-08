@@ -44,7 +44,9 @@ class PreviousVisasVerifier(VerifyHandlerSpec):
         try:
             if payload is None:
                 raise PluginException(
-                    message=get_error_message(error_message_code="TTK_ERR_0005"),
+                    message=get_error_message(
+                        error_message_code="LYIK_ERR_UNEXPECTED_ERROR"
+                    ),
                     detailed_message="The payload is missing. Ensure the payload is properly available.",
                 )
 
@@ -84,7 +86,9 @@ class PreviousVisasVerifier(VerifyHandlerSpec):
                     return VerifyHandlerResponseModel(
                         status=VERIFY_RESPONSE_STATUS.FAILURE,
                         actor="system",
-                        message=get_error_message(error_message_code="TTK_ERR_0009"),
+                        message=get_error_message(
+                            error_message_code="LYIK_ERR_MISSING_FIELDS_PREV_VISA"
+                        ),
                     )
 
                 # Check end date of visa is in the past
@@ -93,7 +97,9 @@ class PreviousVisasVerifier(VerifyHandlerSpec):
                     return VerifyHandlerResponseModel(
                         status=VERIFY_RESPONSE_STATUS.FAILURE,
                         actor="system",
-                        message=get_error_message(error_message_code="TTK_ERR_0010"),
+                        message=get_error_message(
+                            error_message_code="LYIK_ERR_INVALID_VISA_ED_PREV_VISA"
+                        ),
                     )
 
                 return VerifyHandlerResponseModel(
@@ -114,5 +120,5 @@ class PreviousVisasVerifier(VerifyHandlerSpec):
             return VerifyHandlerResponseModel(
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
                 actor="system",
-                message=get_error_message(error_message_code="TTK_ERR_0006"),
+                message=get_error_message(error_message_code="LYIK_ERR_SAVE_FAILURE"),
             )

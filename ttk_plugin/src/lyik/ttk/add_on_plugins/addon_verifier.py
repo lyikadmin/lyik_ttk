@@ -134,7 +134,9 @@ class AddOnPaymentInitializeVerifier(VerifyHandlerSpec):
             logger.error(f"Failed to create payu params. {str(ae)}")
             return VerifyHandlerResponseModel(
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
-                message=get_error_message(error_message_code="TTK_ERR_0004"),
+                message=get_error_message(
+                    error_message_code="LYIK_ERR_MISSING_APPL_NAME_ADDON"
+                ),
                 response=full_form_record.addons.model_dump(),
             )
 

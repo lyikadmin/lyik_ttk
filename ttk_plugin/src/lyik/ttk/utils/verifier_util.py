@@ -34,11 +34,15 @@ def validate_phone(value: str, country_code: int) -> str:
         )
     except NumberParseException as e:
         raise ValueError(
-            get_error_message(error_message_code="LYIK_ERR_0007", parameters=[value])
+            get_error_message(
+                error_message_code="LYIK_ERR_INVALID_PHONE_NUM", parameters=[value]
+            )
         ) from e
     if not phonenumbers.is_valid_number(phone):
         raise ValueError(
-            get_error_message(error_message_code="LYIK_ERR_0007", parameters=[value])
+            get_error_message(
+                error_message_code="LYIK_ERR_INVALID_PHONE_NUM", parameters=[value]
+            )
         )
 
     return phonenumbers.format_number(phone, phonenumbers.PhoneNumberFormat.E164)
@@ -62,7 +66,9 @@ def validate_email(value: str) -> str:
         return str(email)  # Ensures plain string return
     except Exception as e:
         raise ValueError(
-            get_error_message(error_message_code="LYIK_ERR_0006", parameters=[value])
+            get_error_message(
+                error_message_code="LYIK_ERR_INVALID_EMAIL_ADDR", parameters=[value]
+            )
         ) from e
 
 
@@ -82,7 +88,9 @@ def validate_pincode(value: str) -> str:
     if len(value) == 6 and value.isdigit():
         return value
     raise ValueError(
-        get_error_message(error_message_code="LYIK_ERR_0004", parameters=[value])
+        get_error_message(
+            error_message_code="LYIK_ERR_INVALID_PINCODE", parameters=[value]
+        )
     )
 
 
@@ -102,7 +110,9 @@ def validate_aadhaar_number(value: str) -> str:
     if len(value) == 12 and value.isdigit():
         return value
     raise ValueError(
-        get_error_message(error_message_code="LYIK_ERR_0005", parameters=[value])
+        get_error_message(
+            error_message_code="LYIK_ERR_INVALID_AADHAAR_NUM", parameters=[value]
+        )
     )
 
 
@@ -124,5 +134,7 @@ def validate_passport_number(value: str) -> str:
     if re.fullmatch(r"^[A-Z][0-9]{7}$", value):
         return value
     raise ValueError(
-        get_error_message(error_message_code="LYIK_ERR_0001", parameters=[value])
+        get_error_message(
+            error_message_code="LYIK_ERR_INVALID_PASSPORT_NUM", parameters=[value]
+        )
     )
