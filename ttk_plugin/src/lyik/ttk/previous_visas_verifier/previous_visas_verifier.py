@@ -9,12 +9,12 @@ from lyikpluginmanager import (
 )
 from typing import Annotated
 from typing_extensions import Doc
-from ..models.forms.schengentouristvisa import (
+from lyik.ttk.models.forms.schengentouristvisa import (
     RootPreviousVisas,
     PURPOSEOFVISAORTRAVEL,
     OPTION,
 )
-from ..utils.message import get_error_message
+from lyik.ttk.utils.message import get_error_message
 import logging
 from datetime import date
 

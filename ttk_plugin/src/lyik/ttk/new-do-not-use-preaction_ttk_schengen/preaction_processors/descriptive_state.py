@@ -12,7 +12,7 @@ from lyikpluginmanager import (
 )
 from typing_extensions import Doc
 
-from ...models.forms.schengentouristvisa import Schengentouristvisa
+from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa
 from ._base_preaction import BasePreActionProcessor
 
 logger = logging.getLogger(__name__)

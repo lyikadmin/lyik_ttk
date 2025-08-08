@@ -19,7 +19,7 @@ from lyikpluginmanager.models.lyik_payment_system_model import (
     PayUParams,
 )
 from lyikpluginmanager.core.utils import generate_hash_id_from_dict
-from ..models.forms.schengentouristvisa import (
+from lyik.ttk.models.forms.schengentouristvisa import (
     RootAddons,
     ADDONOP,
     Schengentouristvisa,
@@ -29,11 +29,11 @@ from ..models.forms.schengentouristvisa import (
 from datetime import datetime
 import logging
 import base64
-from ..utils.encode import decode_base64_to_str
-from ..utils.message import get_error_message
+from lyik.ttk.utils.encode import decode_base64_to_str
+from lyik.ttk.utils.message import get_error_message
 
-from ..models.payment.addon_models import AddonSummaryItem
-from ..utils.payment import (
+from lyik.ttk.models.payment.addon_models import AddonSummaryItem
+from lyik.ttk.utils.payment import (
     group_addon_summary,
     create_styled_traveller_name_list_string_for_traveller_ids,
     create_traveller_id_list_string_for_traveller_ids,

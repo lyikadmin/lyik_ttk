@@ -25,14 +25,14 @@ from PIL import Image
 from pypdf import PdfWriter, PdfReader
 import mimetypes
 import mimetypes
-from ..models.forms.schengentouristvisa import (
+from lyik.ttk.models.forms.schengentouristvisa import (
     Schengentouristvisa,
 )
-from ..ttk_storage_util.ttk_storage import TTKStorage
-from ..utils.operation_html_message import get_docket_operation_html_message
-from ..utils.message import get_error_message
-from .docket_utilities.map_form_rec_to_schengen_pdf import DocketUtilities
-from ..models.pdf.pdf_model import PDFModel
+from lyik.ttk.ttk_storage_util.ttk_storage import TTKStorage
+from lyik.ttk.utils.operation_html_message import get_docket_operation_html_message
+from lyik.ttk.utils.message import get_error_message
+from lyik.ttk.docket_operation.docket_utilities.map_form_rec_to_schengen_pdf import DocketUtilities
+from lyik.ttk.models.pdf.pdf_model import PDFModel
 from typing import Annotated, Dict, List
 from typing_extensions import Doc
 import logging

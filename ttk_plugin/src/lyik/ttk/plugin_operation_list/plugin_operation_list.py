@@ -9,8 +9,8 @@ from lyikpluginmanager import (
     PluginException,
 )
 from typing_extensions import Annotated, Doc, List
-from ..models.forms.schengentouristvisa import Schengentouristvisa, DOCKETSTATUS
-from ..utils.utils import get_personas_from_encoded_token
+from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa, DOCKETSTATUS
+from lyik.ttk.utils.utils import get_personas_from_encoded_token
 import logging
 import jwt
 

@@ -19,8 +19,8 @@ import httpx
 import json
 from datetime import date, datetime, time
 
-from ..models.forms.schengentouristvisa import Schengentouristvisa
-from ..models.forms.schengentouristvisa import DOCKETSTATUS
+from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa
+from lyik.ttk.models.forms.schengentouristvisa import DOCKETSTATUS
 from pydantic import BaseModel
 
 logger = logging.getLogger(__name__)

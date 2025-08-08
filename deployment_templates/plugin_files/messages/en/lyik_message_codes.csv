@@ -84,3 +84,4 @@ LYIK_ERR_MISSING_TO_COUNTRY_DOCKET,Kindly enter the country you are travelling t
 LYIK_ERR_DOCKET_GEN_FAILURE,Failed to generate the Docket. Please try again or connect with TTK for help.,Docket Operation TTK
 LYIK_ERR_UNEXPECTED_ERROR_DOCKET,Unexpected error occurred while generating docket. Please contact the TTK Visas for assistance.,Docket Operation TTK
 LYIK_ERR_MISSING_EMBASSY_FORM_DOCKET,Kindly upload the Application Form from Embassy before proceeding with Docket generation.,Docket Operation TTK
+LYIK_ERR_DID_NOT_FULLY_CONFIRM_SUBMISSION,"Please confirm all items to submit",

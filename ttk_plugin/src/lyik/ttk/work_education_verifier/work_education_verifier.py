@@ -10,10 +10,10 @@ from lyikpluginmanager import (
 from typing import Annotated
 from lyikpluginmanager.annotation import RequiredVars
 from typing_extensions import Doc
-from ..models.forms.schengentouristvisa import RootWorkAddress
+from lyik.ttk.models.forms.schengentouristvisa import RootWorkAddress
 import logging
-from ..utils.verifier_util import check_if_verified, validate_phone
-from ..utils.message import get_error_message
+from lyik.ttk.utils.verifier_util import check_if_verified, validate_phone
+from lyik.ttk.utils.message import get_error_message
 
 logger = logging.getLogger(__name__)
 

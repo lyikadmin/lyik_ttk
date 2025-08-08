@@ -24,7 +24,6 @@ from .preaction_processors.descriptive_state import PreactionFormStatusDisplay
 from .preaction_processors.normalize_country_codes import PreactionNormalizeCountryCodes
 from .preaction_processors.order_status_update import PreactionOrderStatusUpdate
 from .preaction_processors.pct_completion import PreactionPctCompletion
-# from .preaction_processors.save_primary_traveller import PreactionSavePrimaryTraveller
 from .preaction_processors.ttk_consultant import PreactionMakerCopyToPanes
 
 

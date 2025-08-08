@@ -1,5 +1,5 @@
 from typing_extensions import Doc, Annotated
-from ..ttk_storage_util.ttk_storage import TTKStorage
+from lyik.ttk.ttk_storage_util.ttk_storage import TTKStorage
 import apluggy as pluggy
 from lyikpluginmanager.annotation import RequiredEnv, RequiredVars
 from lyikpluginmanager import (
@@ -9,8 +9,8 @@ from lyikpluginmanager import (
     GenericFormRecordModel,
 )
 from typing import List, Dict, Any
-from ..utils.loader_utils import AddonLoader
-from ..models.forms.schengentouristvisa import (
+from lyik.ttk.utils.loader_utils import AddonLoader
+from lyik.ttk.models.forms.schengentouristvisa import (
     Schengentouristvisa,
     RootAddons,
     FieldGrpRootAddonsAddonGroup,

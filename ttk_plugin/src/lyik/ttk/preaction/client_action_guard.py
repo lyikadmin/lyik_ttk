@@ -12,7 +12,7 @@ from lyikpluginmanager import (
     PluginException,
 )
 import jwt
-from ..models.forms.schengentouristvisa import Schengentouristvisa, DOCKETSTATUS
+from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa, DOCKETSTATUS
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)

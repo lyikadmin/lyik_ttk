@@ -8,7 +8,7 @@ from lyikpluginmanager import ContextModel
 from lyikpluginmanager.annotation import RequiredEnv, RequiredVars
 import apluggy as pluggy
 
-from ..utils.loader_utils import LinkRecordOrderedMappingLoader
+from lyik.ttk.utils.loader_utils import LinkRecordOrderedMappingLoader
 from lyikpluginmanager import getProjectName
 from lyikpluginmanager.core import LinkRecordOrderSpec
 

@@ -10,15 +10,15 @@ from lyikpluginmanager import (
 from lyikpluginmanager.annotation import RequiredVars
 from typing import Annotated
 from typing_extensions import Doc
-from ..models.forms.schengentouristvisa import (
+from lyik.ttk.models.forms.schengentouristvisa import (
     RootAdditionalDetails,
     SPONSORTYPE4,
     PAYMENTMETHOD6,
     EXPENSECOVERAGE5,
 )
-from ..utils.message import get_error_message
+from lyik.ttk.utils.message import get_error_message
 import logging
-from ..utils.verifier_util import (
+from lyik.ttk.utils.verifier_util import (
     check_if_verified,
     validate_email,
     validate_pincode,

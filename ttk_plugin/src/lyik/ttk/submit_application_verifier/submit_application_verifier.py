@@ -9,9 +9,9 @@ from lyikpluginmanager import (
 )
 from typing import Annotated
 from typing_extensions import Doc
-from ..models.forms.schengentouristvisa import RootSubmitInfo, DOCKETSTATUS
+from lyik.ttk.models.forms.schengentouristvisa import RootSubmitInfo, DOCKETSTATUS
 import logging
-from ..utils.verifier_util import check_if_verified, validate_pincode
+from lyik.ttk.utils.verifier_util import check_if_verified, validate_pincode
 from lyik.ttk.utils.message import get_error_message
 
 logger = logging.getLogger(__name__)

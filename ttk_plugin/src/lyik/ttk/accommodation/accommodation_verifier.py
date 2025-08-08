@@ -9,11 +9,11 @@ from lyikpluginmanager import (
 )
 from typing import Annotated
 from typing_extensions import Doc
-from ..models.forms.schengentouristvisa import RootAccomodation
-from ..utils.message import get_error_message
+from lyik.ttk.models.forms.schengentouristvisa import RootAccomodation
+from lyik.ttk.utils.message import get_error_message
 import logging
 from datetime import datetime
-from ..utils.verifier_util import check_if_verified, validate_email
+from lyik.ttk.utils.verifier_util import check_if_verified, validate_email
 
 logger = logging.getLogger(__name__)
 
