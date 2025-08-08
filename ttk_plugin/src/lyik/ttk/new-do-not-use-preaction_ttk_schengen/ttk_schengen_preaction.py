@@ -70,7 +70,7 @@ class TTK_Schengen_Preaction(PreActionProcessorSpec):
             PreactionNormalizeCountryCodes,
             PreactionOrderStatusUpdate,
             PreactionPctCompletion,
-            PreactionSavePrimaryTraveller,
+            # PreactionSavePrimaryTraveller,
             PreactionMakerCopyToPanes,
         ]
         try:
