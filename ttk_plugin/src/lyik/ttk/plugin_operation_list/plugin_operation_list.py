@@ -22,6 +22,8 @@ BOA_PERSONA = "BOA"
 CLIENT_PERSONA = "CLI"
 MAKER_PERSONA = "MKR"
 
+STATE_APPROVED = "APPROVED"
+
 OPR_DOCKET_CREATION = "OP_DOCKET_CREATION"
 
 ALL_OPERATIONS = [
@@ -66,10 +68,13 @@ class OperationListPlugin(OperationsListSpec):
                     )
 
             if CLIENT_PERSONA in personas:
+                form_state = self.get_state(form_record=form_record)
                 if (
                     parsed_record.submit_info.docket.docket_status
                     == DOCKETSTATUS.ENABLE_DOWNLOAD
                 ):
+                    pass
+                elif str(form_state)== STATE_APPROVED:
                     pass
                 else:
                     return OperationsListResponseModel(operations=[])
@@ -80,3 +85,7 @@ class OperationListPlugin(OperationsListSpec):
                 message="Internal error occurred. Please contact support.",
                 detailed_message=f"Failed to get operations for the current form. Error: {str(e)}",
             )
+
+    def get_state(self, form_record: GenericFormRecordModel) -> str | None:
+        state = getattr(form_record, "state", None)
+        return state
