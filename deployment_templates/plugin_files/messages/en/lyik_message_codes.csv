@@ -65,6 +65,8 @@ LYIK_ERR_SPONSORTYPE3,Invalid Sponsortype3 value.,Used when the Enum field 'SPON
 LYIK_ERR_SPONSORTYPE4,Invalid Sponsortype4 value.,Used when the Enum field 'SPONSORTYPE4' receives a value that is not among the allowed options.
 LYIK_ERR_VISAMODE,Invalid Visamode value.,Used when the Enum field 'VISAMODE' receives a value that is not among the allowed options.
 LYIK_ERR_VISATYPE,Invalid Visatype value.,Used when the Enum field 'VISATYPE' receives a value that is not among the allowed options.
+LYIK_ERR_AADHAAR,Invalid Aadhaar Number.,Used when value does not match the Aadhaar number format.
+LYIK_ERR_PASSPORT_NUMBER,Invalid Passport Number.,Used when value does not match the Passport number format.
 LYIK_ERR_MISSING_IMAGES_PASSPORT,Passport Image(s) are missing. Please ensure that both the front and back images are uploaded before trying again.,Passport verification TTK
 LYIK_ERR_INVALID_PASSPORT,Please upload a Valid Passport for this step. Other documents aren’t accepted.,Passport verification TTK
 LYIK_ERR_MISSING_DOE_PASSPORT,Please enter the Date of Expiry and try again.,Passport verification TTK
@@ -84,4 +86,6 @@ LYIK_ERR_MISSING_TO_COUNTRY_DOCKET,Kindly enter the country you are travelling t
 LYIK_ERR_DOCKET_GEN_FAILURE,Failed to generate the Docket. Please try again or connect with TTK for help.,Docket Operation TTK
 LYIK_ERR_UNEXPECTED_ERROR_DOCKET,Unexpected error occurred while generating docket. Please contact the TTK Visas for assistance.,Docket Operation TTK
 LYIK_ERR_MISSING_EMBASSY_FORM_DOCKET,Kindly upload the Application Form from Embassy before proceeding with Docket generation.,Docket Operation TTK
-LYIK_ERR_DID_NOT_FULLY_CONFIRM_SUBMISSION,"Please confirm all items to submit",
+LYIK_ERR_DID_NOT_FULLY_CONFIRM_SUBMISSION,"Please confirm all items to submit.",Submit Application TTK
+LYIK_ERR_ARRIVAL_BEFORE_DEPARTURE_DATE,"Date of Return cannot be before Date of Departure.",Visa Request TTK
+LYIK_ERR_EMPTY_ARRIVAL_DEPARTURE_DATES,"Please enter the Dates of Departure and Return.",Visa Request TTK
