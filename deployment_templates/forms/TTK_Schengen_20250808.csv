@@ -357,13 +357,13 @@ display_field,display_info_header,,,display_field,,False,"<!-- <p style=""font-s
 ",,,,False,,,,,
 card_builder,visa_request,,,card,,False,,Summary,SAVE_EVEN_IF_HIDDEN,,False,,,,,
 table,visa_request_summary,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,phone_number,,,textbox,,False,Enter Phone Number,Phone Number,,,False,,,,False,
-fac_str,email_id,,,textbox,,False,Enter Email ID,Email ID,,,False,,,,False,
+fac_str,phone_number,,,textbox,,True,Enter Phone Number,Phone Number,,,False,,,,False,
+fac_str,email_id,,,textbox,,True,Enter Email ID,Email ID,,,False,,,,False,
 fac_country_3,from_country,,,dropdown,,False,Select Option,Travelling From,,,False,,,,False,
 fac_country_3,to_country,,,dropdown,,False,Select Option,Travelling To,,,False,,,,False,
 fac_date,departure_date,,,datebox,,False,DD/MM/YYYY,Date of Departure,,,False,,,,,;only_future: true
 fac_date,arrival_date,,,datebox,,False,DD/MM/YYYY,Date of Return,,,False,,,,,;only_future: true
-fac_visa_type,visa_type,,,dropdown,,False,Select Option,Type of Visa,,,False,,,,False,
+fac_visa_type,visa_type,,,dropdown,,True,Select Option,Type of Visa,,,False,,,,False,
 fac_str,purpose_of_stay,,,textbox,,True,Enter Additional Purpose of Stay,Additional Purpose of Stay,,,False,,,,,
 fac_int,length_of_stay,,,textbox,,False,Enter Length of Stay (in Days),Length of Stay (in Days),,,False,,,,,
 fac_int,validity,,,textbox,,False,Enter Validity of Visa (in Days),Validity of Visa (in Days),,,False,,,,False,
@@ -785,7 +785,7 @@ table,passport_page_upload,,,table,,False,,,,,False,,,,,table.column:2
 fac_file,ovd_front,,,fileoption,,False,Upload a Image/PDF,Front Page of Passport,,,False,,,,,"file_type:.pdf, .jpg, .jpeg, .png"
 fac_file,ovd_back,,,fileoption,,False,Upload a Image/PDF,Back Page of Passport,,,False,,,,,"file_type:.pdf, .jpg, .jpeg, .png"
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
-fac_str,cta_passport,,,cta_button,Auto-fill details,False,Automatically fill in passport details,Auto-fill Passport Details,,,False,,,,,verify.verify_handler:VERIFIER_PASSPORT_DATE;verify.action_text:Auto-fill Details;align:center
+fac_str,cta_passport,,,cta_button,Auto-Fill details,False,Automatically fill in passport details,Auto-fill Passport Details,,,False,,,,,verify.verify_handler:VERIFIER_PASSPORT_DATE;verify.action_text:Auto-fill Details;align:center
 display_field,display_passport_table_headline,,,display_field,,False,"<!DOCTYPE html>
 <html lang=""en"">
 <head>
@@ -823,14 +823,14 @@ fac_str,first_name,,,textbox,@.passport_page_upload.TRUSTED_OVD.name,True,Enter 
 fac_str,surname,,,textbox,@.passport_page_upload.TRUSTED_OVD.surname,True,Enter Surname as in Passport,Surname as in Passport,,,False,,,,,
 fac_str,surname_at_birth,,,textbox,,True,Enter Surname at birth/Former family name,Surname at birth/Former family name,,,False,,,,,
 fac_date,date_of_birth,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_birth,True,DD/MM/YYYY,Date of Birth as in Passport,,,False,,,,,;only_past: true
-fac_str,passport_number,,,textbox,@.passport_page_upload.TRUSTED_OVD.uid,True,Enter Passport Number,Passport Number,,,False,,,,,
+fac_passport_number,passport_number,,,textbox,@.passport_page_upload.TRUSTED_OVD.uid,True,Select Option,Passport Number,,,False,,,,,
 fac_date,date_of_issue,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_issue,True,DD/MM/YYYY,Date of Issue,,,False,,,,,;only_past: true
 fac_date,date_of_expiry,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_expiry,False,DD/MM/YYYY,Date of Expiry,,,False,,,,,
 fac_gender,gender,,,dropdown,@.passport_page_upload.TRUSTED_OVD.gender,True,Select Option,Gender,,,False,,,,,
-fac_str,place_of_issue,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_issue,True,Enter Place of Issue,Place of Issue,,,False,,,,,
+fac_str,place_of_issue,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_issue,False,Enter Place of Issue,Place of Issue,,,False,,,,,
 fac_str,place_of_birth,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_birth,True,Enter Place of Birth,Place of Birth,,,False,,,,,
 fac_str,nationality,,,textbox,@.passport_page_upload.TRUSTED_OVD.nationality,True,Enter Nationality,Nationality,,,False,,,,,
-fac_str,issued_by,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_issue,False,Enter Issued By (Authority/City),Issued By (Authority/City),,,False,,,,,
+fac_str,issued_by,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_issue,True,Enter Issued By (Authority/City),Issued By (Authority/City),,,False,,,,,
 fac_str,father_name,,,textbox,,False,Enter Father's Name,Father's Name,,,False,,,,,
 fac_str,mother_name,,,textbox,,False,Enter Mother's Name,Mother's Name,,,False,,,,,
 fac_str,spouse_name,,,textbox,,False,Enter Spouse' Name,Spouse' Name,,,False,,,,,
@@ -846,9 +846,10 @@ break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,other_details,,,card,,False,,Other Details,,,False,,,,,
 table,other_details_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_civil_marital_status,civil_status,,,dropdown,,False,Select Option,Civil/Marital Status,,,False,,,,,
-fac_str,nationality_of_birth,,,textbox,,False,Enter Nationality of Birth (if different),Nationality of Birth (if different),,,False,,,,,
-fac_str,other_nationality,,,textbox,,False,Enter Other Nationality,Other Nationality,,,False,,,,,
+fac_civil_marital_status,civil_status,,,dropdown,,True,Select Option,Civil/Marital Status,,,False,,,,,
+fac_str,nationality_of_birth,,,textbox,,True,Enter Nationality of Birth (if different),Nationality of Birth (if different),,,False,,,,,
+fac_str,other_civil_status,,,textbox,,False,Enter Other Marital Status,Other Marital Status,,,False,,,"not civil_status == ""OTHER""",,
+fac_str,other_nationality,,,textbox,,True,Enter Other Nationality,Other Nationality,,,False,,,,,
 fac_option,minor_status,,,radiobutton,NO,False,Select Option,Are you a Minor?,,,False,,,,,align:center
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -859,7 +860,7 @@ fac_str,surname,,,textbox,,True,Enter Surname,Surname of Parent/Guardian,,,False
 fac_str,phone_number,,,textbox,,True,Enter Phone Number,Phone Number of Parent/Guardian,,,False,,,,,
 fac_str,email_address,,,textbox,,True,Enter Email Address,Email Address of Parent/Guardian,,,False,,,,,
 fac_str,address,,,textbox,,True,Enter Address,Address of Guardian,,,False,,,,,
-fac_str,nationality,,,textbox,,False,Enter Nationality,Nationality,,,False,,,,,
+fac_str,nationality,,,textbox,,True,Enter Nationality,Nationality,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -1279,28 +1280,28 @@ card_builder,residential_address_card_v1,,,card,,False,,Current Residential Addr
 table,residential_address_table_v1,,,table,,False,,,,,False,,,,,table.column:2
 fac_address_proof_type,type_of_proof,,,dropdown,,False,Select Option,Type of Proof,,,False,,,,,
 fac_file,address_proof_upload,,,fileoption,,False,Upload a Image/PDF,Upload Address Proof,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png"
-fac_str,address_line_1,,,textbox,,False,Enter Address Line 1,Address Line 1,,,False,,,,,
-fac_str,address_line_2,,,textbox,,False,Enter Address Line 2,Address Line 2,,,False,,,,,
-fac_str,pin_code,,,textbox,,False,6 digit PIN Code,PIN Code,,,False,,,,,
-fac_str,city,,,textbox,,False,Enter City,City,,,False,,,,,
-fac_str,state,,,textbox,,False,Enter State,State,,,False,,,,,
-fac_str,country,,,textbox,,False,Enter Country,Country,,,False,,,,,
+fac_str,address_line_1,,,textbox,,True,Enter Address Line 1,Address Line 1,,,False,,,,,
+fac_str,address_line_2,,,textbox,,True,Enter Address Line 2,Address Line 2,,,False,,,,,
+fac_str,pin_code,,,textbox,,True,6 digit PIN Code,PIN Code,,,False,,,,,
+fac_str,city,,,textbox,,True,Enter City,City,,,False,,,,,
+fac_str,state,,,textbox,,True,Enter State,State,,,False,,,,,
+fac_str,country,,,textbox,,True,Enter Country,Country,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,residential_address_card_v2,,,card,,False,,Current Residential Address,SAVE_EVEN_IF_HIDDEN,,False,,,not same_as_passport_address = 'SAME_AS_PASS_ADDR',,
 table,residential_address_table_v2,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,address_line_1,,,textbox,,False,Enter Address Line 1,Address Line 1,,,False,,,,False,
-fac_str,address_line_2,,,textbox,,False,Enter Address Line 2,Address Line 2,,,False,,,,False,
-fac_str,pin_code,,,textbox,,False,6 digit PIN Code,PIN Code,,,False,,,,False,
-fac_str,city,,,textbox,,False,Enter City,City,,,False,,,,False,
-fac_str,state,,,textbox,,False,Enter State,State,,,False,,,,False,
-fac_str,country,,,textbox,,False,Enter Country,Country,,,False,,,,False,
+fac_str,address_line_1,,,textbox,,True,Enter Address Line 1,Address Line 1,,,False,,,,False,
+fac_str,address_line_2,,,textbox,,True,Enter Address Line 2,Address Line 2,,,False,,,,False,
+fac_str,pin_code,,,textbox,,True,6 digit PIN Code,PIN Code,,,False,,,,False,
+fac_str,city,,,textbox,,True,Enter City,City,,,False,,,,False,
+fac_str,state,,,textbox,,True,Enter State,State,,,False,,,,False,
+fac_str,country,,,textbox,,True,Enter Country,Country,,,False,,,,False,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 fac_option,other_nationality,,,radiobutton,NO,True,Select Option,Are you residing in a country other than the country of current nationality?,,,False,,,,,
 card_builder,resident_in_other_country,,,card,,False,,Residence in another Country,,,False,,,"not other_nationality = ""YES""",,
 table,resident_in_other_country_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_file,address_proof,,,fileoption,,True,Upload a PDF,Upload Address Proof,,,False,,,,,file_type:.pdf
+fac_file,address_proof,,,fileoption,,False,Upload a PDF,Upload Address Proof,,,False,,,,,file_type:.pdf
 fac_str,residence_permit_number,,,textbox,,True,Enter Residence Permit Number,Residence Permit Number,,,False,,,,,
 fac_date,permit_date_of_expiry,,,datebox,,True,DD/MM/YYYY,Permit Date of Expiry,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
@@ -1415,19 +1416,19 @@ info_pane_builder,work_address,,,info_pane,,False,"<!DOCTYPE html>
 fac_current_occupation_status,current_occupation_status,,,radiobutton,EMPLOYEE,False,Select Option,Are you currently an Employee or a Student?,,,False,,,,,
 card_builder,work_details,,,card,,False,,Work Details,,,False,,,"not current_occupation_status = ""EMPLOYEE""",,
 table,work_address_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,employer_name,,,textbox,,False,Enter Name of the Employer,Name of the Employer,,,False,,,not @.current_occupation_status = 'EMPLOYEE',,
-fac_str,occupation,,,textbox,,False,Enter Current Occupation,Current Occupation,,,False,,,not @.current_occupation_status = 'EMPLOYEE',,
+fac_str,employer_name,,,textbox,,True,Enter Name of the Employer,Name of the Employer,,,False,,,not @.current_occupation_status = 'EMPLOYEE',,
+fac_str,occupation,,,textbox,,True,Enter Current Occupation,Current Occupation,,,False,,,not @.current_occupation_status = 'EMPLOYEE',,
 fac_date,date_of_joining,,,datebox,,False,DD/MM/YYYY,Date of Joining,,,False,,,not @.current_occupation_status = 'EMPLOYEE',,;only_past: true
-fac_str,work_phone,,,textbox,,False,Enter Work Phone Number of Employer,Work Phone Number of Employer,,,False,,,not @.current_occupation_status = 'EMPLOYEE',,
-fac_str,work_address,,,textbox.row-4,,False,Enter Work Address,Work Address,,,False,,,not @.current_occupation_status = 'EMPLOYEE',,
+fac_str,work_phone,,,textbox,,True,Enter Work Phone Number of Employer,Work Phone Number of Employer,,,False,,,not @.current_occupation_status = 'EMPLOYEE',,
+fac_str,work_address,,,textbox.row-4,,True,Enter Work Address,Work Address,,,False,,,not @.current_occupation_status = 'EMPLOYEE',,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,education_details,,,card,,False,,Education Details,,,False,,,"current_occupation_status = ""EMPLOYEE""",,
 table,educational_establishment_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,establishment_name,,,textbox,,False,Enter Name of Establishment,Educational Establishment,,,False,,,not @.current_occupation_status = 'STUDENT',,
+fac_str,establishment_name,,,textbox,,True,Enter Name of Establishment,Educational Establishment,,,False,,,not @.current_occupation_status = 'STUDENT',,
 fac_date,date_of_admission,,,datebox,,False,DD/MM/YYYY,Date of Admission,,,False,,,not @.current_occupation_status='STUDENT',,
-fac_str,establishment_address,,,textbox.row-4,,False,Enter Address,Address of Educational Establishment,,,False,,,not @.current_occupation_status='STUDENT',,
-fac_str,establishment_contact,,,textbox,,False,Enter Phone Number,Contact of Educational Establishment,,,False,,,not @.current_occupation_status='STUDENT',,
+fac_str,establishment_address,,,textbox.row-4,,True,Enter Address,Address of Educational Establishment,,,False,,,not @.current_occupation_status='STUDENT',,
+fac_str,establishment_contact,,,textbox,,True,Enter Phone Number,Contact of Educational Establishment,,,False,,,not @.current_occupation_status='STUDENT',,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -1773,11 +1774,11 @@ align-items: center;"">
   </div>
 ",,,,False,,,,,
 table,inviter_details_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,inviter_name,,,textbox,,False,Enter Name of the Inviter,Name of the Inviter (Family/Friend),,,False,,,,,
+fac_str,inviter_name,,,textbox,,True,Enter Name of the Inviter,Name of the Inviter (Family/Friend),,,False,,,,,
 fac_relationship,relationship,,,dropdown,,False,Select Option,Relationship,,,False,,,,,
-fac_str,inviter_address,,,textbox.row-4,,False,Enter Address of the Inviter,Address of the Inviter (Family/Friend),,,False,,,,,
-fac_str,mobile_number,,,textbox,,False,Enter Mobile/Telephone Number,Mobile/Telephone Number,,,False,,,,,
-fac_str,email_id,,,textbox,,False,Enter Email ID,Email ID of Inviter (Family/Friend),,,False,,,,,
+fac_str,inviter_address,,,textbox.row-4,,True,Enter Address of the Inviter,Address of the Inviter (Family/Friend),,,False,,,,,
+fac_str,mobile_number,,,textbox,,True,Enter Mobile/Telephone Number,Mobile/Telephone Number,,,False,,,,,
+fac_str,email_id,,,textbox,,True,Enter Email ID,Email ID of Inviter (Family/Friend),,,False,,,,,
 fac_file,passport_bio_page,,,fileoption,,False,Upload a Image/PDF,Front Page of Inviter's Passport,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png"
 fac_file,visa_copy_permit,,,fileoption,,False,Upload a Image/PDF,Visa Copy / Resident Permit Card,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png"
 fac_file,accommodation_proof,,,fileoption,,False,Upload a Image/PDF,Inviter's Accommodation Proof,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png"
@@ -1806,10 +1807,10 @@ align-items: center;"">
 ",,,,False,,,,,
 table,accommodation_details_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_file,booking_upload,,,fileoption,,False,Upload a Image/PDF,Accommodation Booking,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png"
-fac_str,accommodation_name,,,textbox,,False,Enter Name of Accommodation,Name of Accommodation,,,False,,,,,
-fac_str,accommodation_address,,,textbox.row-4,,False,Enter Address of Accommodation,Address of Accommodation,,,False,,,,,
-fac_str,accommodation_email,,,textbox,,False,Enter Email Address of Accommodation,E-mail Address of Accommodation,,,False,,,,,
-fac_str,accommodation_phone,,,textbox,,False,Enter Telephone of Accommodation,Telephone of Accommodation,,,False,,,,,
+fac_str,accommodation_name,,,textbox,,True,Enter Name of Accommodation,Name of Accommodation,,,False,,,,,
+fac_str,accommodation_address,,,textbox.row-4,,True,Enter Address of Accommodation,Address of Accommodation,,,False,,,,,
+fac_str,accommodation_email,,,textbox,,True,Enter Email Address of Accommodation,E-mail Address of Accommodation,,,False,,,,,
+fac_str,accommodation_phone,,,textbox,,True,Enter Telephone of Accommodation,Telephone of Accommodation,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,add_on_service,,,card,,False,,Add-On Service,,,False,,,,,
@@ -2620,11 +2621,11 @@ fac_option,fingerprint_collected,,,radiobutton,NO,False,Select Option,Have your 
 card_builder,fingerprint_details,,,card,,False,,Fingerprint Details,,,False,,,not fingerprint_collected = 'YES',,
 table,previous_visa_upload,,,table,,False,,,,,False,,,,,table.column:2
 fac_file,previous_visa_file,,,fileoption,,False,Upload a Image/PDF,Previous Visa Copy,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png"
-fac_str,visa_sticker_number,,,textbox,,False,Enter Visa (Sticker) Number,Visa (Sticker) Number,,,False,,,,,
-fac_date,date_of_previous_visa,,,datebox,,False,DD/MM/YYYY,Date (If Known),,,False,,,,,
+fac_str,visa_sticker_number,,,textbox,,True,Enter Visa (Sticker) Number,Visa (Sticker) Number,,,False,,,,,
+fac_date,date_of_previous_visa,,,datebox,,True,DD/MM/YYYY,Date (If Known),,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-fac_option,have_past_visa,,,radiobutton,NO,False,Select Option,Have you been issued a Schengen visa during the past?,,,False,,,,,
+fac_option,have_past_visa,,,radiobutton,NO,True,Select Option,Have you been issued a Schengen visa during the past?,,,False,,,,,
 card_builder,previous_visas_details,,,card,,False,,Previous Visa Details,,,False,,,not have_past_visa = 'YES',,
 table,past_visa_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_file,previous_visa_copy,,,fileoption,,False,Upload a Image/PDF,Previous Visa Copy,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png"
@@ -2886,20 +2887,20 @@ fac_str,address_line_2,,,textbox,,True,Enter Address Line 2,Address Line 2,,,Fal
 fac_str,pin_code,,,textbox,,True,6 digit PIN Code,PIN Code,,,False,,,,,
 fac_str,city,,,textbox,,True,Enter City,City,,,False,,,,,
 fac_str,state,,,textbox,,True,Enter State,State,,,False,,,,,
-fac_str,country,,,textbox,,False,Enter Country,Country,,,False,,,,,
-fac_str,email_address,,,textbox,,False,Enter Email Address,Email Address,,,False,,,,,
-fac_phone,telephone_mobile_number,,,textbox,,False,Enter Telephone / Mobile Number,Telephone / Mobile Number,,,False,,,,,
+fac_str,country,,,textbox,,True,Enter Country,Country,,,False,,,,,
+fac_str,email_address,,,textbox,,True,Enter Email Address,Email Address,,,False,,,,,
+fac_phone,telephone_mobile_number,,,textbox,,True,Enter Telephone / Mobile Number,Telephone / Mobile Number,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 fac_family_member_of_eu,is_family_member,,,radiobutton,NO,False,Select Option,"Do you have a family member who is an EU (European Union), EEA (European Economic Area), or CH (Switzerland) Citizen or a national of the United Kingdom who is a beneficiary of the agreement between the Swiss Confederation and the United Kingdom?",,,False,,,,,
 card_builder,family_eu,,,card,,False,,"Family Member of EU, EEA, Swiss, or UK National",,,False,,,not is_family_member = 'YES',,
 table,eu_family_member_details,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,given_name,,,textbox,,False,Enter Given Name,First Name of the Family Member,,,False,,,,,
-fac_str,surname,,,textbox,,False,Enter Surname,Surname of the Family Member,,,False,,,,,
-fac_str,nationality,,,textbox,,False,Enter Nationality,Nationality of the Family Member,,,False,,,,,
-fac_date,date_of_birth,,,datebox,,False,DD/MM/YYYY,Date of Birth of the Family Member,,,False,,,,,
-fac_str,travel_document_id,,,textbox,,False,Enter document/ID number,Travel document/ ID card number,,,False,,,,,
-fac_relationship_with_eu,relationship,,,dropdown,,False,Select Option,Relationship,,,False,,,,,
+fac_str,given_name,,,textbox,,True,Enter Given Name,First Name of the Family Member,,,False,,,,,
+fac_str,surname,,,textbox,,True,Enter Surname,Surname of the Family Member,,,False,,,,,
+fac_str,nationality,,,textbox,,True,Enter Nationality,Nationality of the Family Member,,,False,,,,,
+fac_date,date_of_birth,,,datebox,,True,DD/MM/YYYY,Date of Birth of the Family Member,,,False,,,,,
+fac_str,travel_document_id,,,textbox,,True,Enter document/ID number,Travel document/ ID card number,,,False,,,,,
+fac_relationship_with_eu,relationship,,,dropdown,,True,Select Option,Relationship,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 display_field,display_sponsorship_details,,,display_field,,False,"<div style=""
@@ -4552,7 +4553,7 @@ info_pane_builder,submit_info,,,info_pane,,False,"<!DOCTYPE html>
   </div>
 </body>
 </html>
-",Submit Application,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI])",,operation.save:Save and Continue
+",Submit Application,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI])",,operation.submit:Submit Application;verify.verify_handler:_150_VERIFIER_SUBMISSION_CONFIRMATION;verify.action_text:Verify Confirmation
 card_builder,docket,,,card,,False,,Docket,,,False,,,,,
 display_field,note,,,display_field,,False,"<div style=""
 display: flex;
