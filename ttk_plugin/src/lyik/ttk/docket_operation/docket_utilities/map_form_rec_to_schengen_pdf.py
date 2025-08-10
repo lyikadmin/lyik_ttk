@@ -148,7 +148,7 @@ class DocketUtilities:
                     pdf_model.visa_val_til = (
                         passport.passport_details.date_of_expiry.strftime("%d-%m-%Y")  #
                     )
-                pdf_model.visa_issued_by_ctry = passport.passport_details.issued_by  #
+                pdf_model.visa_issued_by_ctry = passport.passport_details.country  #
 
             if passport and passport.other_details:
                 pdf_model.visa_oth_natl = passport.other_details.other_nationality  #
