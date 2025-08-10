@@ -20,7 +20,9 @@
     "secondary": {
       "main": "#1970C8",
       "lightold": "#1698CA",
-      "light": "#000000"
+      "light": "#000000",
+      "button": "#262D64",
+      "hoverButtonColor": "#1698CA"
     },
     "background": {
       "secondary": "#1698CA"

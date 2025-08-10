@@ -169,6 +169,16 @@ class DocketUtilities:
                 pdf_model.visa_civil_sts_widow = (
                     passport.other_details.civil_status == CIVILMARITALSTATUS.WIDOWED  #
                 )
+
+                pdf_model.visa_civil_sts_oth = (
+                    schengen_visa_data.passport.other_details.civil_status
+                    == CIVILMARITALSTATUS.OTHER  #
+                )
+
+                # Set 'other' civil status text if applicable
+                if pdf_model.visa_civil_sts_oth:
+                    add_other_detail(pdf_model, schengen_visa_data)
+
                 pdf_model.visa_natl_at_birth = (
                     passport.other_details.nationality_of_birth  #
                 )
@@ -602,3 +612,12 @@ class DocketUtilities:
                 ),
                 detailed_message=f"Unhandled exception occurred during field mapping for PDF. Error: {str(e)}",
             )
+
+
+def add_other_detail(
+    pdf_model: PDFModel, schengen_visa_data: Schengentouristvisa
+) -> PDFModel:
+    pdf_model.visa_civil_sts_oth_txt = (
+        schengen_visa_data.passport.other_details.other_civil_status
+    )
+    return None

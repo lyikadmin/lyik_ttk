@@ -23,5 +23,6 @@
     "success": "Saved",
     "failure": "Not Saved",
     "indeterminate": "Need to Check"
-  }
+  },
+  "logout": "TPL_TTK_FRONTEND_URL"
 }
