@@ -19,7 +19,7 @@ from lyikpluginmanager.models import (
     GatewayResponseModel,
 )
 from lyikpluginmanager.annotation import RequiredEnv
-from ..models.forms.new_schengentouristvisa import (
+from lyik.ttk.models.forms.schengentouristvisa import (
     Schengentouristvisa,
     FieldGrpRootAddonsAddonServiceAddonCartRow,
     RootAddonsAddonService,
@@ -31,9 +31,9 @@ import httpx
 import logging
 import base64
 import json
-from ..models.payment.addon_models import AddonSummaryItem
+from lyik.ttk.models.payment.addon_models import AddonSummaryItem
 import os
-from ..utils.payment import (
+from lyik.ttk.utils.payment import (
     create_styled_traveller_name_list_string_for_traveller_ids,
     get_traveller_ids_from_traveller_id_list_string,
 )

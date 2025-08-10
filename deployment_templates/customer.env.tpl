@@ -13,5 +13,3 @@ PAYU_MERCHANT_KEY="fiBS8J"
 PAYU_SALT="n9jDaiVtx8Lr5R1jEgBFaX3QsYehW7ou"
 PAYU_URL="https://test.payu.in/_payment" 
 PAYU_PRODUCT_INFO="TTK Services Visa Payment"
-
-TTK_MESSAGES_CSV="ttk_message_codes.csv"

@@ -11,7 +11,7 @@ from lyikpluginmanager import (
     getProjectName,
 )
 from typing_extensions import Doc
-from ..models.forms.new_schengentouristvisa import Schengentouristvisa
+from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa
 
 logger = logging.getLogger(__name__)
 impl = pluggy.HookimplMarker(getProjectName())

@@ -7,7 +7,7 @@ import apluggy as pluggy
 from lyikpluginmanager import (
     ContextModel,
     GenericFormRecordModel,
-    PreActionProcessorSpec,
+    PostActionProcessorSpec,
     getProjectName,
     PluginException,
 )
@@ -35,14 +35,14 @@ class TravelerDetailsModel(BaseModel):
     visaMode: str | None = ""
 
 
-class OrderStatusUpdate(PreActionProcessorSpec):
+class OrderStatusUpdate(PostActionProcessorSpec):
     @impl
-    async def pre_action_processor(
+    async def post_action_processor(
         self,
         context: ContextModel,
         action: Annotated[str, "Save / Submit"],
-        current_state: Annotated[str | None, "Previous record state"],
-        new_state: Annotated[str | None, "New record state"],
+        previous_state: Annotated[str | None, "Previous record state"],
+        current_state: Annotated[str | None, "New record state"],
         payload: Annotated[GenericFormRecordModel, "Entire form record model"],
     ) -> Annotated[
         GenericFormRecordModel,
@@ -172,8 +172,8 @@ class OrderStatusUpdate(PreActionProcessorSpec):
 
             body = {
                 "orderId": parsed_form_rec.visa_request_information.visa_request.order_id,
-                "completedSection": parsed_form_rec.infopanes_completed,
-                "totalSection": parsed_form_rec.infopanes_total,
+                "completedSection": parsed_form_rec.lets_get_started.infopanes_completed,
+                "totalSection": parsed_form_rec.lets_get_started.infopanes_total,
                 "travellerId": parsed_form_rec.visa_request_information.visa_request.traveller_id,
                 "makerConfirmation": makerConfirmation,
                 "appointmentDetails": appointmentDetails,

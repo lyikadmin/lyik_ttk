@@ -1,4 +1,4 @@
-from ...models.forms.new_schengentouristvisa import (
+from lyik.ttk.models.forms.schengentouristvisa import (
     Schengentouristvisa,
     CIVILMARITALSTATUS,
     PASSPORTTYPE,
@@ -27,9 +27,9 @@ from ...models.forms.new_schengentouristvisa import (
 )
 from lyikpluginmanager import PluginException
 from datetime import date, datetime
-from ...models.pdf.pdf_model import PDFModel
+from lyik.ttk.models.pdf.pdf_model import PDFModel
 from .utils import ISO3ToCountryModel
-from ...utils.message import get_error_message
+from lyik.ttk.utils.message import get_error_message
 import logging
 
 logger = logging.getLogger(__name__)
@@ -597,6 +597,8 @@ class DocketUtilities:
 
         except Exception as e:
             raise PluginException(
-                message=get_error_message(error_message_code="TTK_ERR_0005"),
+                message=get_error_message(
+                    error_message_code="LYIK_ERR_UNEXPECTED_ERROR"
+                ),
                 detailed_message=f"Unhandled exception occurred during field mapping for PDF. Error: {str(e)}",
             )

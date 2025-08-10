@@ -10,15 +10,15 @@ from lyikpluginmanager import (
 from lyikpluginmanager.annotation import RequiredVars
 from typing import Annotated
 from typing_extensions import Doc
-from ..models.forms.new_schengentouristvisa import (
+from lyik.ttk.models.forms.schengentouristvisa import (
     RootAdditionalDetails,
     SPONSORTYPE4,
     PAYMENTMETHOD6,
     EXPENSECOVERAGE5,
 )
-from ..utils.message import get_error_message
+from lyik.ttk.utils.message import get_error_message
 import logging
-from ..utils.verifier_util import (
+from lyik.ttk.utils.verifier_util import (
     check_if_verified,
     validate_email,
     validate_pincode,
@@ -56,7 +56,9 @@ class AdditionalTravelDetailsVerifier(VerifyHandlerSpec):
         try:
             if payload is None:
                 raise PluginException(
-                    message=get_error_message(error_message_code="TTK_ERR_0005"),
+                    message=get_error_message(
+                        error_message_code="LYIK_ERR_UNEXPECTED_ERROR"
+                    ),
                     detailed_message="The payload is missing. Ensure the payload is properly available.",
                 )
 
@@ -91,7 +93,9 @@ class AdditionalTravelDetailsVerifier(VerifyHandlerSpec):
             if error_paths:
                 return VerifyHandlerResponseModel(
                     status=VERIFY_RESPONSE_STATUS.FAILURE,
-                    message=get_error_message(error_message_code="TTK_ERR_0011"),
+                    message=get_error_message(
+                        error_message_code="LYIK_ERR_MISSING_MANDATORY_FIELDS"
+                    ),
                     path_messages=error_paths,
                     actor="system",
                 )
@@ -226,5 +230,5 @@ class AdditionalTravelDetailsVerifier(VerifyHandlerSpec):
             return VerifyHandlerResponseModel(
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
                 actor="system",
-                message=get_error_message(error_message_code="TTK_ERR_0006"),
+                message=get_error_message(error_message_code="LYIK_ERR_SAVE_FAILURE"),
             )

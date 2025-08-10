@@ -10,11 +10,15 @@ from lyikpluginmanager import (
 from lyikpluginmanager.annotation import RequiredVars
 from typing import Annotated
 from typing_extensions import Doc
-from ..models.forms.new_schengentouristvisa import RootVisaRequestInformation
+from lyik.ttk.models.forms.schengentouristvisa import RootVisaRequestInformation
 import logging
 from datetime import datetime
-from ..utils.verifier_util import check_if_verified, validate_phone, validate_email
-from ..utils.message import get_error_message
+from lyik.ttk.utils.verifier_util import (
+    check_if_verified,
+    validate_phone,
+    validate_email,
+)
+from lyik.ttk.utils.message import get_error_message
 
 logger = logging.getLogger(__name__)
 
@@ -43,7 +47,9 @@ class VisaRequestVerifier(VerifyHandlerSpec):
         """
         if not context or not context.config:
             raise PluginException(
-                message=get_error_message(error_message_code="TTK_ERR_0005"),
+                message=get_error_message(
+                    error_message_code="LYIK_ERR_UNEXPECTED_ERROR"
+                ),
                 detailed_message="The context is missing or config is missing in context.",
             )
 
@@ -51,16 +57,28 @@ class VisaRequestVerifier(VerifyHandlerSpec):
 
         if not default_country_code:
             raise PluginException(
-                message=get_error_message(error_message_code="TTK_ERR_0005"),
+                message=get_error_message(
+                    error_message_code="LYIK_ERR_UNEXPECTED_ERROR"
+                ),
                 detailed_message="The DEFAULT_COUNTRY_CODE is missing in config.",
             )
+        message = ""
+        
+        if not (
+            payload.visa_request.departure_date and payload.visa_request.arrival_date
+        ):
+            return VerifyHandlerResponseModel(
+                actor=ACTOR,
+                message=get_error_message("LYIK_ERR_EMPTY_ARRIVAL_DEPARTURE_DATES"),
+                status=VERIFY_RESPONSE_STATUS.FAILURE,
+            )
 
-        payload_dict = payload.model_dump(mode="json")
-
-        ret = check_if_verified(payload=payload_dict)
-        if ret:
-            return ret
-
+        if payload.visa_request.departure_date > payload.visa_request.arrival_date:
+            return VerifyHandlerResponseModel(
+                actor=ACTOR,
+                message=get_error_message("LYIK_ERR_ARRIVAL_BEFORE_DEPARTURE_DATE"),
+                status=VERIFY_RESPONSE_STATUS.FAILURE,
+            )
         try:
             visa_request = payload.visa_request
 
@@ -114,6 +132,6 @@ class VisaRequestVerifier(VerifyHandlerSpec):
             logger.error(f"Unhandled exception occurred. Error: {str(e)}")
             return VerifyHandlerResponseModel(
                 actor=ACTOR,
-                message=get_error_message(error_message_code="TTK_ERR_0006"),
+                message=get_error_message(error_message_code="LYIK_ERR_SAVE_FAILURE"),
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
             )

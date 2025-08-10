@@ -13,7 +13,7 @@ from lyikpluginmanager import (
 from typing_extensions import Doc
 from ._base_preaction import BasePreActionProcessor
 
-from ...models.forms.new_schengentouristvisa import (
+from lyik.ttk.models.forms.schengentouristvisa import (
     Schengentouristvisa,
     ACCOMMODATIONARRANGEMENT,
     RootConsultantInfoConfirmedAccommodation,

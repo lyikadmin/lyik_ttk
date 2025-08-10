@@ -1,18 +1,19 @@
 MESSAGE CODE,DESCRIPTION,CONTEXT
-LYIK_ERR_0001,"""%1"" is not a valid Passport Number. Please use the correct format (e.g., A1234567).",Passport verification
-LYIK_ERR_0002,It seems your Passport has expired. Kindly upload a non-expired Passport to proceed.,Passport verification
-LYIK_ERR_0003,Something went wrong. Please try again.,Passport verification
-LYIK_ERR_0004,"""%1"" is not a valid Pincode. Please check the format and try again.",PIN code verification
-LYIK_ERR_0005,"""%1"" is not a valid Aadhaar Number. Please check the format and try again.",Aadhaar number verification
-LYIK_ERR_0006,"""%1"" is not a valid Email Address. Please check the format and try again.",Email address verification
-LYIK_ERR_0007,"""%1"" is not a valid Phone Number. Please check and try again.",Phone number verification
-LYIK_ERR_0008,Unable to read the uploaded files. Kindly upload clearer or different image(s) and try again.,OCR
-LYIK_ERR_0009,Values were modified. Please Verify again to continue.,Verfication status checker
 LYIK_ERR_value_error,Invalid value provided.,"Used when the Pydantic error type is 'value_error', indicating a generic validation failure not tied to a specific data type."
 LYIK_ERR_integer_default,Only numeric values are allowed.,"Used when the Pydantic error type is 'int_parsing', indicating that a non-integer value was provided where an integer was expected."
 LYIK_ERR_string_default,Text input expected.,"Used when the Pydantic error type is 'string_type', indicating that a non-string value was provided where a string was expected."
 LYIK_ERR_missing,Invalid value. Please re-enter.,"Used when the Pydantic error type is 'missing', indicating that a required field was not provided in the input."
 LYIK_ERR_default,Invalid value. Please re-enter.,Used as a fallback for unknown or unhandled Pydantic error types.
+LYIK_ERR_DEFAULT_VALIDATION_ERROR,Invalid value. Please re-enter.,The default message which comes up at the top of the card/infopane
+LYIK_ERR_INVALID_PASSPORT_NUM,"""%1"" is not a valid Passport Number. Please use the correct format (e.g., A1234567).",Passport verification
+LYIK_ERR_EXIPRED_PASSPORT,It seems your Passport has expired. Kindly upload a non-expired Passport to proceed.,Passport verification
+LYIK_ERR_SOMETHING_WENT_WRONG,Something went wrong. Please try again.,GENERIC
+LYIK_ERR_INVALID_PINCODE,"""%1"" is not a valid Pincode. Please check the format and try again.",PIN code verification
+LYIK_ERR_INVALID_AADHAAR_NUM,"""%1"" is not a valid Aadhaar Number. Please check the format and try again.",Aadhaar number verification
+LYIK_ERR_INVALID_EMAIL_ADDR,"""%1"" is not a valid Email Address. Please check the format and try again.",Email address verification
+LYIK_ERR_INVALID_PHONE_NUM,"""%1"" is not a valid Phone Number. Please check and try again.",Phone number verification
+LYIK_ERR_INVALID_OCR_FILES,Unable to read the uploaded files. Kindly upload clearer or different image(s) and try again.,OCR
+LYIK_WARN_VALUES_MODIFIED,Values were modified. Please Verify again to continue.,Verfication status checker
 LYIK_ERR_ACCOMMODATIONARRANGEMENT,Invalid Accommodationarrangement value.,Used when the Enum field 'ACCOMMODATIONARRANGEMENT' receives a value that is not among the allowed options.
 LYIK_ERR_ADDRESSPROOFTYPE,Invalid Addressprooftype value.,Used when the Enum field 'ADDRESSPROOFTYPE' receives a value that is not among the allowed options.
 LYIK_ERR_ADDONOP,Invalid Addonop value.,Used when the Enum field 'ADDONOP' receives a value that is not among the allowed options.
@@ -65,24 +66,27 @@ LYIK_ERR_SPONSORTYPE3,Invalid Sponsortype3 value.,Used when the Enum field 'SPON
 LYIK_ERR_SPONSORTYPE4,Invalid Sponsortype4 value.,Used when the Enum field 'SPONSORTYPE4' receives a value that is not among the allowed options.
 LYIK_ERR_VISAMODE,Invalid Visamode value.,Used when the Enum field 'VISAMODE' receives a value that is not among the allowed options.
 LYIK_ERR_VISATYPE,Invalid Visatype value.,Used when the Enum field 'VISATYPE' receives a value that is not among the allowed options.
-TTK_ERR_0001,Passport Image(s) are missing. Please ensure that both the front and back images are uploaded before trying again.,Passport verification
-TTK_ERR_0002,Please upload a Valid Passport for this step. Other documents aren’t accepted.,Passport verification
-TTK_ERR_0003,Please enter the Date of Expiry and try again.,Passport verification
-TTK_ERR_0004,Please enter the First and Last Name of Primary Traveller before proceeding.,Add-On Payment Verification
-TTK_ERR_0005,Unexpected error detected. Please contact the TTK Visas for assistance.,GENERIC
-TTK_ERR_0006,Could not save this section. Please try again or connect with TTK for help.,Generic Verifier
-TTK_ERR_0007,Kindly complete all required fields when applying for the visa on behalf of another person.,Additional travel details verifier
-TTK_ERR_0008,"Kindly complete all required fields if you are related to an EU, EEA, Swiss, or UK national.",Additional travel details verifier
-TTK_ERR_0009,Kindly complete all required fields if you have previously held a Schengen Visa.,Previous visas verifier
-TTK_ERR_0010,Invalid Visa End Date. Kindly update and try again or reach out to TTK Visas.,Previous visas verifier
-TTK_ERR_0011,Kindly complete all the mandatory fields.,GENERIC
-TTK_ERR_0012,Kindly fill the Scheduled Date.,Appointment Verifier
-TTK_ERR_0013,Kindly Fill the Departure Date in Visa Request Summary Section before proceeding.,Appointment Verifier
-TTK_ERR_0014,Appointment date %1 must be before your Departure date %2.,Appointment Verifier
-TTK_ERR_0015,Kindly complete the Itinerary section for the Primary traveller before proceeding.,Docket Operation
-TTK_ERR_0016,Kindly complete the Accommodation section for the Primary traveller before proceeding.,Docket Operation
-TTK_ERR_0017,Kindly complete the Flight Tickets section for the Primary traveller before proceeding.,Docket Operation
-TTK_ERR_0018,Kindly enter the country you are travelling to in Visa Request Summary before proceeding.,Docket Operation
-TTK_ERR_0019,Failed to generate the Docket. Please try again or connect with TTK for help.,Docket Operation
-TTK_ERR_0020,Unexpected error occurred while generating docket. Please contact the TTK Visas for assistance.,Docket Operation
-TTK_ERR_0021,Kindly upload the Application Form from Embassy before proceeding with Docket generation.,Docket Operation
+LYIK_ERR_AADHAAR,Invalid Aadhaar Number.,Used when value does not match the Aadhaar number format.
+LYIK_ERR_PASSPORT_NUMBER,Invalid Passport Number.,Used when value does not match the Passport number format.
+LYIK_ERR_MISSING_IMAGES_PASSPORT,Passport Image(s) are missing. Please ensure that both the front and back images are uploaded before trying again.,Passport verification TTK
+LYIK_ERR_INVALID_PASSPORT,Please upload a Valid Passport for this step. Other documents aren’t accepted.,Passport verification TTK
+LYIK_ERR_MISSING_DOE_PASSPORT,Please enter the Date of Expiry and try again.,Passport verification TTK
+LYIK_ERR_MISSING_APPL_NAME_ADDON,Please enter the First and Last Name of Primary Traveller before proceeding.,Add-On Payment Verification TTK
+LYIK_ERR_UNEXPECTED_ERROR,Unexpected error detected. Please contact the TTK Visas for assistance.,GENERIC TTK
+LYIK_ERR_SAVE_FAILURE,Could not save this section. Please try again or connect with TTK for help.,GENERIC TTK
+LYIK_ERR_MISSING_FIELDS_PREV_VISA,Kindly complete all required fields if you have previously held a Schengen Visa.,Previous visas verifier TTK
+LYIK_ERR_INVALID_VISA_ED_PREV_VISA,Invalid Visa End Date. Kindly update and try again or reach out to TTK Visas.,Previous visas verifier TTK
+LYIK_ERR_MISSING_MANDATORY_FIELDS,Kindly complete all the mandatory fields.,GENERIC TTK
+LYIK_ERR_MISSING_SCH_DATE_APT,Kindly fill the Scheduled Date.,Appointment Verifier TTK
+LYIK_ERR_MISSING_DD_VRS_APT,Kindly Fill the Departure Date in Visa Request Summary Section before proceeding.,Appointment Verifier TTK
+LYIK_ERR_INVALID_APT_DATE,Appointment date %1 must be before your Departure date %2.,Appointment Verifier TTK
+LYIK_ERR_MISSING_ITINERARY_DOCKET,Kindly complete the Itinerary section for the Primary traveller before proceeding.,Docket Operation TTK
+LYIK_ERR_MISSING_ACCOMMODATION_DOCKET,Kindly complete the Accommodation section for the Primary traveller before proceeding.,Docket Operation TTK
+LYIK_ERR_MISSING_FLIGHT_TICKET_DOCKET,Kindly complete the Flight Tickets section for the Primary traveller before proceeding.,Docket Operation TTK
+LYIK_ERR_MISSING_TO_COUNTRY_DOCKET,Kindly enter the country you are travelling to in Visa Request Summary before proceeding.,Docket Operation TTK
+LYIK_ERR_DOCKET_GEN_FAILURE,Failed to generate the Docket. Please try again or connect with TTK for help.,Docket Operation TTK
+LYIK_ERR_UNEXPECTED_ERROR_DOCKET,Unexpected error occurred while generating docket. Please contact the TTK Visas for assistance.,Docket Operation TTK
+LYIK_ERR_MISSING_EMBASSY_FORM_DOCKET,Kindly upload the Application Form from Embassy before proceeding with Docket generation.,Docket Operation TTK
+LYIK_ERR_DID_NOT_FULLY_CONFIRM_SUBMISSION,Please confirm all items to submit.,Submit Application TTK
+LYIK_ERR_ARRIVAL_BEFORE_DEPARTURE_DATE,Date of Return cannot be before Date of Departure.,Visa Request TTK
+LYIK_ERR_EMPTY_ARRIVAL_DEPARTURE_DATES,Please enter the Dates of Departure and Return.,Visa Request TTK

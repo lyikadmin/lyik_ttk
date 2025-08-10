@@ -16,22 +16,8 @@
 {% endfor %}
 
 {% set html_content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Make Payment</title>
+<div class="container">
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f4f8;
-            align-items: center;
-            min-height: 100vh;
-        }
-
         .container {
             width: 100%;
             max-width: 1000px;
@@ -42,12 +28,13 @@
             padding: 32px;
             text-align: center;
             box-sizing: border-box;
+            overflow-x: hidden;
         }
 
-        h1 {
+        .payment-card-title {
             font-size: 24px;
             font-weight: 600;
-            color: #333333;
+            color: #262D64;
             margin-bottom: 16px;
         }
 
@@ -70,6 +57,7 @@
             padding: 10px 12px;
             margin-bottom: 8px;
             border-radius: 6px;
+            flex-wrap: wrap;
         }
 
         .addon-label {
@@ -81,7 +69,6 @@
         .addon-value {
             font-weight: 600;
             color: #000;
-            margin-left: 12px;
             white-space: nowrap;
         }
 
@@ -101,7 +88,6 @@
             border-radius: 9999px;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
-            width: fit-content;
             margin-top: 16px;
         }
 
@@ -110,67 +96,79 @@
             transform: scale(1.02);
         }
 
-        .note {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #777777;
-        }
-
         .divider {
             border-top: 1px solid #ddd;
             margin: 12px 0;
         }
 
-        .payment-card-title {
-            color: #262D64
+        /* Scoped media query */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 16px;
+                border-radius: 16px;
+            }
+
+            .addon-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .addon-value {
+                margin-top: 4px;
+            }
+
+            .total-amount {
+                font-size: 18px;
+            }
+
+            .submit-button {
+                width: 100%;
+                font-size: 16px;
+                padding: 14px 0;
+            }
         }
-
     </style>
-</head>
-<body>
-    <div class="container">
-        <h1 class="payment-card-title">Proceed to Payment</h1>
 
-        {% if grouped_addons %}
-            <div class="addon-summary">
-                <div class="addon-header">Add-On Summary</div>
-                <div class="divider"></div>
-                {% for name, data in grouped_addons.items() %}
-                    <div class="addon-item">
-                        <div class="addon-label">{{ name }}</div>
-                        <div class="addon-value">{{ data.count }} x ₹{{ "%.2f"|format(data.total / data.count) }} = ₹{{ "%.2f"|format(data.total) }}</div>
-                    </div>
-                {% endfor %}
-                 <div class="divider"></div>
-            </div>
-        {% endif %}
+    <h1 class="payment-card-title">Proceed to Payment</h1>
 
-        <p class="total-amount">
-            Total Amount to be paid: ₹{{ record.amount }}
-        </p>
+    {% if grouped_addons %}
+        <div class="addon-summary">
+            <div class="addon-header">Add-On Summary</div>
+            <div class="divider"></div>
+            {% for name, data in grouped_addons.items() %}
+                <div class="addon-item">
+                    <div class="addon-label">{{ name }}</div>
+                    <div class="addon-value">{{ data.count }} x ₹{{ "%.2f"|format(data.total / data.count) }} = ₹{{ "%.2f"|format(data.total) }}</div>
+                </div>
+            {% endfor %}
+            <div class="divider"></div>
+        </div>
+    {% endif %}
 
-        <form id="paymentForm" action="{{ record.payuurl }}" method="post">
-            <input type="hidden" name="key" value="{{ record.key }}">
-            <input type="hidden" name="txnid" value="{{ record.txnid }}">
-            <input type="hidden" name="amount" value="{{ record.amount }}">
-            <input type="hidden" name="productinfo" value="{{ record.productinfo }}">
-            <input type="hidden" name="firstname" value="{{ record.firstname }}">
-            <input type="hidden" name="email" value="{{ record.email }}">
-            <input type="hidden" name="phone" value="{{ record.phone }}">
-            <input type="hidden" name="surl" value="{{ record.surl }}">
-            <input type="hidden" name="furl" value="{{ record.furl }}">
-            <input type="hidden" name="hash" value="{{ record.hash }}">
-            <input type="hidden" name="udf1" value="{{ record.udf1 }}">
-            <input type="hidden" name="udf2" value="{{ record.udf2 }}">
-            <input type="hidden" name="udf3" value="{{ record.udf3 }}">
-            <input type="hidden" name="udf4" value="{{ record.udf4 }}">
-            <input type="hidden" name="udf5" value="{{ record.udf5 }}">
+    <p class="total-amount">
+        Total Amount to be paid: ₹{{ record.amount }}
+    </p>
 
-            <button type="submit" class="submit-button">Pay Now</button>
-        </form>
-    </div>
-</body>
-</html>
+    <form id="paymentForm" action="{{ record.payuurl }}" method="post">
+        <input type="hidden" name="key" value="{{ record.key }}">
+        <input type="hidden" name="txnid" value="{{ record.txnid }}">
+        <input type="hidden" name="amount" value="{{ record.amount }}">
+        <input type="hidden" name="productinfo" value="{{ record.productinfo }}">
+        <input type="hidden" name="firstname" value="{{ record.firstname }}">
+        <input type="hidden" name="email" value="{{ record.email }}">
+        <input type="hidden" name="phone" value="{{ record.phone }}">
+        <input type="hidden" name="surl" value="{{ record.surl }}">
+        <input type="hidden" name="furl" value="{{ record.furl }}">
+        <input type="hidden" name="hash" value="{{ record.hash }}">
+        <input type="hidden" name="udf1" value="{{ record.udf1 }}">
+        <input type="hidden" name="udf2" value="{{ record.udf2 }}">
+        <input type="hidden" name="udf3" value="{{ record.udf3 }}">
+        <input type="hidden" name="udf4" value="{{ record.udf4 }}">
+        <input type="hidden" name="udf5" value="{{ record.udf5 }}">
+
+        <button type="submit" class="submit-button">Pay Now</button>
+    </form>
+</div>
 {% endset %}
 
 {

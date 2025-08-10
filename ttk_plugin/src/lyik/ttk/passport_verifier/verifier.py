@@ -16,9 +16,9 @@ from lyikpluginmanager import invoke, DBDocumentModel, DocumentModel
 from lyikpluginmanager.models.ovd import OVDGenericResponse, OVDPassport, OVDType
 from lyikpluginmanager.core.utils import generate_hash_id_from_dict
 from lyikpluginmanager.annotation import RequiresValidation
-from ..models.forms.new_schengentouristvisa import RootPassportPassportDetails
-from ..utils.verifier_util import validate_pincode, validate_passport_number
-from ..utils.message import get_error_message
+from lyik.ttk.models.forms.schengentouristvisa import RootPassportPassportDetails
+from lyik.ttk.utils.verifier_util import validate_pincode, validate_passport_number
+from lyik.ttk.utils.message import get_error_message
 import logging
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
@@ -68,7 +68,9 @@ class PassportVerificationPlugin(VerifyHandlerSpec):
                 logger.error("Front or Back image of the passport is not uploaded.")
                 return VerifyHandlerResponseModel(
                     status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
-                    message=get_error_message(error_message_code="TTK_ERR_0001"),
+                    message=get_error_message(
+                        error_message_code="LYIK_ERR_MISSING_IMAGES_PASSPORT"
+                    ),
                 )
 
             if isinstance(payload.ovd_front, str) and isinstance(payload.ovd_back, str):
@@ -86,7 +88,9 @@ class PassportVerificationPlugin(VerifyHandlerSpec):
                     logger.error(f"Document type is not present in the ovd response.")
                     return VerifyHandlerResponseModel(
                         status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
-                        message=get_error_message(error_message_code="TTK_ERR_0005"),
+                        message=get_error_message(
+                            error_message_code="LYIK_ERR_UNEXPECTED_ERROR"
+                        ),
                     )
 
                 # Check if the document_type is Passport or not
@@ -96,7 +100,9 @@ class PassportVerificationPlugin(VerifyHandlerSpec):
                     )
                     return VerifyHandlerResponseModel(
                         status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
-                        message=get_error_message(error_message_code="TTK_ERR_0002"),
+                        message=get_error_message(
+                            error_message_code="LYIK_ERR_INVALID_PASSPORT"
+                        ),
                     )
 
                 # Map the data from the ovd response to the passport model
@@ -207,7 +213,9 @@ class PassportVerificationPlugin(VerifyHandlerSpec):
                 logger.error("Passport front and back images are missing.")
                 return VerifyHandlerResponseModel(
                     status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
-                    message=get_error_message(error_message_code="TTK_ERR_0001"),
+                    message=get_error_message(
+                        error_message_code="LYIK_ERR_MISSING_IMAGES_PASSPORT"
+                    ),
                     actor="system",
                     response=payload.model_dump(),
                 )
@@ -226,7 +234,7 @@ class PassportVerificationPlugin(VerifyHandlerSpec):
             return VerifyHandlerResponseModel(
                 id=None,
                 status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
-                message=get_error_message(error_message_code="TTK_ERR_0006"),
+                message=get_error_message(error_message_code="LYIK_ERR_SAVE_FAILURE"),
                 actor="system",
             )
 
@@ -282,7 +290,9 @@ def check_expiry_validation(
         logger.error("Date of expiry is not provided.")
         return VerifyHandlerResponseModel(
             status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
-            message=get_error_message(error_message_code="TTK_ERR_0003"),
+            message=get_error_message(
+                error_message_code="LYIK_ERR_MISSING_DOE_PASSPORT"
+            ),
             actor="system",
         )
     doe = payload.date_of_expiry
@@ -293,7 +303,7 @@ def check_expiry_validation(
         logger.error("The passport has already expired.")
         return VerifyHandlerResponseModel(
             status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
-            message=get_error_message(error_message_code="LYIK_ERR_0002"),
+            message=get_error_message(error_message_code="LYIK_ERR_EXIPRED_PASSPORT"),
             actor="system",
         )
 
@@ -308,7 +318,9 @@ def check_expiry_validation(
         logger.error("Failed to verify the Passport. Please contact admin.")
         return VerifyHandlerResponseModel(
             status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
-            message=get_error_message(error_message_code="LYIK_ERR_0003"),
+            message=get_error_message(
+                error_message_code="LYIK_ERR_SOMETHING_WENT_WRONG"
+            ),
             actor="system",
         )
 
@@ -459,7 +471,7 @@ def check_if_verified(payload: dict) -> VerifyHandlerResponseModel | None:
             else:
                 ver_Status.status = VERIFY_RESPONSE_STATUS.DATA_ONLY
                 ver_Status.message = get_error_message(
-                    error_message_code="LYIK_ERR_0009"
+                    error_message_code="LYIK_WARN_VALUES_MODIFIED"
                 )
                 return ver_Status
 
@@ -510,7 +522,7 @@ async def get_ocr_data(
         logger.exception(e)
         return VerifyHandlerResponseModel(
             status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
-            message=get_error_message(error_message_code="LYIK_ERR_0008"),
+            message=get_error_message(error_message_code="LYIK_ERR_INVALID_OCR_FILES"),
             actor="system",
         )
 

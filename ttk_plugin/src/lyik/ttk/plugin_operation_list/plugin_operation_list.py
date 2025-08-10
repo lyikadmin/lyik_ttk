@@ -9,8 +9,8 @@ from lyikpluginmanager import (
     PluginException,
 )
 from typing_extensions import Annotated, Doc, List
-from ..models.forms.new_schengentouristvisa import Schengentouristvisa, DOCKETSTATUS
-from ..utils.utils import get_personas_from_encoded_token
+from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa, DOCKETSTATUS
+from lyik.ttk.utils.utils import get_personas_from_encoded_token
 import logging
 import jwt
 
@@ -21,6 +21,8 @@ impl = pluggy.HookimplMarker(getProjectName())
 BOA_PERSONA = "BOA"
 CLIENT_PERSONA = "CLI"
 MAKER_PERSONA = "MKR"
+
+STATE_APPROVED = "APPROVED"
 
 OPR_DOCKET_CREATION = "OP_DOCKET_CREATION"
 
@@ -66,10 +68,13 @@ class OperationListPlugin(OperationsListSpec):
                     )
 
             if CLIENT_PERSONA in personas:
+                form_state = self.get_state(form_record=form_record)
                 if (
                     parsed_record.submit_info.docket.docket_status
                     == DOCKETSTATUS.ENABLE_DOWNLOAD
                 ):
+                    pass
+                elif str(form_state)== STATE_APPROVED:
                     pass
                 else:
                     return OperationsListResponseModel(operations=[])
@@ -80,3 +85,7 @@ class OperationListPlugin(OperationsListSpec):
                 message="Internal error occurred. Please contact support.",
                 detailed_message=f"Failed to get operations for the current form. Error: {str(e)}",
             )
+
+    def get_state(self, form_record: GenericFormRecordModel) -> str | None:
+        state = getattr(form_record, "state", None)
+        return state

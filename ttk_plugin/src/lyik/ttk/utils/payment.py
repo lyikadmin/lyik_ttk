@@ -1,4 +1,4 @@
-from ..models.payment.addon_models import AddonSummaryItem, GroupedAddonSummaryItem
+from lyik.ttk.models.payment.addon_models import AddonSummaryItem, GroupedAddonSummaryItem
 from typing import Dict, List
 
 

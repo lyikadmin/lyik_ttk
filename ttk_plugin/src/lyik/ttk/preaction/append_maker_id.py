@@ -10,7 +10,7 @@ from lyikpluginmanager import (
     GenericFormRecordModel,
     PluginException,
 )
-from ..models.forms.schengentouristvisa import Schengentouristvisa
+from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa
 import logging
 
 logger = logging.getLogger(__name__)

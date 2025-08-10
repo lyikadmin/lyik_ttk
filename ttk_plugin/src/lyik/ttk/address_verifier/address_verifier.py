@@ -9,10 +9,10 @@ from lyikpluginmanager import (
 )
 from typing import Annotated
 from typing_extensions import Doc
-from ..models.forms.new_schengentouristvisa import RootResidentialAddress
+from lyik.ttk.models.forms.schengentouristvisa import RootResidentialAddress
 import logging
-from ..utils.verifier_util import check_if_verified, validate_pincode
-from ..utils.message import get_error_message
+from lyik.ttk.utils.verifier_util import check_if_verified, validate_pincode
+from lyik.ttk.utils.message import get_error_message
 
 logger = logging.getLogger(__name__)
 
@@ -91,6 +91,6 @@ class AddressVerifier(VerifyHandlerSpec):
             logger.error(f"Unhandled exception occurred. Error: {str(e)}")
             return VerifyHandlerResponseModel(
                 actor=ACTOR,
-                message=get_error_message(error_message_code="TTK_ERR_0006"),
+                message=get_error_message(error_message_code="LYIK_ERR_SAVE_FAILURE"),
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
             )

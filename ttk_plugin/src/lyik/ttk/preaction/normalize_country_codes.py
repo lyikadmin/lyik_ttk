@@ -8,7 +8,7 @@ from lyikpluginmanager import (
     ContextModel,
     GenericFormRecordModel,
 )
-from ..models.forms.new_schengentouristvisa import (
+from lyik.ttk.models.forms.schengentouristvisa import (
     Schengentouristvisa,
     RootVisaRequestInformationVisaRequest,
 )
