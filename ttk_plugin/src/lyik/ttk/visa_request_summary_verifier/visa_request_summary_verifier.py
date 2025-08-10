@@ -13,7 +13,11 @@ from typing_extensions import Doc
 from lyik.ttk.models.forms.schengentouristvisa import RootVisaRequestInformation
 import logging
 from datetime import datetime
-from lyik.ttk.utils.verifier_util import check_if_verified, validate_phone, validate_email
+from lyik.ttk.utils.verifier_util import (
+    check_if_verified,
+    validate_phone,
+    validate_email,
+)
 from lyik.ttk.utils.message import get_error_message
 
 logger = logging.getLogger(__name__)
@@ -58,13 +62,23 @@ class VisaRequestVerifier(VerifyHandlerSpec):
                 ),
                 detailed_message="The DEFAULT_COUNTRY_CODE is missing in config.",
             )
+        message = ""
+        
+        if not (
+            payload.visa_request.departure_date and payload.visa_request.arrival_date
+        ):
+            return VerifyHandlerResponseModel(
+                actor=ACTOR,
+                message=get_error_message("LYIK_ERR_EMPTY_ARRIVAL_DEPARTURE_DATES"),
+                status=VERIFY_RESPONSE_STATUS.FAILURE,
+            )
 
-        payload_dict = payload.model_dump(mode="json")
-
-        ret = check_if_verified(payload=payload_dict)
-        if ret:
-            return ret
-
+        if payload.visa_request.departure_date > payload.visa_request.arrival_date:
+            return VerifyHandlerResponseModel(
+                actor=ACTOR,
+                message=get_error_message("LYIK_ERR_ARRIVAL_BEFORE_DEPARTURE_DATE"),
+                status=VERIFY_RESPONSE_STATUS.FAILURE,
+            )
         try:
             visa_request = payload.visa_request
 

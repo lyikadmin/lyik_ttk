@@ -1,4 +1,10 @@
 MESSAGE CODE,DESCRIPTION,CONTEXT
+LYIK_ERR_value_error,Invalid value provided.,"Used when the Pydantic error type is 'value_error', indicating a generic validation failure not tied to a specific data type."
+LYIK_ERR_integer_default,Only numeric values are allowed.,"Used when the Pydantic error type is 'int_parsing', indicating that a non-integer value was provided where an integer was expected."
+LYIK_ERR_string_default,Text input expected.,"Used when the Pydantic error type is 'string_type', indicating that a non-string value was provided where a string was expected."
+LYIK_ERR_missing,Invalid value. Please re-enter.,"Used when the Pydantic error type is 'missing', indicating that a required field was not provided in the input."
+LYIK_ERR_default,Invalid value. Please re-enter.,Used as a fallback for unknown or unhandled Pydantic error types.
+LYIK_ERR_DEFAULT_VALIDATION_ERROR,Invalid value. Please re-enter.,The default message which comes up at the top of the card/infopane
 LYIK_ERR_INVALID_PASSPORT_NUM,"""%1"" is not a valid Passport Number. Please use the correct format (e.g., A1234567).",Passport verification
 LYIK_ERR_EXIPRED_PASSPORT,It seems your Passport has expired. Kindly upload a non-expired Passport to proceed.,Passport verification
 LYIK_ERR_SOMETHING_WENT_WRONG,Something went wrong. Please try again.,GENERIC
@@ -8,11 +14,6 @@ LYIK_ERR_INVALID_EMAIL_ADDR,"""%1"" is not a valid Email Address. Please check t
 LYIK_ERR_INVALID_PHONE_NUM,"""%1"" is not a valid Phone Number. Please check and try again.",Phone number verification
 LYIK_ERR_INVALID_OCR_FILES,Unable to read the uploaded files. Kindly upload clearer or different image(s) and try again.,OCR
 LYIK_WARN_VALUES_MODIFIED,Values were modified. Please Verify again to continue.,Verfication status checker
-LYIK_ERR_value_error,Invalid value provided.,"Used when the Pydantic error type is 'value_error', indicating a generic validation failure not tied to a specific data type."
-LYIK_ERR_integer_default,Only numeric values are allowed.,"Used when the Pydantic error type is 'int_parsing', indicating that a non-integer value was provided where an integer was expected."
-LYIK_ERR_string_default,Text input expected.,"Used when the Pydantic error type is 'string_type', indicating that a non-string value was provided where a string was expected."
-LYIK_ERR_missing,Invalid value. Please re-enter.,"Used when the Pydantic error type is 'missing', indicating that a required field was not provided in the input."
-LYIK_ERR_default,Invalid value. Please re-enter.,Used as a fallback for unknown or unhandled Pydantic error types.
 LYIK_ERR_ACCOMMODATIONARRANGEMENT,Invalid Accommodationarrangement value.,Used when the Enum field 'ACCOMMODATIONARRANGEMENT' receives a value that is not among the allowed options.
 LYIK_ERR_ADDRESSPROOFTYPE,Invalid Addressprooftype value.,Used when the Enum field 'ADDRESSPROOFTYPE' receives a value that is not among the allowed options.
 LYIK_ERR_ADDONOP,Invalid Addonop value.,Used when the Enum field 'ADDONOP' receives a value that is not among the allowed options.
@@ -86,6 +87,6 @@ LYIK_ERR_MISSING_TO_COUNTRY_DOCKET,Kindly enter the country you are travelling t
 LYIK_ERR_DOCKET_GEN_FAILURE,Failed to generate the Docket. Please try again or connect with TTK for help.,Docket Operation TTK
 LYIK_ERR_UNEXPECTED_ERROR_DOCKET,Unexpected error occurred while generating docket. Please contact the TTK Visas for assistance.,Docket Operation TTK
 LYIK_ERR_MISSING_EMBASSY_FORM_DOCKET,Kindly upload the Application Form from Embassy before proceeding with Docket generation.,Docket Operation TTK
-LYIK_ERR_DID_NOT_FULLY_CONFIRM_SUBMISSION,"Please confirm all items to submit.",Submit Application TTK
-LYIK_ERR_ARRIVAL_BEFORE_DEPARTURE_DATE,"Date of Return cannot be before Date of Departure.",Visa Request TTK
-LYIK_ERR_EMPTY_ARRIVAL_DEPARTURE_DATES,"Please enter the Dates of Departure and Return.",Visa Request TTK
+LYIK_ERR_DID_NOT_FULLY_CONFIRM_SUBMISSION,Please confirm all items to submit.,Submit Application TTK
+LYIK_ERR_ARRIVAL_BEFORE_DEPARTURE_DATE,Date of Return cannot be before Date of Departure.,Visa Request TTK
+LYIK_ERR_EMPTY_ARRIVAL_DEPARTURE_DATES,Please enter the Dates of Departure and Return.,Visa Request TTK
