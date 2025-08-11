@@ -77,9 +77,10 @@ LYIK_ERR_SAVE_FAILURE,Could not save this section. Please try again or connect w
 LYIK_ERR_MISSING_FIELDS_PREV_VISA,Kindly complete all required fields if you have previously held a Schengen Visa.,Previous visas verifier TTK
 LYIK_ERR_INVALID_VISA_ED_PREV_VISA,Invalid Visa End Date. Kindly update and try again or reach out to TTK Visas.,Previous visas verifier TTK
 LYIK_ERR_MISSING_MANDATORY_FIELDS,Kindly complete all the mandatory fields.,GENERIC TTK
+LYIK_ERR_MISSING_MANDATORY_FIELD,Kindly complete this field.,GENERIC TTK
 LYIK_ERR_MISSING_SCH_DATE_APT,Kindly fill the Scheduled Date.,Appointment Verifier TTK
 LYIK_ERR_MISSING_DD_VRS_APT,Kindly Fill the Departure Date in Visa Request Summary Section before proceeding.,Appointment Verifier TTK
-LYIK_ERR_INVALID_APT_DATE,Appointment date %1 must be before your Departure date %2.,Appointment Verifier TTK
+LYIK_ERR_INVALID_APT_DATE,Scheduled date must be between today and your Departure date (%2).,Appointment Verifier TTK
 LYIK_ERR_MISSING_ITINERARY_DOCKET,Kindly complete the Itinerary section for the Primary traveller before proceeding.,Docket Operation TTK
 LYIK_ERR_MISSING_ACCOMMODATION_DOCKET,Kindly complete the Accommodation section for the Primary traveller before proceeding.,Docket Operation TTK
 LYIK_ERR_MISSING_FLIGHT_TICKET_DOCKET,Kindly complete the Flight Tickets section for the Primary traveller before proceeding.,Docket Operation TTK
@@ -90,3 +91,10 @@ LYIK_ERR_MISSING_EMBASSY_FORM_DOCKET,Kindly upload the Application Form from Emb
 LYIK_ERR_DID_NOT_FULLY_CONFIRM_SUBMISSION,Please confirm all items to submit.,Submit Application TTK
 LYIK_ERR_ARRIVAL_BEFORE_DEPARTURE_DATE,Date of Return cannot be before Date of Departure.,Visa Request TTK
 LYIK_ERR_EMPTY_ARRIVAL_DEPARTURE_DATES,Please enter the Dates of Departure and Return.,Visa Request TTK
+LYIK_ERR_NO_SALARY_OPTION,Please either upload or opt to not provide salary slips here,Salary Slip TTK
+LYIK_ERR_NO_BANK_OPTION,Please either upload or opt to not provide bank statements here.,Bank Statement TTK
+LYIK_ERR_NO_ITR_OPTION,Please either upload or opt to not provide ITR here.,ITR Acknowledgement TTK
+LYIK_ERR_PASSPORT_ENTER_DATE_OF_RETURN,Please fill Visa Request Section First with arrival date.,Passport Section TTK.
+LYIK_ERR_PASSPORT_6_MONTH_EXPIRED,Passport must not expire before %1,Passport Section TTK.
+LYIK_ERR_PASSPORT_OTHER_MARITAL,Please Fill the Other Marital Status field.,Passport Section TTK.
+LYIK_ERR_OTHER_CIVIL_STATUS,Please Enter the Other Civil status information., Passport Section TTK.
