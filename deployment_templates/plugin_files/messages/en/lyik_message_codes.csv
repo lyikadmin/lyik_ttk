@@ -80,7 +80,7 @@ LYIK_ERR_MISSING_MANDATORY_FIELDS,Kindly complete all the mandatory fields.,GENE
 LYIK_ERR_MISSING_MANDATORY_FIELD,Kindly complete this field.,GENERIC TTK
 LYIK_ERR_MISSING_SCH_DATE_APT,Kindly fill the Scheduled Date.,Appointment Verifier TTK
 LYIK_ERR_MISSING_DD_VRS_APT,Kindly Fill the Departure Date in Visa Request Summary Section before proceeding.,Appointment Verifier TTK
-LYIK_ERR_INVALID_APT_DATE,Scheduled date must be between today and your Departure date (%2).,Appointment Verifier TTK
+LYIK_ERR_INVALID_APT_DATE,Scheduled date must be between today and the departure date (%2).,Appointment Verifier TTK
 LYIK_ERR_MISSING_ITINERARY_DOCKET,Kindly complete the Itinerary section for the Primary traveller before proceeding.,Docket Operation TTK
 LYIK_ERR_MISSING_ACCOMMODATION_DOCKET,Kindly complete the Accommodation section for the Primary traveller before proceeding.,Docket Operation TTK
 LYIK_ERR_MISSING_FLIGHT_TICKET_DOCKET,Kindly complete the Flight Tickets section for the Primary traveller before proceeding.,Docket Operation TTK

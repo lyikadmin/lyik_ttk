@@ -12,6 +12,9 @@ from typing import Annotated
 from typing_extensions import Doc
 from lyik.ttk.models.forms.schengentouristvisa import (
     RootAdditionalDetails,
+    SPONSORTYPE1,
+    SPONSORTYPE2,
+    SPONSORTYPE3,
     SPONSORTYPE4,
     PAYMENTMETHOD6,
     EXPENSECOVERAGE5,
@@ -62,6 +65,122 @@ class AdditionalTravelDetailsVerifier(VerifyHandlerSpec):
                     detailed_message="The payload is missing. Ensure the payload is properly available.",
                 )
 
+            if not any(
+                [
+                    payload.sponsorship_options_1,
+                    payload.sponsorship_options_2,
+                    payload.sponsorship_options_3,
+                    payload.sponsorship_options_4,
+                ]
+            ):
+                return VerifyHandlerResponseModel(
+                    status=VERIFY_RESPONSE_STATUS.FAILURE,
+                    actor="system",
+                    message="Please select at least one type of your sponsor.",
+                )
+
+            # Rule 1: If sponsorship_options_1 is selected, at least one means_of_support_myself must be selected
+            if (
+                payload.sponsorship_options_1
+                and payload.sponsorship_options_1 == SPONSORTYPE1.SELF.value
+            ):
+                # if not payload.means_of_support_myself:
+                #     return VerifyHandlerResponseModel(
+                #         status=VERIFY_RESPONSE_STATUS.FAILURE,
+                #         actor="system",
+                #         message="Please select at least one Means of Support under 'Myself'.",
+                #     )
+
+                myself_fields = [
+                    (
+                        payload.means_of_support_myself.support_means_cash
+                        if payload.means_of_support_myself
+                        else None
+                    ),
+                    (
+                        payload.means_of_support_myself.support_means_travellers_cheque
+                        if payload.means_of_support_myself
+                        else None
+                    ),
+                    (
+                        payload.means_of_support_myself.support_means_credit_card
+                        if payload.means_of_support_myself
+                        else None
+                    ),
+                    (
+                        payload.means_of_support_myself.support_means_prepaid_accommodation
+                        if payload.means_of_support_myself
+                        else None
+                    ),
+                    (
+                        payload.means_of_support_myself.support_means_prepaid_transport
+                        if payload.means_of_support_myself
+                        else None
+                    ),
+                    (
+                        payload.means_of_support_myself.support_means_other
+                        if payload.means_of_support_myself
+                        else None
+                    ),
+                ]
+                if not any(myself_fields):
+                    return VerifyHandlerResponseModel(
+                        status=VERIFY_RESPONSE_STATUS.FAILURE,
+                        actor="system",
+                        message="Please select at least one Means of Support under 'Myself'.",
+                    )
+
+            # Rule 2: If any of sponsorship_options_2/3/4 is selected, at least one means_of_support_sponser must be selected
+            if any(
+                [
+                    payload.sponsorship_options_2
+                    and payload.sponsorship_options_2 == SPONSORTYPE2.SPONSOR.value,
+                    payload.sponsorship_options_3
+                    and payload.sponsorship_options_3 == SPONSORTYPE3.INVITER.value,
+                    payload.sponsorship_options_4
+                    and payload.sponsorship_options_4 == SPONSORTYPE4.OTHER.value,
+                ]
+            ):
+                # if not payload.means_of_support_sponser:
+                #     return VerifyHandlerResponseModel(
+                #         status=VERIFY_RESPONSE_STATUS.FAILURE,
+                #         actor="system",
+                #         message="Please select at least one Means of Support under 'Sponsor(s)'.",
+                #     )
+                sponsor_fields = [
+                    (
+                        payload.means_of_support_sponser.coverage_expense_cash
+                        if payload.means_of_support_sponser
+                        else None
+                    ),
+                    (
+                        payload.means_of_support_sponser.coverage_accommodation_provided
+                        if payload.means_of_support_sponser
+                        else None
+                    ),
+                    (
+                        payload.means_of_support_sponser.coverage_all_covered
+                        if payload.means_of_support_sponser
+                        else None
+                    ),
+                    (
+                        payload.means_of_support_sponser.coverage_prepaid_transport
+                        if payload.means_of_support_sponser
+                        else None
+                    ),
+                    (
+                        payload.means_of_support_sponser.coverage_other
+                        if payload.means_of_support_sponser
+                        else None
+                    ),
+                ]
+                if not any(sponsor_fields):
+                    return VerifyHandlerResponseModel(
+                        status=VERIFY_RESPONSE_STATUS.FAILURE,
+                        actor="system",
+                        message="Please select at least one Means of Support under 'Sponsor(s)'.",
+                    )
+
             error_paths = {}
 
             if payload.sponsorship_options_4 == SPONSORTYPE4.OTHER.value:
@@ -100,115 +219,6 @@ class AdditionalTravelDetailsVerifier(VerifyHandlerSpec):
                     actor="system",
                 )
 
-            # default_country_code = context.config.DEFAULT_COUNTRY_CODE
-
-            # if not default_country_code:
-            #     raise PluginException(
-            #         message="Internal configuration error. Please contact support.",
-            #         detailed_message="The DEFAULT_COUNTRY_CODE is missing in config.",
-            #     )
-
-            # payload_dict = payload.model_dump(mode="json")
-
-            # ret = check_if_verified(payload=payload_dict)
-            # if ret:
-            #     return ret
-
-            # national_id = payload.national_id
-            # application_details = payload.app_details
-            # family_eu = payload.family_eu
-
-            # if national_id:
-            #     aadhaar_number = national_id.aadhaar_number
-
-            #     if aadhaar_number:
-            #         try:
-            #             valid_Aadhaar = validate_aadhaar_number(value=aadhaar_number)
-            #             if valid_Aadhaar:
-            #                 logger.info("Verified Aadhaar Number.")
-            #         except Exception as e:
-            #             raise PluginException(
-            #                 message=str(e),
-            #                 detailed_message="The user has entered an invalid Aadhaar number.",
-            #             )
-
-            # if (
-            #     application_details
-            #     and application_details.application_on_behalf.value == "YES"
-            # ):
-            #     # Check all required fields are filled
-            #     missing_fields = []
-            #     for field_name, value in application_details.model_dump().items():
-            #         if not value:
-            #             missing_fields.append(field_name)
-
-            #     if missing_fields:
-            #         logger.error(
-            #             f"Missing or invalid fields in application details: {missing_fields}"
-            #         )
-            #         return VerifyHandlerResponseModel(
-            #             status=VERIFY_RESPONSE_STATUS.FAILURE,
-            #             actor="system",
-            #             message="Please ensure all the details are filled if you are submitting the visa on behalf of the other person.",
-            #         )
-
-            #     # Check if the entered email is valid or not.
-            #     try:
-            #         valid_email = validate_email(
-            #             value=application_details.email_address
-            #         )
-            #         if valid_email:
-            #             logger.info("Email is validated.")
-            #     except Exception as e:
-            #         raise PluginException(
-            #             message=str(e),
-            #             detailed_message="The user has entered an invalid email address.",
-            #         )
-
-            #     # Check if the entered PIN Code is valid or not.
-            #     try:
-            #         pincode = validate_pincode(value=application_details.pin_code)
-            #         if pincode:
-            #             logger.info("Pincode Validated.")
-            #     except Exception as e:
-            #         raise PluginException(
-            #             message=str(e),
-            #             detailed_message="The user has entered an invalid pin code.",
-            #         )
-
-            #     # Check if the entered phone number is valid or not.
-            #     try:
-            #         valid_phone_number = validate_phone(
-            #             value=application_details.telephone_mobile_number,
-            #             country_code=default_country_code,
-            #         )
-            #         # payload.app_details.telephone_mobile_number = valid_phone_number
-            #         if valid_phone_number:
-            #             logger.info("Phone number is validated.")
-            #     except Exception as e:
-            #         raise PluginException(
-            #             message=str(e),
-            #             detailed_message="The user has entered an invalid phone number.",
-            #         )
-
-            # if family_eu and family_eu.is_family_member.value == "YES":
-            #     # Check all required fields are filled
-            #     missing_fields = []
-            #     for field_name, value in family_eu.model_dump().items():
-            #         if not value:
-            #             missing_fields.append(field_name)
-
-            #     if missing_fields:
-            #         logger.error(
-            #             f"Missing or invalid fields in Family Member of EU, EEA, Swiss, or UK National: {missing_fields}"
-            #         )
-            #         return VerifyHandlerResponseModel(
-            #             status=VERIFY_RESPONSE_STATUS.FAILURE,
-            #             actor="system",
-            #             message="Please ensure all the details are filled if you have Family Member of EU, EEA, Swiss, or UK National.",
-            #         )
-
-            # logger.info("Additional Travel Details verified successfully.")
             return VerifyHandlerResponseModel(
                 status=VERIFY_RESPONSE_STATUS.SUCCESS,
                 actor="system",
