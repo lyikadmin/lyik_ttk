@@ -13,7 +13,7 @@ from lyikpluginmanager import (
 )
 from typing_extensions import Doc
 
-from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa  # adjust path
+from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa,RootLetsGetStarted
 
 logger = logging.getLogger(__name__)
 impl = pluggy.HookimplMarker(getProjectName())
@@ -69,10 +69,10 @@ class FormStatusDisplay(PreActionProcessorSpec):
 
         # 3)  get the lets_get_started dict value
         # 3.1) add/update the user understandable message as per the form state
-        if not isinstance(data_dict.get("lets_get_started"), dict):
-            data_dict["lets_get_started"] = {}
+        if not form.lets_get_started:
+            data_dict["lets_get_started"] = RootLetsGetStarted()
 
-        lgs: Dict[str, Any] = data_dict["lets_get_started"]
+        lgs = data_dict["lets_get_started"]
         lgs["form_status"] = user_friendly_label
 
 
