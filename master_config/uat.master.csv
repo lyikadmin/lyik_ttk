@@ -4,7 +4,7 @@ TPL_BASEURL,https://forms-uat.ttkservices.com
 TPL_DEV_VAR,dev
 TPL_PLUGIN_MAX_WEIGHT,899,GENERIC
 TPL_SPA_DOMAIN_URL,https://forms-uat.ttkservices.com,GENERIC
-TPL_TTK_FRONTEND_URL,https://ttkvisasv2-uat.ttkvisas.com/dashboard,TTK
+TPL_TTK_FRONTEND_URL,http://ttkvisasv2-uat.ttkservices.com/dashboard,TTK
 TPL_TTK_API_BASE_URL,https://ttkcrmv2-uat.ttkservices.com/,TTK
 TPL_TTK_ORDER_UPDATE_ROUTE,api/v2/orderUpdate,TTK
 TPL_TTK_PAYMENT_UPDATE_ROUTE,api/v2/paymentUpdate,TTK

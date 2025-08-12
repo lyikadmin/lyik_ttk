@@ -31,7 +31,9 @@ from lyik.ttk.models.forms.schengentouristvisa import (
 from lyik.ttk.ttk_storage_util.ttk_storage import TTKStorage
 from lyik.ttk.utils.operation_html_message import get_docket_operation_html_message
 from lyik.ttk.utils.message import get_error_message
-from lyik.ttk.docket_operation.docket_utilities.map_form_rec_to_schengen_pdf import DocketUtilities
+from lyik.ttk.docket_operation.docket_utilities.map_form_rec_to_schengen_pdf import (
+    DocketUtilities,
+)
 from lyik.ttk.models.pdf.pdf_model import PDFModel
 from typing import Annotated, Dict, List
 from typing_extensions import Doc
@@ -39,6 +41,7 @@ import logging
 import os
 import io
 import zipfile
+from datetime import datetime
 
 
 logger = logging.getLogger(__name__)
@@ -302,7 +305,10 @@ class DocketOperation(OperationPluginSpec):
 
                 generated_pdf_doc = DBDocumentModel(
                     doc_id=GENERATED_DOC_ID,
-                    doc_name=f"{parsed_form_model.passport.passport_details.first_name}_{parsed_form_model.visa_request_information.visa_request.to_country_full_name}_Application",
+                    doc_name=self.generate_application_pdf_name(
+                        parsed_form_model.passport.passport_details.first_name,
+                        parsed_form_model.visa_request_information.visa_request.to_country_full_name,
+                    ),
                     doc_content=pdf.doc_content,
                     doc_size=len(pdf.doc_content),
                     metadata=DocMeta(
@@ -374,12 +380,18 @@ class DocketOperation(OperationPluginSpec):
                 static_key=context.config.PDF_GARBLE_KEY,
             )
 
-            file_name = "docket"
+            first_name = parsed_form_model.passport.passport_details.first_name or ""
+            surname = parsed_form_model.passport.passport_details.surname or ""
+
+            # Clean full name
+            full_name = " ".join(f"{first_name} {surname}".split())
+            # Spaces between words, title case
+            file_name = f"{full_name} {datetime.now().strftime('%d %b %Y')}".title()
+
             # Build the download URL for the payload
             api_domain = os.getenv("API_DOMAIN")
             download_doc_endpoint = context.config.DOWNLOAD_DOC_API_ENDPOINT
-            # download_url = f"{api_domain}{download_doc_endpoint}{obfus_str}.zip?file_name={file_name}"
-            download_url = api_domain + download_doc_endpoint + f"{obfus_str}.zip"
+            download_url = f"{api_domain}{download_doc_endpoint}{obfus_str}.zip?file_name={file_name}"
 
             # Return the successful operation response with the download URL
             html_msg = get_docket_operation_html_message(
@@ -470,7 +482,10 @@ class DocketOperation(OperationPluginSpec):
             and consultant_info.application_form_embassy.application_form
         ):
             files_in_rec_with_filename[
-                f"{parsed_form_model.passport.passport_details.first_name}_{parsed_form_model.visa_request_information.visa_request.to_country_full_name}_Application"
+                self.generate_application_pdf_name(
+                    parsed_form_model.passport.passport_details.first_name,
+                    parsed_form_model.visa_request_information.visa_request.to_country_full_name,
+                )
             ] = consultant_info.application_form_embassy.application_form
         else:
             raise PluginException(
@@ -784,3 +799,16 @@ class DocketOperation(OperationPluginSpec):
                 ),
                 detailed_message=f"Failed to obfuscate the string. Error: {str(e)}",
             )
+
+    def generate_application_pdf_name(self, first_name: str, country_name: str) -> str:
+        """
+        Generates the application PDF file name in the format:
+        <FirstName_with_Underscores>_<CountryName>_Application.pdf
+
+        Rules:
+        - First name: strip spaces, title case, replace spaces with underscores
+        - Country name: stripped, as-is (or could be title-cased if needed)
+        """
+        first_name_clean = first_name.strip().title().replace(" ", "_")
+        country_clean = country_name.strip()
+        return f"{first_name_clean}_{country_clean}_Application"

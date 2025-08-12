@@ -24,5 +24,9 @@
     "failure": "Not Saved",
     "indeterminate": "Need to Check"
   },
+  "approval_status": {
+    "approve": "Approved",
+    "discrepency": "Discrepancy"
+  },
   "logout": "TPL_TTK_FRONTEND_URL"
 }

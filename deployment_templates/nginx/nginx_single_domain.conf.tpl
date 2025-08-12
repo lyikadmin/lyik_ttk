@@ -67,6 +67,13 @@ http {
 
     }
 
+    location /static/ {
+      alias /app/static_files/;
+      try_files $uri $uri/ =404;                
+      access_log off;                           
+      add_header Cache-Control "public, max-age=31536000, immutable";
+    }
+
     location /admin {
     #   include cors_param;
       # rewrite /admin/(.*) /$1 break;

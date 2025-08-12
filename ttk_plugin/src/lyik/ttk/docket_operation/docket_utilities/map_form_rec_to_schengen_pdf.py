@@ -362,17 +362,21 @@ class DocketUtilities:
                         other_schengen_countries.any_other_schengen_country
                     )
 
-                    pdf_model.visa_mem_main_dst = ", ".join(  #
-                        filter(
-                            None,
-                            [
-                                to_country_full_name,
-                                arrival_country,
-                                departure_country,
-                                any_other_schengen_country,
-                            ],
-                        )
-                    )
+                    countries_list = [
+                        arrival_country,
+                        to_country_full_name,
+                        any_other_schengen_country,
+                        departure_country,
+                    ]
+
+                    # Remove None/empty and duplicates while preserving order
+                    unique_countries = []
+                    for country in filter(None, countries_list):
+                        if country not in unique_countries:
+                            unique_countries.append(country)
+
+                    pdf_model.visa_mem_main_dst = ", ".join(unique_countries)
+
             else:
                 pdf_model.visa_mem_main_dst = (
                     visa_info.visa_request.to_country_full_name  #

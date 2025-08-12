@@ -154,7 +154,10 @@ class NormalizeFields(PreActionProcessorSpec):
 
         # --- ADD Traveler Details header ---
         try:
-            lets = RootLetsGetStarted()
+            if form.lets_get_started:
+                lets = form.lets_get_started
+            else:
+                lets = RootLetsGetStarted()
             # lets = updated_data.get("lets_get_started", {})
             if traveller_details:
                 lets.traveler_details_header = f"<h2 style='text-align: center'>{traveller_details}</h2>"

@@ -26,6 +26,8 @@ import tempfile
 import base64
 import mimetypes
 import textwrap
+import random
+import string
 
 
 logger = logging.getLogger(__name__)
@@ -355,6 +357,12 @@ async def add_ovd_images_to_doc_store(
         # Extract file details using the helper function
         document_model: DocumentModel = extract_file_details(decoded_image=image_1)
 
+        # Extract the mime type
+        extension = get_extension_from_doc_type(document_model.doc_type)
+
+        # Update doc_name
+        document_model.doc_name = f"passport_front_{generate_random_str()}.{extension}"
+
         # Add the front document to the database asynchronously
         front_response: DBDocumentModel = await invoke.addDocument(
             config=context.config,
@@ -374,6 +382,12 @@ async def add_ovd_images_to_doc_store(
         # Extract file details using the helper function
         document_model: DocumentModel = extract_file_details(decoded_image=image_2)
 
+        # Extract the mime type
+        extension = get_extension_from_doc_type(document_model.doc_type)
+
+        # Update doc_name
+        document_model.doc_name = f"passport_back_{generate_random_str()}.{extension}"
+
         # Add the back document to the database asynchronously
         back_response: DBDocumentModel = await invoke.addDocument(
             config=context.config,
@@ -390,6 +404,19 @@ async def add_ovd_images_to_doc_store(
 
     # Return the responses for both front and back images
     return front_response, back_response
+
+
+def generate_random_str(length: int = 8) -> str:
+    """Generate a random alphanumeric string of given length."""
+    return "".join(random.choices(string.ascii_lowercase + string.digits, k=length))
+
+
+def get_extension_from_doc_type(doc_type: str) -> str:
+    """Return file extension based on doc_type MIME type."""
+    ext = mimetypes.guess_extension(doc_type)
+    if ext:
+        return ext.lstrip(".")
+    raise ValueError(get_error_message(error_message_code="LYIK_ERR_UNEXPECTED_ERROR"))
 
 
 def extract_file_details(
