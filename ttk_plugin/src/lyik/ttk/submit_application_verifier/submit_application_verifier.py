@@ -36,9 +36,21 @@ class SumbitApplicationVerifier(VerifyHandlerSpec):
         Doc("Response after validating the Application Submission."),
     ]:
         """
-        This verifier verifies the Address details.
+        This verifier verifies the Application Submission. This is a SUBMIT verifier
         """
         try:
+            if payload.docket.docket_status not in {
+                DOCKETSTATUS.ADDITIONAL_REVIEW,
+                DOCKETSTATUS.ENABLE_DOWNLOAD,
+            }:
+                return VerifyHandlerResponseModel(
+                    actor=ACTOR,
+                    message=get_error_message(
+                        error_message_code="LYIK_ERR_UNDER_REVIEW_SUBMISSION"
+                    ),
+                    status=VERIFY_RESPONSE_STATUS.FAILURE,
+                )
+
             if payload.docket.docket_status == DOCKETSTATUS.ENABLE_DOWNLOAD:
                 cfm = payload.confirm
                 if not (
