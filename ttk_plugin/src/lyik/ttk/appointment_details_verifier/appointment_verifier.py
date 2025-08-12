@@ -14,6 +14,7 @@ import logging
 from datetime import datetime
 from lyik.ttk.utils.verifier_util import check_if_verified, validate_phone, validate_email
 from lyik.ttk.utils.message import get_error_message
+from lyik.ttk.utils.utils import format_date_to_string
 from datetime import date
 from lyik.ttk.models.forms.schengentouristvisa import (
     Schengentouristvisa,
@@ -122,11 +123,3 @@ class AppointmentDetailsVerifier(VerifyHandlerSpec):
             message=f"Verified by {ACTOR}",
             status=VERIFY_RESPONSE_STATUS.SUCCESS,
         )
-
-
-def format_date_to_string(d: Optional[date]) -> Optional[str]:
-    try:
-        return d.strftime("%d-%b-%Y")  # e.g. 02-Aug-1990
-    except Exception as e:
-        logger.warning(f"Date formatting failed for '{d}': {e}")
-        return d

@@ -22,6 +22,7 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 import logging
 from lyik.ttk.utils.message import get_error_message
+from lyik.ttk.utils.utils import format_date_to_string
 
 logger = logging.getLogger(__name__)
 
@@ -122,11 +123,4 @@ class PassportIPVerifier(VerifyHandlerSpec):
             message="Verified Successfully",
             status=VERIFY_RESPONSE_STATUS.SUCCESS,
         )
-
-
-def format_date_to_string(d: Optional[date]) -> Optional[str]:
-    try:
-        return d.strftime("%d-%b-%Y")  # e.g. 02-Aug-1990
-    except Exception as e:
-        logger.warning(f"Date formatting failed for '{d}': {e}")
-        return d
+    
