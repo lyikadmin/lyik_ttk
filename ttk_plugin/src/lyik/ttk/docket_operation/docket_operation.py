@@ -374,9 +374,11 @@ class DocketOperation(OperationPluginSpec):
                 static_key=context.config.PDF_GARBLE_KEY,
             )
 
+            file_name = "docket"
             # Build the download URL for the payload
             api_domain = os.getenv("API_DOMAIN")
             download_doc_endpoint = context.config.DOWNLOAD_DOC_API_ENDPOINT
+            # download_url = f"{api_domain}{download_doc_endpoint}{obfus_str}.zip?file_name={file_name}"
             download_url = api_domain + download_doc_endpoint + f"{obfus_str}.zip"
 
             # Return the successful operation response with the download URL
