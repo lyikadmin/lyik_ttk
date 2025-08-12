@@ -31,7 +31,9 @@ from lyik.ttk.models.forms.schengentouristvisa import (
 from lyik.ttk.ttk_storage_util.ttk_storage import TTKStorage
 from lyik.ttk.utils.operation_html_message import get_docket_operation_html_message
 from lyik.ttk.utils.message import get_error_message
-from lyik.ttk.docket_operation.docket_utilities.map_form_rec_to_schengen_pdf import DocketUtilities
+from lyik.ttk.docket_operation.docket_utilities.map_form_rec_to_schengen_pdf import (
+    DocketUtilities,
+)
 from lyik.ttk.models.pdf.pdf_model import PDFModel
 from typing import Annotated, Dict, List
 from typing_extensions import Doc
@@ -39,6 +41,7 @@ import logging
 import os
 import io
 import zipfile
+from datetime import datetime
 
 
 logger = logging.getLogger(__name__)
@@ -374,12 +377,15 @@ class DocketOperation(OperationPluginSpec):
                 static_key=context.config.PDF_GARBLE_KEY,
             )
 
-            file_name = "docket"
+            first_name = parsed_form_model.passport.passport_details.first_name or ""
+            surname = parsed_form_model.passport.passport_details.surname or ""
+
+            full_name = f"{first_name} {surname}".strip()
+            file_name = f"{full_name}_{datetime.now().strftime('%d%b%Y')}"
             # Build the download URL for the payload
             api_domain = os.getenv("API_DOMAIN")
             download_doc_endpoint = context.config.DOWNLOAD_DOC_API_ENDPOINT
-            # download_url = f"{api_domain}{download_doc_endpoint}{obfus_str}.zip?file_name={file_name}"
-            download_url = api_domain + download_doc_endpoint + f"{obfus_str}.zip"
+            download_url = f"{api_domain}{download_doc_endpoint}{obfus_str}.zip?file_name={file_name}"
 
             # Return the successful operation response with the download URL
             html_msg = get_docket_operation_html_message(
