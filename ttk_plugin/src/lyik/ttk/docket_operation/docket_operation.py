@@ -380,8 +380,11 @@ class DocketOperation(OperationPluginSpec):
             first_name = parsed_form_model.passport.passport_details.first_name or ""
             surname = parsed_form_model.passport.passport_details.surname or ""
 
-            full_name = f"{first_name} {surname}".strip()
-            file_name = f"{full_name}_{datetime.now().strftime('%d%b%Y')}"
+            # Clean full name
+            full_name = " ".join(f"{first_name} {surname}".split())
+            # Spaces between words, title case
+            file_name = f"{full_name} {datetime.now().strftime('%d %b %Y')}".title()
+
             # Build the download URL for the payload
             api_domain = os.getenv("API_DOMAIN")
             download_doc_endpoint = context.config.DOWNLOAD_DOC_API_ENDPOINT
