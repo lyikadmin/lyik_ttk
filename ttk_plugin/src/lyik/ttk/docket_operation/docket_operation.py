@@ -305,7 +305,10 @@ class DocketOperation(OperationPluginSpec):
 
                 generated_pdf_doc = DBDocumentModel(
                     doc_id=GENERATED_DOC_ID,
-                    doc_name=f"{parsed_form_model.passport.passport_details.first_name}_{parsed_form_model.visa_request_information.visa_request.to_country_full_name}_Application",
+                    doc_name=self.generate_application_pdf_name(
+                        parsed_form_model.passport.passport_details.first_name,
+                        parsed_form_model.visa_request_information.visa_request.to_country_full_name,
+                    ),
                     doc_content=pdf.doc_content,
                     doc_size=len(pdf.doc_content),
                     metadata=DocMeta(
@@ -479,7 +482,10 @@ class DocketOperation(OperationPluginSpec):
             and consultant_info.application_form_embassy.application_form
         ):
             files_in_rec_with_filename[
-                f"{parsed_form_model.passport.passport_details.first_name}_{parsed_form_model.visa_request_information.visa_request.to_country_full_name}_Application"
+                self.generate_application_pdf_name(
+                    parsed_form_model.passport.passport_details.first_name,
+                    parsed_form_model.visa_request_information.visa_request.to_country_full_name,
+                )
             ] = consultant_info.application_form_embassy.application_form
         else:
             raise PluginException(
@@ -793,3 +799,16 @@ class DocketOperation(OperationPluginSpec):
                 ),
                 detailed_message=f"Failed to obfuscate the string. Error: {str(e)}",
             )
+
+    def generate_application_pdf_name(self, first_name: str, country_name: str) -> str:
+        """
+        Generates the application PDF file name in the format:
+        <FirstName_with_Underscores>_<CountryName>_Application.pdf
+
+        Rules:
+        - First name: strip spaces, title case, replace spaces with underscores
+        - Country name: stripped, as-is (or could be title-cased if needed)
+        """
+        first_name_clean = first_name.strip().title().replace(" ", "_")
+        country_clean = country_name.strip()
+        return f"{first_name_clean}_{country_clean}_Application"
