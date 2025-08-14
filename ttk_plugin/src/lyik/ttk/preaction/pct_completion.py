@@ -11,30 +11,32 @@ from lyikpluginmanager import (
     getProjectName,
 )
 from typing_extensions import Doc
-from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa
+from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa, RootLetsGetStarted
 
 logger = logging.getLogger(__name__)
 impl = pluggy.HookimplMarker(getProjectName())
 
+# 🔧 VERIFY THESE NAMES MATCH YOUR Pydantic MODEL FIELDS EXACTLY.
+# If your model uses "accommodation" (correct spelling), update both lines below.
 _RELEVANT_PANES: List[str] = [
     "visa_request_information",
     "appointment",
     "passport",
     "photograph",
     "residential_address",
-    "itinerary_accomodation",  # ← shareable
-    "accomodation",            # ← shareable
-    "ticketing",               # ← shareable
+    "work_address",
+    "itinerary_accomodation",   # ← check spelling; likely "itinerary_accommodation"
+    "accomodation",             # ← check spelling; likely "accommodation"
+    "ticketing",
     "travel_insurance",
     "previous_visas",
     "additional_details",
+    "salary_slip",
+    "bank_statement",
+    "itr_acknowledgement",
 ]
 
-
 def _has_success_ver_status(data: dict) -> bool:
-    """
-    Returns True if data.get('_ver_status',{}).get('status') == 'success'.
-    """
     ver = data.get("_ver_status")
     return isinstance(ver, dict) and ver.get("status") == "success"
 
@@ -54,7 +56,7 @@ class PctCompletion(PreActionProcessorSpec):
         GenericFormRecordModel,
         Doc("form record with pct_completion refreshed"),
     ]:
-        
+
         try:
             form: Schengentouristvisa = Schengentouristvisa(**payload.model_dump())
         except Exception as exc:  # defensive – don’t break save/submit
@@ -63,38 +65,75 @@ class PctCompletion(PreActionProcessorSpec):
             return GenericFormRecordModel.model_validate(record)
 
         # 1) Figure out share-flag mapping
-        vt     = getattr(form.visa_request_information.visa_request, "traveller_type", "")
-        shared = getattr(form.shared_travell_info, "shared", None)
+        if (form.visa_request_information and 
+            form.visa_request_information.visa_request and 
+            form.visa_request_information.visa_request.traveller_type):
+            vt = form.visa_request_information.visa_request.traveller_type
+        else:
+            vt = ''
 
-        # 2) Start with the full list, and remove any share‑flagged panes
+        if (form.shared_travell_info and form.shared_travell_info.shared):
+            shared = form.shared_travell_info.shared
+        else:
+            shared = None
+
+        # vt = getattr(getattr(form, "visa_request_information", None), "visa_request", None)
+        # vt = getattr(vt, "traveller_type", "") or ""
+        # shared = getattr(getattr(form, "shared_travell_info", None), "shared", None)
+
         panes_to_check = _RELEVANT_PANES.copy()
-        shared_count   = 0
+        shared_count = 0
+        share_removed: List[str] = []
 
         if vt and vt.lower() != "primary" and shared:
-            # for each shareable pane, if they clicked it → remove & credit
             mapping = [
                 ("itinerary_accomodation", shared.itinerary_same),
-                ("accomodation",           shared.accommodation_same),
-                ("ticketing",              shared.flight_ticket_same),
+                ("accomodation", shared.accommodation_same),
+                ("ticketing", shared.flight_ticket_same),
             ]
             for pane_name, flag in mapping:
-                if flag and flag.value:
+                try:
+                    is_on = bool(flag and getattr(flag, "value", flag))
+                except Exception:
+                    is_on = False
+                if is_on:
                     if pane_name in panes_to_check:
                         panes_to_check.remove(pane_name)
+                        share_removed.append(pane_name)
                     shared_count += 1
 
-        # 3) Now loop over whatever remains for real _ver_status checks
+        logger.info(
+            "pct_completion: relevant_panes=%s | panes_to_check(after share)=%s | shared_removed=%s | shared_count=%d",
+            _RELEVANT_PANES, panes_to_check, share_removed, shared_count
+        )
+
+        # 3) Status scan with detailed tracking
         completed = 0
+        completed_panes: List[str] = []
+        incomplete_panes: List[str] = []
+        missing_attrs: List[str] = []
+
         for pane_name in panes_to_check:
             pane = getattr(form, pane_name, None)
-            if not pane:
+            if pane is None:
+                missing_attrs.append(pane_name)
                 continue
             pane_dict = pane.model_dump(exclude_none=True)
             if _has_success_ver_status(pane_dict):
                 completed += 1
+                completed_panes.append(pane_name)
+            else:
+                # Optional: capture the status we saw for easier debugging
+                status = pane_dict.get("_ver_status", {}).get("status")
+                incomplete_panes.append(f"{pane_name} (status={status!r})")
+
+        logger.info(
+            "pct_completion: panes_considered=%s | panes_completed=%s | panes_incomplete=%s | missing_attrs=%s",
+            panes_to_check, completed_panes, incomplete_panes, missing_attrs
+        )
 
         # 4) Totals and final completed count
-        total     = len(panes_to_check) + shared_count
+        total = len(panes_to_check) + shared_count
         completed = completed + shared_count
 
         # 5) Compute, clamp, format
@@ -102,13 +141,17 @@ class PctCompletion(PreActionProcessorSpec):
         pct = min(pct, 100)
         pct_str = f"{pct}%"
 
-        # 6) Write back into the lets_get_started sub‑dict
-        record = form.model_dump()
-        # get or create the nested dict
-        lets = record.get("lets_get_started", {})
-        lets["infopanes_total"]     = total
-        lets["infopanes_completed"] = completed
-        lets["pct_completion"]      = pct_str
-        record["lets_get_started"] = lets
+        logger.info(
+            "pct_completion: totals -> total=%d, completed=%d, pct=%s",
+            total, completed, pct_str
+        )
 
-        return GenericFormRecordModel.model_validate(record)
+        # 6) Write back into lets_get_started
+        if not getattr(form, "lets_get_started", None):
+            form.lets_get_started = RootLetsGetStarted()
+
+        form.lets_get_started.infopanes_total = total
+        form.lets_get_started.infopanes_completed = completed
+        form.lets_get_started.pct_completion = pct_str
+
+        return GenericFormRecordModel.model_validate(form.model_dump())

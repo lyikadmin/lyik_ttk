@@ -73,5 +73,5 @@ class CopyPassportAddress(PreActionProcessorSpec):
         return GenericFormRecordModel.model_validate(new_payload_dict)
 
 
-def default_if_empty(value, default="__"):
+def default_if_empty(value, default="nil"):
     return value if (value is not None and str(value).strip()) else default

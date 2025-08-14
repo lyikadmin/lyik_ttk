@@ -11,9 +11,10 @@ from lyikpluginmanager import (
     PostActionProcessorSpec,
     getProjectName,
 )
+from lyikpluginmanager.core.utils import StrEnum
 from typing_extensions import Doc
 
-from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa, RootLetsGetStarted  # adjust path
+from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa, RootLetsGetStarted, DOCKETSTATUS  # adjust path
 
 logger = logging.getLogger(__name__)
 impl = pluggy.HookimplMarker(getProjectName())
@@ -26,6 +27,20 @@ _DISPLAY_STATE: dict[str, str] = {
     "COMPLETED": "Finalised",
     "INITIALIZED": "Form Created",
 }
+
+class DisplayStatus(StrEnum):
+    """
+    1	A Record is created	New
+    2	Traveller started filling the record	In Progress
+    3	Maker Chooses "Submit application for additional review"	In Progress
+    4	Maker Chooses: Enable Docket	Completed
+    5	Checker Approved	Completed
+    6	Checker Discrepancy	In Review
+    """
+    NEW = "New"
+    IN_PROGRESS = "In Progress"
+    COMPLETED = "Completed" 
+    IN_REVIEW = "In Review"
 
 class FormStatusDisplay(PostActionProcessorSpec):
     """
@@ -52,27 +67,62 @@ class FormStatusDisplay(PostActionProcessorSpec):
             logger.error("form_status_display: cannot parse payload - %s", exc)
             return payload
 
-        # If no state at all, set it to 'INITIALIZED'
-        if not current_state:
-            form_state = "INITIALIZED"
-        else:
-            form_state = current_state
-
-
-        if action.value == "SUBMIT":
-            form_state = "SUBMIT"
-
-        # 2)  Look up human label
-        user_friendly_label = _DISPLAY_STATE.get(form_state, form_state or "INITIALIZED")
-
-        # 3)  get the lets_get_started dict value
-        # 3.1) add/update the user understandable message as per the form state
         if not form.lets_get_started:
             form.lets_get_started = RootLetsGetStarted()
+        
+        form_display_status = form.lets_get_started.form_status
 
-        form.lets_get_started.form_status = user_friendly_label
+        current_state = ""
+        
+        if not current_state:
+            form_display_status = DisplayStatus.NEW
+
+        if action.value == "SAVE":
+            form_display_status = DisplayStatus.IN_PROGRESS
+
+        if action.value == "SUBMIT" or current_state == "SUBMIT":
+            if form.submit_info and form.submit_info.docket and form.submit_info.docket.docket_status:
+                if form.submit_info.docket.docket_status == DOCKETSTATUS.ADDITIONAL_REVIEW:
+                    form_display_status = DisplayStatus.IN_PROGRESS
+                elif form.submit_info.docket.docket_status == DOCKETSTATUS.ENABLE_DOWNLOAD:
+                    form_display_status = DisplayStatus.COMPLETED
+        
+        if current_state == "APPROVED":
+            form_display_status = DisplayStatus.COMPLETED
+
+        if current_state == "DISCREPANCY":
+            form_display_status = DisplayStatus.IN_REVIEW
+
+        form.lets_get_started.form_status = form_display_status
 
         data_dict = form.model_dump()
 
         # 4)  Return updated record
         return GenericFormRecordModel.model_validate(data_dict)
+        
+
+
+        # # If no state at all, set it to 'INITIALIZED'
+        # if not current_state:
+        #     form_state = "INITIALIZED"
+        # else:
+        #     form_state = current_state
+
+
+        # if action.value == "SUBMIT":
+        #     form_state = "SUBMIT"
+
+        # # 2)  Look up human label
+        # user_friendly_label = _DISPLAY_STATE.get(form_state, form_state or "INITIALIZED")
+
+        # # 3)  get the lets_get_started dict value
+        # # 3.1) add/update the user understandable message as per the form state
+        # if not form.lets_get_started:
+        #     form.lets_get_started = RootLetsGetStarted()
+
+        # form.lets_get_started.form_status = user_friendly_label
+
+        # data_dict = form.model_dump()
+
+        # # 4)  Return updated record
+        # return GenericFormRecordModel.model_validate(data_dict)
