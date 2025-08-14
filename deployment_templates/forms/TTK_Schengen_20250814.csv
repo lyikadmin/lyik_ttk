@@ -820,8 +820,8 @@ display_field,display_passport_table_headline,,,display_field,,False,"<!DOCTYPE 
 ",,,,False,,,,,
 table,passport_info_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,first_name,,,textbox,@.passport_page_upload.TRUSTED_OVD.name,True,Enter Given Name as in Passport,Given Name as in Passport,,,False,,,,,
-fac_str,surname,,,textbox,@.passport_page_upload.TRUSTED_OVD.surname,False,Enter Surname as in Passport,Surname as in Passport,,,False,,,,,
-fac_str,surname_at_birth,,,textbox,,True,Enter Surname at birth/Former family name,Surname at birth/Former family name,,,False,,,,,
+fac_str,surname,,,textbox,@.passport_page_upload.TRUSTED_OVD.surname,True,Enter Surname as in Passport,Surname as in Passport,,,False,,,,,
+fac_str,surname_at_birth,,,textbox,,False,Enter Surname at birth/Former family name,Surname at birth/Former family name,,,False,,,,,
 fac_date,date_of_birth,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_birth,True,DD/MM/YYYY,Date of Birth as in Passport,,,False,,,,,;only_past: true
 fac_passport_number,passport_number,,,textbox,@.passport_page_upload.TRUSTED_OVD.uid,True,Enter passport number,Passport Number,,,False,,,,,
 fac_date,date_of_issue,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_issue,True,DD/MM/YYYY,Date of Issue,,,False,,,,,;only_past: true
@@ -2625,7 +2625,7 @@ fac_str,visa_number,,,textbox,,False,Enter Visa Number,Visa Number,,,False,,,,,
 fac_str,visa_type,,,textbox,,False,Enter Visa Type,Visa Type,,,False,,,,,
 fac_country,country_of_issue,,,dropdown,,False,Select Option,Country of Visa Issued from,,,False,,,,,
 fac_date,start_date,,,datebox,,False,DD/MM/YYYY,Start Date of Visa,,,False,,,,,;only_past: true
-fac_date,end_date,,,datebox,,False,DD/MM/YYYY,End Date of Visa,,,False,,,,,;only_future: true
+fac_date,end_date,,,datebox,,False,DD/MM/YYYY,End Date of Visa,,,False,,,,,
 fac_purpose_of_visa_or_travel,purpose_of_visa,,,dropdown,VISIT_FAMILY_FRIENDS,False,Select Option,Purpose of Visa (at the time of filing your previous visa application),,,False,,,,,
 fac_option,utilized_visa,,,radiobutton,NO,False,Select Option,Have you utilised/travelled using this Visa?,,,False,,,,,align:center
 fac_str,others_specify,,,textbox,,False,Enter Other Purpose of Visa,Other Purpose of Visa,,,False,,,"not purpose_of_visa=""OTHER""",,
