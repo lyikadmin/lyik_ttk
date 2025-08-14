@@ -117,6 +117,14 @@ class NormalizeFields(PreActionProcessorSpec):
 
         sub_title: str | None = context.form_name
 
+        # If available, use the from country full name as form subtitle.
+        if (
+            form.visa_request_information
+            and form.visa_request_information.visa_request
+            and form.visa_request_information.visa_request.to_country_full_name
+        ):
+            sub_title = form.visa_request_information.visa_request.to_country_full_name
+
         if not visa_request:
             return payload
 
