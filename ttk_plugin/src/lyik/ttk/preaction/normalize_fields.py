@@ -1,5 +1,5 @@
 import logging
-from typing import Annotated, Optional
+from typing import Annotated, Optional, List, ClassVar
 
 import apluggy as pluggy
 from lyikpluginmanager import (
@@ -40,7 +40,7 @@ class ISO3ToCountryModel(BaseModel):
     _cc: coco.CountryConverter = coco.CountryConverter()
 
     # Some Countries full name should be used, for example 'Czechia' should be 'Czech Republic' instead.
-    USE_COUNTRY_FULL_NAME = ["CZE"]
+    USE_COUNTRY_FULL_NAME: ClassVar[List[str]] = ["CZE"]
 
     def country_name(self) -> str:
         """
