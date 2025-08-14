@@ -39,14 +39,19 @@ class ISO3ToCountryModel(BaseModel):
     iso3_input: str
     _cc: coco.CountryConverter = coco.CountryConverter()
 
+    # Some Countries full name should be used, for example 'Czechia' should be 'Czech Republic' instead.
+    USE_COUNTRY_FULL_NAME = ["CZE"]
+
     def country_name(self) -> str:
         """
         Converts ISO3 code (e.g., 'IND') to full country name (e.g., 'India').
         Falls back to original input on failure.
         """
+        iso = (self.iso3_input or "").strip().upper()
+        to_field = "name_official" if iso in self.USE_COUNTRY_FULL_NAME else "name_short"
         try:
             result = self._cc.convert(
-                names=self.iso3_input, to="name_short", not_found=None
+                names=iso, to=to_field, not_found=None
             )
             if result and isinstance(result, str):
                 return result
