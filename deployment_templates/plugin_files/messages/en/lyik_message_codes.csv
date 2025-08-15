@@ -98,4 +98,5 @@ LYIK_ERR_NO_ITR_OPTION,Please either upload or opt to not provide ITR here.,ITR 
 LYIK_ERR_PASSPORT_ENTER_DATE_OF_RETURN,Please fill Visa Request Section First with arrival date.,Passport Section TTK.
 LYIK_ERR_PASSPORT_6_MONTH_EXPIRED,Passport must not expire before %1,Passport Section TTK.
 LYIK_ERR_PASSPORT_OTHER_MARITAL,Please Fill the Other Marital Status field.,Passport Section TTK.
-LYIK_ERR_OTHER_CIVIL_STATUS,Please Enter the Other Civil status information., Passport Section TTK.
+LYIK_ERR_OTHER_CIVIL_STATUS,Please Enter the Other Civil status information.,Passport Section TTK.
+LYIK_ERR_NO_TRAVEL_INSURANCE,Please either upload Travel Insurance or mark as need assistance from TTK Visas.,Travel Insurance Section TTK
