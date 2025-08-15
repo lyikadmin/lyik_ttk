@@ -745,8 +745,8 @@ class DocketOperation(OperationPluginSpec):
                 mime_type, _ = mimetypes.guess_type(file_info.filename)
 
                 if mime_type not in ALLOWED_MIME_TYPES:
-                    raise ValueError(
-                        f"Unsupported file type inside zip: {file_info.filename} ({mime_type})"
+                    logger.warning(
+                        f"Unsupported file type inside zip: {file_info.filename} ({mime_type}). Unable to convert to PDF. Returning the file as is in Docket."
                     )
 
                 # Override MIME type while preserving other metadata
