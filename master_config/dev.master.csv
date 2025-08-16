@@ -8,3 +8,7 @@ TPL_TTK_FRONTEND_URL,https://ttkvisasv2-test.ttkvisas.com/dashboard,TTK
 TPL_TTK_API_BASE_URL,https://ttkcrmv2-test.ttkservices.com/,TTK
 TPL_TTK_ORDER_UPDATE_ROUTE,api/v2/orderUpdate,TTK
 TPL_TTK_PAYMENT_UPDATE_ROUTE,api/v2/paymentUpdate,TTK
+TPL_PAYU_MERCHANT_KEY,fiBS8J,PAYU
+TPL_PAYU_SALT,n9jDaiVtx8Lr5R1jEgBFaX3QsYehW7ou,PAYU
+TPL_PAYU_URL,https://test.payu.in/_payment,PAYU
+TPL_PAYU_PRODUCT_INFO,TTK Services Visa Payment,PAYU
