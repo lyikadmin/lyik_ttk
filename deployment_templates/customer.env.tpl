@@ -9,7 +9,7 @@ ADDON_FILE="add_ons.json"
 LINK_RECORD_ORDER_FILE="link_record_ordered_mapping.json"
 
 # Payu Payment Plugins
-PAYU_MERCHANT_KEY="fiBS8J"
-PAYU_SALT="n9jDaiVtx8Lr5R1jEgBFaX3QsYehW7ou"
-PAYU_URL="https://test.payu.in/_payment" 
-PAYU_PRODUCT_INFO="TTK Services Visa Payment"
+PAYU_MERCHANT_KEY="TPL_PAYU_MERCHANT_KEY"
+PAYU_SALT="TPL_PAYU_SALT"
+PAYU_URL="TPL_PAYU_URL"
+PAYU_PRODUCT_INFO="TPL_PAYU_PRODUCT_INFO"
