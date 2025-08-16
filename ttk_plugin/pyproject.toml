@@ -62,5 +62,6 @@ _150_VERIFIER_SUBMISSION_CONFIRMATION = "lyik.ttk.submit_application_verifier.su
 _150_VERIFIER_SALARY_SLIPS_IP = "lyik.ttk.financial_verifiers.financial_verifiers:SalarySlipVerifier"
 _150_VERIFIER_BANK_STATEMENTS_IP = "lyik.ttk.financial_verifiers.financial_verifiers:BankStatementVerifier"
 _150_VERIFIER_ITR_ACKNOWLEDGEMENT_IP = "lyik.ttk.financial_verifiers.financial_verifiers:ITRAcknowledgeVerifier"
+_150_VERIFIER_TRAVEL_INSURANCE = "lyik.ttk.travel_insurance_verifier.travel_insurance_verifier:TravelInsuranceVerifier"
 _150_OP_DOCKET_CREATION = "lyik.ttk.docket_operation.docket_operation:DocketOperation"
 _150_OPERATIONS = "lyik.ttk.plugin_operation_list.plugin_operation_list:OperationListPlugin"
