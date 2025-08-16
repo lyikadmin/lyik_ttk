@@ -803,12 +803,11 @@ class DocketOperation(OperationPluginSpec):
     def generate_application_pdf_name(self, first_name: str, country_name: str) -> str:
         """
         Generates the application PDF file name in the format:
-        <FirstName_with_Underscores>_<CountryName>_Application.pdf
+        <FirstName_with_Underscores>_<CountryName_with_Underscores>_Application.pdf
 
-        Rules:
         - First name: strip spaces, title case, replace spaces with underscores
-        - Country name: stripped, as-is (or could be title-cased if needed)
+        - Country name: strip spaces, title case, replace spaces with underscores
         """
         first_name_clean = first_name.strip().title().replace(" ", "_")
-        country_clean = country_name.strip()
+        country_clean = country_name.strip().title().replace(" ", "_")
         return f"{first_name_clean}_{country_clean}_Application"
