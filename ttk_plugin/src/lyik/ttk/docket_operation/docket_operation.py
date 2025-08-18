@@ -701,10 +701,29 @@ class DocketOperation(OperationPluginSpec):
                 detailed_message=f"Error while processing the documents: {str(e)}",
             )
 
+    def _is_zip_bytes(self, b: bytes) -> bool:
+        try:
+            return zipfile.is_zipfile(io.BytesIO(b))
+        except Exception:
+            return False
+
+    def _is_zip_mime(self, m: str | None) -> bool:
+        if not m:
+            return False
+        m = m.lower()
+        return (
+            m == "application/zip"
+            or "zip" in m  # catches x-zip-compressed, x-zip, multipart/x-zip, etc.
+            or m == "application/octet-stream"
+        )
+
     def maybe_unzip_and_replace(
         self, key: str, doc: DBDocumentModel, fetched_dict: dict[str, DBDocumentModel]
     ):
-        if doc.metadata.doc_type == "application/zip" and doc.doc_content:
+        mime = (doc.metadata.doc_type or "").lower() if doc.metadata else ""
+        if doc.doc_content and (
+            self._is_zip_mime(mime) or self._is_zip_bytes(doc.doc_content)
+        ):
             extracted_docs = self.create_extracted_documents_from_zip(doc, key)
 
             # Preserve order
