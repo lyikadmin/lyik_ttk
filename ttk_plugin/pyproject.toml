@@ -42,7 +42,6 @@ _150_PREACTION_SAVE_PRIMARY_TRAVELLER = "lyik.ttk.preaction.save_traveller:Preac
 _150_PREACTION_SAVE_CO_TRAVELLER = "lyik.ttk.preaction.save_traveller:PreactionSaveCoTravellers"
 _150_PREACTION_PAYMENT_INFO_UPDATE = "lyik.ttk.preaction.update_payment_info:UpdatePaymentInfo"
 #_150_PREACTION_ORDER_STATUS_UPDATE = "lyik.ttk.preaction.order_status_update:OrderStatusUpdate"
-#_150_PREACTION_FORM_STATUS = "lyik.ttk.preaction.descriptive_state:FormStatusDisplay"
 _150_POSTACTION_ORDER_STATUS_UPDATE = "lyik.ttk.postaction.order_status_update:OrderStatusUpdate"
 _150_POSTACTION_FORM_STATUS = "lyik.ttk.postaction.descriptive_state:FormStatusDisplay"
 _150_01_PREACTION_CLIENT_ACTION_GUARD = "lyik.ttk.preaction.client_action_guard:ClientActionGuard"

@@ -66,19 +66,21 @@ class FormStatusDisplay(PostActionProcessorSpec):
         except Exception as exc:
             logger.error("form_status_display: cannot parse payload - %s", exc)
             return payload
+        
+        if not current_state:
+            current_state = ""
 
         if not form.lets_get_started:
             form.lets_get_started = RootLetsGetStarted()
         
         form_display_status = form.lets_get_started.form_status
-
-        current_state = ""
         
-        if not current_state:
-            form_display_status = DisplayStatus.NEW
-
         if action.value == "SAVE":
             form_display_status = DisplayStatus.IN_PROGRESS
+        
+        if not previous_state:
+            form_display_status = DisplayStatus.NEW
+
 
         if action.value == "SUBMIT" or current_state == "SUBMIT":
             if form.submit_info and form.submit_info.docket and form.submit_info.docket.docket_status:
