@@ -730,8 +730,12 @@ class DocketOperation(OperationPluginSpec):
             archive_type = "tar"
 
         # Fallback: zipfile check
-        if not archive_type and zipfile.is_zipfile(io.BytesIO(doc.doc_content)):
-            archive_type = "zip"
+        if not archive_type:
+            try:
+                if zipfile.is_zipfile(io.BytesIO(doc.doc_content)):
+                    archive_type = "zip"
+            except Exception:
+                archive_type = None
 
         if archive_type:
             extracted_docs = self.create_extracted_documents_from_zip(

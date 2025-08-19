@@ -535,8 +535,6 @@ class DocketUtilities:
                 )
 
             work_address = schengen_visa_data.work_address
-            if work_address and work_address.work_details:
-                pdf_model.visa_curr_occ = work_address.work_details.occupation  #
 
             if (
                 work_address
@@ -544,6 +542,12 @@ class DocketUtilities:
                 == CURRENTOCCUPATIONSTATUS.EMPLOYEE
             ):
                 work_details = work_address.work_details
+
+                if (
+                    work_details
+                    and work_details.occupation
+                ):
+                    pdf_model.visa_curr_occ = work_address.work_details.occupation  #
 
                 if work_details:
                     employer = work_details.employer_name or ""
@@ -553,7 +557,12 @@ class DocketUtilities:
                     pdf_model.visa_emp_stu_add_tel = ", ".join(
                         part for part in [employer, address, phone] if part.strip()  #
                     )
-            else:
+            elif (
+                work_address
+                and work_address.current_occupation_status
+                == CURRENTOCCUPATIONSTATUS.STUDENT
+            ):
+                pdf_model.visa_curr_occ = "Student"  #
                 edu_details = work_address.education_details
 
                 if edu_details:
@@ -566,6 +575,15 @@ class DocketUtilities:
                         for part in [edu_estb, edu_estb_addr, edu_estb_phone]  #
                         if part.strip()
                     )
+            elif (
+                work_address
+                and work_address.current_occupation_status
+                == CURRENTOCCUPATIONSTATUS.NOTAPPLICABLE
+            ):
+                pdf_model.visa_curr_occ = "N/A"  #
+                pdf_model.visa_emp_stu_add_tel = "N/A" #
+            else:
+                pass
 
             accomodation = schengen_visa_data.accomodation
             if (
