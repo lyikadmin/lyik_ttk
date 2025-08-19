@@ -538,24 +538,16 @@ class DocketUtilities:
 
             if (
                 work_address
-                and work_address.work_details
-                and work_address.work_details.occupation
-            ):
-                pdf_model.visa_curr_occ = work_address.work_details.occupation  #
-
-            if (
-                work_address
-                and work_address.current_occupation_status
-                == CURRENTOCCUPATIONSTATUS.NOTAPPLICABLE
-            ):
-                pdf_model.visa_curr_occ = "N/A"  #
-
-            if (
-                work_address
                 and work_address.current_occupation_status
                 == CURRENTOCCUPATIONSTATUS.EMPLOYEE
             ):
                 work_details = work_address.work_details
+
+                if (
+                    work_details
+                    and work_details.occupation
+                ):
+                    pdf_model.visa_curr_occ = work_address.work_details.occupation  #
 
                 if work_details:
                     employer = work_details.employer_name or ""
@@ -570,6 +562,7 @@ class DocketUtilities:
                 and work_address.current_occupation_status
                 == CURRENTOCCUPATIONSTATUS.STUDENT
             ):
+                pdf_model.visa_curr_occ = "Student"  #
                 edu_details = work_address.education_details
 
                 if edu_details:
@@ -587,7 +580,8 @@ class DocketUtilities:
                 and work_address.current_occupation_status
                 == CURRENTOCCUPATIONSTATUS.NOTAPPLICABLE
             ):
-                pdf_model.visa_emp_stu_add_tel = "N/A"
+                pdf_model.visa_curr_occ = "N/A"  #
+                pdf_model.visa_emp_stu_add_tel = "N/A" #
             else:
                 pass
 
