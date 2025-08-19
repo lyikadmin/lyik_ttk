@@ -2327,7 +2327,7 @@ class RootConsultantInfo(BaseModel):
     ] = Field(None, title="Additional Document")
 
 
-class Schengen20250724(BaseModel):
+class Schengentouristvisa(BaseModel):
     model_config = ConfigDict(
         extra="allow",
     )
