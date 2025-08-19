@@ -28,7 +28,8 @@ from lyik.ttk.models.forms.schengentouristvisa import (
 from lyikpluginmanager import PluginException
 from datetime import date, datetime
 from lyik.ttk.models.pdf.pdf_model import PDFModel
-from .utils import ISO3ToCountryModel
+# from .utils import ISO3ToCountryModel
+from lyik.ttk.utils.utils import ISO3ToCountryModel
 from lyik.ttk.utils.message import get_error_message
 import logging
 
