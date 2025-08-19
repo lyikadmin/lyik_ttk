@@ -1242,7 +1242,7 @@ fac_str,work_phone,,,textbox,,True,Enter Work Phone Number of Employer,Work Phon
 fac_str,work_address,,,textbox.row-4,,True,Enter Work Address,Work Address,,,False,,,not @.current_occupation_status = 'EMPLOYEE',,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,education_details,,,card,,False,,Education Details,,,False,,,"current_occupation_status = ""EMPLOYEE""",,
+card_builder,education_details,,,card,,False,,Education Details,,,False,,,"not current_occupation_status = ""STUDENT""",,
 table,educational_establishment_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,establishment_name,,,textbox,,True,Enter Name of Establishment,Educational Establishment,,,False,,,not @.current_occupation_status = 'STUDENT',,
 fac_date,date_of_admission,,,datebox,,False,DD/MM/YYYY,Date of Admission,,,False,,,not @.current_occupation_status='STUDENT',,
