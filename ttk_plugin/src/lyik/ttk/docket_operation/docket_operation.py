@@ -40,7 +40,9 @@ from typing_extensions import Doc
 import logging
 import os
 import io
-import zipfile
+import zipfile, filetype, tarfile
+import rarfile
+import py7zr
 from datetime import datetime
 
 
@@ -72,6 +74,12 @@ CODES = [
 ]
 ALLOWED_MIME_TYPES = {"application/pdf", "image/jpeg", "image/png"}
 GENERATED_DOC_ID = "GENERATED_DOC"
+ZIP_MIMES = {"application/zip", "application/x-zip-compressed"}
+RAR_MIMES = {"application/x-rar", "application/vnd.rar"}
+SEVENZ_MIMES = {"application/x-7z-compressed"}
+TAR_MIMES = {"application/x-tar", "application/x-gtar"}
+GZ_MIMES = {"application/gzip", "application/x-gzip"}
+BZ2_MIMES = {"application/x-bzip2"}
 
 
 class DocketOperation(OperationPluginSpec):
@@ -704,8 +712,31 @@ class DocketOperation(OperationPluginSpec):
     def maybe_unzip_and_replace(
         self, key: str, doc: DBDocumentModel, fetched_dict: dict[str, DBDocumentModel]
     ):
-        if doc.metadata.doc_type == "application/zip" and doc.doc_content:
-            extracted_docs = self.create_extracted_documents_from_zip(doc, key)
+        if not doc.doc_content:
+            return
+
+        # Detect MIME from bytes
+        kind = filetype.guess(doc.doc_content)
+        mime = kind.mime if kind else None
+
+        archive_type = None
+        if mime in ZIP_MIMES:
+            archive_type = "zip"
+        elif mime in RAR_MIMES:
+            archive_type = "rar"
+        elif mime in SEVENZ_MIMES:
+            archive_type = "7z"
+        elif mime in TAR_MIMES | GZ_MIMES | BZ2_MIMES:
+            archive_type = "tar"
+
+        # Fallback: zipfile check
+        if not archive_type and zipfile.is_zipfile(io.BytesIO(doc.doc_content)):
+            archive_type = "zip"
+
+        if archive_type:
+            extracted_docs = self.create_extracted_documents_from_zip(
+                doc, key, archive_type
+            )
 
             # Preserve order
             new_dict = {}
@@ -720,52 +751,79 @@ class DocketOperation(OperationPluginSpec):
             pass
 
     def create_extracted_documents_from_zip(
-        self, original_doc: DBDocumentModel, base_key: str
+        self, original_doc: DBDocumentModel, base_key: str, archive_type: str
     ) -> dict[str, DBDocumentModel]:
         """
-        Extracts files from a zip if they are PDF or image, and builds
-        DBDocumentModels for them. Keys are formed using `key_prefix`.
+        Extracts files from a supported archive (zip, rar, 7z, tar/gz/bz2),
+        and builds DBDocumentModels for them. Keys are formed using `base_key`.
 
         Raises:
             ValueError: If extracted file is not a supported type.
         """
         new_entries: Dict[str, DBDocumentModel] = {}
 
-        with zipfile.ZipFile(io.BytesIO(original_doc.doc_content)) as zip_file:
-            valid_files = [
+        if archive_type == "zip":
+            archive = zipfile.ZipFile(io.BytesIO(original_doc.doc_content))
+            file_list = [
                 f
-                for f in zip_file.infolist()
+                for f in archive.infolist()
                 if not f.is_dir()
                 and not f.filename.startswith("__MACOSX")
                 and not os.path.basename(f.filename).startswith("._")
             ]
+            extractor = lambda f: archive.read(f)
+            get_filename = lambda f: f.filename
 
-            for index, file_info in enumerate(valid_files):
-                file_bytes = zip_file.read(file_info)
-                mime_type, _ = mimetypes.guess_type(file_info.filename)
+        elif archive_type == "rar" and rarfile:
+            archive = rarfile.RarFile(io.BytesIO(original_doc.doc_content))
+            file_list = archive.infolist()
+            extractor = lambda f: archive.read(f)
+            get_filename = lambda f: f.filename
 
-                if mime_type not in ALLOWED_MIME_TYPES:
-                    raise ValueError(
-                        f"Unsupported file type inside zip: {file_info.filename} ({mime_type})"
-                    )
+        elif archive_type == "7z" and py7zr:
+            archive = py7zr.SevenZipFile(io.BytesIO(original_doc.doc_content))
+            file_list = archive.getnames()
+            extractor = lambda f: archive.read([f])[f]
+            get_filename = lambda f: f
 
-                # Override MIME type while preserving other metadata
-                new_metadata = original_doc.metadata.model_copy(deep=True)
-                new_metadata.doc_type = mime_type
+        elif archive_type == "tar":
+            archive = tarfile.open(fileobj=io.BytesIO(original_doc.doc_content))
+            file_list = [f for f in archive.getmembers() if f.isfile()]
+            extractor = lambda f: archive.extractfile(f).read()
+            get_filename = lambda f: f.name
 
-                # Set key
-                if len(valid_files) == 1:
-                    key_name = base_key
-                else:
-                    key_name = f"{base_key}_{index + 1}"
+        else:
+            raise ValueError(
+                f"Cannot extract the files. Unsupported archive type: {archive_type}"
+            )
 
-                new_entries[key_name] = DBDocumentModel(
-                    doc_id=None,
-                    doc_name=os.path.basename(file_info.filename),
-                    doc_size=len(file_bytes),
-                    doc_content=file_bytes,
-                    metadata=new_metadata,
+        for index, file_info in enumerate(file_list):
+            filename = get_filename(file_info)
+            file_bytes = extractor(file_info)
+            mime_type, _ = mimetypes.guess_type(filename)
+
+            if mime_type not in ALLOWED_MIME_TYPES:
+                raise ValueError(
+                    f"Unsupported file type inside zip: {file_info.filename} ({mime_type})"
                 )
+
+            # Override MIME type while preserving other metadata
+            new_metadata = original_doc.metadata.model_copy(deep=True)
+            new_metadata.doc_type = mime_type
+
+            # Set key
+            if len(file_list) == 1:
+                key_name = base_key
+            else:
+                key_name = f"{base_key}_{index + 1}"
+
+            new_entries[key_name] = DBDocumentModel(
+                doc_id=None,
+                doc_name=os.path.basename(file_info.filename),
+                doc_size=len(file_bytes),
+                doc_content=file_bytes,
+                metadata=new_metadata,
+            )
 
         return new_entries
 
