@@ -54,7 +54,7 @@ class CopyPassportAddress(PreActionProcessorSpec):
         # Build new residential_address_card
         new_card = RootResidentialAddressResidentialAddressCardV2(
             address_line_1=default_if_empty(pp_addr.address_line_1),
-            address_line_2=default_if_empty(pp_addr.address_line_2),
+            address_line_2=default_if_empty(pp_addr.address_line_2, default=""), # Not mandatory field anymore
             pin_code=default_if_empty(pp_addr.pin_code),
             state=default_if_empty(pp_addr.state),
             city=default_if_empty(pp_addr.city),

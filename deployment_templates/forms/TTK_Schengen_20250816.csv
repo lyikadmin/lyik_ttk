@@ -1097,7 +1097,7 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,residential_address_card_v2,,,card,,False,,Current Residential Address,SAVE_EVEN_IF_HIDDEN,,False,,,not same_as_passport_address = 'SAME_AS_PASS_ADDR',,
 table,residential_address_table_v2,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,address_line_1,,,textbox,,True,Enter Address Line 1,Address Line 1,,,False,,,,False,
-fac_str,address_line_2,,,textbox,,True,Enter Address Line 2,Address Line 2,,,False,,,,False,
+fac_str,address_line_2,,,textbox,,False,Enter Address Line 2,Address Line 2,,,False,,,,False,
 fac_str,pin_code,,,textbox,,True,6 digit PIN Code,PIN Code,,,False,,,,False,
 fac_str,city,,,textbox,,True,Enter City,City,,,False,,,,False,
 fac_str,state,,,textbox,,True,Enter State,State,,,False,,,,False,
