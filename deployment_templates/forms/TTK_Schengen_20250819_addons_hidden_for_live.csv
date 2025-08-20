@@ -3067,8 +3067,8 @@ display_field,display_not_filled_itr,,,display_field,,False,"<!DOCTYPE html>
 ",,,,False,,,not @.itr_options = 'NO_ITR',,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 tab_break,additional_documents_tab,,,tab_break,,False,,Additional Information,,,False,,,,,
-section_break,addons_section,,,section_break,,False,No Instructions Present,Add-On Cart,PROGRESS.IGNORE,,False,,,not $.visa_request_information.visa_request.traveller_type = 'Primary',,
-info_pane_builder,addons,,,info_pane,,False,,Add-On Cart,,,False,,,,,operation.save:Save and Continue
+section_break,addons_section,,,section_break,,False,No Instructions Present,Add-On Cart,PROGRESS.IGNORE,,False,,,True,,
+info_pane_builder,addons,,,info_pane,,False,,Add-On Cart,SAVE_EVEN_IF_HIDDEN,,False,,,,,operation.save:Save and Continue
 fac_str,record_id,,,hidden,,False,Used to get the Record ID,,,,False,,,,,
 card_builder,addon_service_initialization,,,card,,False,,[INTERNAL] Initialized Addon Cart,SAVE_EVEN_IF_HIDDEN,,False,,,True,,
 table,table,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:1
