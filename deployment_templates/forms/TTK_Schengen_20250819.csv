@@ -1421,7 +1421,7 @@ align-items: center;"">
   color: #000000;
   text-align: center;
 "">
-        If you’d like us to <strong> review </strong> your Itinerary to make sure your it meets the guidelines, <br>
+        If you’d like us to <strong> review </strong> your Itinerary to make sure it meets the guidelines, <br>
         please upload it here. Make sure it includes all Schengen countries you're visiting.
     </div>
   </div>",,,,False,,,,,
@@ -1675,7 +1675,7 @@ To know the cost, please refer to the <strong>&nbsp;Add-On Cart Section</strong>
 <body>
     <div class=""message-box"">
       <span>
-        <span style=""font-weight: 600;"">Need assistance with booking your Accommodation?</span> <br>
+        <span style=""font-weight: 600;"">Need assistance with booking your dummy Accommodation?</span> <br>
         Visit the Add-On Cart to avail this service for a small fee.
       </span>
     </div>
@@ -1823,7 +1823,7 @@ align-items: center;"">
   color: #000000;
   text-align: center;
 "">
-        If you’d like us to <strong>review</strong> your flight tickets to make sure your it meets the guidelines, <br>
+        If you’d like us to <strong>review</strong> your flight tickets to make sure it meets the guidelines, <br>
         please upload it here. Make sure it includes all Schengen countries you're visiting.
     </div>
   </div>
@@ -1850,7 +1850,7 @@ display_field,display_add_on,,,display_field,,False,"<!DOCTYPE html>
     <div class=""message-box"">
       <span>
 
-        <span style=""font-weight: 600;"">Need assistance with booking your Flight Tickets?</span> <br>
+        <span style=""font-weight: 600;"">Need assistance with booking your dummy Flight Tickets?</span> <br>
         Visit the Add-On Cart to avail this service for a small fee.
       </span>
     </div>
@@ -2021,7 +2021,7 @@ align-items: center;"">
   color: #000000;
   text-align: center;
 "">
-If you’d like us to <strong> review </strong> your Travel Insurance to make sure your it meets the guidelines, <br>
+If you’d like us to <strong> review </strong> your Travel Insurance to make sure it meets the guidelines, <br>
 please upload it here. Make sure it includes all Schengen countries you're visiting.
 </div>
 </div>",,,,False,,,,,
