@@ -112,7 +112,47 @@ class PreactionAddonServices(PreActionProcessorSpec):
                     FieldGrpRootAddonsAddonGroupAddonservicegroupAddonCardAddonOnService
                 ] = []
 
-                # Try extracting existing add-on data from parsed form
+                # Prepare per-traveller addon list map
+                self._addons_by_traveller: dict[
+                    str,
+                    list[
+                        FieldGrpRootAddonsAddonGroupAddonservicegroupAddonCardAddonOnService
+                    ],
+                ] = {}
+                # Prepare per-traveller addon list map
+                if parsed_form_rec.addons and parsed_form_rec.addons.addon_group:
+                    for grp in parsed_form_rec.addons.addon_group:
+                        if (
+                            grp
+                            and grp.addonservicegroup
+                            and grp.addonservicegroup.addon_card
+                        ):
+                            card = grp.addonservicegroup.addon_card
+                            if card.traveller_id and card.addon_on_service:
+                                self._addons_by_traveller[card.traveller_id] = (
+                                    card.addon_on_service
+                                )
+
+                if parsed_form_rec.addons and parsed_form_rec.addons.addon_group:
+                    for grp in parsed_form_rec.addons.addon_group:
+                        card = getattr(grp.addonservicegroup, "addon_card", None)
+                        if (
+                            card
+                            and getattr(card, "traveller_id", None)
+                            and card.addon_on_service
+                        ):
+                            # Store a deep copy so we don’t reuse same list
+                            try:
+                                self._addons_by_traveller[card.traveller_id] = [
+                                    i.model_copy(deep=True)
+                                    for i in card.addon_on_service
+                                ]
+                            except AttributeError:
+                                self._addons_by_traveller[card.traveller_id] = [
+                                    i.copy(deep=True) for i in card.addon_on_service
+                                ]
+
+                # Try extracting existing add-on data of primary traveller from parsed form.
                 addon_card = (
                     parsed_form_rec.addons
                     and parsed_form_rec.addons.addon_group
@@ -127,7 +167,7 @@ class PreactionAddonServices(PreActionProcessorSpec):
                     and addon_card.addon_on_service
                     and addon_card.addon_on_service[0].addon_id
                 ):
-                    # Reuse existing addon_on_service list
+                    # Reuse existing addon_on_service list of primary traveller. This will be set as default for now.
                     addon_on_service = addon_card.addon_on_service
                     logger.info("Using existing add-on service list from form.")
                 else:
@@ -158,6 +198,7 @@ class PreactionAddonServices(PreActionProcessorSpec):
                     parsed_form_rec.passport.passport_details.first_name
                     if parsed_form_rec.passport
                     and parsed_form_rec.passport.passport_details
+                    and parsed_form_rec.passport.passport_details.first_name
                     else "Traveller 1"
                 )
                 # Add HTML style to traveller name
@@ -165,11 +206,18 @@ class PreactionAddonServices(PreActionProcessorSpec):
                     name=primary_traveller_name
                 )
 
+                primary_tid = (
+                    parsed_form_rec.visa_request_information.visa_request.traveller_id
+                )
+
                 primary_addon_group = self._create_addon_group(
-                    traveller_id=parsed_form_rec.visa_request_information.visa_request.traveller_id,
+                    traveller_id=primary_tid,
                     traveller_name_styled=primary_traveller_name_styled,
                     traveller_name_internal=primary_traveller_name,
-                    addon_on_service=addon_on_service,
+                    addon_on_service=self._addons_for_traveller(
+                        traveller_id=primary_tid,
+                        default_addons=addon_on_service,
+                    ),
                 )
 
                 addon_group_list.append(primary_addon_group)
@@ -206,7 +254,10 @@ class PreactionAddonServices(PreActionProcessorSpec):
                             traveller_id=traveller_id,
                             traveller_name_styled=traveller_name_styled,
                             traveller_name_internal=traveller_name,
-                            addon_on_service=addon_on_service,
+                            addon_on_service=self._addons_for_traveller(
+                                traveller_id=traveller_id,
+                                default_addons=addon_on_service,  # fallback to default template (cloned)
+                            ),
                         )
 
                         addon_group_list.append(addon_group)
@@ -231,6 +282,31 @@ class PreactionAddonServices(PreActionProcessorSpec):
                 f"Exception raised while processing PreactionAddonServices. {str(e)}"
             )
             return payload
+
+    def _addons_for_traveller(
+        self,
+        traveller_id: str,
+        default_addons: List[
+            FieldGrpRootAddonsAddonGroupAddonservicegroupAddonCardAddonOnService
+        ],
+    ) -> List[FieldGrpRootAddonsAddonGroupAddonservicegroupAddonCardAddonOnService]:
+        """
+        Return the add-on list for a traveller.
+        - If a per-traveller list exists in self._addons_by_traveller, reuse it as-is.
+        - Otherwise, return a deep copy of the shared default template, so each traveller gets an independent instance.
+        """
+        # If we already mapped a list for THIS traveller, it's their own instance — safe to reuse
+        if (
+            hasattr(self, "_addons_by_traveller")
+            and traveller_id in self._addons_by_traveller
+        ):
+            return self._addons_by_traveller[traveller_id]
+
+        # Otherwise, clone the shared default so each traveller gets an independent copy
+        try:
+            return [i.model_copy(deep=True) for i in default_addons]
+        except AttributeError:
+            return default_addons
 
     def _create_addon_group(
         self,

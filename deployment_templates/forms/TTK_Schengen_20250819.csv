@@ -3088,7 +3088,7 @@ fac_str,status_internal,,,hidden,,False,Enter Status Internal,Status Internal,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,addon_service,,,card,,False,,Your Transactions,,,False,,,not EXISTS(@.addon_service.addon_cart_row),,
+card_builder,addon_service,,,card,,False,,Your Transactions,,,False,,,not EXISTS(@.addon_service.addon_cart_row[0]),,
 table,table,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:1
 group_builder,addon_cart_row,,,table_row,,False,,Addon Table,,,False,,,,,
 fac_str,addon_id,,,hidden,,False,Enter Addon ID,Addon ID,,,False,,,,,
