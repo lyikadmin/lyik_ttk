@@ -59,7 +59,7 @@ services:
       options:
         max-size: "10m"
     environment:
-      - TZ=Asia/Calcutta
+      - TZ=Asia/Kolkata
 
   lyik_api:
     container_name: 'lyik_api'
@@ -73,7 +73,7 @@ services:
     command: ['bash']
     environment:
       - MODE=PROD
-      - TZ=Asia/Calcutta
+      - TZ=Asia/Kolkata
     volumes:
       - /tmp/lyik:/tmp/lyik
       - ./plugin_files:/lyik/certificate
@@ -139,7 +139,7 @@ services:
     volumes:
       - ./admin_config.json:/app/config/config.json
     environment:
-      - TZ=Asia/Calcutta
+      - TZ=Asia/Kolkata
 
   grafana:
     container_name: 'grafana'
