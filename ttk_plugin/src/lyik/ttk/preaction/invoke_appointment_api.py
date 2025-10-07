@@ -1,9 +1,13 @@
 import logging
-from typing import Annotated, Dict
-from typing import Any, Union
+from typing import Any, Union, Optional, Annotated, Dict
+from typing_extensions import Doc
 import jwt
 import httpx
+import os
+import json
+from datetime import datetime
 
+from lyikpluginmanager.annotation import RequiredEnv
 import apluggy as pluggy
 from lyikpluginmanager import (
     getProjectName,
@@ -14,12 +18,22 @@ from lyikpluginmanager import (
 from lyik.ttk.models.forms.schengentouristvisa import (
     Schengentouristvisa,
 )
-from pydantic import BaseModel
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 impl = pluggy.HookimplMarker(getProjectName())
+
+
+# --- Utility to format a date object to 'DD/MM/YYYY' string ---
+def format_date_to_string(date_str: str) -> Optional[str]:
+    if date_str:
+        try:
+            parsed = datetime.strptime(date_str, "%Y-%m-%d").date()
+            return parsed.strftime("%d-%b-%Y")  # e.g. 02-Aug-1990
+        except Exception as e:
+            logger.warning(f"Date formatting failed for '{date_str}': {e}")
+    return None
 
 
 class InvokeAppointmentAPI(PreActionProcessorSpec):
@@ -31,7 +45,11 @@ class InvokeAppointmentAPI(PreActionProcessorSpec):
         current_state: Annotated[str | None, "previous record state"],
         new_state: Annotated[str | None, "new record state"],
         payload: Annotated[GenericFormRecordModel, "entire form record model"],
-    ) -> Annotated[GenericFormRecordModel, "possibly modified record"]:
+    ) -> Annotated[
+        GenericFormRecordModel,
+        RequiredEnv(["TTK_API_BASE_URL", "TTK_APPOINTMENT_API_ROUTE"]),
+        Doc("possibly modified record"),
+    ]:
         try:
             if not context:
                 logger.error("Context is missing. Skipping preaction.")
@@ -74,7 +92,7 @@ class InvokeAppointmentAPI(PreActionProcessorSpec):
 
             try:
                 country_code: str = (
-                    form.visa_request_information.visa_request.from_country.value
+                    form.visa_request_information.visa_request.to_country.value
                 )
                 visa_type: str = (
                     form.visa_request_information.visa_request.visa_type.value
@@ -85,7 +103,15 @@ class InvokeAppointmentAPI(PreActionProcessorSpec):
                 )
                 return payload
 
-            url = "https://ttkcrmv2-uat.ttkservices.com/api/v2/getAppointmentDetail"
+            api_prefix = os.getenv("TTK_API_BASE_URL")
+            api_route = os.getenv("TTK_APPOINTMENT_API_ROUTE")
+            if not api_prefix or not api_route:
+                logger.error(
+                    "Api details missing. Skipping Appointment API Preaction process."
+                )
+                return payload
+
+            url = api_prefix + api_route
 
             # Body for API request
             body = {
@@ -116,15 +142,18 @@ class InvokeAppointmentAPI(PreActionProcessorSpec):
                 return payload
 
             city_dropdown_values = {item["city"]: item["city"] for item in return_data}
-            city_dates = {item["city"]: item["appointmentDate"] for item in return_data}
+            city_dates = {
+                item["city"]: format_date_to_string(date_str=item["appointmentDate"])
+                for item in return_data
+            }
             business_days = return_data[0].get("businessDays")
 
             if city_dropdown_values:
-                form.scratch_pad.appointment_city_dropdown_values = str(
+                form.scratch_pad.appointment_city_dropdown_values = json.dumps(
                     city_dropdown_values
                 )
             if city_dates:
-                form.scratch_pad.appointment_city_dates = str(city_dates)
+                form.scratch_pad.appointment_city_dates = json.dumps(city_dates)
             if business_days is not None:
                 form.scratch_pad.business_days = business_days
 
