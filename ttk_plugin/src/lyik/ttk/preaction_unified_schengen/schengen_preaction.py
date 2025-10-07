@@ -14,20 +14,21 @@ logging.basicConfig(level=logging.info)
 
 impl = pluggy.HookimplMarker(getProjectName())
 
-
-from .preaction_processors._base_preaction import BasePreActionProcessor
+# Unified Base preaction processor
+from ._base_preaction import BaseUnifiedPreActionProcessor
 
 # preaction processors
-from .preaction_processors.append_maker_id import PreactionAppendMakerId
-from .preaction_processors.copy_passport_details import PreactionCopyPassportAddress
-from .preaction_processors.descriptive_state import PreactionFormStatusDisplay
-from .preaction_processors.normalize_country_codes import PreactionNormalizeCountryCodes
-from .preaction_processors.order_status_update import PreactionOrderStatusUpdate
-from .preaction_processors.pct_completion import PreactionPctCompletion
-from .preaction_processors.ttk_consultant import PreactionMakerCopyToPanes
+from .impl_preaction_processors.client_action_guard import ClientActionGuard                #1
+from .impl_preaction_processors.pct_completion import PctCompletion                         #2
+from .impl_preaction_processors.normalize_country_codes import NormalizeCountryCodes        #3
+from .impl_preaction_processors.invoke_appointment_api import InvokeAppointmentAPI          #4
+from .impl_preaction_processors.normalize_fields import NormalizeFields                     #5
+from .impl_preaction_processors.append_maker_id import AppendMakerId                        #6
+from .impl_preaction_processors.copy_passport_details import CopyPassportAddress            #7
+from .impl_preaction_processors.save_traveller import PreactionSavePrimaryTraveller         #8
+from .impl_preaction_processors.save_traveller import PreactionSaveCoTravellers             #9
 
-
-class TTK_Schengen_Preaction(PreActionProcessorSpec):
+class Schengen_Preactions(PreActionProcessorSpec):
     @impl
     async def pre_action_processor(
         self,
@@ -64,19 +65,20 @@ class TTK_Schengen_Preaction(PreActionProcessorSpec):
         This preaction processor will do all preaction processing required for TTK Schengen form.
         """
         processors_ordered_list = [
-            PreactionAppendMakerId,
-            PreactionCopyPassportAddress,
-            PreactionFormStatusDisplay,
-            PreactionNormalizeCountryCodes,
-            PreactionOrderStatusUpdate,
-            PreactionPctCompletion,
-            # PreactionSavePrimaryTraveller,
-            PreactionMakerCopyToPanes,
+            ClientActionGuard,
+            PctCompletion,
+            NormalizeCountryCodes,
+            InvokeAppointmentAPI,
+            NormalizeFields,
+            AppendMakerId,
+            CopyPassportAddress,
+            PreactionSavePrimaryTraveller,
+            PreactionSaveCoTravellers
         ]
         try:
             for processor_cls in processors_ordered_list:
-                processor: BasePreActionProcessor = processor_cls()
-                payload = await processor.pre_action_processor(
+                processor: BaseUnifiedPreActionProcessor = processor_cls()
+                payload = await processor.unified_pre_action_processor_impl(
                     context=context,
                     action=action,
                     current_state=current_state,
