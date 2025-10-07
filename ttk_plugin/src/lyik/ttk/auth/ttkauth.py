@@ -20,6 +20,7 @@ from lyikpluginmanager.models import (
     IAMUserMetadata,
     IAMUserIdentifiers,
     PreAuthorizedInfoModel,
+    ProviderInfo,
 )
 from lyikpluginmanager.annotation import RequiredEnv
 import apluggy as pluggy
@@ -39,7 +40,9 @@ from lyikpluginmanager import (
 impl = pluggy.HookimplMarker(getProjectName())
 
 TTK_DEFAULT_DOMAIN = "https://auth.ttk.com/"  # e.g. https://auth.TTK.com
-TTK_DEFAULT_AUDIENCE = "https://lyik.com"  # LYIK audience / client‑id expected in TTK tokens
+TTK_DEFAULT_AUDIENCE = (
+    "https://lyik.com"  # LYIK audience / client‑id expected in TTK tokens
+)
 TTK_DEFAULT_ALGORITHMS = ["HS256"]  # supported signing algorithms
 JWKS_PATH = "/.well-known/jwks.json"  # standard OIDC path
 
@@ -53,12 +56,10 @@ class TTKAuthProvider(AuthProviderSpec):
 
     @impl
     async def isValidToken(
-        self, 
-        token: Annotated[str, Doc("Token to validate")]
-        ) -> Annotated[
-            bool,
-            RequiredEnv(["TTK_TOKEN_SECRET"]), 
-            Doc("Indicates if the token is valid")]:  # type: ignore[override]
+        self, token: Annotated[str, Doc("Token to validate")]
+    ) -> Annotated[
+        bool, RequiredEnv(["TTK_TOKEN_SECRET"]), Doc("Indicates if the token is valid")
+    ]:  # type: ignore[override]
         """
         Lightweight inspection to decide if the token appears to come from TTK.
         Returns **False** if it clearly does not.
@@ -128,6 +129,7 @@ class TTKAuthProvider(AuthProviderSpec):
         RELATIONSHIP = "relationship"
         USER_NAME = "fullName"
         EXPIRY_TIME = "expiryTimestamp"
+        ORDER_ID = "Order ID"
 
         if not token:
             raise PluginException("No token provided")
@@ -145,10 +147,27 @@ class TTKAuthProvider(AuthProviderSpec):
 
         # Pull out the fields you need
         user_id = payload.get(USER_ID)
-        roles = [payload[ROLES]] if isinstance(payload.get(ROLES), str) else payload.get(ROLES, []) if isinstance(payload.get(ROLES), list) else []
+        roles = (
+            [payload[ROLES]]
+            if isinstance(payload.get(ROLES), str)
+            else payload.get(ROLES, []) if isinstance(payload.get(ROLES), list) else []
+        )
         governed_users = payload.get(RELATIONSHIP, [])
-        user_name = payload.get(USER_NAME) or 'client'
-        expiry = int(payload[EXPIRY_TIME]) if str(payload[EXPIRY_TIME]).isdigit() else int(datetime.strptime(payload[EXPIRY_TIME], "%Y-%m-%d %H:%M:%S").timestamp()) if payload.get(EXPIRY_TIME) else None
+        user_name = payload.get(USER_NAME) or "client"
+        order_id = payload.get(ORDER_ID) or "nil"
+        expiry = (
+            int(payload[EXPIRY_TIME])
+            if str(payload[EXPIRY_TIME]).isdigit()
+            else (
+                int(
+                    datetime.strptime(
+                        payload[EXPIRY_TIME], "%Y-%m-%d %H:%M:%S"
+                    ).timestamp()
+                )
+                if payload.get(EXPIRY_TIME)
+                else None
+            )
+        )
         plugin_provider = TTK_DEFAULT_DOMAIN
         token = token
 
@@ -162,8 +181,13 @@ class TTKAuthProvider(AuthProviderSpec):
             governed_users=governed_users,
             user_name=user_name,
             expiry=expiry,
-            plugin_provider=plugin_provider,
-            token=token,
+            provider_info=ProviderInfo(
+                provider_name=plugin_provider,
+                token=token,
+                order_id=order_id,
+                user_id=user_id,
+                roles=roles,
+            ),
         )
 
     @impl
