@@ -44,6 +44,7 @@ _150_PREACTION_PROGRESS_CHECK = "lyik.ttk.preaction.pct_completion:PctCompletion
 _150_PREACTION_SAVE_PRIMARY_TRAVELLER = "lyik.ttk.preaction.save_traveller:PreactionSavePrimaryTraveller"
 _150_PREACTION_SAVE_CO_TRAVELLER = "lyik.ttk.preaction.save_traveller:PreactionSaveCoTravellers"
 _150_PREACTION_PAYMENT_INFO_UPDATE = "lyik.ttk.preaction.update_payment_info:UpdatePaymentInfo"
+_150_PREACTION_APPOINTMENT_API = "lyik.ttk.preaction.invoke_appointment_api:InvokeAppointmentAPI"
 #_150_PREACTION_ORDER_STATUS_UPDATE = "lyik.ttk.preaction.order_status_update:OrderStatusUpdate"
 _150_POSTACTION_ORDER_STATUS_UPDATE = "lyik.ttk.postaction.order_status_update:OrderStatusUpdate"
 _150_POSTACTION_FORM_STATUS = "lyik.ttk.postaction.descriptive_state:FormStatusDisplay"
