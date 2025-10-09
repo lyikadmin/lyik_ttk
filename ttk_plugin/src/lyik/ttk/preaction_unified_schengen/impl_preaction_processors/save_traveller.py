@@ -113,9 +113,8 @@ class PreactionSavePrimaryTraveller(BaseUnifiedPreActionProcessor):
             return payload
 
 
-class PreactionSaveCoTravellers(PreActionProcessorSpec):
-    @impl
-    async def pre_action_processor(
+class PreactionSaveCoTravellers(BaseUnifiedPreActionProcessor):
+    async def unified_pre_action_processor_impl(
         self,
         context: ContextModel,
         action: Annotated[

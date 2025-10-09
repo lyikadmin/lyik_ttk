@@ -16,6 +16,7 @@ impl = pluggy.HookimplMarker(getProjectName())
 
 # Unified Base preaction processor
 from ._base_preaction import BaseUnifiedPreActionProcessor
+from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa
 
 # preaction processors
 from .impl_preaction_processors.client_action_guard import ClientActionGuard                #1
@@ -28,6 +29,7 @@ from .impl_preaction_processors.copy_passport_details import CopyPassportAddress
 from .impl_preaction_processors.save_traveller import PreactionSavePrimaryTraveller         #8
 from .impl_preaction_processors.save_traveller import PreactionSaveCoTravellers             #9
 
+SCHENGEN_FORM_INDICATOR = "SCHENGEN"
 class Schengen_Preactions(PreActionProcessorSpec):
     @impl
     async def pre_action_processor(
@@ -64,6 +66,19 @@ class Schengen_Preactions(PreActionProcessorSpec):
         """
         This preaction processor will do all preaction processing required for TTK Schengen form.
         """
+        # Parse to the form model
+        try:
+            form = Schengentouristvisa(**payload.model_dump())
+        except Exception as exc:
+            logger.error("Cannot parse model for preactions, skipping schengen preactions – %s", exc)
+            return payload
+        try:
+            if not form.scratch_pad.form_indicator == SCHENGEN_FORM_INDICATOR:
+                return payload  
+        except Exception as exc:
+            logger.error("Could not access the form indicator, skipping schengen preactions – %s", exc)
+            return payload 
+        
         processors_ordered_list = [
             ClientActionGuard,
             PctCompletion,
