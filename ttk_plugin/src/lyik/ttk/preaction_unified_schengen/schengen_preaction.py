@@ -7,6 +7,7 @@ from lyikpluginmanager import (
     ContextModel,
     GenericFormRecordModel,
 )
+from lyikpluginmanager.annotation import RequiredVars
 import logging
 
 logger = logging.getLogger(__name__)
@@ -61,6 +62,7 @@ class Schengen_Preactions(PreActionProcessorSpec):
         ],
     ) -> Annotated[
         GenericFormRecordModel,
+        RequiredVars(["DB_CONN_URL"]),
         Doc("The updated form record data."),
     ]:
         """
