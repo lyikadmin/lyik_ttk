@@ -4,6 +4,6 @@ parent_maker,,101,PARENT;MKR
 checker,,100,PARENT;CKR
 client,,100,CLI
 admin,,10000,CREATOR;ADMIN
-spoc,,100,SPOC
-corporate_client,,100,CORP_CLI
-sme,,100,SME
+spoc,,100,SPOC;END_USER
+corporate_client,,100,CORP_CLI;END_USER
+sme,,100,SME;END_USER
