@@ -179,7 +179,7 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
                     "Pune": "18-Oct-2025",
                 }
 
-                business_days = 10
+                business_days = "10"
 
             if city_dropdown_values:
                 form.scratch_pad.appointment_city_dropdown_values = json.dumps(
