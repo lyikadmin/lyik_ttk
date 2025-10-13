@@ -6,6 +6,7 @@ from lyikpluginmanager import (
     PreActionProcessorSpec,
     ContextModel,
     GenericFormRecordModel,
+    PluginException
 )
 from lyikpluginmanager.annotation import RequiredVars
 import logging
@@ -91,7 +92,7 @@ class Schengen_Preactions(PreActionProcessorSpec):
             NormalizeCountryCodes,
             InvokeAppointmentAPI,
             NormalizeFields,
-            AppendMakerId,
+            # AppendMakerId,
             CopyPassportAddress,
             PreactionSavePrimaryTraveller,
             PreactionSaveCoTravellers
@@ -106,6 +107,9 @@ class Schengen_Preactions(PreActionProcessorSpec):
                     new_state=new_state,
                     payload=payload,
                 )
+        except PluginException as pe:
+            logger.warning("Preaction hard-stop: %s", str(pe))
+            raise  # bubble up explicit plugin exception
         except Exception as e:
             logger.error(f"Error processing payload: {e}")
             return payload_original  # Return original payload on error to prevent data loss.
