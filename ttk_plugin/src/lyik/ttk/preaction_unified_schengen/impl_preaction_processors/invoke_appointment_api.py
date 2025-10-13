@@ -47,6 +47,7 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
         RequiredEnv(["TTK_API_BASE_URL", "TTK_APPOINTMENT_API_ROUTE"]),
         Doc("possibly modified record"),
     ]:
+        RUN_API = False
         try:
             if not context:
                 logger.error("Context is missing. Skipping preaction.")
@@ -122,28 +123,63 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
                 "Authorization": f"Bearer {ttk_token}",
             }
 
-            async with httpx.AsyncClient() as client:
-                response = await client.post(url, json=body, headers=headers)
+            if RUN_API:
+                async with httpx.AsyncClient() as client:
+                    response = await client.post(url, json=body, headers=headers)
+                response.raise_for_status()
+                data = response.json()
 
-            response.raise_for_status()
-            data = response.json()
+                if data.get("status") != "success":
+                    logger.error(f"Appointment API returned failure: {data}")
+                    return payload
 
-            if data.get("status") != "success":
-                logger.error(f"Appointment API returned failure: {data}")
-                return payload
+                return_data = data.get("returnData", [])
 
-            return_data = data.get("returnData", [])
+                if not return_data:
+                    logger.warning("Appointment API returned no appointment data.")
+                    return payload
 
-            if not return_data:
-                logger.warning("Appointment API returned no appointment data.")
-                return payload
+                city_dropdown_values = {item["city"]: item["city"] for item in return_data}
+                city_dates = {
+                    item["city"]: format_date_to_string(date_str=item["appointmentDate"])
+                    for item in return_data
+                }
+                business_days = return_data[0].get("businessDays")
+            else:
+                # Hardcoded Values for testing:
+                city_dropdown_values = {
+                    "Ahmedabad": "Ahmedabad",
+                    "Bengaluru": "Bengaluru",
+                    "Chandigarh": "Chandigarh",
+                    "Chennai": "Chennai",
+                    "Cochin": "Cochin",
+                    "Hyderabad": "Hyderabad",
+                    "Jaipur": "Jaipur",
+                    "Jalandhar": "Jalandhar",
+                    "Kolkata": "Kolkata",
+                    "Lucknow": "Lucknow",
+                    "Mumbai": "Mumbai",
+                    "Delhi": "Delhi",
+                    "Pune": "Pune",
+                }
 
-            city_dropdown_values = {item["city"]: item["city"] for item in return_data}
-            city_dates = {
-                item["city"]: format_date_to_string(date_str=item["appointmentDate"])
-                for item in return_data
-            }
-            business_days = return_data[0].get("businessDays")
+                city_dates = {
+                    "Ahmedabad": "18-Oct-2025",
+                    "Bengaluru": "18-Oct-2025",
+                    "Chandigarh": "18-Oct-2025",
+                    "Chennai": "18-Oct-2025",
+                    "Cochin": "18-Oct-2025",
+                    "Hyderabad": "18-Oct-2025",
+                    "Jaipur": "18-Oct-2025",
+                    "Jalandhar": "18-Oct-2025",
+                    "Kolkata": "18-Oct-2025",
+                    "Lucknow": "18-Oct-2025",
+                    "Mumbai": "18-Oct-2025",
+                    "Delhi": "18-Oct-2025",
+                    "Pune": "18-Oct-2025",
+                }
+
+                business_days = 10
 
             if city_dropdown_values:
                 form.scratch_pad.appointment_city_dropdown_values = json.dumps(

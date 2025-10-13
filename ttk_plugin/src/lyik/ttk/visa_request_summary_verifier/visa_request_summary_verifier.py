@@ -12,11 +12,14 @@ from typing import Annotated
 from typing_extensions import Doc
 from lyik.ttk.models.forms.schengentouristvisa import RootVisaRequestInformation
 import logging
-from datetime import datetime
+from datetime import date, timedelta
 from lyik.ttk.utils.verifier_util import (
     check_if_verified,
     validate_phone,
     validate_email,
+)
+from lyik.ttk.models.forms.schengentouristvisa import (
+    Schengentouristvisa,
 )
 from lyik.ttk.utils.message import get_error_message
 
@@ -53,6 +56,27 @@ class VisaRequestVerifier(VerifyHandlerSpec):
                 detailed_message="The context is missing or config is missing in context.",
             )
 
+        full_form_record = Schengentouristvisa.model_validate(context.record)
+
+        business_days = int(full_form_record.scratch_pad.business_days)
+        if not business_days:
+            business_days = 10
+
+        today = date.today()
+        earliest_departure_date = business_days_from(
+            start=today, business_days=business_days
+        )
+
+        if earliest_departure_date > payload.visa_request.departure_date:
+            return VerifyHandlerResponseModel(
+                actor=ACTOR,
+                message=get_error_message(
+                    "LYIK_ERR_EARLY_ARRIVAL_DEPARTURE_DATES",
+                    str(earliest_departure_date),
+                ),
+                status=VERIFY_RESPONSE_STATUS.FAILURE,
+            )
+
         default_country_code = context.config.DEFAULT_COUNTRY_CODE
 
         if not default_country_code:
@@ -63,7 +87,7 @@ class VisaRequestVerifier(VerifyHandlerSpec):
                 detailed_message="The DEFAULT_COUNTRY_CODE is missing in config.",
             )
         message = ""
-        
+
         if not (
             payload.visa_request.departure_date and payload.visa_request.arrival_date
         ):
@@ -135,3 +159,17 @@ class VisaRequestVerifier(VerifyHandlerSpec):
                 message=get_error_message(error_message_code="LYIK_ERR_SAVE_FAILURE"),
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
             )
+
+
+def business_days_from(start: date, business_days: int) -> date:
+    """
+    Return the date that is `business_days` business days after `start`
+    (Mon–Fri only; weekends skipped). `start` itself is not counted.
+    """
+    d = start
+    added = 0
+    while added < business_days:
+        d += timedelta(days=1)
+        if d.weekday() < 5:  # 0=Mon ... 4=Fri
+            added += 1
+    return d
