@@ -606,9 +606,7 @@ class VISATYPE(str, Enum):
 
 
 class RootAccomodationAccommodationChoice(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     accommodation_option: Optional[ACCOMMODATIONARRANGEMENT] = Field(
         "BOOKED",
         description="Select Option",
@@ -617,9 +615,7 @@ class RootAccomodationAccommodationChoice(BaseModel):
 
 
 class RootAccomodationAddOnService(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_add_on: Optional[str] = Field(
         None,
         description='<!-- <div style="\n  display: flex;\n  align-items: left;\n  justify-content: left;\n  text-align: left;\n  margin-left: 15px;\n">\nTo know the cost, please refer to the <strong>&nbsp;Add-On Cart Section</strong>.\n</div> -->\n<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Centered Paragraph</title>\n  <style>\n    .message-box {\n      font-family: \'Inter\', sans-serif;\n      font-weight: 425;\n      font-size: 16px;\n      text-align: left;\n      \n    }\n  </style>\n</head>\n<body>\n    <div class="message-box">\n      <span>\n        <span style="font-weight: 600;"><b>Dummy Accommodation Assistance</b></span> <br>\n        Need help booking your dummy accommodation?  Visit the <b>Add-On Services</b> Cart to avail this service for a small fee.\n      </span>\n    </div>\n</body>\n</html>',
@@ -628,9 +624,7 @@ class RootAccomodationAddOnService(BaseModel):
 
 
 class RootAccomodationBookedAppointment(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     booking_upload: Optional[Union[str, Dict[str, Any]]] = Field(
         None, description="Upload a Image/PDF", title="Accommodation Booking"
     )
@@ -678,9 +672,7 @@ class RootAccomodationBookedAppointment(BaseModel):
 
 
 class RootAccomodationInvitationDetails(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_accomodation: Optional[str] = Field(
         None,
         description='<div style="\ndisplay: flex;\njustify-content: center;\nalign-items: center;">\n\n<div style="\n  text-align: center;\n  /* width: 1060px; */\n  font-family: \'Inter\', sans-serif;\n  font-weight: 500;\n  font-size: 16px;\n  line-height: 32px;\n  color: #000000;\n  text-align: center;\n">\n        Please provide the details of the family member or friend who has invited you to stay.\n    </div>\n  </div>\n',
@@ -719,9 +711,7 @@ class RootAccomodationInvitationDetails(BaseModel):
 
 
 class RootAdditionalDetailsAppDetails(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     first_name: Optional[str] = Field(
         None, description="Enter First Name", title="First Name"
     )
@@ -749,9 +739,7 @@ class RootAdditionalDetailsAppDetails(BaseModel):
 
 
 class RootAdditionalDetailsFamilyEu(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     given_name: Optional[str] = Field(
         None, description="Enter Given Name", title="First Name of the Family Member"
     )
@@ -775,9 +763,7 @@ class RootAdditionalDetailsFamilyEu(BaseModel):
 
 
 class RootAdditionalDetailsMeansOfSupportMyself(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_sponsorship_support: Optional[str] = Field(
         None,
         description='<div\n  style="\n    display: flex;\n    align-items: left;\n    justify-content: left;\n    font-weight: 500;\n    margin-right: 3px;\n    padding-top: 10px;\n  "\n>\n  Please select the Means of Support for covering your own costs.You can select\n  more than one.\n  <span style="color: red">*</span>\n</div>\n',
@@ -809,9 +795,7 @@ class RootAdditionalDetailsMeansOfSupportMyself(BaseModel):
 
 
 class RootAdditionalDetailsMeansOfSupportSponser(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_sponsorship_coverage: Optional[str] = Field(
         None,
         description='<div\n  style="\n    display: flex;\n    align-items: left;\n    justify-content: left;\n    font-weight: 500;\n    margin-right: 3px;\n  "\n>\n  Please enter the Means of Support for the sponsor(s). You can select more than\n  one.\n  <span style="color: red">*</span>\n</div>\n',
@@ -840,9 +824,7 @@ class RootAdditionalDetailsMeansOfSupportSponser(BaseModel):
 
 
 class RootAdditionalDetailsNationalId(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     aadhaar_upload_front: Optional[Union[str, Dict[str, Any]]] = Field(
         None, description="Upload a Image/PDF", title="Front Image Of Aadhaar Card"
     )
@@ -855,9 +837,7 @@ class RootAdditionalDetailsNationalId(BaseModel):
 
 
 class RootAdditionalDetailsOtherSchengenCountries(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     schengen_country_arrival: Optional[COUNTRY] = Field(
         None, description="Select Option", title="Schengen Country of Arrival"
     )
@@ -870,9 +850,7 @@ class RootAdditionalDetailsOtherSchengenCountries(BaseModel):
 
 
 class RootAdditionalDetailsTravelInfo(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     country_of_travel: Optional[COUNTRY3] = Field(
         None, description="Select Option", title="Country of Travel"
     )
@@ -895,9 +873,7 @@ class RootAdditionalDetailsTravelInfo(BaseModel):
 class RootAdditionalDocumentsTempAdditionalDocumentsGroupAdditionaldocumentgroupAdditionalDocumentsCardTemp(
     BaseModel
 ):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_card: Optional[str] = Field(
         None,
         description='<div style="\ndisplay: flex;\njustify-content: center;\nalign-items: center;">\n\n<div style="\n  text-align: center;\n  /* width: 1060px; */\n  font-family: \'Inter\', sans-serif;\n  font-weight: 500;\n  font-size: 16px;\n  line-height: 32px;\n  color: #000000;\n  text-align: center;\n">\nUpload any additional documents required for your application in this section.\n</div>\n\n</div> ',
@@ -915,9 +891,7 @@ class RootAdditionalDocumentsTempAdditionalDocumentsGroupAdditionaldocumentgroup
 
 
 class RootAppointmentAppointmentScheduled(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     scheduled_location: Optional[str] = Field(
         None,
         description="Enter Scheduled Location (City)",
@@ -938,9 +912,7 @@ class RootAppointmentAppointmentScheduled(BaseModel):
 
 
 class RootAppointmentEarliestAppointmentDate(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     location_city: Optional[str] = Field(
         None, description="Enter Location (City)", title="Location (City)"
     )
@@ -950,9 +922,7 @@ class RootAppointmentEarliestAppointmentDate(BaseModel):
 
 
 class RootBankStatementUpload(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_bank_statements_instructions: Optional[str] = Field(
         None,
         description='<!-- <div style="\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  text-align: center;\n  width: 100%;\n  padding: 16px;\n  font-size: 14px;\n  font-weight: 400;\n  color: #000;\n  line-height: 1.5;\n">\n  <p style="margin: 0;">\n    If you’d like us to review your Salary Slips to make sure it meets the guidelines, please upload it here.\n    If your current employment is under 3 months, submit the payslip from your previous employer\n  </p>\n</div> -->\n<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Centered Paragraph</title>\n  <style>\n    .center-wrapper {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n\n    .message-box {\n      /* width: 1060px; */\n      font-family: \'Inter\', sans-serif;\n      font-weight: 500;\n      font-size: 16px;\n      line-height: 32px;\n      color: #000000;\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <div class="center-wrapper">\n    <div class="message-box">\n        If you’d like us to <strong> review </strong> your Bank Statements to make sure it meets the guidelines, please upload it here.\n    </div>\n  </div>\n</body>\n</html>',
@@ -964,9 +934,7 @@ class RootBankStatementUpload(BaseModel):
 
 
 class RootCompanyBankStatementStatementsCard(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_field: Optional[str] = Field(
         None, description="Please upload the Proof below.", title="Display Field"
     )
@@ -976,9 +944,7 @@ class RootCompanyBankStatementStatementsCard(BaseModel):
 
 
 class RootCompanyDocsIncorporationDocs(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_field: Optional[str] = Field(
         None,
         description="If you'd like us to review your Company Incorporation and other documents, then please upload it here.",
@@ -990,9 +956,7 @@ class RootCompanyDocsIncorporationDocs(BaseModel):
 
 
 class RootCompanyItrItrDoc(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_field_1: Optional[str] = Field(
         None,
         description="If you'd like us to review your Company Bank Statements, then please upload it here.",
@@ -1006,9 +970,7 @@ class RootCompanyItrItrDoc(BaseModel):
 class RootConsultantInfoAdditionalDocumentsAdditionaldocumentgroupAdditionalDocumentsCard(
     BaseModel
 ):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_card_9: Optional[str] = Field(
         None,
         description='<div style="\ndisplay: flex;\njustify-content: center;\nalign-items: center;">\n\n<div style="\n  text-align: center;\n  /* width: 1060px; */\n  font-family: \'Inter\', sans-serif;\n  font-weight: 500;\n  font-size: 16px;\n  line-height: 32px;\n  color: #000000;\n  text-align: center;\n">\nUpload any additional documents required for your application in this section.\n</div>\n\n</div> ',
@@ -1026,9 +988,7 @@ class RootConsultantInfoAdditionalDocumentsAdditionaldocumentgroupAdditionalDocu
 
 
 class RootConsultantInfoInstructionLetter(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_card_3: Optional[str] = Field(
         None,
         description='<div style="\ndisplay: flex;\njustify-content: center;\nalign-items: center;">\n\n<div style="\n  text-align: center;\n  /* width: 1060px; */\n  font-family: \'Inter\', sans-serif;\n  font-weight: 500;\n  font-size: 16px;\n  line-height: 32px;\n  color: #000000;\n  text-align: center;\n">\nUpload the Instruction Sheet prepared for the Traveller.\n</div>\n\n</div> ',
@@ -1040,9 +1000,7 @@ class RootConsultantInfoInstructionLetter(BaseModel):
 
 
 class RootCoverLetterInfoCoveringLetterCard(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_field: Optional[str] = Field(
         None,
         description="Please upload the Signed and Sealed Covering Letter.",
@@ -1054,18 +1012,14 @@ class RootCoverLetterInfoCoveringLetterCard(BaseModel):
 
 
 class RootDocketInfoOperationCard(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     operation_type: Optional[str] = Field(
         None, description="Select Operation type", title="Select Operation"
     )
 
 
 class RootInvitationInvitationLetterUpload(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_field_3: Optional[str] = Field(
         None, description="Please upload the Invitation Letter", title="Display Field"
     )
@@ -1075,9 +1029,7 @@ class RootInvitationInvitationLetterUpload(BaseModel):
 
 
 class RootItineraryAccomodationItineraryCard(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_itinerary_card_instructions: Optional[str] = Field(
         None,
         description='<div style="\ndisplay: flex;\njustify-content: center;\nalign-items: center;">\n\n<div style="\n  text-align: center;\n  /* width: 1060px; */\n  font-family: \'Inter\', sans-serif;\n  font-weight: 500;\n  font-size: 16px;\n  line-height: 32px;\n  color: #000000;\n  text-align: center;\n">\n        If you’d like us to <strong> review </strong> your Itinerary to make sure it meets the guidelines, <br>\n        please upload it here. Make sure it includes all Schengen countries you\'re visiting.\n    </div>\n  </div>',
@@ -1089,9 +1041,7 @@ class RootItineraryAccomodationItineraryCard(BaseModel):
 
 
 class RootItrAcknowledgementUpload(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_itr_acknowledgement_instructions: Optional[str] = Field(
         None,
         description='<div style="\ndisplay: flex;\njustify-content: center;\nalign-items: center;">\n\n<div style="\n  text-align: center;\n  /* width: 1060px; */\n  font-family: \'Inter\', sans-serif;\n  font-weight: 500;\n  font-size: 16px;\n  line-height: 32px;\n  color: #000000;\n  text-align: center;\n">\nIf you’d like us to <strong> review </strong> your ITR Acknowledgement Document to make sure it meets the guidelines, please upload it here.\n</div>\n</div>',
@@ -1103,9 +1053,7 @@ class RootItrAcknowledgementUpload(BaseModel):
 
 
 class RootLetsGetStarted(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     traveler_details_header: Optional[str] = Field(None, title="")
     instruction_display: Optional[str] = Field(
         None,
@@ -1124,9 +1072,7 @@ class RootLetsGetStarted(BaseModel):
 
 
 class RootPassportOtherDetails(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     civil_status: Optional[CIVILMARITALSTATUS] = Field(
         None, description="Select Option", title="Civil/Marital Status"
     )
@@ -1147,9 +1093,7 @@ class RootPassportOtherDetails(BaseModel):
 
 
 class RootPassportParentalGuardianDetails(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     first_name: Optional[str] = Field(
         None, description="Enter First Name", title="First Name of Parent/Guardian"
     )
@@ -1175,9 +1119,7 @@ class RootPassportParentalGuardianDetails(BaseModel):
 
 
 class RootPassportPassportDetails(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     type_of_passport: Optional[PASSPORTTYPE] = Field(
         None, description="Select Option", title="Type of Passport"
     )
@@ -1285,9 +1227,7 @@ class RootPassportPassportDetails(BaseModel):
 
 
 class RootPhotographAddOnServicePhoto(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_add_on_service: Optional[str] = Field(
         None,
         description='<!-- <div style="\n  display: flex;\n  align-items: left;\n  justify-content: left;\n  text-align: left;\n  margin-left: 15px;\n">\n  To know the cost, please refer the <strong>&nbsp;Add-On Cart Section</strong>.\n</div> -->\n<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Centered Paragraph</title>\n  <style>\n    .message-box {\n      font-family: \'Inter\', sans-serif;\n      font-weight: 425;\n      font-size: 16px;\n      text-align: left;\n    }\n  </style>\n</head>\n<body>\n    <div class="message-box">\n      <span>\n        <span style="font-weight: 600;"><b>Visa Photo Printing Assistance</b></span> <br>\n        Need help printing your photograph for visa filing? Visit the <b>Add-On Services</b> Cart to avail this service for a small fee.\n      </span>\n    </div>\n</body>\n</html>',
@@ -1296,9 +1236,7 @@ class RootPhotographAddOnServicePhoto(BaseModel):
 
 
 class RootPhotographPassportPhoto(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     upload_photo_display: Optional[str] = Field(
         None,
         description='<!-- <div style="\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  text-align: center;\n">\n  If you’d like us to review your photo to make sure your photo meets the guidelines, \n  please upload it here.\n</div> -->\n<div style="\ndisplay: flex;\njustify-content: center;\nalign-items: center;">\n\n<div style="\n  text-align: center;\n  /* width: 1060px; */\n  font-family: \'Inter\', sans-serif;\n  font-weight: 500;\n  font-size: 16px;\n  line-height: 32px;\n  color: #000000;\n  text-align: center;\n">\nIf you’d like us to <strong>review</strong> your photo to make sure your photo meets the guidelines, <br>\nplease upload it here.\n</div>\n</div>',
@@ -1310,9 +1248,7 @@ class RootPhotographPassportPhoto(BaseModel):
 
 
 class RootPreviousVisasFingerprintDetails(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     previous_visa_file: Optional[Union[str, Dict[str, Any]]] = Field(
         None, description="Upload a Image/PDF", title="Previous Visa Copy"
     )
@@ -1327,9 +1263,7 @@ class RootPreviousVisasFingerprintDetails(BaseModel):
 
 
 class RootPreviousVisasPreviousVisasDetails(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     previous_visa_copy: Optional[Union[str, Dict[str, Any]]] = Field(
         None, description="Upload a Image/PDF", title="Previous Visa Copy"
     )
@@ -1378,9 +1312,7 @@ class RootPreviousVisasPreviousVisasDetails(BaseModel):
 
 
 class RootResidentialAddressResidentInOtherCountry(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     address_proof: Optional[Union[str, Dict[str, Any]]] = Field(
         None, description="Upload a PDF", title="Upload Address Proof"
     )
@@ -1395,9 +1327,7 @@ class RootResidentialAddressResidentInOtherCountry(BaseModel):
 
 
 class RootResidentialAddressResidentialAddressCardV1(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     type_of_proof: Optional[ADDRESSPROOFTYPE] = Field(
         None, description="Select Option", title="Type of Proof"
     )
@@ -1419,9 +1349,7 @@ class RootResidentialAddressResidentialAddressCardV1(BaseModel):
 
 
 class RootResidentialAddressResidentialAddressCardV2(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     address_line_1: Optional[str] = Field(
         None, description="Enter Address Line 1", title="Address Line 1"
     )
@@ -1437,9 +1365,7 @@ class RootResidentialAddressResidentialAddressCardV2(BaseModel):
 
 
 class RootSalarySlipUpload(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_salary_slips_instructions: Optional[str] = Field(
         None,
         description='<!-- <div style="\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  text-align: center;\n  width: 100%;\n  padding: 16px;\n  font-size: 14px;\n  font-weight: 400;\n  color: #000;\n  line-height: 1.5;\n">\n  <p style="margin: 0;">\n    If you’d like us to review your Salary Slips to make sure it meets the guidelines, please upload it here.\n    If your current employment is under 3 months, submit the payslip from your previous employer\n  </p>\n</div> -->\n<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Centered Paragraph</title>\n  <style>\n    .center-wrapper {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n\n    .message-box {\n      /* width: 1060px; */\n      font-family: \'Inter\', sans-serif;\n      font-weight: 500;\n      font-size: 16px;\n      line-height: 32px;\n      color: #000000;\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <div class="center-wrapper">\n    <div class="message-box">\n        If you’d like us to <strong> review </strong> your Salary Slips to make sure it meets the guidelines, please upload it here.\n    If your current employment is under 3 months, submit the payslip from your previous employer\n    </div>\n  </div>\n</body>\n</html>',
@@ -1451,9 +1377,7 @@ class RootSalarySlipUpload(BaseModel):
 
 
 class RootScratchPad(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     form_title: Optional[str] = Field(None, title="")
     form_sub_title: Optional[str] = Field(None, title="")
     form_indicator: Optional[str] = Field("SCHENGEN", title="")
@@ -1466,9 +1390,7 @@ class RootScratchPad(BaseModel):
 
 
 class RootSharedTravellInfoShared(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     itinerary_same: Optional[SAMEITINERARYASPRIMARY] = Field(
         None, description="Select Option", title=""
     )
@@ -1481,9 +1403,7 @@ class RootSharedTravellInfoShared(BaseModel):
 
 
 class RootSubmitInfoConfirm(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     viewed_data: Optional[CONFIRMVIEWEDDATA] = Field(
         None, description="Select Option", title=""
     )
@@ -1502,9 +1422,7 @@ class RootSubmitInfoConfirm(BaseModel):
 
 
 class RootSubmitInfoDocket(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     note: Optional[str] = Field(
         None,
         description='<div style="\ndisplay: flex;\njustify-content: center;\nalign-items: center;">\n\n<div style="\n  text-align: center;\n  /* width: 1060px; */\n  font-family: \'Inter\', sans-serif;\n  font-weight: 500;\n  font-size: 16px;\n  line-height: 32px;\n  color: #000000;\n  text-align: center;\n">\nNote : Enable the Docket for the Traveller only when all required documents are ready.\n</div>\n\n</div> ',
@@ -1516,9 +1434,7 @@ class RootSubmitInfoDocket(BaseModel):
 
 
 class RootTicketingAddOnService(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_add_on: Optional[str] = Field(
         None,
         description='<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Centered Paragraph</title>\n  <style>\n    .message-box {\n      font-family: \'Inter\', sans-serif;\n      font-weight: 425;\n      font-size: 16px;\n      text-align: left;\n      \n    }\n  </style>\n</head>\n<body>\n    <div class="message-box">\n      <span>\n\n        <span style="font-weight: 600;"><b>Dummy Flight Ticket Assistance</b></span> <br>\n        Need help booking a dummy flight ticket? Visit the <b>Add-On Services</b> Cart to avail this service for a small fee.\n      </span>\n    </div>\n</body>\n</html>',
@@ -1527,9 +1443,7 @@ class RootTicketingAddOnService(BaseModel):
 
 
 class RootTicketingFlightTickets(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_flight_tickets_instructions: Optional[str] = Field(
         None,
         description='\n<div style="\ndisplay: flex;\njustify-content: center;\nalign-items: center;">\n\n<div style="\n  text-align: center;\n  /* width: 1060px; */\n  font-family: \'Inter\', sans-serif;\n  font-weight: 500;\n  font-size: 16px;\n  line-height: 32px;\n  color: #000000;\n  text-align: center;\n">\n        If you’d like us to <strong>review</strong> your flight tickets to make sure it meets the guidelines, <br>\n        please upload it here. Make sure it includes all Schengen countries you\'re visiting.\n    </div>\n  </div>\n',
@@ -1563,9 +1477,7 @@ class RootTicketingFlightTickets(BaseModel):
 
 
 class RootTravelInsuranceAddOnCard(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     instruction_display: Optional[str] = Field(
         None,
         description='<div style="\ndisplay: flex;\njustify-content: center;\nalign-items: center;">\n\n<div style="\n  text-align: center;\n  /* width: 1060px; */\n  font-family: \'Inter\', sans-serif;\n  font-weight: 500;\n  font-size: 16px;\n  line-height: 32px;\n  color: #000000;\n  text-align: center;\n">\n        To help us buy the insurance for you, kindly enter the details below.\n    </div>\n  </div>\n       \n',
@@ -1593,9 +1505,7 @@ class RootTravelInsuranceAddOnCard(BaseModel):
 
 
 class RootTravelInsuranceAddOnService(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_add_on: Optional[str] = Field(
         None,
         description='<!-- <div style="\n  display: flex;\n  align-items: left;\n  justify-content: left;\n  text-align: left;\n  margin-left: 15px;\n">\nTo know the cost, please refer to the <strong>&nbsp;Add-On Cart Section</strong>.\n</div> -->\n<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Centered Paragraph</title>\n  <style>\n    .message-box {\n      font-family: \'Inter\', sans-serif;\n      font-weight: 425;\n      font-size: 16px;\n      text-align: left;\n      \n    }\n  </style>\n</head>\n<body>\n    <div class="message-box">\n      <span>\n\n        <span style="font-weight: 600;"><b>Travel Insurance Assistance</b></span> <br>\n        Looking for travel insurance?  Visit the <b>Add-On Services</b> Cart to avail this service for a small fee.\n      </span>\n    </div>\n</body>\n</html>',
@@ -1604,9 +1514,7 @@ class RootTravelInsuranceAddOnService(BaseModel):
 
 
 class RootTravelInsuranceFlightReservationDetails(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_flight_reservation_details: Optional[str] = Field(
         None,
         description='<div style="\ndisplay: flex;\njustify-content: center;\nalign-items: center;">\n\n<div style="\n  text-align: center;\n  /* width: 1060px; */\n  font-family: \'Inter\', sans-serif;\n  font-weight: 500;\n  font-size: 16px;\n  line-height: 32px;\n  color: #000000;\n  text-align: center;\n">\nIf you’d like us to <strong> review </strong> your Travel Insurance to make sure it meets the guidelines, <br>\nplease upload it here. Make sure it includes all Schengen countries you\'re visiting.\n</div>\n</div>',
@@ -1682,9 +1590,7 @@ class RootTravelInsuranceFlightReservationDetails(BaseModel):
 
 
 class RootVisaRequestInformationVisaRequest(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     phone_number: Optional[str] = Field(
         None, description="Enter Phone Number", title="Phone Number"
     )
@@ -1743,9 +1649,7 @@ class RootVisaRequestInformationVisaRequest(BaseModel):
 
 
 class RootWorkAddressEducationDetails(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     establishment_name: Optional[str] = Field(
         None,
         description="Enter Name of Establishment",
@@ -1765,9 +1669,7 @@ class RootWorkAddressEducationDetails(BaseModel):
 
 
 class RootWorkAddressWorkDetails(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     employer_name: Optional[str] = Field(
         None, description="Enter Name of the Employer", title="Name of the Employer"
     )
@@ -1788,9 +1690,7 @@ class RootWorkAddressWorkDetails(BaseModel):
 
 
 class RootAccomodation(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_accommodation_header: Optional[str] = Field(
         None,
         description='\n<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Center Content</title>\n  <style>\n    .center-wrapper {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n\n    .message-box {\n      /* width: 1060px; */\n      font-family: \'Inter\', sans-serif;\n      font-weight: 500;\n      font-size: 16px;\n      line-height: 32px;\n      color: #000000;\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <div class="center-wrapper">\n    <div class="message-box" style="text-align: center;">\n      Please upload your accommodation details for the Schengen country you are visiting.\n      If your trip includes multiple Schengen countries, ensure to upload proof of accommodation for all of them.\n      For detailed guidelines on this,click on the <strong>Instructions</strong> in the top-right corner of this section.\n    </div>\n  </div>\n</body>\n</html>',
@@ -1815,9 +1715,7 @@ class RootAccomodation(BaseModel):
 
 
 class RootAdditionalDetails(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     national_id: Optional[RootAdditionalDetailsNationalId] = Field(
         None, title="National Identification Number"
     )
@@ -1889,18 +1787,14 @@ class RootAdditionalDetails(BaseModel):
 class RootAdditionalDocumentsTempAdditionalDocumentsGroupAdditionaldocumentgroup(
     BaseModel
 ):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     additional_documents_card_temp: Optional[
         RootAdditionalDocumentsTempAdditionalDocumentsGroupAdditionaldocumentgroupAdditionalDocumentsCardTemp
     ] = Field(None, title="Additional Document")
 
 
 class RootAppointment(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     earliest_appointment_date: Optional[RootAppointmentEarliestAppointmentDate] = Field(
         None, title="Find your Earliest Appointment Date"
     )
@@ -1922,9 +1816,7 @@ class RootAppointment(BaseModel):
 
 
 class RootBankStatement(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_bank_statements_header: Optional[str] = Field(
         None,
         description='<!-- <p style="font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;">\nThe visa application requires you to carry your original Bank Statements covering the last 12 months with your Bank’s seal & signature. For detailed guideline, click on\n<span style="font-weight: 700; font-size: 1em;">\n    Instructions\n</span>\nin the top-right corner of this section.\n</p> -->\n<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Centered Bank Statement Text</title>\n  <style>\n    .center-wrapper {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n\n    .message-box {\n      /* width: 1060px; */\n      font-family: \'Inter\', sans-serif;\n      font-weight: 500;\n      font-size: 16px;\n      line-height: 32px;\n      color: #000000;\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <div class="center-wrapper">\n    <div class="message-box">\n        The visa application requires you to carry your original Bank Statements covering the last 6 months with your Bank’s seal & signature.\n        For detailed guidelines on this, click on the\n        <span style="font-weight: 700; font-size: 1em;">\n          Instructions\n        </span>\n        in the top-right corner of this section.\n    </div>\n  </div>\n</body>\n</html>\n',
@@ -1942,9 +1834,7 @@ class RootBankStatement(BaseModel):
 
 
 class RootCompanyBankStatement(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_field_1: Optional[str] = Field(
         None,
         description="The Visa Application requires the Original Bank Statements of the Company covering the last 12 months with the Bank's Seal & Signature.",
@@ -1962,9 +1852,7 @@ class RootCompanyBankStatement(BaseModel):
 
 
 class RootCompanyDocs(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_field_1: Optional[str] = Field(
         None,
         description="The Visa Application requires a photocopy of the Company Incorporation Document / Certificate of Incorporation.",
@@ -1987,9 +1875,7 @@ class RootCompanyDocs(BaseModel):
 
 
 class RootCompanyItr(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_field: Optional[str] = Field(
         None,
         description=" The Visa Application requires the original Income Tax Returns (ITR) of the Company for the last three (3) Financial Years.",
@@ -2007,18 +1893,14 @@ class RootCompanyItr(BaseModel):
 
 
 class RootConsultantInfoAdditionalDocumentsAdditionaldocumentgroup(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     additional_documents_card: Optional[
         RootConsultantInfoAdditionalDocumentsAdditionaldocumentgroupAdditionalDocumentsCard
     ] = Field(None, title="Additional Document")
 
 
 class RootCoverLetterInfo(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_field_1: Optional[str] = Field(
         None,
         description="The Visa Application requires the original Company Covering Letter.",
@@ -2034,9 +1916,7 @@ class RootCoverLetterInfo(BaseModel):
 
 
 class RootDocketInfo(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_header_docket: Optional[str] = Field(
         None,
         description='<!-- <p style="font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;">\nThe visa application requires you to carry your Original Salary Slips with your company’s seal and signature. \nFor detailed guideline on this, click on\n<span style="font-weight: 700; font-size: 1em;">\n    Instructions\n</span>\nin the top-right corner of this section.\n</p> -->\n\n<!DOCTYPE html>\n<html lang="en">\n  <head>\n    <meta charset="UTF-8" />\n    <title>Centered Paragraph</title>\n    <style>\n      .center-wrapper {\n        display: flex;\n        justify-content: center;\n        align-items: center;\n      }\n\n      .message-box {\n        /* width: 1060px; */\n        font-family: "Inter", sans-serif;\n        font-weight: 500;\n        font-size: 16px;\n        line-height: 32px;\n        color: #000000;\n        text-align: center;\n      }\n    </style>\n  </head>\n  <body>\n    <div class="center-wrapper">\n      <div class="message-box">\n        <p>Your Application Package (Docket), including the <b>Completed Application</b> and supporting documents (originals or copies), will be ready to download once our Visa Consultant has reviewed and validated everything. \n        If anything is missing, the Consultant will guide you.</p>\n        You\'ll receive a notification as soon as your package is ready.\n      </div>\n    </div>\n  </body>\n</html>\n',
@@ -2051,9 +1931,7 @@ class RootDocketInfo(BaseModel):
 
 
 class RootInvitation(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_field: Optional[str] = Field(
         None,
         description="The Visa Application requires an Invitation Letter from the Host Country (Inviting Company).",
@@ -2071,9 +1949,7 @@ class RootInvitation(BaseModel):
 
 
 class RootItineraryAccomodation(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_itinerary_header: Optional[str] = Field(
         None,
         description='<!-- <p style="font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;">\nThe visa application requires you to carry an itinerary for the Schengen country you are visiting.\nFor detailed guidelines on this,\n<span style="font-weight: 700; font-size: 1em;">\n    Instructions\n</span>\nin the top-right corner of this section.\n</p> -->\n\n<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Centered Paragraph</title>\n  <style>\n    .center-wrapper {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n\n    .message-box {\n      /* width: 1060px; */\n      font-family: \'Inter\', sans-serif;\n      font-weight: 500;\n      font-size: 16px;\n      line-height: 32px;\n      color: #000000;\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n\n    <div class="center-wrapper">\n        <div class="message-box" style="text-align: center;">\n                The visa application requires you to carry an itinerary for the Schengen country you are visiting. \n                For detailed guidelines on this, click on the\n                <span style="font-weight: 700; font-size: 1em;">\n                    Instructions\n                </span>\n                in the top-right corner of this section.\n        </div>\n    </div>\n</body>\n</html>\n    ',
@@ -2089,9 +1965,7 @@ class RootItineraryAccomodation(BaseModel):
 
 
 class RootItrAcknowledgement(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_itr_acknowledgements_header: Optional[str] = Field(
         None,
         description='<!-- <p style="font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;">\nThe visa application requires you to carry the original ITR Documents covering the last 12 months. \nFor detailed guidelines on this, click on\n<span style="font-weight: 700; font-size: 1em;">\n    Instructions\n</span>\nin the top-right corner of this section.\n</p> -->\n<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Centered Paragraph</title>\n  <style>\n    .center-wrapper {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n\n    .message-box {\n      /* width: 1060px; */\n      font-family: \'Inter\', sans-serif;\n      font-weight: 500;\n      font-size: 16px;\n      line-height: 32px;\n      color: #000000;\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n    <div class="center-wrapper">\n        <div class="message-box">\n                The visa application requires you to carry the original ITR Documents covering the last 12 months.\n                For detailed guidelines on this, click on the\n                <span style="font-weight: 700; font-size: 1em;">\n                    Instructions\n                </span>\n                in the top-right corner of this section.\n        </div>\n    </div>\n</body>\n</html>',
@@ -2114,9 +1988,7 @@ class RootItrAcknowledgement(BaseModel):
 
 
 class RootPassport(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_passport_header: Optional[str] = Field(
         None,
         description='\n\n<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Centered Paragraph</title>\n  <style>\n    .center-wrapper {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n\n    .message-box {\n      /* width: 1060px; */\n      font-family: \'Inter\', sans-serif;\n      font-weight: 500;\n      font-size: 16px;\n      line-height: 32px;\n      color: #000000;\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n\n  \n  <div class="center-wrapper">\n    <div class="message-box">\n\n        Please upload the images of your Passport to auto-fill the details below. For detailed guidelines on this, click on the\n        <span style="font-weight: 700; font-size: 1em;">\n          Instructions \n        </span>\n        in the top-right corner of this section.\n    </div>\n  </div>\n</body>\n</html>\n',
@@ -2137,9 +2009,7 @@ class RootPassport(BaseModel):
 
 
 class RootPhotograph(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_photograph_header: Optional[str] = Field(
         None,
         description='<!-- <p style="font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;">\n You can fill your address using your passport, or provide an alternative ID to verify your address.\nFor detailed guidelines on this\n<span style="font-weight: 700; font-size: 1em;">\n    Instructions\n</span>\nin the top-right corner of this section.\n</p> -->\n\n<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Centered Paragraph</title>\n  <style>\n    .center-wrapper {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n\n    .message-box {\n      /* width: 1060px; */\n      font-family: \'Inter\', sans-serif;\n      font-weight: 500;\n      font-size: 16px;\n      line-height: 32px;\n      color: #000000;\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n\n  <div class="center-wrapper">\n    <div class="message-box" style="text-align: center;">\n        For your appointment, you must carry four recent colour photographs (35mm x 40mm) with a white background of yourself. For detailed guideline on this, click on the\n        <span style="font-weight: 700; font-size: 1em;">\n          Instructions \n        </span>\n        in the top-right corner of this section.\n    </div>\n  </div>\n\n</body>\n</html>\n',
@@ -2160,9 +2030,7 @@ class RootPhotograph(BaseModel):
 
 
 class RootPreviousVisas(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_previous_visas_header: Optional[str] = Field(
         None,
         description='<!-- <p style="font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;">\nIf you have been granted visas in the past, please provide the details here. <br>\nThis helps authorities assess your travel history and support your current application.\n</p> -->\n<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Centered Paragraph</title>\n  <style>\n    .center-wrapper {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n\n    .message-box {\n      /* width: 1060px; */\n      font-family: \'Inter\', sans-serif;\n      font-weight: 500;\n      font-size: 16px;\n      line-height: 32px;\n      color: #000000;\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n\n  <div class="center-wrapper">\n    <div class="message-box">\n        If you have been granted visas in the past, please provide the details here. <br>\n        This helps TTK Visas and Foreign Missions assess your travel history, supporting your current application.\n    </div>\n  </div>\n</body>\n</html>\n',
@@ -2190,9 +2058,7 @@ class RootPreviousVisas(BaseModel):
 
 
 class RootResidentialAddress(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_residential_address_header: Optional[str] = Field(
         None,
         description='<!-- <p style="font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;">\n You can fill your address using your passport, or provide an alternative ID to verify your address.\nFor detailed guidelines on this\n<span style="font-weight: 700; font-size: 1em;">\n    Instructions\n</span>\nin the top-right corner of this section.\n</p> -->\n\n<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Centered Paragraph</title>\n  <style>\n    .center-wrapper {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n\n    .message-box {\n      /* width: 1060px; */\n      font-family: \'Inter\', sans-serif;\n      font-weight: 500;\n      font-size: 16px;\n      line-height: 32px;\n      color: #000000;\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n\n  <div class="center-wrapper">\n    <div class="message-box">\n        You can fill your address using your passport, or provide an alternative ID to verify your address.\n        For detailed guidelines on this,click on the\n        <span style="font-weight: 700; font-size: 1em;">\n          Instructions\n        </span>\n        in the top-right corner of this section.\n    </div>\n  </div>\n\n</body>\n</html>\n',
@@ -2221,9 +2087,7 @@ class RootResidentialAddress(BaseModel):
 
 
 class RootSalarySlip(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_salary_slips_header: Optional[str] = Field(
         None,
         description='<!-- <p style="font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;">\nThe visa application requires you to carry your Original Salary Slips with your company’s seal and signature. \nFor detailed guideline on this, click on\n<span style="font-weight: 700; font-size: 1em;">\n    Instructions\n</span>\nin the top-right corner of this section.\n</p> -->\n\n<!DOCTYPE html>\n<html lang="en">\n  <head>\n    <meta charset="UTF-8" />\n    <title>Centered Paragraph</title>\n    <style>\n      .center-wrapper {\n        display: flex;\n        justify-content: center;\n        align-items: center;\n      }\n\n      .message-box {\n        /* width: 1060px; */\n        font-family: "Inter", sans-serif;\n        font-weight: 500;\n        font-size: 16px;\n        line-height: 32px;\n        color: #000000;\n        text-align: center;\n      }\n    </style>\n  </head>\n  <body>\n    <div class="center-wrapper">\n      <div class="message-box">\n        Visa Application requires you to carry your Salary Slip of last 6\n        months as part of the visa application filing process. For more detailed\n        information, click on the\n        <span style="font-weight: 700; font-size: 1em"> Instructions </span>\n        in the top-right corner of this section.\n      </div>\n    </div>\n  </body>\n</html>\n',
@@ -2241,9 +2105,7 @@ class RootSalarySlip(BaseModel):
 
 
 class RootSharedTravellInfo(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     instruction: Optional[str] = Field(
         None,
         description="You may have details in common with the Primary Traveller. Select the ones that apply to you below.",
@@ -2258,9 +2120,7 @@ class RootSharedTravellInfo(BaseModel):
 
 
 class RootSubmitInfo(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     docket: Optional[RootSubmitInfoDocket] = Field(None, title="Docket")
     instruction: Optional[str] = Field(
         None,
@@ -2274,9 +2134,7 @@ class RootSubmitInfo(BaseModel):
 
 
 class RootTicketing(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_ticket_header: Optional[str] = Field(
         None,
         description='<!-- <p style="font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;">\nThe visa application requires you to carry an copy of your Flight Tickets for the Schengen country you are visiting. For detailed guidelines on this,\n<span style="font-weight: 700; font-size: 1em;">\n    Instructions\n</span>\nin the top-right corner of this section.\n</p> -->\n<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Centered Paragraph</title>\n  <style>\n    .center-wrapper {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n\n    .message-box {\n      /* width: 1060px; */\n      font-family: \'Inter\', sans-serif;\n      font-weight: 500;\n      font-size: 16px;\n      line-height: 32px;\n      color: #000000;\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n\n  <div class="center-wrapper">\n    <div class="message-box" style="text-align: center;">\n        The visa application requires you to carry a copy of your Flight Tickets for the Schengen country you are visiting.\n        For detailed guidelines on this,click on the\n        <span style="font-weight: 700; font-size: 1em;">\n          Instructions\n        </span>\n        in the top-right corner of this section.\n    </div>\n  </div>\n\n</body>\n</html>\n',
@@ -2295,9 +2153,7 @@ class RootTicketing(BaseModel):
 
 
 class RootTravelInsurance(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_header_travel_insurance: Optional[str] = Field(
         None,
         description='<!-- <p style="font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;">\nThe visa application requires you to carry a copy of your Travel Insurance for the Schengen country you are visiting. For detailed guidelines on this,\n<span style="font-weight: 700; font-size: 1em;">\n    Instructions\n</span>\nin the top-right corner of this section.\n</p> -->\n\n<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Centered Paragraph</title>\n  <style>\n    .center-wrapper {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n\n    .message-box {\n      /* width: 1060px; */\n      font-family: \'Inter\', sans-serif;\n      font-weight: 500;\n      font-size: 16px;\n      line-height: 32px;\n      color: #000000;\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n\n    <div class="center-wrapper">\n        <div class="message-box" style="text-align: center;">\n                The visa application requires you to carry a copy of your Travel Insurance for the Schengen country you are visiting.\n                For detailed guidelines on this,click on the\n                <span style="font-weight: 700; font-size: 1em;">\n                    Instructions\n                </span>\n                in the top-right corner of this section.\n        </div>\n    </div>\n</body>\n</html>',
@@ -2322,9 +2178,7 @@ class RootTravelInsurance(BaseModel):
 
 
 class RootVisaRequestInformation(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     display_info_header: Optional[str] = Field(
         None,
         description='<!-- <p style="font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;">\n  Please review your\n  <span style="font-weight: bold; font-size: 1em;">\n    Visa Request\n  </span>\n  details below. If you have any questions, you can contact us.\n</p> -->\n<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Centered Paragraph</title>\n  <style>\n    .center-wrapper {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n\n    .message-box {\n      /* width: 1060px; */\n      font-family: \'Inter\', sans-serif;\n      font-weight: 500;\n      font-size: 16px;\n      line-height: 32px;\n      color: #000000;\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <div class="center-wrapper">\n    <div class="message-box">\n        Please <strong> review </strong> your Visa Request details below.\n        <!-- <span style="font-weight: bold; font-size: 1em;">\n          Visa Request\n        </span>\n        details below. If you have any questions, you can contact us. -->\n    </div>\n  </div>\n</body>\n</html>\n',
@@ -2339,9 +2193,7 @@ class RootVisaRequestInformation(BaseModel):
 
 
 class RootWorkAddress(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     current_occupation_status: Optional[CURRENTOCCUPATIONSTATUS] = Field(
         "EMPLOYEE",
         description="Select Option",
@@ -2359,27 +2211,21 @@ class RootWorkAddress(BaseModel):
 
 
 class FieldGrpRootAdditionalDocumentsTempAdditionalDocumentsGroup(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     additionaldocumentgroup: Optional[
         RootAdditionalDocumentsTempAdditionalDocumentsGroupAdditionaldocumentgroup
     ] = Field(None, title="Additional Documents")
 
 
 class FieldGrpRootConsultantInfoAdditionalDocuments(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     additionaldocumentgroup: Optional[
         RootConsultantInfoAdditionalDocumentsAdditionaldocumentgroup
     ] = Field(None, title="Additional Document")
 
 
 class RootAdditionalDocumentsTemp(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     additional_documents_group: Optional[
         List[FieldGrpRootAdditionalDocumentsTempAdditionalDocumentsGroup]
     ] = Field(None, title="Additional Document")
@@ -2389,9 +2235,7 @@ class RootAdditionalDocumentsTemp(BaseModel):
 
 
 class RootConsultantInfo(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     instruction_letter: Optional[RootConsultantInfoInstructionLetter] = Field(
         None, title="Instruction Sheet"
     )
@@ -2404,9 +2248,7 @@ class RootConsultantInfo(BaseModel):
 
 
 class Schengentouristvisa(BaseModel):
-    model_config = ConfigDict(
-        extra="allow",
-    )
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
     lets_get_started: Optional[RootLetsGetStarted] = Field(
         None, title="Let's Get Started"
     )

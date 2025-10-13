@@ -81,6 +81,10 @@ class Schengen_Preactions(PreActionProcessorSpec):
             logger.error("Could not access the form indicator, skipping schengen preactions – %s", exc)
             return payload 
         
+        payload = form
+    
+        payload_original = GenericFormRecordModel.model_validate(payload.model_dump())
+        
         processors_ordered_list = [
             ClientActionGuard,
             PctCompletion,
@@ -104,4 +108,6 @@ class Schengen_Preactions(PreActionProcessorSpec):
                 )
         except Exception as e:
             logger.error(f"Error processing payload: {e}")
-            return payload  # Important:  Return original payload on error to prevent data loss.
+            return payload_original  # Return original payload on error to prevent data loss.
+        
+        return payload
