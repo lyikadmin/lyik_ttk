@@ -72,7 +72,7 @@ class VisaRequestVerifier(VerifyHandlerSpec):
                 actor=ACTOR,
                 message=get_error_message(
                     "LYIK_ERR_EARLY_ARRIVAL_DEPARTURE_DATES",
-                    str(earliest_departure_date),
+                    [earliest_departure_date.strftime("%d-%b-%Y")],
                 ),
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
             )

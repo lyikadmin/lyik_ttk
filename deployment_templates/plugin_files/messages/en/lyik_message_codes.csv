@@ -90,6 +90,7 @@ LYIK_ERR_UNEXPECTED_ERROR_DOCKET,Unexpected error occurred while generating dock
 LYIK_ERR_MISSING_EMBASSY_FORM_DOCKET,Kindly upload the Application Form from Embassy before proceeding with Docket generation.,Docket Operation TTK
 LYIK_ERR_DID_NOT_FULLY_CONFIRM_SUBMISSION,Please confirm all items to submit.,Submit Application TTK
 LYIK_ERR_ARRIVAL_BEFORE_DEPARTURE_DATE,Date of Return cannot be before Date of Departure.,Visa Request TTK
+LYIK_ERR_EARLY_ARRIVAL_DEPARTURE_DATES,Date of Departure must be on or after %1.,Visa Request TTK
 LYIK_ERR_UNDER_REVIEW_SUBMISSION,Cannot submit application if it's under review.,Visa Request TTK
 LYIK_ERR_EMPTY_ARRIVAL_DEPARTURE_DATES,Please enter the Dates of Departure and Return.,Visa Request TTK
 LYIK_ERR_NO_SALARY_OPTION,Please either upload or opt to not provide salary slips here,Salary Slip TTK
