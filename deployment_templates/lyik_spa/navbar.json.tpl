@@ -6,7 +6,7 @@
   "buttons": [
     {
       "label": "Add-Ons",
-      "link": "https://test.com/orders/{$user.provider_info.order_id}?token={$user.provider_info.token}",
+      "link": "TPL_ADDON_LINK",
       "position": "right",
       "type": "button",
       "color": "#262D64"

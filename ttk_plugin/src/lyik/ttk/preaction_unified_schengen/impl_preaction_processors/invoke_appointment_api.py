@@ -23,12 +23,13 @@ logging.basicConfig(level=logging.INFO)
 from .._base_preaction import BaseUnifiedPreActionProcessor
 
 
-# --- Utility to format a date object to 'DD/MM/YYYY' string ---
+# --- Utility to format a date object to 'YYYY-MM-DD' string ---
 def format_date_to_string(date_str: str) -> Optional[str]:
     if date_str:
         try:
             parsed = datetime.strptime(date_str, "%Y-%m-%d").date()
-            return parsed.strftime("%d-%b-%Y")  # e.g. 02-Aug-1990
+            # return parsed.strftime("%d-%b-%Y")  # e.g. 02-Aug-1990
+            return parsed.strftime("%Y-%m-%d") # e.g. 1990-08-02
         except Exception as e:
             logger.warning(f"Date formatting failed for '{date_str}': {e}")
     return None
@@ -164,19 +165,19 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
                 }
 
                 city_dates = {
-                    "Ahmedabad": "18-Oct-2025",
-                    "Bengaluru": "18-Oct-2025",
-                    "Chandigarh": "18-Oct-2025",
-                    "Chennai": "18-Oct-2025",
-                    "Cochin": "18-Oct-2025",
-                    "Hyderabad": "18-Oct-2025",
-                    "Jaipur": "18-Oct-2025",
-                    "Jalandhar": "18-Oct-2025",
-                    "Kolkata": "18-Oct-2025",
-                    "Lucknow": "18-Oct-2025",
-                    "Mumbai": "18-Oct-2025",
-                    "Delhi": "18-Oct-2025",
-                    "Pune": "18-Oct-2025",
+                    "Ahmedabad": "2025-10-08",
+                    "Bengaluru": "2025-10-08",
+                    "Chandigarh": "2025-10-08",
+                    "Chennai": "2025-10-08",
+                    "Cochin": "2025-10-08",
+                    "Hyderabad": "2025-10-08",
+                    "Jaipur": "2025-10-08",
+                    "Jalandhar": "2025-10-08",
+                    "Kolkata": "2025-10-08",
+                    "Lucknow": "2025-10-08",
+                    "Mumbai": "2025-10-08",
+                    "Delhi": "2025-10-08",
+                    "Pune": "2025-10-08",
                 }
 
                 business_days = "10"
