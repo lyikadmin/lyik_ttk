@@ -3,7 +3,6 @@ from typing import Annotated
 
 import apluggy as pluggy
 from lyikpluginmanager import (
-    getProjectName,
     ContextModel,
     GenericFormRecordModel,
 )
@@ -11,15 +10,12 @@ from lyik.ttk.models.forms.schengentouristvisa import (
     Schengentouristvisa,
     RootVisaRequestInformationVisaRequest,
 )
+from .._base_preaction import BaseUnifiedPreActionProcessor
 from pydantic import BaseModel
 import country_converter as coco
-from ._base_preaction import BasePreActionProcessor
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
-
-impl = pluggy.HookimplMarker(getProjectName())
-
 
 # Utility model for conversion
 class CountryModel(BaseModel):
@@ -29,7 +25,9 @@ class CountryModel(BaseModel):
     def alpha3(self) -> str:
         try:
             result = self._cc.convert(
-                names=self.country_input, to="ISO3", not_found=None
+                names=self.country_input,
+                to="ISO3",
+                not_found=None
             )
             if result and isinstance(result, str) and len(result) == 3:
                 return result.upper()
@@ -38,8 +36,8 @@ class CountryModel(BaseModel):
         return self.country_input  # Fallback to original
 
 
-class PreactionNormalizeCountryCodes(BasePreActionProcessor):
-    async def pre_action_processor(
+class NormalizeCountryCodes(BaseUnifiedPreActionProcessor):
+    async def unified_pre_action_processor_impl(
         self,
         context: ContextModel,
         action: Annotated[str, "save or submit"],
@@ -53,15 +51,12 @@ class PreactionNormalizeCountryCodes(BasePreActionProcessor):
         try:
             form = Schengentouristvisa(**payload.model_dump())
         except Exception as e:
-            logger.error(
-                "Failed to parse form payload for country normalization: %s", e
-            )
+            logger.error("Failed to parse form payload for country normalization: %s", e)
             return payload
 
         visa_request: RootVisaRequestInformationVisaRequest | None = (
             form.visa_request_information.visa_request
-            if form.visa_request_information
-            else None
+            if form.visa_request_information else None
         )
 
         if not visa_request:
@@ -83,3 +78,6 @@ class PreactionNormalizeCountryCodes(BasePreActionProcessor):
 
         updated_data = form.model_dump(mode="json")
         return GenericFormRecordModel.model_validate(updated_data)
+
+
+

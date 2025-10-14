@@ -12,3 +12,6 @@ TPL_PAYU_MERCHANT_KEY,fiBS8J,PAYU
 TPL_PAYU_SALT,n9jDaiVtx8Lr5R1jEgBFaX3QsYehW7ou,PAYU
 TPL_PAYU_URL,https://test.payu.in/_payment,PAYU
 TPL_PAYU_PRODUCT_INFO,TTK Services Visa Payment,PAYU
+TPL_TTK_APPOINTMENT_API_ROUTE,api/v2/getAppointmentDetail,TTK
+TPL_WHATSAPP_URL,https://ttkcrmv2-uat.ttkservices.com/whatsApp?token={$user.provider_info.token}&orderNo={$user.provider_info.order_id},UI
+TPL_ADDON_URL,https://test.com/orders/{$user.provider_info.order_id}?token={$user.provider_info.token},UI

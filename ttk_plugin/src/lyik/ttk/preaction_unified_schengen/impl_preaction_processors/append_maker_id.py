@@ -4,19 +4,17 @@ from typing_extensions import Doc, Annotated
 
 import apluggy as pluggy
 from lyikpluginmanager import (
-    getProjectName,
     ContextModel,
     GenericFormRecordModel,
     PluginException,
 )
 from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa
-from ._base_preaction import BasePreActionProcessor
 import logging
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.info)
 
-impl = pluggy.HookimplMarker(getProjectName())
+from .._base_preaction import BaseUnifiedPreActionProcessor
 
 
 class dbClient(BaseModel):
@@ -27,8 +25,8 @@ class dbClient(BaseModel):
     contact_id: str = Field(None, description="Phone number or Email of the client")
 
 
-class PreactionAppendMakerId(BasePreActionProcessor):
-    async def pre_action_processor(
+class AppendMakerId(BaseUnifiedPreActionProcessor):
+    async def unified_pre_action_processor_impl(
         self,
         context: ContextModel,
         action: Annotated[
@@ -51,9 +49,7 @@ class PreactionAppendMakerId(BasePreActionProcessor):
         ],
         payload: Annotated[
             GenericFormRecordModel,
-            Doc(
-                "The payload of form record data to be pre processed to append maker_id in owner's list."
-            ),
+            Doc("The payload of form record data to be pre processed to append maker_id in owner's list."),
         ],
     ) -> Annotated[
         GenericFormRecordModel,
@@ -64,27 +60,22 @@ class PreactionAppendMakerId(BasePreActionProcessor):
         """
         logger.debug(f"Entering preaction with payload: {payload}")
         if not context or not hasattr(context, "token") or not context.token:
-            logger.debug(
-                "No token found in context. Passing through AppendMakerId preaction."
-            )
+            logger.debug("No token found in context. Passing through AppendMakerId preaction.")
             return payload
         try:
-            record_payload = Schengentouristvisa(**payload.model_dump())
+            record_payload = Schengentouristvisa(**payload.model_dump()) 
             maker_id = record_payload.travel.travel_details.maker_id
 
             if maker_id:
-                new_record_payload = _set_owner(
-                    record_payload.model_dump(mode="json"), maker_id
-                )
+                new_record_payload = _set_owner(record_payload.model_dump(mode="json"), maker_id) 
                 return GenericFormRecordModel.model_validate(new_record_payload)
             else:
-                return GenericFormRecordModel.model_validate(
-                    record_payload.model_dump(mode="json")
-                )
+                return GenericFormRecordModel.model_validate(record_payload.model_dump(mode="json"))
 
         except Exception as e:
             logger.error(f"Error processing payload: {e}")
-            return payload  # Important:  Return original payload on error to prevent data loss.
+            return payload # Important:  Return original payload on error to prevent data loss.
+
 
 
 def _set_owner(rec: dict, client: str) -> dict:

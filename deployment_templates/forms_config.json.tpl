@@ -28,5 +28,8 @@
     "approve": "Approved",
     "discrepency": "Discrepancy"
   },
-  "logout": "TPL_TTK_FRONTEND_URL"
+  "logout": "TPL_TTK_FRONTEND_URL",
+  "use_persona_only_for_editability": false,
+  "show_whatsapp": true,
+  "whatsapp_url":"TPL_WHATSAPP_URL"
 }

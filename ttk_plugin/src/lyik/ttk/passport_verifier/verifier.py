@@ -58,6 +58,7 @@ class PassportVerificationPlugin(VerifyHandlerSpec):
         Returns the verifies data for autofilling.
         Saves the images in the Database.
         """
+        payload = RootPassportPassportDetails.model_validate(payload)
         payload_dict = payload.model_dump(mode="json")
 
         ret = check_if_verified(payload=payload_dict)

@@ -6,9 +6,9 @@ from lyikpluginmanager import (
 )
 
 
-class BasePreActionProcessor(ABC):
+class BaseUnifiedPreActionProcessor(ABC):
     @abstractmethod
-    async def pre_action_processor(
+    async def unified_pre_action_processor_impl(
         self,
         context: ContextModel,
         action: Annotated[str, Doc("The action like 'save' or 'submit'")],
@@ -24,3 +24,5 @@ class BasePreActionProcessor(ABC):
         Abstract method to be implemented by all preaction processors.
         """
         pass
+
+

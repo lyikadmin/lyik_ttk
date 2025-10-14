@@ -1,5 +1,6 @@
 from lyik.ttk.models.forms.schengentouristvisa import (
     Schengentouristvisa,
+    VISATYPE,
     CIVILMARITALSTATUS,
     PASSPORTTYPE,
     SPONSORTYPE1,
@@ -28,6 +29,7 @@ from lyik.ttk.models.forms.schengentouristvisa import (
 from lyikpluginmanager import PluginException
 from datetime import date, datetime
 from lyik.ttk.models.pdf.pdf_model import PDFModel
+
 # from .utils import ISO3ToCountryModel
 from lyik.ttk.utils.utils import ISO3ToCountryModel
 from lyik.ttk.utils.message import get_error_message
@@ -54,7 +56,6 @@ class DocketUtilities:
         pdf_model = PDFModel()
 
         try:
-            pdf_model.visa_jrn_purpose_tour = True  #
             visa_info = schengen_visa_data.visa_request_information
             if visa_info and visa_info.visa_request:
                 pdf_model.visa_app_tel_num = visa_info.visa_request.phone_number  #
@@ -79,6 +80,24 @@ class DocketUtilities:
                 pdf_model.visa_addl_stay_info = (
                     visa_info.visa_request.purpose_of_stay  #
                 )
+                pdf_model.visa_jrn_purpose_visit_fnf = (
+                    visa_info.visa_request.visa_type == VISATYPE.Visitor
+                )  #
+                pdf_model.visa_jrn_purpose_tour = (
+                    visa_info.visa_request.visa_type == VISATYPE.Tourist
+                )  #
+                pdf_model.visa_jrn_purpose_business = (
+                    visa_info.visa_request.visa_type == VISATYPE.Business
+                )  #
+                pdf_model.visa_jrn_purpose_official = (
+                    visa_info.visa_request.visa_type == VISATYPE.Work
+                )  #
+                pdf_model.visa_jrn_purpose_study = (
+                    visa_info.visa_request.visa_type == VISATYPE.Student
+                )  #
+                pdf_model.visa_jrn_purpose_sports = (
+                    visa_info.visa_request.visa_type == VISATYPE.Sports
+                )  #
 
             passport = schengen_visa_data.passport
             if passport and passport.passport_details:
@@ -544,10 +563,7 @@ class DocketUtilities:
             ):
                 work_details = work_address.work_details
 
-                if (
-                    work_details
-                    and work_details.occupation
-                ):
+                if work_details and work_details.occupation:
                     pdf_model.visa_curr_occ = work_address.work_details.occupation  #
 
                 if work_details:
@@ -582,7 +598,7 @@ class DocketUtilities:
                 == CURRENTOCCUPATIONSTATUS.NOTAPPLICABLE
             ):
                 pdf_model.visa_curr_occ = "N/A"  #
-                pdf_model.visa_emp_stu_add_tel = "N/A" #
+                pdf_model.visa_emp_stu_add_tel = "N/A"  #
             else:
                 pass
 
