@@ -29,7 +29,8 @@ def format_date_to_string(date_str: str) -> Optional[str]:
         try:
             parsed = datetime.strptime(date_str, "%Y-%m-%d").date()
             # return parsed.strftime("%d-%b-%Y")  # e.g. 02-Aug-1990
-            return parsed.strftime("%Y-%m-%d") # e.g. 1990-08-02
+            # return parsed.strftime("%Y-%m-%d") # e.g. 1990-08-02
+            return parsed.strftime("%d/%m/%Y") # e.g. 02/08/1990
         except Exception as e:
             logger.warning(f"Date formatting failed for '{date_str}': {e}")
     return None
@@ -48,7 +49,7 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
         RequiredEnv(["TTK_API_BASE_URL", "TTK_APPOINTMENT_API_ROUTE"]),
         Doc("possibly modified record"),
     ]:
-        RUN_API = False
+        RUN_API = True
         try:
             if not context:
                 logger.error("Context is missing. Skipping preaction.")
@@ -145,7 +146,7 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
                     item["city"]: format_date_to_string(date_str=item["appointmentDate"])
                     for item in return_data
                 }
-                business_days = return_data[0].get("businessDays")
+                business_days = str(return_data[0].get("businessDays"))
             else:
                 # Hardcoded Values for testing:
                 city_dropdown_values = {
@@ -161,23 +162,23 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
                     "Lucknow": "Lucknow",
                     "Mumbai": "Mumbai",
                     "Delhi": "Delhi",
-                    "Pune": "Pune",
+                    "Pune": "Pune"
                 }
 
                 city_dates = {
-                    "Ahmedabad": "2025-10-08",
-                    "Bengaluru": "2025-10-08",
-                    "Chandigarh": "2025-10-08",
-                    "Chennai": "2025-10-08",
-                    "Cochin": "2025-10-08",
-                    "Hyderabad": "2025-10-08",
-                    "Jaipur": "2025-10-08",
-                    "Jalandhar": "2025-10-08",
-                    "Kolkata": "2025-10-08",
-                    "Lucknow": "2025-10-08",
-                    "Mumbai": "2025-10-08",
-                    "Delhi": "2025-10-08",
-                    "Pune": "2025-10-08",
+                    "Ahmedabad": "08/10/2025",
+                    "Bengaluru": "09/10/2025",
+                    "Chandigarh": "10/10/2025",
+                    "Chennai": "11/10/2025",
+                    "Cochin": "12/10/2025",
+                    "Hyderabad": "13/10/2025",
+                    "Jaipur": "08/10/2025",
+                    "Jalandhar": "08/10/2025",
+                    "Kolkata": "08/10/2025",
+                    "Lucknow": "08/10/2025",
+                    "Mumbai": "08/10/2025",
+                    "Delhi": "08/10/2025",
+                    "Pune": "08/10/2025"
                 }
 
                 business_days = "10"
