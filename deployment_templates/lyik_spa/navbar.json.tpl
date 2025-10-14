@@ -6,7 +6,7 @@
   "buttons": [
     {
       "label": "▒ Add-Ons",
-      "link": "TPL_ADDON_URL",
+      "link": "TPL_TTK_FRONTEND_URLTPL_ADDON_URL_ROUTE",
       "position": "right",
       "type": "button",
       "color": "#262D64"
