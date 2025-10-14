@@ -5,8 +5,8 @@
   "logoSrc": "/assets/images/logo.png",
   "buttons": [
     {
-      "label": "Add-Ons",
-      "link": "TPL_ADDON_LINK",
+      "label": "▒ Add-Ons",
+      "link": "TPL_ADDON_URL",
       "position": "right",
       "type": "button",
       "color": "#262D64"
