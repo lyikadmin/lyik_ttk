@@ -1,6 +1,6 @@
 template_var,data,category
 TPL_NGINX_DOMAIN,localhost,GENERIC
-TPL_BASEURL,https://forms-uat.ttkservices.com,GENERIC
+TPL_BASEURL,https://test-ttk.lyik.com,GENERIC
 TPL_LOG_LEVEL,DEBUG,GENERIC
 TPL_PLUGIN_MAX_WEIGHT,1300,GENERIC
 TPL_MONGODB_SERVER,mongodb://mongodb:27017,GENERIC
