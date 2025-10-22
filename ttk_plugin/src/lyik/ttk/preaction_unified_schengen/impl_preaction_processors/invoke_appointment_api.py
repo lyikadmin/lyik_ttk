@@ -49,7 +49,7 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
         RequiredEnv(["TTK_API_BASE_URL", "TTK_APPOINTMENT_API_ROUTE"]),
         Doc("possibly modified record"),
     ]:
-        RUN_API = True
+        RUN_API = False
         try:
             if not context:
                 logger.error("Context is missing. Skipping preaction.")

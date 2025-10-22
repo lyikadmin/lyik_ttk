@@ -28,6 +28,7 @@ logger = logging.getLogger(__name__)
 impl = pluggy.HookimplMarker(getProjectName())
 
 ACTOR = "system"
+DEFAULT_BUSINESS_DAYS = 10
 
 
 class VisaRequestVerifier(VerifyHandlerSpec):
@@ -58,9 +59,12 @@ class VisaRequestVerifier(VerifyHandlerSpec):
 
         full_form_record = Schengentouristvisa.model_validate(context.record)
 
-        business_days = int(full_form_record.scratch_pad.business_days)
-        if not business_days:
-            business_days = 10
+        try:
+            business_days = int(full_form_record.scratch_pad.business_days)
+            if not business_days:
+                business_days = DEFAULT_BUSINESS_DAYS
+        except Exception as e:
+            business_days = DEFAULT_BUSINESS_DAYS
 
         today = date.today()
         earliest_departure_date = business_days_from(
