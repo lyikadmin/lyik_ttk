@@ -6,7 +6,7 @@ from lyikpluginmanager import (
     PreActionProcessorSpec,
     ContextModel,
     GenericFormRecordModel,
-    PluginException
+    PluginException,
 )
 from lyikpluginmanager.annotation import RequiredVars
 import logging
@@ -21,17 +21,21 @@ from ._base_preaction import BaseUnifiedPreActionProcessor
 from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa
 
 # preaction processors
-from .impl_preaction_processors.client_action_guard import ClientActionGuard                #1
-from .impl_preaction_processors.pct_completion import PctCompletion                         #2
-from .impl_preaction_processors.normalize_country_codes import NormalizeCountryCodes        #3
-from .impl_preaction_processors.invoke_appointment_api import InvokeAppointmentAPI          #4
-from .impl_preaction_processors.normalize_fields import NormalizeFields                     #5
-from .impl_preaction_processors.append_maker_id import AppendMakerId                        #6
-from .impl_preaction_processors.copy_passport_details import CopyPassportAddress            #7
-from .impl_preaction_processors.save_traveller import PreactionSavePrimaryTraveller         #8
-from .impl_preaction_processors.save_traveller import PreactionSaveCoTravellers             #9
+from .impl_preaction_processors.client_action_guard import ClientActionGuard  # 1
+from .impl_preaction_processors.pct_completion import PctCompletion  # 2
+from .impl_preaction_processors.normalize_country_codes import (
+    NormalizeCountryCodes,
+)  # 3
+from .impl_preaction_processors.invoke_appointment_api import InvokeAppointmentAPI  # 4
+from .impl_preaction_processors.normalize_fields import NormalizeFields  # 5
+from .impl_preaction_processors.append_maker_id import AppendMakerId  # 6
+from .impl_preaction_processors.copy_passport_details import CopyPassportAddress  # 7
+from .impl_preaction_processors.save_traveller import PreactionSavePrimaryTraveller  # 8
+from .impl_preaction_processors.save_traveller import PreactionSaveCoTravellers  # 9
 
 SCHENGEN_FORM_INDICATOR = "SCHENGEN"
+
+
 class Schengen_Preactions(PreActionProcessorSpec):
     @impl
     async def pre_action_processor(
@@ -69,34 +73,51 @@ class Schengen_Preactions(PreActionProcessorSpec):
         """
         This preaction processor will do all preaction processing required for TTK Schengen form.
         """
+        generic_only = False
         # Parse to the form model
         try:
             form = Schengentouristvisa(**payload.model_dump())
         except Exception as exc:
-            logger.error("Cannot parse model for preactions, skipping schengen preactions – %s", exc)
+            logger.error(
+                "Cannot parse model for preactions, skipping schengen preactions – %s",
+                exc,
+            )
             return payload
         try:
             if not form.scratch_pad.form_indicator == SCHENGEN_FORM_INDICATOR:
-                return payload  
+                generic_only = True
         except Exception as exc:
-            logger.error("Could not access the form indicator, skipping schengen preactions – %s", exc)
-            return payload 
-        
+            logger.error(
+                "Could not access the form indicator, running generic preactions only – %s",
+                exc,
+            )
+            generic_only = True
+
         payload = form
-    
+
         payload_original = GenericFormRecordModel.model_validate(payload.model_dump())
-        
-        processors_ordered_list = [
-            ClientActionGuard,
-            PctCompletion,
-            NormalizeCountryCodes,
-            InvokeAppointmentAPI,
-            NormalizeFields,
-            # AppendMakerId,
-            CopyPassportAddress,
-            PreactionSavePrimaryTraveller,
-            PreactionSaveCoTravellers
-        ]
+
+        processors_ordered_list = (
+            [
+                ClientActionGuard,
+                PctCompletion,
+                NormalizeCountryCodes,
+                InvokeAppointmentAPI,
+                NormalizeFields,
+                # AppendMakerId,
+                CopyPassportAddress,
+                PreactionSavePrimaryTraveller,
+                PreactionSaveCoTravellers,
+            ]
+            if not generic_only
+            else [
+                PctCompletion,
+                NormalizeCountryCodes,
+                NormalizeFields,
+                PreactionSavePrimaryTraveller,
+                PreactionSaveCoTravellers,
+            ]
+        )
         try:
             for processor_cls in processors_ordered_list:
                 processor: BaseUnifiedPreActionProcessor = processor_cls()
@@ -113,5 +134,5 @@ class Schengen_Preactions(PreActionProcessorSpec):
         except Exception as e:
             logger.error(f"Error processing payload: {e}")
             return payload_original  # Return original payload on error to prevent data loss.
-        
+
         return payload
