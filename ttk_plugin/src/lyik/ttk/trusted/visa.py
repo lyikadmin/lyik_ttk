@@ -23,8 +23,8 @@ logger = logging.getLogger(__name__)
 impl = pluggy.HookimplMarker(getProjectName())
 
 
-class VisaCard(BaseModel):
-    visa_image: VISA
+class Visa(BaseModel):
+    visa_file: VISA
     model_config = ConfigDict(extra="allow")
 
 
@@ -33,7 +33,7 @@ class VisaOCR(TrustedPluginSpec):
     async def trusted(
         self,
         context: ContextModel,
-        payload: Annotated[VisaCard, Doc("Visa Field containing the image")],
+        payload: Annotated[str, Doc("Visa Field containing the image")],
     ) -> Annotated[
         TrustedResponseModel,
         Doc("TrustedResponseModel will be returned with OCR data for VISA"),
@@ -43,8 +43,10 @@ class VisaOCR(TrustedPluginSpec):
                 raise PluginException("context must be provided")
             if context.config is None:
                 raise PluginException("config must be provided in the context")
+            
+            visa = Visa(visa_file=payload)
 
-            visa_ocr_fields = props_dict(payload.visa_image)
+            visa_ocr_fields = props_dict(visa.visa_file)
 
             return TrustedResponseModel(
                 status=TRUSTED_RESPONSE_STATUS.SUCCESS, response=visa_ocr_fields, message="Successfully OCR Visa"

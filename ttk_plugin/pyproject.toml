@@ -68,3 +68,4 @@ _150_VERIFIER_ITR_ACKNOWLEDGEMENT_IP = "lyik.ttk.financial_verifiers.financial_v
 _150_VERIFIER_TRAVEL_INSURANCE = "lyik.ttk.travel_insurance_verifier.travel_insurance_verifier:TravelInsuranceVerifier"
 _150_OP_DOCKET_CREATION = "lyik.ttk.docket_operation.docket_operation:DocketOperation"
 _150_OPERATIONS = "lyik.ttk.plugin_operation_list.plugin_operation_list:OperationListPlugin"
+_150_TRUSTED_VISA_OCR = "lyik.ttk.trusted.visa:VisaOCR"
