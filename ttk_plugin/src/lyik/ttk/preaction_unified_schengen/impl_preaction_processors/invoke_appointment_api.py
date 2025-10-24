@@ -139,6 +139,8 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
                 response.raise_for_status()
                 data = response.json()
 
+                logger.debug(f"The raw data returned for appointment API: {data}")
+
                 if data.get("status") != "success":
                     logger.error(f"Appointment API returned failure: {data}")
                     return payload
@@ -163,7 +165,15 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
                     )
                     for item in return_data
                 }
-                business_days = str(return_data[0].get("businessDays"))
+                # Get the first valid business Days.
+                for item in return_data:
+                    val = item.get("businessDays")
+                    # treat None or empty-string (after stripping) as empty; 0 is allowed
+                    if val is not None and (not isinstance(val, str) or val.strip() != ""):
+                        business_days = str(val)
+                        break
+                else:
+                    business_days = ""
             else:
                 # Hardcoded Values for testing:
                 city_dropdown_values = {
