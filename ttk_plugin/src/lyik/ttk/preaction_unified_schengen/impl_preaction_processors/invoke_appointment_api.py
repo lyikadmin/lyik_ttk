@@ -18,6 +18,7 @@ from lyikpluginmanager import (
 )
 from lyik.ttk.models.forms.schengentouristvisa import (
     Schengentouristvisa,
+    RootScratchPad,
 )
 
 logger = logging.getLogger(__name__)
@@ -80,6 +81,10 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
                     "Failed to parse form payload for country normalization: %s", e
                 )
                 return payload
+
+            # Initialize scratch pad if not present (The Case where a record was just created)
+            if not form.scratch_pad:
+                form.scratch_pad = RootScratchPad()
 
             scratch_pad = form.scratch_pad
 
@@ -146,7 +151,7 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
                         return payload
                     else:
                         raise PluginException(
-                            message="Appointment Information cannot be fetched. Please try later."
+                            message=f"Appointment Information cannot be fetched for country '{country_code}'. Please try again later."
                         )
 
                 city_dropdown_values = {
