@@ -49,6 +49,7 @@ class VisaRequestVerifier(VerifyHandlerSpec):
         """
         This verifier validates the data of the Visa Request Summary section.
         """
+        USE_DEFAULT = False
         if not context or not context.config:
             raise PluginException(
                 message=get_error_message(
@@ -59,12 +60,22 @@ class VisaRequestVerifier(VerifyHandlerSpec):
 
         full_form_record = Schengentouristvisa.model_validate(context.record)
 
-        try:
-            business_days = int(full_form_record.scratch_pad.business_days)
-            if not business_days:
+        if USE_DEFAULT:
+            try:
+                business_days = int(full_form_record.scratch_pad.business_days)
+                if not business_days:
+                    business_days = DEFAULT_BUSINESS_DAYS
+            except Exception as e:
                 business_days = DEFAULT_BUSINESS_DAYS
-        except Exception as e:
-            business_days = DEFAULT_BUSINESS_DAYS
+        else:
+            try:
+                business_days = int(full_form_record.scratch_pad.business_days)
+            except Exception as e:
+                return VerifyHandlerResponseModel(
+                    actor=ACTOR,
+                    message="Could not get Appointment Details to calculate Earliest available departure Date.",
+                    status=VERIFY_RESPONSE_STATUS.FAILURE,
+                )
 
         today = date.today()
         earliest_departure_date = business_days_from(
