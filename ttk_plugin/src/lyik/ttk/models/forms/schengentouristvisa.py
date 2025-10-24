@@ -1644,6 +1644,7 @@ class RootVisaRequestInformationVisaRequest(BaseModel):
     order_id: Optional[str] = Field(None, title="")
     earliest_appointment_availability: Optional[str] = Field(None, title="")
     visa_processing_type: Optional[str] = Field(None, title="")
+    form_indicator: Optional[str] = Field('SCHENGEN', title="")
 
 
 class RootWorkAddressEducationDetails(BaseModel):

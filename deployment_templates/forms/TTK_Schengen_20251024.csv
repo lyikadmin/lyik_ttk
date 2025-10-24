@@ -277,6 +277,7 @@ fac_str,form_title,,,hidden,,False,,,,,False,,,,,
 fac_str,order_id,,,hidden,,False,,,,,False,,,,,
 fac_str,earliest_appointment_availability,,,hidden,,False,,,,,False,,,,,
 fac_str,visa_processing_type,,,hidden,,False,,,,,False,,,,,
+fac_str,form_indicator,,,textbox,SCHENGEN,False,,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,appointment_section,,,section_break,,False,,Appointment Details,,,False,,,,,
@@ -448,7 +449,7 @@ display_field,display_appointment_details_header,,,display_field,,False,"<!-- <p
 </html>
 ",,,,False,,,,,
 fac_add_on_service_appointment,add_on_service_option,,,checkbox,,False,Select Option,,,,False,,,,not EXISTS(@.appointment_scheduled.upload_appointment),
-card_builder,appointment_scheduled,,,card,,False,,My Scheduled Appointment Details,,,False,,,,not @.add_on_service_option = 'YES',
+card_builder,appointment_scheduled,,,card,,False,,My Scheduled Appointment Details,,,False,,,,,
 table,appointment_details_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,scheduled_location,,,dropdown,,False,Enter Scheduled Location (City),Scheduled Location (City),,,False,,,,,dynamic_values_path:$.scratch_pad.appointment_city_dropdown_values
 fac_date,scheduled_date,,,datebox,,False,DD/MM/YYYY,Scheduled Date,,,False,,,,,;only_future: true
@@ -1624,7 +1625,7 @@ fac_file,visa_copy_permit,,,fileoption,,False,Upload a Image/PDF,Visa Copy / Res
 fac_file,accommodation_proof,,,fileoption,,False,Upload a Image/PDF,Inviter's Accommodation Proof,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,booked_appointment,,,card,,False,,Booked Accommodation,,,False,,,(accommodation_choice.accommodation_option = 'WITH_FAMILY' or accommodation_choice.accommodation_option = 'TTK_ASSITANCE'),not lock_accommodation='Lock',
+card_builder,booked_appointment,,,card,,False,,Booked Accommodation,,,False,,,accommodation_choice.accommodation_option = 'WITH_FAMILY',not lock_accommodation='Lock',
 fac_file,booking_upload,,,fileoption,,False,Upload a Image/PDF,Accommodation Booking,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 display_field,display_accommodation_instruction,,,display_field,,False,"<div style=""
 display: flex;
@@ -1844,8 +1845,8 @@ fac_str,name_of_traveller,,,textbox,,True,Enter Name of the Traveller,Name of th
 fac_str,airline,,,textbox,,True,Enter Name of Airline,Name of Airline,,,False,,,,,
 fac_str,port_of_entry,,,textbox,,True,Enter Port of Entry,Port of Entry,,,False,,,,,
 fac_str,port_of_exit,,,textbox,,True,Enter Port of Exit,Port of Exit,,,False,,,,,
-fac_str,arrival_date,,,textbox,,True,Enter Arrival Date / Check-in Date,Arrival Date / Check-in Date,,,False,,,,,
-fac_str,departure_date,,,textbox,,True,Enter Departure Date / Check-out Date,Departure Date / Check-out Date,,,False,,,,,
+fac_date,arrival_date,,,datebox,,True,DD/MM/YYYY,Arrival Date / Check-in Date,,,False,,,,,
+fac_date,departure_date,,,datebox,,True,DD/MM/YYYY,Departure Date / Check-out Date,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,add_on_service,,,card,,False,,Add-On Service,,,False,,,,,
@@ -3146,7 +3147,7 @@ display_field,display_field_1,,,display_field,,False,The Visa Application requir
 fac_cover,letter_option,,,radiobutton,,False,Select Option,,,,False,,,,,
 card_builder,covering_letter_card,,,card,,False,,Upload Covering Letter,,,False,,,,,
 display_field,display_field,,,display_field,,False,Please upload the Signed and Sealed Covering Letter.,,,,False,,,,,
-fac_file,cover_upload,,,fileoption,,False,Upload an image/file,Covering Letter,,,False,,,,,download:None
+fac_file,cover_upload,,,fileoption,,False,Upload a file,Covering Letter,,,False,,,,,"file_type:.docx,.pdf,.jpg,.jpeg,.png;download:None"
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,invitation_letter_section,,,section_break,,False,,Invitation Letter,,,False,,,,,
@@ -3155,10 +3156,10 @@ display_field,display_field,,,display_field,,False,The Visa Application requires
 fac_invitation,letter_option,,,radiobutton,,False,Select Option,,,,False,,,,,
 card_builder,invitation_letter_upload,,,card,,False,,Upload Invitation Letter,,,False,,,,,
 display_field,display_field_3,,,display_field,,False,Please upload the Invitation Letter,,,,False,,,,,
-fac_file,invite_upload,,,fileoption,,False,Upload an image/file,Invitation Upload,,,False,,,,,download:None
+fac_file,invite_upload,,,fileoption,,False,Upload a file,Invitation Upload,,,False,,,,,"file_type:.docx,.pdf,.jpg,.jpeg,.png;download:None"
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-tab_break,employer_fin_tab,,,tab_break,,False,,Employer's Financial Documents,,,False,,,,,
+tab_break,employer_fin_tab,,,tab_break,,False,,Employer's Financial Documents,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,
 section_break,company_bank_statement_section,,,section_break,,False,,Company Bank Statements,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,
 info_pane_builder,company_bank_statement,,,info_pane,,False,,Company Bank Statements,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,operation.save:Save and Continue
 display_field,display_field_1,,,display_field,,False,The Visa Application requires the Original Bank Statements of the Company covering the last 12 months with the Bank's Seal & Signature.,,,,False,,,,,
@@ -3224,6 +3225,7 @@ display_field,display_field,,,display_field,,False,"If you'd like us to review y
 fac_file,statement_file,,,fileoption,,False,Upload an image/file,Company COI/ Other Documents,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,SPOC,MKR,SME,ADMIN])"
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+tab_break,additional_documents_tab,,,tab_break,,False,,Additional Information,,,False,,,,,
 section_break,consultant_section,,,section_break,,False,No Instructions Present,TTK Consultant,PROGRESS.IGNORE,,False,,,"CONTAINS(USER.persona,[CLI, SME, SPOC, CORP_CLI])",,
 info_pane_builder,consultant_info,,,info_pane,,False,,TTK Consultant,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI, SME, SPOC, CORP_CLI])",,operation.save:Save and Continue
 card_builder,instruction_letter,,,card,,False,,Instruction Sheet,,,False,,,,,
@@ -3278,7 +3280,7 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,submit_section,,,section_break,,False,No Instructions Present,Submit Application,PROGRESS.IGNORE,,False,,,"CONTAINS(USER.persona,[CLI, SME, SPOC, CORP_CLI])",,
-info_pane_builder,submit_info,,,info_pane,,False,,Submit Application,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI, SME, SPOC, CORP_CLI])",,operation.submit:Submit Application;verify.verify_handler:VERIFIER_SUBMISSION_CONFIRMATION;verify.action_text:Verify Confirmation
+info_pane_builder,submit_info,,,info_pane,,False,,Submit Application,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI, SME, SPOC, CORP_CLI])",,operation.save:Submit Application;verify.verify_handler:VERIFIER_SUBMISSION_CONFIRMATION;verify.action_text:Verify Confirmation
 card_builder,docket,,,card,,False,,Docket,,,False,,,,,
 display_field,note,,,display_field,,False,"<div style=""
 display: flex;
