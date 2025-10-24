@@ -9,7 +9,7 @@ from lyikpluginmanager import (
     GenericFormRecordModel,
 )
 from typing_extensions import Doc
-from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa, RootLetsGetStarted
+from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa, RootLetsGetStarted, VISATYPE
 from .._base_preaction import BaseUnifiedPreActionProcessor
 
 logger = logging.getLogger(__name__)
@@ -17,8 +17,10 @@ logger = logging.getLogger(__name__)
 # 🔧 VERIFY THESE NAMES MATCH YOUR Pydantic MODEL FIELDS EXACTLY.
 # If your model uses "accommodation" (correct spelling), update both lines below.
 _RELEVANT_PANES: List[str] = [
+    # 1st tab
     "visa_request_information",
     "appointment",
+    # 2nd tab
     "passport",
     "photograph",
     "residential_address",
@@ -29,9 +31,20 @@ _RELEVANT_PANES: List[str] = [
     "travel_insurance",
     "previous_visas",
     "additional_details",
+    "additional_documents_temp",
+    # 3rd tab
     "salary_slip",
     "bank_statement",
     "itr_acknowledgement",
+    # 4th tab
+    "cover_letter_info",
+    "invitation",
+]
+
+_BUSINESS_PANES: List[str] = [
+    "company_bank_statement",
+    "company_itr",
+    "company_docs"
 ]
 
 def _has_success_ver_status(data: dict) -> bool:
@@ -59,6 +72,19 @@ class PctCompletion(BaseUnifiedPreActionProcessor):
             logger.error("pct_completion: cannot parse payload – %s", exc)
             record = payload.model_dump()
             return GenericFormRecordModel.model_validate(record)
+        
+        panes_to_check = _RELEVANT_PANES.copy()
+        if (form.visa_request_information and
+            form.visa_request_information.visa_request and
+            form.visa_request_information.visa_request.visa_type):
+
+            # visa_type = form.visa_request_information.visa_request.visa_type.value
+            # if visa_type and visa_type.lower() == "business":
+            #     panes_to_check += _BUSINESS_PANES
+
+            visa_type: VISATYPE = form.visa_request_information.visa_request.visa_type
+            if visa_type and visa_type.value and visa_type.value.lower() == "business":
+                panes_to_check += _BUSINESS_PANES
 
         # 1) Figure out share-flag mapping
         if (form.visa_request_information and 
@@ -77,7 +103,7 @@ class PctCompletion(BaseUnifiedPreActionProcessor):
         # vt = getattr(vt, "traveller_type", "") or ""
         # shared = getattr(getattr(form, "shared_travell_info", None), "shared", None)
 
-        panes_to_check = _RELEVANT_PANES.copy()
+        # panes_to_check = _RELEVANT_PANES.copy()
         shared_count = 0
         share_removed: List[str] = []
 

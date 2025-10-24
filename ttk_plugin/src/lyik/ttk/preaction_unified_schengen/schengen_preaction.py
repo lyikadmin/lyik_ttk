@@ -35,7 +35,6 @@ from .impl_preaction_processors.save_traveller import PreactionSaveCoTravellers 
 
 SCHENGEN_FORM_INDICATOR = "SCHENGEN"
 
-
 class Schengen_Preactions(PreActionProcessorSpec):
     @impl
     async def pre_action_processor(
@@ -83,14 +82,10 @@ class Schengen_Preactions(PreActionProcessorSpec):
                 exc,
             )
             return payload
-        try:
-            if not form.scratch_pad.form_indicator == SCHENGEN_FORM_INDICATOR:
-                generic_only = True
-        except Exception as exc:
-            logger.error(
-                "Could not access the form indicator, running generic preactions only – %s",
-                exc,
-            )
+
+        form_indicator = get_form_indicator(form=form)
+
+        if form_indicator != SCHENGEN_FORM_INDICATOR:
             generic_only = True
 
         payload = form
@@ -136,3 +131,20 @@ class Schengen_Preactions(PreActionProcessorSpec):
             return payload_original  # Return original payload on error to prevent data loss.
 
         return payload
+
+def get_form_indicator(form: Schengentouristvisa) -> str | None:
+
+    form_indicator = None
+
+    try:
+        form_indicator = form.scratch_pad.form_indicator
+    except Exception as e:
+        pass
+
+    if not form_indicator:
+        try:
+            form_indicator = form.visa_request_information.visa_request.form_indicator
+        except Exception as e:
+            pass
+
+    return form_indicator

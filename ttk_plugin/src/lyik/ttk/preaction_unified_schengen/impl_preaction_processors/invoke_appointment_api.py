@@ -6,6 +6,9 @@ import httpx
 import os
 import json
 from datetime import datetime
+from lyikpluginmanager import (
+    PluginException,
+)
 
 from lyikpluginmanager.annotation import RequiredEnv
 import apluggy as pluggy
@@ -15,6 +18,7 @@ from lyikpluginmanager import (
 )
 from lyik.ttk.models.forms.schengentouristvisa import (
     Schengentouristvisa,
+    RootScratchPad,
 )
 
 logger = logging.getLogger(__name__)
@@ -30,7 +34,7 @@ def format_date_to_string(date_str: str) -> Optional[str]:
             parsed = datetime.strptime(date_str, "%Y-%m-%d").date()
             # return parsed.strftime("%d-%b-%Y")  # e.g. 02-Aug-1990
             # return parsed.strftime("%Y-%m-%d") # e.g. 1990-08-02
-            return parsed.strftime("%d/%m/%Y") # e.g. 02/08/1990
+            return parsed.strftime("%d/%m/%Y")  # e.g. 02/08/1990
         except Exception as e:
             logger.warning(f"Date formatting failed for '{date_str}': {e}")
     return None
@@ -49,7 +53,7 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
         RequiredEnv(["TTK_API_BASE_URL", "TTK_APPOINTMENT_API_ROUTE"]),
         Doc("possibly modified record"),
     ]:
-        RUN_API = False
+        RUN_API = True
         try:
             if not context:
                 logger.error("Context is missing. Skipping preaction.")
@@ -77,6 +81,10 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
                     "Failed to parse form payload for country normalization: %s", e
                 )
                 return payload
+
+            # Initialize scratch pad if not present (The Case where a record was just created)
+            if not form.scratch_pad:
+                form.scratch_pad = RootScratchPad()
 
             scratch_pad = form.scratch_pad
 
@@ -131,6 +139,8 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
                 response.raise_for_status()
                 data = response.json()
 
+                logger.debug(f"The raw data returned for appointment API: {data}")
+
                 if data.get("status") != "success":
                     logger.error(f"Appointment API returned failure: {data}")
                     return payload
@@ -138,15 +148,32 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
                 return_data = data.get("returnData", [])
 
                 if not return_data:
-                    logger.warning("Appointment API returned no appointment data.")
-                    return payload
+                    if not current_state:  # Case when the record is new
+                        logger.warning("Appointment API returned no appointment data.")
+                        return payload
+                    else:
+                        raise PluginException(
+                            message=f"Appointment Information cannot be fetched for country '{country_code}'. Please try again later."
+                        )
 
-                city_dropdown_values = {item["city"]: item["city"] for item in return_data}
+                city_dropdown_values = {
+                    item["city"]: item["city"] for item in return_data
+                }
                 city_dates = {
-                    item["city"]: format_date_to_string(date_str=item["appointmentDate"])
+                    item["city"]: format_date_to_string(
+                        date_str=item["appointmentDate"]
+                    )
                     for item in return_data
                 }
-                business_days = str(return_data[0].get("businessDays"))
+                # Get the first valid business Days.
+                for item in return_data:
+                    val = item.get("businessDays")
+                    # treat None or empty-string (after stripping) as empty; 0 is allowed
+                    if val is not None and (not isinstance(val, str) or val.strip() != ""):
+                        business_days = str(val)
+                        break
+                else:
+                    business_days = ""
             else:
                 # Hardcoded Values for testing:
                 city_dropdown_values = {
@@ -162,7 +189,7 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
                     "Lucknow": "Lucknow",
                     "Mumbai": "Mumbai",
                     "Delhi": "Delhi",
-                    "Pune": "Pune"
+                    "Pune": "Pune",
                 }
 
                 city_dates = {
@@ -178,7 +205,7 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
                     "Lucknow": "08/10/2025",
                     "Mumbai": "08/10/2025",
                     "Delhi": "08/10/2025",
-                    "Pune": "08/10/2025"
+                    "Pune": "08/10/2025",
                 }
 
                 business_days = "10"
@@ -194,8 +221,10 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
 
             logger.info("Successfully updated scratch pad with TTK appointment data.")
 
+        except PluginException as pe:
+            raise
         except Exception as ex:
-            logger.error(f"Something went wrong. Skipping preaction: {ex}")
+            logger.error(f"Something went wrong. Skipping appointment preaction: {ex}")
             return payload
 
         updated_data = form.model_dump(mode="json")
