@@ -2304,7 +2304,8 @@ class RootAdditionalDocumentsPane(BaseModel):
         description="Generate Link to Download templates ZIP",
         title="Generate Documents",
     )
-    display_card: Optional[str] = Field(
+    template_download_display: Optional[str] = Field(None, title="")
+    info_display: Optional[str] = Field(
         None,
         description='<div style="\ndisplay: flex;\njustify-content: center;\nalign-items: center;">\n\n<div style="\n  text-align: center;\n  /* width: 1060px; */\n  font-family: \'Inter\', sans-serif;\n  font-weight: 500;\n  font-size: 16px;\n  line-height: 32px;\n  color: #000000;\n  text-align: center;\n">\nUpload any additional documents required for the application in this section.\n</div>\n\n</div> ',
         title="Display Field",
