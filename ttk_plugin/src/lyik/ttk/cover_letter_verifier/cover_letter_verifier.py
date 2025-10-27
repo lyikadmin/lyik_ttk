@@ -10,6 +10,7 @@ from lyikpluginmanager import (
     TransformerResponseModel,
     TRANSFORMER_RESPONSE_STATUS,
     TemplateDocumentModel,
+    DocxTemplateModel,
     DocumentModel,
 )
 
@@ -71,7 +72,7 @@ class CoverLetterVerifier(VerifyHandlerSpec):
                     additional_args={},
                     fetch_from_db_or_path=False,
                     form_name="word_template",
-                    template="COVER_LETTER",
+                    template=DocxTemplateModel(template="COVER_LETTER"),
                 )
             )
 

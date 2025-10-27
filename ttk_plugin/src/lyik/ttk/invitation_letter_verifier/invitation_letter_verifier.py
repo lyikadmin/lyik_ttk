@@ -10,6 +10,7 @@ from lyikpluginmanager import (
     TransformerResponseModel,
     TRANSFORMER_RESPONSE_STATUS,
     TemplateDocumentModel,
+    DocxTemplateModel,
     DocumentModel,
 )
 import base64
@@ -68,7 +69,7 @@ class InvitationLetterVerifier(VerifyHandlerSpec):
                     additional_args={},
                     fetch_from_db_or_path=False,
                     form_name="word_template",
-                    template="INVITATION_LETTER",
+                    template=DocxTemplateModel(template="INVITATION_LETTER"),
                 )
             )
 
@@ -113,7 +114,7 @@ class InvitationLetterVerifier(VerifyHandlerSpec):
 
                 html_link = f"""
                 <div>
-                    <p>Click below to download the generated document file:</p>
+                    <p>Click below to download the generated document documents:</p>
                     <a href="data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,{encoded_content}"
                     download="{doc.doc_name or 'document.docx'}">
                     Download {doc.doc_name or 'Document'}

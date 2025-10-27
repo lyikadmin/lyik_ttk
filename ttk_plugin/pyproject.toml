@@ -71,3 +71,4 @@ _150_VERIFIER_INVITATION_LETTER = "lyik.ttk.invitation_letter_verifier.invitatio
 _150_OP_DOCKET_CREATION = "lyik.ttk.docket_operation.docket_operation:DocketOperation"
 _150_OPERATIONS = "lyik.ttk.plugin_operation_list.plugin_operation_list:OperationListPlugin"
 _150_TRUSTED_VISA_OCR = "lyik.ttk.trusted.visa:VisaOCR"
+_150_VERIFIER_GENERATE_FILLED_GENERIC_TEMPLATES = "lyik.ttk.additional_documents.additional_documents_traveller_verifier:AdditionalDocumentsTravellerVerifier"
