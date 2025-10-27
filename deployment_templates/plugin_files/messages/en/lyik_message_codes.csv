@@ -102,3 +102,4 @@ LYIK_ERR_PASSPORT_OTHER_MARITAL,Please Fill the Other Marital Status field.,Pass
 LYIK_ERR_OTHER_CIVIL_STATUS,Please Enter the Other Civil status information.,Passport Section TTK.
 LYIK_ERR_NO_TRAVEL_INSURANCE,Please either upload Travel Insurance or mark as need assistance from TTK Visas.,Travel Insurance Section TTK
 LYIK_ERR_CIVIL_MARITAL_STATUS,Please Enter the Civil Marital Status.,Passport Section TTK.
+LYIK_ERR_DOCX_GEN_FAILURE,Failed to generate the DOCX file. Please try again or contact support.,Cover Letter Section TTK
