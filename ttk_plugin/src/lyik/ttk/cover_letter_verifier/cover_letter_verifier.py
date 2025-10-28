@@ -60,14 +60,11 @@ class CoverLetterVerifier(VerifyHandlerSpec):
                     detailed_message="The context or config is missing.",
                 )
 
-            json_flattener = JSONFlattener()
-            flat_data = json_flattener.flatten(data=context.record)
-
             transformer_res: TransformerResponseModel = (
                 await invoke.template_generate_docx(
                     org_id=context.org_id,
                     config=context.config,
-                    record=flat_data,
+                    record=context.record,
                     form_id=context.form_id,
                     additional_args={},
                     fetch_from_db_or_path=False,
@@ -102,16 +99,6 @@ class CoverLetterVerifier(VerifyHandlerSpec):
             doc = docs[0]
 
             if doc:
-                # document_model = DocumentModel(
-                #     doc_name=doc.doc_name,
-                #     doc_type=doc.doc_type,
-                #     doc_content=doc.doc_content,
-                # )
-
-                # document_dict = document_model.model_dump()
-
-                # payload.covering_letter_card.cover_upload = document_dict
-
                 # base64 encode the bytes
                 encoded_content = base64.b64encode(doc.doc_content).decode("utf-8")
 

@@ -186,8 +186,6 @@ class AdditionalDocumentsTravellerVerifier(VerifyHandlerSpec):
         record,
         context: ContextModel,
     ) -> str:
-        json_flattener = JSONFlattener()
-        flat_data = json_flattener.flatten(data=record)
 
         generated_doc_list: List[TemplateDocumentModel] = []
 
@@ -196,7 +194,7 @@ class AdditionalDocumentsTravellerVerifier(VerifyHandlerSpec):
                 await invoke.template_generate_docx(
                     org_id=context.org_id,
                     config=context.config,
-                    record=flat_data,
+                    record=record,
                     form_id=context.form_id,
                     additional_args={},
                     fetch_from_db_or_path=True,

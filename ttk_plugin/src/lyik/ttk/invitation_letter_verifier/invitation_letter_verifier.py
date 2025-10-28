@@ -57,14 +57,11 @@ class InvitationLetterVerifier(VerifyHandlerSpec):
                     detailed_message="The context or config is missing.",
                 )
 
-            json_flattener = JSONFlattener()
-            flat_data = json_flattener.flatten(data=context.record)
-
             transformer_res: TransformerResponseModel = (
                 await invoke.template_generate_docx(
                     org_id=context.org_id,
                     config=context.config,
-                    record=flat_data,
+                    record=context.record,
                     form_id=context.form_id,
                     additional_args={},
                     fetch_from_db_or_path=False,
@@ -123,13 +120,13 @@ class InvitationLetterVerifier(VerifyHandlerSpec):
                 """
 
                 parsed_payload = RootInvitationInvitationLetterGenerate(**payload)
-                payload.generation_info_display = html_link
+                parsed_payload.generation_info_display = html_link
 
                 return VerifyHandlerResponseModel(
                     status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
                     message="",  # verified_successfully
                     actor="system",
-                    response=payload.model_dump(),
+                    response=parsed_payload.model_dump(),
                 )
 
         except PluginException as pe:
