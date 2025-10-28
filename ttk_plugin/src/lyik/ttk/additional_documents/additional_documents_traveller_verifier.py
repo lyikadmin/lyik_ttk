@@ -146,12 +146,15 @@ class AdditionalDocumentsTravellerVerifier(VerifyHandlerSpec):
                 )
 
             # For now this is a stub.
-            templates_link = await self.generate_template_zip(
+            templates_link_response = await self.generate_template_zip(
                 templates_list=templates_list, record=full_form_record, context=context
             )
 
+            if isinstance(templates_link_response, VerifyHandlerResponseModel):
+                return templates_link_response
+
             # Mutate payload to reflect final state
-            payload.template_download_display = templates_link
+            payload.template_download_display = templates_link_response
             payload.additional_documents_traveller_group = new_traveller_group
 
             return VerifyHandlerResponseModel(

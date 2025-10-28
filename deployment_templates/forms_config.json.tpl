@@ -28,7 +28,7 @@
     "approve": "Approved",
     "discrepency": "Discrepancy"
   },
-  "logout": "TPL_TTK_FRONTEND_URL",
+  "logout_disabled": "TPL_TTK_FRONTEND_URL",
   "use_persona_only_for_editability": false,
   "show_whatsapp": true,
   "whatsapp_url":"TPL_TTK_API_BASE_URLwhatsApp?token={$user.provider_info.token}&orderNo={$user.provider_info.order_id}"
