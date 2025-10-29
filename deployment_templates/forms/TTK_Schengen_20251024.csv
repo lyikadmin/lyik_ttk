@@ -448,7 +448,7 @@ display_field,display_appointment_details_header,,,display_field,,False,"<!-- <p
 </body>
 </html>
 ",,,,False,,,,,
-fac_add_on_service_appointment,add_on_service_option,,,checkbox,,False,Select Option,,,,False,,,,not EXISTS(@.appointment_scheduled.upload_appointment),
+fac_add_on_service_appointment,add_on_service_option,,,checkbox,,False,Select Option,,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI])",
 card_builder,appointment_scheduled,,,card,,False,,My Scheduled Appointment Details,,,False,,,,,
 table,appointment_details_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,scheduled_location,,,dropdown,,False,Enter Scheduled Location (City),Scheduled Location (City),,,False,,,,,dynamic_values_path:$.scratch_pad.appointment_city_dropdown_values
@@ -2322,29 +2322,29 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,additional_documents_section,,,section_break,,False,,Additional Documents,,,False,,,,,
 info_pane_builder,additional_documents_pane,,,info_pane,,False,,Additional Documents,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",operation.save:Save and Continue
-group_builder,additional_documents_consultant_group,,,groupbox,,False,,Additional Document,,,False,,,,,button_label:Add Document;limits.min:1;limits.max:50
-info_pane_builder,additionaldocumentgroupconsultant,,,groupbox,,False,,Additional Documents,,,False,,,,,
-card_builder,additional_documents_card_consultant,,,card,,False,,Additional Document,SAVE_EVEN_IF_HIDDEN,,False,,,,,
-display_field,display_card,,,display_field,,False,"<div style=""
-display: flex;
-justify-content: center;
-align-items: center;"">
-
-<div style=""
-  text-align: center;
-  /* width: 1060px; */
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 32px;
-  color: #000000;
-  text-align: center;
-"">
-Upload the template for an additional document required for the application:
+display_field,display_card,,,display_field,,False,"<div style=""display: flex; justify-content: center; align-items: center"">
+  <div
+    style=""
+      text-align: center;
+      /* width: 1060px; */
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 32px;
+      color: #000000;
+      text-align: center;
+    ""
+  >
+    Upload the templates for additional documents required for the application. <br>
+    Note: Ensure to click on the ""Generate Documents"" button and save the
+    section for any uploaded template.
+  </div>
 </div>
-
-</div> ",,,,False,,,,,
-fac_file,file_upload,,,fileoption,,False,Upload a .docx file,File Upload,,,False,,,,,"file_type:.docx;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
+",,,,False,,,"CONTAINS(USER.persona,[CLI, SME, SPOC, CORP_CLI])",,
+group_builder,additional_documents_consultant_group,,,groupbox,,False,,Additional Document,,,False,,,"CONTAINS(USER.persona,[CLI, SME, SPOC, CORP_CLI])",,button_label:Add Document;limits.min:1;limits.max:50
+info_pane_builder,additionaldocumentgroupconsultant,,,groupbox,,False,,Templates,,,False,,,,,
+card_builder,additional_documents_card_consultant,,,card,,False,,Template,SAVE_EVEN_IF_HIDDEN,,False,,,,,
+fac_file,file_upload,,,fileoption,,False,Upload a .docx file,Upload Template,,,False,,,,,"file_type:.docx;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 table,document_desc_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,document_name,,,textbox,,False,Enter Name of the document,Name of the document,,,False,,,,,
 fac_str,document_description,,,textbox,,False,Enter Document Description,Document Description,,,False,,,,,
@@ -2352,27 +2352,8 @@ break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-fac_str,generate_templates,,,cta_button,Generate Documents,False,Generate Link to Download templates ZIP,Generate Documents,,,False,,,,,verify.verify_handler:VERIFIER_GENERATE_FILLED_GENERIC_TEMPLATES;verify.action_text:Generate Documents;align:center
+fac_str,generate_templates,,,cta_button,Generate Documents,False,Generate Link to Download templates ZIP,Generate Documents,,,False,,,"CONTAINS(USER.persona,[CLI, SME, SPOC, CORP_CLI])",,verify.verify_handler:VERIFIER_GENERATE_FILLED_GENERIC_TEMPLATES;verify.action_text:Generate Documents;align:center
 fac_str,template_download_display,,,data_display,,False,,,,,False,,,,False,
-display_field,info_display,,,display_field,,False,"<div style=""
-display: flex;
-justify-content: center;
-align-items: center;"">
-
-<div style=""
-  text-align: center;
-  /* width: 1060px; */
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 32px;
-  color: #000000;
-  text-align: center;
-"">
-Upload any additional documents required for the application in this section.
-</div>
-
-</div> ",,,,False,,,,,
 group_builder,additional_documents_traveller_group,,,groupbox,,False,,Additional Document,,,False,,,,,button_label:Add Document;limits.fixed:true
 info_pane_builder,additionaldocumentgrouptraveller,,,groupbox,,False,,Additional Documents,,,False,,,,,
 card_builder,additional_documents_card_traveller,,,card,,False,,Additional Document,SAVE_EVEN_IF_HIDDEN,,False,,,,,
@@ -2380,7 +2361,7 @@ fac_str,document_name,,,hidden,,False,,,,,False,,,,,
 fac_str,document_description,,,hidden,,False,,,,,False,,,,,
 fac_str,document_name_display,,,data_display,Example Document Name,False,,,,,False,,,,,
 fac_str,document_description_display,,,data_display,Example document description,False,,,,,False,,,,,
-fac_file,file_upload,,,fileoption,,False,Upload a file,File Upload,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png,.docx;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
+fac_file,file_upload,,,fileoption,,False,Upload a PDF file,File Upload,,,False,,,,,"file_type:.pdf;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -3407,7 +3388,7 @@ align-items: center;"">
   color: #000000;
   text-align: center;
 "">
-Upload the template for an additional document required for the application:
+Upload an additional document required for the application:
 </div>
 
 </div> ",,,,False,,,,,
@@ -3517,6 +3498,21 @@ in the top-right corner of this section.
 card_builder,operation_card,,,card,,FALSE,,Docket Operation,ACTION.OPERATIONS,,False,,,,,
 fac_str,operation_type,,,,,False,Select Operation type,Select Operation,ACTION.OPERATIONS,,False,,,,,
 ender_field,,ender,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+section_break,comments_section,,,section_break,,False,,Comments,PROGRESS.IGNORE,,False,,,,,
+info_pane_builder,comments_pane,,,info_pane,,False,,Comments,SAVE_EVEN_IF_HIDDEN,,False,,,,,operation.save:Save Comments
+card_builder,c_card,,,card,,False,,Comments,,,False,,,not EXISTS(@.c_card.c_row[0]),,operation.save:Save and Continue
+table,c_table,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:1
+group_builder,c_row,,,table_row,,False,,Comments Row,,,False,,,,,
+fac_str,user,,,data_display,,False,Enter User,User,,,False,,,,,align:left
+fac_str,timestamp,,,data_display,,False,Enter Time,Time,,,False,,,,,
+fac_str,comments,,,data_display,,False,Enter Comment,Comment,,,False,,,,,align:left
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+fac_str,user,,,data_display,,False,Enter User,User,,,False,,,,,
+fac_str,comment_input,,,textbox.row-4,,False,Enter Comment Input,Comment Input,,,False,,,,,
+fac_str,add_comment_button,,,cta_button,Add Comment,False,Add Comment,Add Comment,,,False,,,,,verify.verify_handler:VERIFIER_ADD_COMMENT;verify.action_text:Add Comment;align:center
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,scratch_pad_section,,,section_break,,False,,Scratch Pad,PROGRESS.IGNORE,,False,,,True,,
 info_pane_builder,scratch_pad,,,info_pane,,False,,Scratch Pad,SAVE_EVEN_IF_HIDDEN,,False,,,,,
