@@ -198,7 +198,7 @@ class AdditionalDocumentsTravellerVerifier(VerifyHandlerSpec):
                                     RootAdditionalDocumentsPaneAdditionalDocumentsTravellerGroupAdditionaldocumentgrouptravellerAdditionalDocumentsCardTraveller(
                                         document_name=effective_document_name,
                                         document_description=document_description,
-                                        document_name_display=effective_document_name,
+                                        document_name_display=self._stylize_doc_name(effective_document_name),
                                         document_description_display=document_description,
                                         file_upload=preserved_upload,
                                     )
@@ -373,19 +373,35 @@ class AdditionalDocumentsTravellerVerifier(VerifyHandlerSpec):
         # base64 encode for inline download link
         encoded_zip = base64.b64encode(zip_bytes).decode("utf-8")
 
+        file_name = f"generated_documents_{datetime.now().strftime('%d %b %Y')}.zip".title()
+
         html_msg = f"""
-        <div>
-            <p>Click below to download all generated documents as a ZIP:</p>
-            <a
-                href="data:application/zip;base64,{encoded_zip}"
-                download="generated_documents.zip"
-            >
-                Download all documents
-            </a>
+        <div
+            style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                font-size: 20px;
+                font-weight: bold;
+                text-align: center;
+            "
+        >
+            <p>
+                <a
+                    href="data:application/zip;base64,{encoded_zip}"
+                    download="{file_name}"
+                >
+                    Click here to download the generated documents
+                </a>
+            </p>
         </div>
         """
 
         return html_msg
+
+    def _stylize_doc_name(self, name: str) -> str:
+        return f'<div style="display: flex; justify-content: center;"><span style="font-size: 20px; font-weight: bold; color: #3BB9EB;">{name}</span></div>'
+
 
 
 #     async def store_all_files(
