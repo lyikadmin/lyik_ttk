@@ -43,6 +43,13 @@ ACTOR = "system"
 
 
 # VERIFIER_GENERATE_FILLED_GENERIC_TEMPLATES
+import io
+import re
+import base64
+import zipfile
+from typing import Any, Dict, List
+
+
 class AdditionalDocumentsTravellerVerifier(VerifyHandlerSpec):
 
     @impl
@@ -59,7 +66,22 @@ class AdditionalDocumentsTravellerVerifier(VerifyHandlerSpec):
         RequiredVars(["PDF_GARBLE_KEY", "DOWNLOAD_DOC_API_ENDPOINT"]),
     ]:
         """
-        This verifier generates link to download the zip of templates, and also creates the appropriate cards required to upload the modified files, if it doesn't exist already.
+        This verifier is responsible for:
+        1. Building/normalizing the traveller upload cards:
+           - For each consultant document requirement, ensure there is a corresponding
+             traveller card (to allow the end user to upload their filled-out file).
+           - Existing traveller uploads are preserved where possible.
+           - Duplicate consultant documents are de-duplicated and numbered
+             ("Doc", "Doc (2)", "Doc (3)", ...) so we don't create conflicting cards.
+
+        2. Generating downloadable templates:
+           - For each consultant document template, generate a filled .docx file.
+           - All generated .docx files are bundled into a single in-memory ZIP.
+           - A base64 download link for that ZIP is injected back into the payload
+             as `template_download_display`.
+
+        The method returns a VerifyHandlerResponseModel containing the updated payload
+        (cards + download link), or an appropriate failure response.
         """
         payload = RootAdditionalDocumentsPane.model_validate(payload)
         # payload_dict = payload.model_dump(mode="json")
@@ -94,12 +116,22 @@ class AdditionalDocumentsTravellerVerifier(VerifyHandlerSpec):
                     traveller_card
                 )
 
-            # We'll accumulate:
-            new_traveller_group: List[
-                FieldGrpRootAdditionalDocumentsPaneAdditionalDocumentsTravellerGroup
-            ] = []
+            # We'll accumulate traveller cards here, but dedup by name.
+            # key: effective_document_name (possibly "Doc", "Doc (2)", etc.)
+            # value: FieldGrp... wrapper we build below
+            new_traveller_group_map: Dict[
+                str,
+                FieldGrpRootAdditionalDocumentsPaneAdditionalDocumentsTravellerGroup,
+            ] = {}
 
-            templates_list: List[Any] = []
+            # Instead of a list of templates, we now keep a map:
+            # key: effective_document_name (this will become the final filename base)
+            # value: consultant_card.file_upload (the template file to transform)
+            templates_map: Dict[str, Any] = {}
+
+            # Track how many times we've seen each *raw* document_name (without numbering)
+            # so we can generate "Name", "Name (2)", "Name (3)", ...
+            doc_name_counts: Dict[str, int] = {}  # base_name -> count
 
             # Walk all consultant cards in order
             for (
@@ -113,29 +145,60 @@ class AdditionalDocumentsTravellerVerifier(VerifyHandlerSpec):
                 document_description = consultant_card.document_description
                 template_file = consultant_card.file_upload
 
-                # Track template file for ZIP bundling
+                # Count how many times we've seen this base name so far
+                count = doc_name_counts.get(document_name, 0) + 1
+                doc_name_counts[document_name] = count
+
+                # Build the "effective" name that should be unique across duplicates.
+                # First copy keeps the raw name. Subsequent copies get " (2)", " (3)", ...
+                if count == 1:
+                    effective_document_name = document_name
+                else:
+                    effective_document_name = f"{document_name} ({count})"
+
+                # Track template file for ZIP bundling.
+                # Using effective_document_name here means each duplicate
+                # produces a separate entry and thus a separate generated doc.
                 if template_file is not None:
-                    templates_list.append(template_file)
+                    templates_map[effective_document_name] = template_file
 
-                # See if we already had a traveller card for this doc name
-                maybe_existing = existing_traveller_by_doc_name.get(document_name)
-
+                # See if we already had a traveller card for this doc name in the *incoming* payload.
+                # We now look up by effective_document_name; if it's new (like "... (2)"),
+                # it probably won't exist yet, which is fine.
+                maybe_existing = existing_traveller_by_doc_name.get(
+                    effective_document_name
+                )
                 if maybe_existing:
                     # Preserve the user's uploaded file, if any
                     preserved_upload = maybe_existing.file_upload
                 else:
                     preserved_upload = None
 
-                # Build traveller card wrapper in the expected schema
-                new_traveller_group.append(
-                    FieldGrpRootAdditionalDocumentsPaneAdditionalDocumentsTravellerGroup(
+                # Check if we've ALREADY created a traveller card wrapper for this effective name
+                already_built_wrapper = new_traveller_group_map.get(
+                    effective_document_name
+                )
+
+                if already_built_wrapper:
+                    # We don't append a duplicate. But we *can* opportunistically
+                    # attach an upload if the first version didn't have one and this one does.
+                    built_card = (
+                        already_built_wrapper.additionaldocumentgrouptraveller.additional_documents_card_traveller
+                    )
+
+                    if built_card.file_upload is None and preserved_upload is not None:
+                        built_card.file_upload = preserved_upload
+
+                else:
+                    # Build traveller card wrapper in the expected schema
+                    new_wrapper = FieldGrpRootAdditionalDocumentsPaneAdditionalDocumentsTravellerGroup(
                         additionaldocumentgrouptraveller=(
                             RootAdditionalDocumentsPaneAdditionalDocumentsTravellerGroupAdditionaldocumentgrouptraveller(
                                 additional_documents_card_traveller=(
                                     RootAdditionalDocumentsPaneAdditionalDocumentsTravellerGroupAdditionaldocumentgrouptravellerAdditionalDocumentsCardTraveller(
-                                        document_name=document_name,
+                                        document_name=effective_document_name,
                                         document_description=document_description,
-                                        document_name_display=document_name,
+                                        document_name_display=effective_document_name,
                                         document_description_display=document_description,
                                         file_upload=preserved_upload,
                                     )
@@ -143,11 +206,24 @@ class AdditionalDocumentsTravellerVerifier(VerifyHandlerSpec):
                             )
                         )
                     )
-                )
 
-            # For now this is a stub.
+                    # Store this wrapper keyed by effective_document_name so duplicates
+                    # (e.g. "Letter", "Letter (2)") are treated as distinct rows
+                    # and true exact name repeats don't create duplicates.
+                    new_traveller_group_map[effective_document_name] = new_wrapper
+
+            # Convert the deduped map into the final list for the payload.
+            # dict preserves insertion order, so first occurrence
+            # of each effective_document_name defines ordering.
+            new_traveller_group: List[
+                FieldGrpRootAdditionalDocumentsPaneAdditionalDocumentsTravellerGroup
+            ] = list(new_traveller_group_map.values())
+
+            # Generate the ZIP download link using templates_map
             templates_link_response = await self.generate_template_zip(
-                templates_list=templates_list, record=full_form_record, context=context
+                templates_map=templates_map,
+                record=full_form_record,
+                context=context,
             )
 
             if isinstance(templates_link_response, VerifyHandlerResponseModel):
@@ -182,14 +258,15 @@ class AdditionalDocumentsTravellerVerifier(VerifyHandlerSpec):
 
     async def generate_template_zip(
         self,
-        templates_list,
+        templates_map: Dict[str, Any],  # { effective_document_name: template_file }
         record,
         context: ContextModel,
     ) -> str:
 
         generated_doc_list: List[TemplateDocumentModel] = []
 
-        for template in templates_list:
+        # Iterate over the mapping of desired filename -> template file
+        for desired_doc_name, template in templates_map.items():
             transformer_res: TransformerResponseModel = (
                 await invoke.template_generate_docx(
                     org_id=context.org_id,
@@ -231,6 +308,26 @@ class AdditionalDocumentsTravellerVerifier(VerifyHandlerSpec):
             for d in docs:
                 if not d or not getattr(d, "doc_content", None):
                     continue
+
+                # We now force the generated document to take on the (possibly numbered)
+                # effective_document_name as the filename in the ZIP.
+                # We also sanitize it and ensure it ends with .docx.
+                safe_base_name = (
+                    re.sub(
+                        r"[^\w\-\.\(\) ]+",
+                        "_",
+                        desired_doc_name or "",
+                    ).strip()
+                    or "document"
+                )
+                if not safe_base_name.lower().endswith(".docx"):
+                    final_name = f"{safe_base_name}.docx"
+                else:
+                    final_name = safe_base_name
+
+                # override upstream name so downstream ZIP code uses it
+                d.doc_name = final_name
+
                 generated_doc_list.append(d)
 
         if not generated_doc_list:
@@ -254,6 +351,8 @@ class AdditionalDocumentsTravellerVerifier(VerifyHandlerSpec):
                 base_name = doc.doc_name or "document.docx"
 
                 # uniquify filenames inside zip
+                # NOTE: This still matters because after sanitization, two different
+                # desired_doc_name values could collide to the same cleaned filename.
                 if base_name in name_counts:
                     name_counts[base_name] += 1
                     if "." in base_name:
@@ -285,58 +384,6 @@ class AdditionalDocumentsTravellerVerifier(VerifyHandlerSpec):
             </a>
         </div>
         """
-
-        return html_msg
-
-        # output_docs: List[DocumentModel] = []
-        # for gen_doc in generated_doc_list:
-        #     output_docs.append(
-        #         DocumentModel(
-        #             doc_id=None,
-        #             doc_name=gen_doc.doc_name,
-        #             doc_type=gen_doc.doc_type,
-        #             doc_size=len(gen_doc.doc_content),
-        #             doc_content=gen_doc.doc_content,
-        #         )
-        #     )
-
-        # if len(output_docs) != 0:
-        #     await self.store_all_files(
-        #         context=context,
-        #         files=output_docs,
-        #         rec_id=record_id,
-        #         tag={
-        #             "custom_docx_templates": "custom_docx_templates",
-        #         },
-        #     )
-        #     logger.info("Files saved to DB.")
-
-        # # Create the link for downloading the payload file
-        # link_data = DocQueryGenericModel(
-        #     org_id=context.org_id, form_id=context.form_id, record_id=record_id
-        # )
-        # link_data = link_data.model_copy(update={"docket": "docket"})
-
-        # # Obfuscate the data string
-        # obfus_str = self.obfuscate_string(
-        #     data_str=link_data.model_dump_json(),
-        #     static_key=context.config.PDF_GARBLE_KEY,
-        # )
-
-        # file_name = f"Generated Templates {datetime.now().strftime('%d %b %Y')}".title()
-
-        # api_domain = os.getenv("API_DOMAIN")
-        # download_doc_endpoint = context.config.DOWNLOAD_DOC_API_ENDPOINT
-        # download_url = f"{api_domain}{download_doc_endpoint}{obfus_str}.zip?file_name={file_name}"
-
-        # html_msg = get_docket_operation_html_message(
-        #     title_text="Templates generated",
-        #     instruction_points=[
-        #         "Download Your Generated Documents",
-        #     ],
-        #     url=download_url,
-        #     action_text="Download Documents",
-        # )
 
         return html_msg
 
