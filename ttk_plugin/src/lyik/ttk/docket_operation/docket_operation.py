@@ -288,6 +288,7 @@ class DocketOperation(OperationPluginSpec):
                     template_id=final_template_id,
                     form_name="schengenpdf",
                     record=data_dict,
+                    keep_pdf_editable=False,
                 )
             )
 
