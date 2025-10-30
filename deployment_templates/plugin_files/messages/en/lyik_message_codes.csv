@@ -1,105 +1,102 @@
-MESSAGE CODE,DESCRIPTION,CONTEXT
-LYIK_ERR_value_error,Invalid value provided.,"Used when the Pydantic error type is 'value_error', indicating a generic validation failure not tied to a specific data type."
-LYIK_ERR_integer_default,Only numeric values are allowed.,"Used when the Pydantic error type is 'int_parsing', indicating that a non-integer value was provided where an integer was expected."
-LYIK_ERR_string_default,Text input expected.,"Used when the Pydantic error type is 'string_type', indicating that a non-string value was provided where a string was expected."
-LYIK_ERR_missing,Invalid value. Please re-enter.,"Used when the Pydantic error type is 'missing', indicating that a required field was not provided in the input."
-LYIK_ERR_default,Invalid value. Please re-enter.,Used as a fallback for unknown or unhandled Pydantic error types.
-LYIK_ERR_DEFAULT_VALIDATION_ERROR,Invalid value. Please re-enter.,The default message which comes up at the top of the card/infopane
-LYIK_ERR_INVALID_PASSPORT_NUM,"""%1"" is not a valid Passport Number. Please use the correct format (e.g., A1234567).",Passport verification
-LYIK_ERR_EXIPRED_PASSPORT,It seems your Passport has expired. Kindly upload a non-expired Passport to proceed.,Passport verification
-LYIK_ERR_SOMETHING_WENT_WRONG,Something went wrong. Please try again.,GENERIC
-LYIK_ERR_INVALID_PINCODE,"""%1"" is not a valid Pincode. Please check the format and try again.",PIN code verification
-LYIK_ERR_INVALID_AADHAAR_NUM,"""%1"" is not a valid Aadhaar Number. Please check the format and try again.",Aadhaar number verification
-LYIK_ERR_INVALID_EMAIL_ADDR,"""%1"" is not a valid Email Address. Please check the format and try again.",Email address verification
-LYIK_ERR_INVALID_PHONE_NUM,"""%1"" is not a valid Phone Number. Please check and try again.",Phone number verification
-LYIK_ERR_INVALID_OCR_FILES,Unable to read the uploaded files. Kindly upload clearer or different image(s) and try again.,OCR
-LYIK_WARN_VALUES_MODIFIED,Values were modified. Please Verify again to continue.,Verfication status checker
-LYIK_ERR_ACCOMMODATIONARRANGEMENT,Invalid Accommodationarrangement value.,Used when the Enum field 'ACCOMMODATIONARRANGEMENT' receives a value that is not among the allowed options.
-LYIK_ERR_ADDRESSPROOFTYPE,Invalid Addressprooftype value.,Used when the Enum field 'ADDRESSPROOFTYPE' receives a value that is not among the allowed options.
-LYIK_ERR_ADDONOP,Invalid Addonop value.,Used when the Enum field 'ADDONOP' receives a value that is not among the allowed options.
-LYIK_ERR_ADDONSERVICEAPPOINTMENT,Invalid Addonserviceappointment value.,Used when the Enum field 'ADDONSERVICEAPPOINTMENT' receives a value that is not among the allowed options.
-LYIK_ERR_ADOSI,Invalid Adosi value.,Used when the Enum field 'ADOSI' receives a value that is not among the allowed options.
-LYIK_ERR_CIVILMARITALSTATUS,Invalid Civilmaritalstatus value.,Used when the Enum field 'CIVILMARITALSTATUS' receives a value that is not among the allowed options.
-LYIK_ERR_CONFIRMADDONS,Invalid Confirmaddons value.,Used when the Enum field 'CONFIRMADDONS' receives a value that is not among the allowed options.
-LYIK_ERR_CONFIRMAPTBOOKED,Invalid Confirmaptbooked value.,Used when the Enum field 'CONFIRMAPTBOOKED' receives a value that is not among the allowed options.
-LYIK_ERR_CONFIRMDOCSUPLOADED,Invalid Confirmdocsuploaded value.,Used when the Enum field 'CONFIRMDOCSUPLOADED' receives a value that is not among the allowed options.
-LYIK_ERR_CONFIRMUNEDITABLE,Invalid Confirmuneditable value.,Used when the Enum field 'CONFIRMUNEDITABLE' receives a value that is not among the allowed options.
-LYIK_ERR_CONFIRMVIEWEDDATA,Invalid Confirmvieweddata value.,Used when the Enum field 'CONFIRMVIEWEDDATA' receives a value that is not among the allowed options.
-LYIK_ERR_COUNTRY,Invalid Country value.,Used when the Enum field 'COUNTRY' receives a value that is not among the allowed options.
-LYIK_ERR_COUNTRY3,Invalid Country3 value.,Used when the Enum field 'COUNTRY3' receives a value that is not among the allowed options.
-LYIK_ERR_CURRENTOCCUPATIONSTATUS,Invalid Currentoccupationstatus value.,Used when the Enum field 'CURRENTOCCUPATIONSTATUS' receives a value that is not among the allowed options.
-LYIK_ERR_DOCKETSTATUS,Invalid Docketstatus value.,Used when the Enum field 'DOCKETSTATUS' receives a value that is not among the allowed options.
-LYIK_ERR_EXPENSECOVERAGE1,Invalid Expensecoverage1 value.,Used when the Enum field 'EXPENSECOVERAGE1' receives a value that is not among the allowed options.
-LYIK_ERR_EXPENSECOVERAGE2,Invalid Expensecoverage2 value.,Used when the Enum field 'EXPENSECOVERAGE2' receives a value that is not among the allowed options.
-LYIK_ERR_EXPENSECOVERAGE3,Invalid Expensecoverage3 value.,Used when the Enum field 'EXPENSECOVERAGE3' receives a value that is not among the allowed options.
-LYIK_ERR_EXPENSECOVERAGE4,Invalid Expensecoverage4 value.,Used when the Enum field 'EXPENSECOVERAGE4' receives a value that is not among the allowed options.
-LYIK_ERR_EXPENSECOVERAGE5,Invalid Expensecoverage5 value.,Used when the Enum field 'EXPENSECOVERAGE5' receives a value that is not among the allowed options.
-LYIK_ERR_FAMILYMEMBEROFEU,Invalid Familymemberofeu value.,Used when the Enum field 'FAMILYMEMBEROFEU' receives a value that is not among the allowed options.
-LYIK_ERR_GENDER,Invalid Gender value.,Used when the Enum field 'GENDER' receives a value that is not among the allowed options.
-LYIK_ERR_HOURSELECT,Invalid Hourselect value.,Used when the Enum field 'HOURSELECT' receives a value that is not among the allowed options.
-LYIK_ERR_INSURANCEPLAN,Invalid Insuranceplan value.,Used when the Enum field 'INSURANCEPLAN' receives a value that is not among the allowed options.
-LYIK_ERR_ITROPTION1,Invalid Itroption1 value.,Used when the Enum field 'ITROPTION1' receives a value that is not among the allowed options.
-LYIK_ERR_MINUTESELECT,Invalid Minuteselect value.,Used when the Enum field 'MINUTESELECT' receives a value that is not among the allowed options.
-LYIK_ERR_NUMBEROFENTRIES,Invalid Numberofentries value.,Used when the Enum field 'NUMBEROFENTRIES' receives a value that is not among the allowed options.
-LYIK_ERR_OPTION,Invalid Option value.,Used when the Enum field 'OPTION' receives a value that is not among the allowed options.
-LYIK_ERR_PASSPORTTYPE,Invalid Passporttype value.,Used when the Enum field 'PASSPORTTYPE' receives a value that is not among the allowed options.
-LYIK_ERR_PAYMENTMETHOD1,Invalid Paymentmethod1 value.,Used when the Enum field 'PAYMENTMETHOD1' receives a value that is not among the allowed options.
-LYIK_ERR_PAYMENTMETHOD2,Invalid Paymentmethod2 value.,Used when the Enum field 'PAYMENTMETHOD2' receives a value that is not among the allowed options.
-LYIK_ERR_PAYMENTMETHOD3,Invalid Paymentmethod3 value.,Used when the Enum field 'PAYMENTMETHOD3' receives a value that is not among the allowed options.
-LYIK_ERR_PAYMENTMETHOD4,Invalid Paymentmethod4 value.,Used when the Enum field 'PAYMENTMETHOD4' receives a value that is not among the allowed options.
-LYIK_ERR_PAYMENTMETHOD5,Invalid Paymentmethod5 value.,Used when the Enum field 'PAYMENTMETHOD5' receives a value that is not among the allowed options.
-LYIK_ERR_PAYMENTMETHOD6,Invalid Paymentmethod6 value.,Used when the Enum field 'PAYMENTMETHOD6' receives a value that is not among the allowed options.
-LYIK_ERR_PHOTOGRAPHAPPOINTMENT,Invalid Photographappointment value.,Used when the Enum field 'PHOTOGRAPHAPPOINTMENT' receives a value that is not among the allowed options.
-LYIK_ERR_PREFLOC,Invalid Prefloc value.,Used when the Enum field 'PREFLOC' receives a value that is not among the allowed options.
-LYIK_ERR_PURPOSEOFVISAORTRAVEL,Invalid Purposeofvisaortravel value.,Used when the Enum field 'PURPOSEOFVISAORTRAVEL' receives a value that is not among the allowed options.
-LYIK_ERR_RELATIONSHIP,Invalid Relationship value.,Used when the Enum field 'RELATIONSHIP' receives a value that is not among the allowed options.
-LYIK_ERR_RELATIONSHIPWITHEU,Invalid Relationshipwitheu value.,Used when the Enum field 'RELATIONSHIPWITHEU' receives a value that is not among the allowed options.
-LYIK_ERR_SAMEACCOMMODATIONASPRIMARY,Invalid Sameaccommodationasprimary value.,Used when the Enum field 'SAMEACCOMMODATIONASPRIMARY' receives a value that is not among the allowed options.
-LYIK_ERR_SAMEASPASSADDR,Invalid Sameaspassaddr value.,Used when the Enum field 'SAMEASPASSADDR' receives a value that is not among the allowed options.
-LYIK_ERR_SAMEFLIGHTTICKETASPRIMARY,Invalid Sameflightticketasprimary value.,Used when the Enum field 'SAMEFLIGHTTICKETASPRIMARY' receives a value that is not among the allowed options.
-LYIK_ERR_SAMEITINERARYASPRIMARY,Invalid Sameitineraryasprimary value.,Used when the Enum field 'SAMEITINERARYASPRIMARY' receives a value that is not among the allowed options.
-LYIK_ERR_SKIPBANKSTATEMENTS,Invalid Skipbankstatements value.,Used when the Enum field 'SKIPBANKSTATEMENTS' receives a value that is not among the allowed options.
-LYIK_ERR_SKIPSALARYSLIPS,Invalid Skipsalaryslips value.,Used when the Enum field 'SKIPSALARYSLIPS' receives a value that is not among the allowed options.
-LYIK_ERR_SPONSORTYPE1,Invalid Sponsortype1 value.,Used when the Enum field 'SPONSORTYPE1' receives a value that is not among the allowed options.
-LYIK_ERR_SPONSORTYPE2,Invalid Sponsortype2 value.,Used when the Enum field 'SPONSORTYPE2' receives a value that is not among the allowed options.
-LYIK_ERR_SPONSORTYPE3,Invalid Sponsortype3 value.,Used when the Enum field 'SPONSORTYPE3' receives a value that is not among the allowed options.
-LYIK_ERR_SPONSORTYPE4,Invalid Sponsortype4 value.,Used when the Enum field 'SPONSORTYPE4' receives a value that is not among the allowed options.
-LYIK_ERR_VISAMODE,Invalid Visamode value.,Used when the Enum field 'VISAMODE' receives a value that is not among the allowed options.
-LYIK_ERR_VISATYPE,Invalid Visatype value.,Used when the Enum field 'VISATYPE' receives a value that is not among the allowed options.
-LYIK_ERR_AADHAAR,Invalid Aadhaar Number.,Used when value does not match the Aadhaar number format.
-LYIK_ERR_PASSPORT_NUMBER,Invalid Passport Number.,Used when value does not match the Passport number format.
-LYIK_ERR_MISSING_IMAGES_PASSPORT,Passport Image(s) are missing. Please ensure that both the front and back images are uploaded before trying again.,Passport verification TTK
-LYIK_ERR_INVALID_PASSPORT,Please upload a Valid Passport for this step. Other documents aren’t accepted.,Passport verification TTK
-LYIK_ERR_MISSING_DOE_PASSPORT,Please enter the Date of Expiry and try again.,Passport verification TTK
-LYIK_ERR_MISSING_APPL_NAME_ADDON,Please enter the First and Last Name of Primary Traveller before proceeding.,Add-On Payment Verification TTK
-LYIK_ERR_UNEXPECTED_ERROR,Unexpected error detected. Please contact the TTK Visas for assistance.,GENERIC TTK
-LYIK_ERR_SAVE_FAILURE,Could not save this section. Please try again or connect with TTK for help.,GENERIC TTK
-LYIK_ERR_MISSING_FIELDS_PREV_VISA,Kindly complete all required fields if you have previously held a Schengen Visa.,Previous visas verifier TTK
-LYIK_ERR_INVALID_VISA_ED_PREV_VISA,Invalid Visa End Date. Kindly update and try again or reach out to TTK Visas.,Previous visas verifier TTK
-LYIK_ERR_MISSING_MANDATORY_FIELDS,Kindly complete all the mandatory fields.,GENERIC TTK
-LYIK_ERR_MISSING_MANDATORY_FIELD,Kindly complete this field.,GENERIC TTK
-LYIK_ERR_MISSING_SCH_DATE_APT,Kindly fill the Scheduled Date.,Appointment Verifier TTK
-LYIK_ERR_MISSING_DD_VRS_APT,Kindly Fill the Departure Date in Visa Request Summary Section before proceeding.,Appointment Verifier TTK
-LYIK_ERR_INVALID_APT_DATE,Scheduled date must be between today and the departure date (%2).,Appointment Verifier TTK
-LYIK_ERR_MISSING_ITINERARY_DOCKET,Kindly complete the Itinerary section for the Primary traveller before proceeding.,Docket Operation TTK
-LYIK_ERR_MISSING_ACCOMMODATION_DOCKET,Kindly complete the Accommodation section for the Primary traveller before proceeding.,Docket Operation TTK
-LYIK_ERR_MISSING_FLIGHT_TICKET_DOCKET,Kindly complete the Flight Tickets section for the Primary traveller before proceeding.,Docket Operation TTK
-LYIK_ERR_MISSING_TO_COUNTRY_DOCKET,Kindly enter the country you are travelling to in Visa Request Summary before proceeding.,Docket Operation TTK
-LYIK_ERR_DOCKET_GEN_FAILURE,Failed to generate the Docket. Please try again or connect with TTK for help.,Docket Operation TTK
-LYIK_ERR_UNEXPECTED_ERROR_DOCKET,Unexpected error occurred while generating docket. Please contact the TTK Visas for assistance.,Docket Operation TTK
-LYIK_ERR_MISSING_EMBASSY_FORM_DOCKET,Kindly upload the Application Form from Embassy before proceeding with Docket generation.,Docket Operation TTK
-LYIK_ERR_DID_NOT_FULLY_CONFIRM_SUBMISSION,Please confirm all items to submit.,Submit Application TTK
-LYIK_ERR_ARRIVAL_BEFORE_DEPARTURE_DATE,Date of Return cannot be before Date of Departure.,Visa Request TTK
-LYIK_ERR_EARLY_ARRIVAL_DEPARTURE_DATES,Date of Departure must be on or after %1.,Visa Request TTK
-LYIK_ERR_UNDER_REVIEW_SUBMISSION,Cannot submit application if it's under review.,Visa Request TTK
-LYIK_ERR_EMPTY_ARRIVAL_DEPARTURE_DATES,Please enter the Dates of Departure and Return.,Visa Request TTK
-LYIK_ERR_NO_SALARY_OPTION,Please either upload or opt to not provide salary slips here,Salary Slip TTK
-LYIK_ERR_NO_BANK_OPTION,Please either upload or opt to not provide bank statements here.,Bank Statement TTK
-LYIK_ERR_NO_ITR_OPTION,Please either upload or opt to not provide ITR here.,ITR Acknowledgement TTK
-LYIK_ERR_PASSPORT_ENTER_DATE_OF_RETURN,Please fill Visa Request Section First with arrival date.,Passport Section TTK.
-LYIK_ERR_PASSPORT_6_MONTH_EXPIRED,Passport must not expire before %1,Passport Section TTK.
-LYIK_ERR_PASSPORT_OTHER_MARITAL,Please Fill the Other Marital Status field.,Passport Section TTK.
-LYIK_ERR_OTHER_CIVIL_STATUS,Please Enter the Other Civil status information.,Passport Section TTK.
-LYIK_ERR_NO_TRAVEL_INSURANCE,Please either upload Travel Insurance or mark as need assistance from TTK Visas.,Travel Insurance Section TTK
-LYIK_ERR_CIVIL_MARITAL_STATUS,Please Enter the Civil Marital Status.,Passport Section TTK.
-LYIK_ERR_DOCX_GEN_FAILURE,Failed to generate the DOCX file. Please try again or contact support.,Cover Letter Section TTK
+MESSAGE CODE,DESCRIPTION,OLD DESCRIPTION,CONTEXT
+LYIK_ERR_value_error,Please enter a valid value.,Invalid value provided.,"Used when the Pydantic error type is 'value_error', indicating a generic validation failure not tied to a specific data type."
+LYIK_ERR_integer_default,Please provide a valid numeric value.,Only numeric values are allowed.,"Used when the Pydantic error type is 'int_parsing', indicating that a non-integer value was provided where an integer was expected."
+LYIK_ERR_string_default,This field is Mandatory,Text input expected.,"Used when the Pydantic error type is 'string_type', indicating that a non-string value was provided where a string was expected."
+LYIK_ERR_missing,Please re-enter a valid value.,Invalid value. Please re-enter.,"Used when the Pydantic error type is 'missing', indicating that a required field was not provided in the input."
+LYIK_ERR_default,Please re-enter a valid value.,Invalid value. Please re-enter.,Used as a fallback for unknown or unhandled Pydantic error types.
+LYIK_ERR_DEFAULT_VALIDATION_ERROR,Please re-enter a valid value.,Invalid value. Please re-enter.,The default message which comes up at the top of the card/infopane
+LYIK_ERR_INVALID_PASSPORT_NUM,"""%1"" is not a valid Passport Number. Please enter the correct format (e.g., A1234567).","""%1"" is not a valid Passport Number. Please use the correct format (e.g., A1234567).",Passport verification
+LYIK_ERR_EXIPRED_PASSPORT,It seems your Passport has expired. Kindly upload a non-expired Passport to proceed.,It seems your Passport has expired. Kindly upload a non-expired Passport to proceed.,Passport verification
+LYIK_ERR_SOMETHING_WENT_WRONG,An unexpected error occurred. Please try again.,Something went wrong. Please try again.,GENERIC
+LYIK_ERR_INVALID_PINCODE,"Please enter a valid Pincode. ""%1"" is invalid.","""%1"" is not a valid Pincode. Please check the format and try again.",PIN code verification
+LYIK_ERR_INVALID_AADHAAR_NUM,"Please enter a valid Aadhaar Number. ""%1"" is invalid.","""%1"" is not a valid Aadhaar Number. Please check the format and try again.",Aadhaar number verification
+LYIK_ERR_INVALID_EMAIL_ADDR,"Please enter a valid Email Address. ""%1"" is invalid.","""%1"" is not a valid Email Address. Please check the format and try again.",Email address verification
+LYIK_ERR_INVALID_PHONE_NUM,"Please enter a valid Phone Number. ""%1"" is invalid.","""%1"" is not a valid Phone Number. Please check and try again.",Phone number verification
+LYIK_ERR_INVALID_OCR_FILES,Unable to read the uploaded files. Kindly upload clearer or different image(s) and try again.,Unable to read the uploaded files. Kindly upload clearer or different image(s) and try again.,OCR
+LYIK_WARN_VALUES_MODIFIED,The values have been modified. Kindly verify again to proceed.,Values were modified. Please Verify again to continue.,Verfication status checker
+LYIK_ERR_ACCOMMODATIONARRANGEMENT,Invalid Accommodation Arrangement value.,Invalid Accommodationarrangement value.,Used when the Enum field 'ACCOMMODATIONARRANGEMENT' receives a value that is not among the allowed options.
+LYIK_ERR_ADDRESSPROOFTYPE,Invalid Address Proof Type value.,Invalid Addressprooftype value.,Used when the Enum field 'ADDRESSPROOFTYPE' receives a value that is not among the allowed options.
+LYIK_ERR_ADDONOP,Invalid Addonop value.,Invalid Addonop value.,Used when the Enum field 'ADDONOP' receives a value that is not among the allowed options.
+LYIK_ERR_ADDONSERVICEAPPOINTMENT,Invalid Addonserviceappointment value.,Invalid Addonserviceappointment value.,Used when the Enum field 'ADDONSERVICEAPPOINTMENT' receives a value that is not among the allowed options.
+LYIK_ERR_ADOSI,Invalid Adosi value.,Invalid Adosi value.,Used when the Enum field 'ADOSI' receives a value that is not among the allowed options.
+LYIK_ERR_CIVILMARITALSTATUS,Invalid Civil Marital Status value.,Invalid Civilmaritalstatus value.,Used when the Enum field 'CIVILMARITALSTATUS' receives a value that is not among the allowed options.
+LYIK_ERR_CONFIRMADDONS,Invalid Confirmaddons value.,Invalid Confirmaddons value.,Used when the Enum field 'CONFIRMADDONS' receives a value that is not among the allowed options.
+LYIK_ERR_CONFIRMAPTBOOKED,Invalid Confirmaptbooked value.,Invalid Confirmaptbooked value.,Used when the Enum field 'CONFIRMAPTBOOKED' receives a value that is not among the allowed options.
+LYIK_ERR_CONFIRMDOCSUPLOADED,Invalid Confirmdocsuploaded value.,Invalid Confirmdocsuploaded value.,Used when the Enum field 'CONFIRMDOCSUPLOADED' receives a value that is not among the allowed options.
+LYIK_ERR_CONFIRMUNEDITABLE,Invalid Confirmuneditable value.,Invalid Confirmuneditable value.,Used when the Enum field 'CONFIRMUNEDITABLE' receives a value that is not among the allowed options.
+LYIK_ERR_CONFIRMVIEWEDDATA,Invalid Confirmvieweddata value.,Invalid Confirmvieweddata value.,Used when the Enum field 'CONFIRMVIEWEDDATA' receives a value that is not among the allowed options.
+LYIK_ERR_COUNTRY,Invalid Country value.,Invalid Country value.,Used when the Enum field 'COUNTRY' receives a value that is not among the allowed options.
+LYIK_ERR_COUNTRY3,Invalid Country3 value.,Invalid Country3 value.,Used when the Enum field 'COUNTRY3' receives a value that is not among the allowed options.
+LYIK_ERR_CURRENTOCCUPATIONSTATUS,Invalid Current Occupation Status value.,Invalid Currentoccupationstatus value.,Used when the Enum field 'CURRENTOCCUPATIONSTATUS' receives a value that is not among the allowed options.
+LYIK_ERR_DOCKETSTATUS,Invalid Docketstatus value.,Invalid Docketstatus value.,Used when the Enum field 'DOCKETSTATUS' receives a value that is not among the allowed options.
+LYIK_ERR_EXPENSECOVERAGE1,Invalid Expensecoverage1 value.,Invalid Expensecoverage1 value.,Used when the Enum field 'EXPENSECOVERAGE1' receives a value that is not among the allowed options.
+LYIK_ERR_EXPENSECOVERAGE2,Invalid Expensecoverage2 value.,Invalid Expensecoverage2 value.,Used when the Enum field 'EXPENSECOVERAGE2' receives a value that is not among the allowed options.
+LYIK_ERR_EXPENSECOVERAGE3,Invalid Expensecoverage3 value.,Invalid Expensecoverage3 value.,Used when the Enum field 'EXPENSECOVERAGE3' receives a value that is not among the allowed options.
+LYIK_ERR_EXPENSECOVERAGE4,Invalid Expensecoverage4 value.,Invalid Expensecoverage4 value.,Used when the Enum field 'EXPENSECOVERAGE4' receives a value that is not among the allowed options.
+LYIK_ERR_EXPENSECOVERAGE5,Invalid Expensecoverage5 value.,Invalid Expensecoverage5 value.,Used when the Enum field 'EXPENSECOVERAGE5' receives a value that is not among the allowed options.
+LYIK_ERR_FAMILYMEMBEROFEU,Invalid Familymemberofeu value.,Invalid Familymemberofeu value.,Used when the Enum field 'FAMILYMEMBEROFEU' receives a value that is not among the allowed options.
+LYIK_ERR_GENDER,Invalid Gender value.,Invalid Gender value.,Used when the Enum field 'GENDER' receives a value that is not among the allowed options.
+LYIK_ERR_HOURSELECT,Invalid Hourselect value.,Invalid Hourselect value.,Used when the Enum field 'HOURSELECT' receives a value that is not among the allowed options.
+LYIK_ERR_INSURANCEPLAN,Invalid Insuranceplan value.,Invalid Insuranceplan value.,Used when the Enum field 'INSURANCEPLAN' receives a value that is not among the allowed options.
+LYIK_ERR_ITROPTION1,Invalid Itroption1 value.,Invalid Itroption1 value.,Used when the Enum field 'ITROPTION1' receives a value that is not among the allowed options.
+LYIK_ERR_MINUTESELECT,Invalid Minuteselect value.,Invalid Minuteselect value.,Used when the Enum field 'MINUTESELECT' receives a value that is not among the allowed options.
+LYIK_ERR_NUMBEROFENTRIES,Invalid Numberofentries value.,Invalid Numberofentries value.,Used when the Enum field 'NUMBEROFENTRIES' receives a value that is not among the allowed options.
+LYIK_ERR_OPTION,Invalid Option value.,Invalid Option value.,Used when the Enum field 'OPTION' receives a value that is not among the allowed options.
+LYIK_ERR_PASSPORTTYPE,Invalid Passporttype value.,Invalid Passporttype value.,Used when the Enum field 'PASSPORTTYPE' receives a value that is not among the allowed options.
+LYIK_ERR_PAYMENTMETHOD1,Invalid Paymentmethod1 value.,Invalid Paymentmethod1 value.,Used when the Enum field 'PAYMENTMETHOD1' receives a value that is not among the allowed options.
+LYIK_ERR_PAYMENTMETHOD2,Invalid Paymentmethod2 value.,Invalid Paymentmethod2 value.,Used when the Enum field 'PAYMENTMETHOD2' receives a value that is not among the allowed options.
+LYIK_ERR_PAYMENTMETHOD3,Invalid Paymentmethod3 value.,Invalid Paymentmethod3 value.,Used when the Enum field 'PAYMENTMETHOD3' receives a value that is not among the allowed options.
+LYIK_ERR_PAYMENTMETHOD4,Invalid Paymentmethod4 value.,Invalid Paymentmethod4 value.,Used when the Enum field 'PAYMENTMETHOD4' receives a value that is not among the allowed options.
+LYIK_ERR_PAYMENTMETHOD5,Invalid Paymentmethod5 value.,Invalid Paymentmethod5 value.,Used when the Enum field 'PAYMENTMETHOD5' receives a value that is not among the allowed options.
+LYIK_ERR_PAYMENTMETHOD6,Invalid Paymentmethod6 value.,Invalid Paymentmethod6 value.,Used when the Enum field 'PAYMENTMETHOD6' receives a value that is not among the allowed options.
+LYIK_ERR_PHOTOGRAPHAPPOINTMENT,Invalid Photographappointment value.,Invalid Photographappointment value.,Used when the Enum field 'PHOTOGRAPHAPPOINTMENT' receives a value that is not among the allowed options.
+LYIK_ERR_PREFLOC,Invalid Prefloc value.,Invalid Prefloc value.,Used when the Enum field 'PREFLOC' receives a value that is not among the allowed options.
+LYIK_ERR_PURPOSEOFVISAORTRAVEL,Invalid Purposeofvisaortravel value.,Invalid Purposeofvisaortravel value.,Used when the Enum field 'PURPOSEOFVISAORTRAVEL' receives a value that is not among the allowed options.
+LYIK_ERR_RELATIONSHIP,Invalid Relationship value.,Invalid Relationship value.,Used when the Enum field 'RELATIONSHIP' receives a value that is not among the allowed options.
+LYIK_ERR_RELATIONSHIPWITHEU,Invalid Relationshipwitheu value.,Invalid Relationshipwitheu value.,Used when the Enum field 'RELATIONSHIPWITHEU' receives a value that is not among the allowed options.
+LYIK_ERR_SAMEACCOMMODATIONASPRIMARY,Invalid Sameaccommodationasprimary value.,Invalid Sameaccommodationasprimary value.,Used when the Enum field 'SAMEACCOMMODATIONASPRIMARY' receives a value that is not among the allowed options.
+LYIK_ERR_SAMEASPASSADDR,Invalid Sameaspassaddr value.,Invalid Sameaspassaddr value.,Used when the Enum field 'SAMEASPASSADDR' receives a value that is not among the allowed options.
+LYIK_ERR_SAMEFLIGHTTICKETASPRIMARY,Invalid Sameflightticketasprimary value.,Invalid Sameflightticketasprimary value.,Used when the Enum field 'SAMEFLIGHTTICKETASPRIMARY' receives a value that is not among the allowed options.
+LYIK_ERR_SAMEITINERARYASPRIMARY,Invalid Sameitineraryasprimary value.,Invalid Sameitineraryasprimary value.,Used when the Enum field 'SAMEITINERARYASPRIMARY' receives a value that is not among the allowed options.
+LYIK_ERR_SKIPBANKSTATEMENTS,Invalid Skipbankstatements value.,Invalid Skipbankstatements value.,Used when the Enum field 'SKIPBANKSTATEMENTS' receives a value that is not among the allowed options.
+LYIK_ERR_SKIPSALARYSLIPS,Invalid Skipsalaryslips value.,Invalid Skipsalaryslips value.,Used when the Enum field 'SKIPSALARYSLIPS' receives a value that is not among the allowed options.
+LYIK_ERR_AADHAAR,Please enter a valid Aadhaar Number.,Invalid Aadhaar Number.,Used when value does not match the Aadhaar number format.
+LYIK_ERR_PASSPORT_NUMBER,Please enter a valid Passport Number.,Invalid Passport Number.,Used when value does not match the Passport number format.
+LYIK_ERR_MISSING_IMAGES_PASSPORT,Passport Image(s) are missing. Please ensure that both the front and back images are uploaded before trying again.,Passport Image(s) are missing. Please ensure that both the front and back images are uploaded before trying again.,Passport verification TTK
+LYIK_ERR_INVALID_PASSPORT,Please upload a Valid Passport for this step. Other documents aren’t accepted.,Please upload a Valid Passport for this step. Other documents aren’t accepted.,Passport verification TTK
+LYIK_ERR_MISSING_DOE_PASSPORT,Please enter the Date of Expiry and try again.,Please enter the Date of Expiry and try again.,Passport verification TTK
+LYIK_ERR_MISSING_APPL_NAME_ADDON,Please enter the First and Last Name of Primary Traveller before proceeding.,Please enter the First and Last Name of Primary Traveller before proceeding.,Add-On Payment Verification TTK
+LYIK_ERR_UNEXPECTED_ERROR,Unexpected error detected. Please contact the TTK Visas for assistance.,Unexpected error detected. Please contact the TTK Visas for assistance.,GENERIC TTK
+LYIK_ERR_SAVE_FAILURE,Could not save this section. Please try again or connect with TTK for help.,Could not save this section. Please try again or connect with TTK for help.,GENERIC TTK
+LYIK_ERR_MISSING_FIELDS_PREV_VISA,Please complete all required fields if you have previously held a Schengen Visa.,Kindly complete all required fields if you have previously held a Schengen Visa.,Previous visas verifier TTK
+LYIK_ERR_INVALID_VISA_ED_PREV_VISA,Invalid Visa End Date. Kindly update and try again or reach out to TTK Visas.,Invalid Visa End Date. Kindly update and try again or reach out to TTK Visas.,Previous visas verifier TTK
+LYIK_ERR_MISSING_MANDATORY_FIELDS,Please complete all the mandatory fields.,Kindly complete all the mandatory fields.,GENERIC TTK
+LYIK_ERR_MISSING_MANDATORY_FIELD,Please complete this field.,Kindly complete this field.,GENERIC TTK
+LYIK_ERR_MISSING_SCH_DATE_APT,Please fill the Scheduled Date.,Kindly fill the Scheduled Date.,Appointment Verifier TTK
+LYIK_ERR_MISSING_DD_VRS_APT,Please Fill the Departure Date in Visa Request Summary Section before proceeding.,Kindly Fill the Departure Date in Visa Request Summary Section before proceeding.,Appointment Verifier TTK
+LYIK_ERR_INVALID_APT_DATE,Scheduled date must be between today and the departure date (%2).,Scheduled date must be between today and the departure date (%2).,Appointment Verifier TTK
+LYIK_ERR_MISSING_ITINERARY_DOCKET,Please complete the Itinerary section for the Primary traveller before proceeding.,Kindly complete the Itinerary section for the Primary traveller before proceeding.,Docket Operation TTK
+LYIK_ERR_MISSING_ACCOMMODATION_DOCKET,Please complete the Accommodation section for the Primary traveller before proceeding.,Kindly complete the Accommodation section for the Primary traveller before proceeding.,Docket Operation TTK
+LYIK_ERR_MISSING_FLIGHT_TICKET_DOCKET,Please complete the Flight Tickets section for the Primary traveller before proceeding.,Kindly complete the Flight Tickets section for the Primary traveller before proceeding.,Docket Operation TTK
+LYIK_ERR_MISSING_TO_COUNTRY_DOCKET,Please enter the country you are travelling to in Visa Request Summary before proceeding.,Kindly enter the country you are travelling to in Visa Request Summary before proceeding.,Docket Operation TTK
+LYIK_ERR_DOCKET_GEN_FAILURE,Failed to generate the Docket. Please try again or connect with TTK for help.,Failed to generate the Docket. Please try again or connect with TTK for help.,Docket Operation TTK
+LYIK_ERR_UNEXPECTED_ERROR_DOCKET,Unexpected error occurred while generating docket. Please contact the TTK Visas for assistance.,Unexpected error occurred while generating docket. Please contact the TTK Visas for assistance.,Docket Operation TTK
+LYIK_ERR_MISSING_EMBASSY_FORM_DOCKET,Please upload the Application Form from Embassy before proceeding with Docket generation.,Kindly upload the Application Form from Embassy before proceeding with Docket generation.,Docket Operation TTK
+LYIK_ERR_DID_NOT_FULLY_CONFIRM_SUBMISSION,Please confirm all items to submit.,Please confirm all items to submit.,Submit Application TTK
+LYIK_ERR_ARRIVAL_BEFORE_DEPARTURE_DATE,Please ensure the return date is after the departure date.,Date of Return cannot be before Date of Departure.,Visa Request TTK
+LYIK_ERR_UNDER_REVIEW_SUBMISSION,The application cannot be submitted while it is under review.,Cannot submit application if it's under review.,Visa Request TTK
+LYIK_ERR_EMPTY_ARRIVAL_DEPARTURE_DATES,Please enter the Dates of Departure and Return.,Please enter the Dates of Departure and Return.,Visa Request TTK
+LYIK_ERR_NO_SALARY_OPTION,Please upload your Salary Slips or indicate that you choose not to provide them.,Please either upload or opt to not provide salary slips here,Salary Slip TTK
+LYIK_ERR_NO_BANK_OPTION,Please upload your Bank Statement or indicate that you choose not to provide them.,Please either upload or opt to not provide bank statements here.,Bank Statement TTK
+LYIK_ERR_NO_ITR_OPTION,Please upload your ITR or indicate that you choose not to provide them.,Please either upload or opt to not provide ITR here.,ITR Acknowledgement TTK
+LYIK_ERR_PASSPORT_ENTER_DATE_OF_RETURN,Please complete the Visa Request section by providing the arrival date.,Please fill Visa Request Section First with arrival date.,Passport Section TTK.
+LYIK_ERR_PASSPORT_6_MONTH_EXPIRED,Expiry date of the passport cannot be earlier than %1.,Passport must not expire before %1,Passport Section TTK.
+LYIK_ERR_PASSPORT_OTHER_MARITAL,Please Fill the Other Marital Status field.,Please Fill the Other Marital Status field.,Passport Section TTK.
+LYIK_ERR_OTHER_CIVIL_STATUS,Please Enter the Other Civil status information.,Please Enter the Other Civil status information.,Passport Section TTK.
+LYIK_ERR_NO_TRAVEL_INSURANCE,Please Upload your Travel Insurance or indicate that you choose not to provide them.,,Travel Insurance Section TTK
+LYIK_ERR_CIVIL_MARITAL_STATUS,Please Select the Civil Marital Status.,,Passport Section TTK.
+LYIK_ERR_PASSPORT_TYPE,Please Select the Passport Type.,,Passport Section TTK.
+LYIK_ERR_NUMBER_OF_ENTRIES,Please input Number of entries.,,
+LYIK_ERR_COUNTRY_3,Please input Valid Country.,,
+LYIK_ERR_RELATIONSHIP_WITH_EU,Please input Relationship.,,
+LYIK_ERR_DOCX_GEN_FAILURE,Failed to generate the Document. Please try again or connect with TTK for help.,Failed to generate the DOCX file. Please try again or contact support.,Cover Letter Section TTK
