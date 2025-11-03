@@ -198,7 +198,9 @@ class AdditionalDocumentsTravellerVerifier(VerifyHandlerSpec):
                                     RootAdditionalDocumentsPaneAdditionalDocumentsTravellerGroupAdditionaldocumentgrouptravellerAdditionalDocumentsCardTraveller(
                                         document_name=effective_document_name,
                                         document_description=document_description,
-                                        document_name_display=self._stylize_doc_name(effective_document_name),
+                                        document_name_display=self._stylize_doc_name(
+                                            effective_document_name
+                                        ),
                                         document_description_display=document_description,
                                         file_upload=preserved_upload,
                                     )
@@ -285,21 +287,19 @@ class AdditionalDocumentsTravellerVerifier(VerifyHandlerSpec):
             ):
                 logger.error("Failed to transform the docx file.")
                 return VerifyHandlerResponseModel(
-                    status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
+                    status=VERIFY_RESPONSE_STATUS.FAILURE,
                     actor="system",
                     message=get_error_message(
-                        error_message_code="LYIK_ERR_SOMETHING_WENT_WRONG"
+                        error_message_code="LYIK_ERR_DOCX_GEN_FAILURE"
                     ),
                 )
 
             if transformer_res.status == TRANSFORMER_RESPONSE_STATUS.FAILURE:
                 logger.error("Failed to generate the Docx file.")
                 return VerifyHandlerResponseModel(
-                    status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
+                    status=VERIFY_RESPONSE_STATUS.FAILURE,
                     actor="system",
-                    message=get_error_message(
-                        error_message_code="LYIK_ERR_DOCX_GEN_FAILURE"
-                    ),
+                    message=transformer_res.message,
                 )
 
             docs: List[TemplateDocumentModel] = transformer_res.response
@@ -333,7 +333,7 @@ class AdditionalDocumentsTravellerVerifier(VerifyHandlerSpec):
         if not generated_doc_list:
             logger.error("No documents were generated from templates.")
             return VerifyHandlerResponseModel(
-                status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
+                status=VERIFY_RESPONSE_STATUS.FAILURE,
                 actor="system",
                 message=get_error_message(
                     error_message_code="LYIK_ERR_DOCX_GEN_FAILURE"
@@ -373,7 +373,9 @@ class AdditionalDocumentsTravellerVerifier(VerifyHandlerSpec):
         # base64 encode for inline download link
         encoded_zip = base64.b64encode(zip_bytes).decode("utf-8")
 
-        file_name = f"generated_documents_{datetime.now().strftime('%d %b %Y')}.zip".title()
+        file_name = (
+            f"generated_documents_{datetime.now().strftime('%d %b %Y')}.zip".title()
+        )
 
         html_msg = f"""
         <div
@@ -401,7 +403,6 @@ class AdditionalDocumentsTravellerVerifier(VerifyHandlerSpec):
 
     def _stylize_doc_name(self, name: str) -> str:
         return f'<div style="display: flex; justify-content: center;"><span style="font-size: 20px; font-weight: bold; color: #3BB9EB;">{name}</span></div>'
-
 
 
 #     async def store_all_files(

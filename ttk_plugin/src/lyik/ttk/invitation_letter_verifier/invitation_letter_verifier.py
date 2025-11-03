@@ -75,21 +75,19 @@ class InvitationLetterVerifier(VerifyHandlerSpec):
             ):
                 logger.error("Failed to transform the docx file.")
                 return VerifyHandlerResponseModel(
-                    status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
+                    status=VERIFY_RESPONSE_STATUS.FAILURE,
                     actor="system",
                     message=get_error_message(
-                        error_message_code="LYIK_ERR_SOMETHING_WENT_WRONG"
+                        error_message_code="LYIK_ERR_DOCX_GEN_FAILURE"
                     ),
                 )
 
             if transformer_res.status == TRANSFORMER_RESPONSE_STATUS.FAILURE:
                 logger.error("Failed to generate the Docx file.")
                 return VerifyHandlerResponseModel(
-                    status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
+                    status=VERIFY_RESPONSE_STATUS.FAILURE,
                     actor="system",
-                    message=get_error_message(
-                        error_message_code="LYIK_ERR_DOCX_GEN_FAILURE"
-                    ),
+                    message=transformer_res.message,
                 )
 
             docs: List[TemplateDocumentModel] = transformer_res.response
@@ -133,7 +131,7 @@ class InvitationLetterVerifier(VerifyHandlerSpec):
             logger.error(pe.detailed_message)
             return VerifyHandlerResponseModel(
                 id=None,
-                status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
+                status=VERIFY_RESPONSE_STATUS.FAILURE,
                 message=pe.message,
                 actor="system",
             )
@@ -141,7 +139,7 @@ class InvitationLetterVerifier(VerifyHandlerSpec):
             logger.error(f"Failed verification process. {e}")
             return VerifyHandlerResponseModel(
                 id=None,
-                status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
+                status=VERIFY_RESPONSE_STATUS.FAILURE,
                 message=get_error_message(error_message_code="LYIK_ERR_SAVE_FAILURE"),
                 actor="system",
             )
