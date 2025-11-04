@@ -62,14 +62,18 @@ class VisaRequestVerifier(VerifyHandlerSpec):
 
         if USE_DEFAULT:
             try:
-                business_days = int(full_form_record.scratch_pad.business_days)
+                business_days = int(
+                    full_form_record.appointment.earliest_appointment_date.business_days
+                )
                 if not business_days:
                     business_days = DEFAULT_BUSINESS_DAYS
             except Exception as e:
                 business_days = DEFAULT_BUSINESS_DAYS
         else:
             try:
-                business_days = int(full_form_record.scratch_pad.business_days)
+                business_days = int(
+                    full_form_record.appointment.earliest_appointment_date.business_days
+                )
             except Exception as e:
                 return VerifyHandlerResponseModel(
                     actor=ACTOR,
