@@ -1,30 +1,34 @@
-import logging
-from typing import Any, Union, Optional, Annotated, Dict
-from typing_extensions import Doc
-import jwt
-import httpx
-import os
-import json
-from datetime import datetime
+import apluggy as pluggy
 from lyikpluginmanager import (
+    invoke,
+    getProjectName,
+    ContextModel,
+    VerifyHandlerSpec,
+    VerifyHandlerResponseModel,
+    VERIFY_RESPONSE_STATUS,
     PluginException,
 )
 
-from lyikpluginmanager.annotation import RequiredEnv
-import apluggy as pluggy
-from lyikpluginmanager import (
-    ContextModel,
-    GenericFormRecordModel,
-)
 from lyik.ttk.models.forms.schengentouristvisa import (
     Schengentouristvisa,
     RootAppointment,
+    RootAppointmentEarliestAppointmentDate,
 )
+from datetime import datetime
+from lyik.ttk.utils.verifier_util import check_if_verified
+from typing import Annotated, Optional, Dict, Any, Union
+from typing_extensions import Doc
+from lyik.ttk.utils.message import get_error_message
+import logging
+import os
+import httpx
+import jwt
+import json
+
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO)
 
-from .._base_preaction import BaseUnifiedPreActionProcessor
+impl = pluggy.HookimplMarker(getProjectName())
 
 
 # --- Utility to format a date object to 'YYYY-MM-DD' string ---
@@ -40,27 +44,36 @@ def format_date_to_string(date_str: str) -> Optional[str]:
     return None
 
 
-class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
-    async def unified_pre_action_processor_impl(
+class AppointmentAPIVerifier(VerifyHandlerSpec):
+
+    @impl
+    async def verify_handler(
         self,
         context: ContextModel,
-        action: Annotated[str, "save or submit"],
-        current_state: Annotated[str | None, "previous record state"],
-        new_state: Annotated[str | None, "new record state"],
-        payload: Annotated[GenericFormRecordModel, "entire form record model"],
+        payload: Annotated[
+            RootAppointmentEarliestAppointmentDate,
+            Doc("Earliest Apointment Date card payload"),
+        ],
     ) -> Annotated[
-        GenericFormRecordModel,
-        RequiredEnv(["TTK_API_BASE_URL", "TTK_APPOINTMENT_API_ROUTE"]),
-        Doc("possibly modified record"),
+        VerifyHandlerResponseModel,
+        Doc("Response after verifying the Earliest Apointment Date."),
     ]:
         RUN_API = True
         try:
             if not context:
-                logger.error("Context is missing. Skipping preaction.")
-                return payload
+                raise PluginException(
+                    message=get_error_message(
+                        error_message_code="LYIK_ERR_UNEXPECTED_ERROR"
+                    ),
+                    detailed_message="The context is missing.",
+                )
             if not context.token:
-                logger.error("Token is missing in context. Skipping preaction.")
-                return payload
+                raise PluginException(
+                    message=get_error_message(
+                        error_message_code="LYIK_ERR_UNEXPECTED_ERROR"
+                    ),
+                    detailed_message="The token is missing in context.",
+                )
 
             token = context.token
 
@@ -71,33 +84,43 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
             ttk_token = self.find_token_field(outer_payload)
 
             if not ttk_token:
-                logger.error("TTK token is missing. Skipping preaction.")
-                return payload
+                raise PluginException(
+                    message=get_error_message(
+                        error_message_code="LYIK_ERR_UNEXPECTED_ERROR"
+                    ),
+                    detailed_message="The ttk_token could not be found.",
+                )
 
             try:
-                form = Schengentouristvisa(**payload.model_dump())
+                form = Schengentouristvisa(**context.record)
             except Exception as e:
-                logger.error(
-                    "Failed to parse form payload for country normalization: %s", e
+                raise PluginException(
+                    message=get_error_message(
+                        error_message_code="LYIK_ERR_UNEXPECTED_ERROR"
+                    ),
+                    detailed_message="Failed to parse the form record.",
                 )
-                return payload
 
             # Initialize appointment details if not present (The Case where a record was just created)
-            if not form.appointment:
-                form.appointment = RootAppointment()
+            # if not form.appointment:
+            #     form.appointment = RootAppointment()
 
-            appointment = form.appointment
+            # appointment = form.appointment
 
-            if (
-                appointment.earliest_appointment_date
-                and appointment.earliest_appointment_date.appointment_city_dropdown_values
-                and appointment.earliest_appointment_date.appointment_city_dates
-                and appointment.earliest_appointment_date.business_days
-            ):
-                logger.info(
-                    "Appointment section already contains appointment data. Skipping API call."
-                )
-                return payload
+            # if (
+            #     appointment.earliest_appointment_date
+            #     and appointment.earliest_appointment_date.appointment_city_dropdown_values
+            #     and appointment.earliest_appointment_date.appointment_city_dates
+            #     and appointment.earliest_appointment_date.business_days
+            # ):
+            #     logger.info(
+            #         "Appointment section already contains appointment data. Skipping API call."
+            #     )
+            #     return VerifyHandlerResponseModel(
+            #         status=VERIFY_RESPONSE_STATUS.SUCCESS,
+            #         actor="system",
+            #         message="",
+            #     )
 
             try:
                 country_code: str = (
@@ -107,18 +130,22 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
                     form.visa_request_information.visa_request.visa_type.value
                 )
             except Exception as e:
-                logger.error(
-                    "Unable to fetch the country of departure or visa type from the form. Skipping preaction."
+                raise PluginException(
+                    message=get_error_message(
+                        error_message_code="LYIK_ERR_VISA_TYPE_COA_MISSING"
+                    ),
+                    detailed_message="The visa_type of the to_country is missing in the record.",
                 )
-                return payload
 
             api_prefix = os.getenv("TTK_API_BASE_URL")
             api_route = os.getenv("TTK_APPOINTMENT_API_ROUTE")
             if not api_prefix or not api_route:
-                logger.error(
-                    "Api details missing. Skipping Appointment API Preaction process."
+                raise PluginException(
+                    message=get_error_message(
+                        error_message_code="LYIK_ERR_UNEXPECTED_ERROR"
+                    ),
+                    detailed_message="Api details missing. Skipping Appointment API Preaction process.",
                 )
-                return payload
 
             url = api_prefix + api_route
 
@@ -143,19 +170,14 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
                 logger.debug(f"The raw data returned for appointment API: {data}")
 
                 if data.get("status") != "success":
-                    logger.error(f"Appointment API returned failure: {data}")
-                    return payload
+                    raise PluginException(
+                        message=get_error_message(
+                            error_message_code="LYIK_ERR_UNEXPECTED_ERROR"
+                        ),
+                        detailed_message=f"Appointment API returned failure: {data}",
+                    )
 
                 return_data = data.get("returnData", [])
-
-                if not return_data:
-                    if not current_state:  # Case when the record is new
-                        logger.warning("Appointment API returned no appointment data.")
-                        return payload
-                    else:
-                        raise PluginException(
-                            message=f"Appointment Information cannot be fetched for country '{country_code}'. Please try again later."
-                        )
 
                 city_dropdown_values = {
                     item["city"]: item["city"] for item in return_data
@@ -213,25 +235,38 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
 
                 business_days = "10"
 
+            parsed_payload = RootAppointmentEarliestAppointmentDate(**payload)
+
             if city_dropdown_values:
-                form.appointment.earliest_appointment_date.appointment_city_dropdown_values = json.dumps(
+                parsed_payload.appointment_city_dropdown_values = json.dumps(
                     city_dropdown_values
                 )
             if city_dates:
-                form.appointment.earliest_appointment_date.appointment_city_dates = (
-                    json.dumps(city_dates)
-                )
+                parsed_payload.appointment_city_dates = json.dumps(city_dates)
             if business_days is not None:
-                form.appointment.earliest_appointment_date.business_days = business_days
+                parsed_payload.business_days = business_days
+
+            return VerifyHandlerResponseModel(
+                status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
+                message="",  # verified_successfully
+                actor="system",
+                response=parsed_payload.model_dump(),
+            )
 
         except PluginException as pe:
-            raise
+            logger.error(pe.detailed_message)
+            return VerifyHandlerResponseModel(
+                status=VERIFY_RESPONSE_STATUS.FAILURE,
+                actor="system",
+                message=pe.message,
+            )
         except Exception as ex:
-            logger.error(f"Something went wrong. Skipping appointment preaction: {ex}")
-            return payload
-
-        updated_data = form.model_dump(mode="json")
-        return GenericFormRecordModel.model_validate(updated_data)
+            logger.error(f"Something went wrong: {ex}")
+            return VerifyHandlerResponseModel(
+                status=VERIFY_RESPONSE_STATUS.FAILURE,
+                actor="system",
+                message=get_error_message(error_message_code="LYIK_ERR_SAVE_FAILURE"),
+            )
 
     def _decode_jwt(self, token: str) -> Dict[str, Any]:
         try:
