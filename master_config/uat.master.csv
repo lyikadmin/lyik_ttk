@@ -12,3 +12,5 @@ TPL_PAYU_SALT,n9jDaiVtx8Lr5R1jEgBFaX3QsYehW7ou,PAYU
 TPL_PAYU_URL,https://test.payu.in/_payment,PAYU
 TPL_PAYU_PRODUCT_INFO,TTK Services Visa Payment,PAYU
 TPL_TTK_APPOINTMENT_API_ROUTE,api/v2/getAppointmentDetail,TTK
+TPL_TTK_DOCUMENT_LIST_API,api/v2/documentList,TTK
+TPL_TTK_DOCUMENT_LIST_BY_ID_API,api/v2/getDocumentListById,TTK
