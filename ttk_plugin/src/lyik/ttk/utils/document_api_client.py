@@ -23,7 +23,7 @@ class DocumentAPIClient:
         self.base_url = base_url.rstrip("/")
         self.headers = {
             "Content-Type": "application/json",
-            "TTK-Token": ttk_token,
+            "Authorization": f"Bearer {ttk_token}",
         }
 
     def _post(self, endpoint: str, payload: Dict[str, Any]) -> Dict[str, Any]:

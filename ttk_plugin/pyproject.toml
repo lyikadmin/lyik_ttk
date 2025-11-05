@@ -74,3 +74,4 @@ _150_OPERATIONS = "lyik.ttk.plugin_operation_list.plugin_operation_list:Operatio
 _150_TRUSTED_VISA_OCR = "lyik.ttk.trusted.visa:VisaOCR"
 _150_VERIFIER_GENERATE_FILLED_GENERIC_TEMPLATES = "lyik.ttk.additional_documents.additional_documents_traveller_verifier:AdditionalDocumentsTravellerVerifier"
 _150_VERIFIER_ADD_COMMENT = "lyik.ttk.comments.comments_verifier:CommentsVerifier"
+_150_VERIFIER_SEND_NOTIFICATION = "lyik.ttk.notification.notification_verifier:NotificationVerifier"

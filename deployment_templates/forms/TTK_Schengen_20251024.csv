@@ -3215,9 +3215,13 @@ display_field,display_field_3,,,display_field,,False,"<!DOCTYPE html>
 fac_str,generate_cover,,,cta_button,Generate Letter,False,Automatically generate Covering letter,Generate Cover,,,False,,,,,verify.verify_handler:VERIFIER_COVER_LETTER;verify.action_text:Auto-fill Details;align:center
 fac_str,generation_info_display,,,data_display,,False,,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,send_email,,,card,,False,,,,,False,,,"not CONTAINS(USER.persona,[CLI,SPOC,CORP_CLI,SME])",,
+fac_str,notification_type,,,hidden,COVERING_LETTER,False,Enter Notification Type,Notification Type,,,False,,,,,
+fac_str,email_notification,,,cta_button,Send Email,False,Send Email,Send Email,,,False,,,,,verify.verify_handler:VERIFIER_SEND_NOTIFICATION;verify.action_text:Send Email;align:center
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,covering_letter_card,,,card,,False,,Upload Covering Letter,,,False,,,,,
 display_field,display_field,,,display_field,,False,Please upload the Signed and Sealed Covering Letter.,,,,False,,,,,
-fac_file,cover_upload,,,fileoption,,False,Upload a file,Covering Letter,,,False,,,,,"file_type:.docx,.pdf,.jpg,.jpeg,.png;download:None"
+fac_file,cover_upload,,,fileoption,,False,Upload a file,Covering Letter,,,False,,,,,file_type:.pdf;download:None
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,invitation_letter_section,,,section_break,,False,,Invitation Letter,,,False,,,,,
@@ -3278,9 +3282,13 @@ display_field,display_field_2,,,display_field,,False,"<!DOCTYPE html>
 fac_str,generate_cover,,,cta_button,Generate Letter,False,Automatically generate Invitation letter,Generate Cover,,,False,,,,,verify.verify_handler:VERIFIER_INVITATION_LETTER;verify.action_text:Generate Letter;align:center
 fac_str,generation_info_display,,,data_display,,False,,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,send_email,,,card,,False,,,,,False,,,"CONTAINS(USER.persona,[CLI,SPOC,CORP_CLI,SME])",,
+fac_str,notification_type,,,hidden,INVITATION_LETTER,False,Enter Notification Type,Notification Type,,,False,,,,,
+fac_str,email_notification,,,cta_button,Send Email,False,Send Email,Send Email,,,False,,,,,verify.verify_handler:VERIFIER_SEND_NOTIFICATION;verify.action_text:Send Email;align:center
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,invitation_letter_upload,,,card,,False,,Upload Invitation Letter,,,False,,,,,
 display_field,display_field_3,,,display_field,,False,Please upload the Invitation Letter,,,,False,,,,,
-fac_file,invite_upload,,,fileoption,,False,Upload a file,Invitation Upload,,,False,,,,,"file_type:.docx,.pdf,.jpg,.jpeg,.png;download:None"
+fac_file,invite_upload,,,fileoption,,False,Upload a file,Invitation Upload,,,False,,,,,file_type:.pdf;download:None
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 tab_break,employer_fin_tab,,,tab_break,,False,,Employer's Financial Documents,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,
