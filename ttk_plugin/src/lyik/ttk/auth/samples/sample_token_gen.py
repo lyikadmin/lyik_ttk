@@ -45,13 +45,13 @@ def run_for_payload(role_name: str, payload: dict):
     if isinstance(token, bytes):
         token = token.decode("utf-8")
 
-    # print(f"\n🔐 TTK Token ({role_name}):")
-    # print(token)
+    print(f"\n🔐 TTK Token ({role_name}):")
+    print(token)
 
     # 2) Decode & print payload
     decoded = jwt.decode(token, TTK_TOKEN_SECRET, algorithms=["HS256"])
-    # print("\n📜 Decoded TTK Payload:")
-    # print(json.dumps(decoded, indent=2))
+    print("\n📜 Decoded TTK Payload:")
+    print(json.dumps(decoded, indent=2))
 
     # 3) Call API with TTK token to fetch LYIK token
     headers = {
@@ -103,71 +103,72 @@ def run_for_payload(role_name: str, payload: dict):
 
 # ---- All four payloads ----
 payloads = [
-    (
-        "client",
-        {
-            "userId": "U001",
-            "accessType": "client",
-            "fullName": "Example Client",
-            "loginTime": "2025-04-25 15:10:30",
-            "expiryTimestamp": "1781934720",
-            "Order ID": "RVIS-03072025-003",
-        },
-    ),
+    # (
+    #     "client",
+    #     {
+    #         "userId": "U001",
+    #         "accessType": "client",
+    #         "fullName": "Example Client",
+    #         "loginTime": "2025-04-25 15:10:30",
+    #         "expiryTimestamp": "1781934720",
+    #         # "Order ID": "RVIS-03072025-003",
+    #     },
+    # ),
     (
         "maker",
         {
-            "userId": "U002",
+            # "userId": "U002",
+            "userId": "U_011",
             "accessType": "maker",
             "fullName": "Example Maker",
             "loginTime": "2025-04-25 15:10:30",
             "expiryTimestamp": "1781934720",
-            "Order ID": "RVIS-03072025-003",
+            # "Order ID": "RVIS-03072025-003",
         },
     ),
-    (
-        "corporate_client",
-        {
-            "userId": "U003",
-            "accessType": "corporate_client",
-            "fullName": "Example Corporate Client",
-            "loginTime": "2025-04-25 15:10:30",
-            "expiryTimestamp": "1781934720",
-            "Order ID": "RVIS-03072025-003",
-        },
-    ),
-    (
-        "sme",
-        {
-            "userId": "U004",
-            "accessType": "sme",
-            "fullName": "Example SME",
-            "loginTime": "2025-04-25 15:10:30",
-            "expiryTimestamp": "1781934720",
-            "Order ID": "RVIS-03072025-003",
-        },
-    ),
-    (
-        "spoc",
-        {
-            "userId": "U005",
-            "accessType": "spoc",
-            "fullName": "Example SPOC",
-            "loginTime": "2025-04-25 15:10:30",
-            "expiryTimestamp": "1781934720",
-            "Order ID": "RVIS-03072025-003",
-        },
-    ),
-    (
-        "admin",
-        {
-            "userId": "U006",
-            "accessType": "admin",
-            "fullName": "Debasish Client",
-            "loginTime": "2025-04-25 15:10:30",
-            "expiryTimestamp": "1781934720",
-        },
-    ),
+    # (
+    #     "corporate_client",
+    #     {
+    #         "userId": "U003",
+    #         "accessType": "corporate_client",
+    #         "fullName": "Example Corporate Client",
+    #         "loginTime": "2025-04-25 15:10:30",
+    #         "expiryTimestamp": "1781934720",
+    #         "Order ID": "RVIS-03072025-003",
+    #     },
+    # ),
+    # (
+    #     "sme",
+    #     {
+    #         "userId": "U004",
+    #         "accessType": "sme",
+    #         "fullName": "Example SME",
+    #         "loginTime": "2025-04-25 15:10:30",
+    #         "expiryTimestamp": "1781934720",
+    #         "Order ID": "RVIS-03072025-003",
+    #     },
+    # ),
+    # (
+    #     "spoc",
+    #     {
+    #         "userId": "U005",
+    #         "accessType": "spoc",
+    #         "fullName": "Example SPOC",
+    #         "loginTime": "2025-04-25 15:10:30",
+    #         "expiryTimestamp": "1781934720",
+    #         "Order ID": "RVIS-03072025-003",
+    #     },
+    # ),
+    # (
+    #     "admin",
+    #     {
+    #         "userId": "U006",
+    #         "accessType": "admin",
+    #         "fullName": "Debasish Client",
+    #         "loginTime": "2025-04-25 15:10:30",
+    #         "expiryTimestamp": "1781934720",
+    #     },
+    # ),
 ]
 
 if __name__ == "__main__":
