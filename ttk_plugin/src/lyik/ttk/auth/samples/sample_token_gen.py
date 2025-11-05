@@ -103,17 +103,18 @@ def run_for_payload(role_name: str, payload: dict):
 
 # ---- All four payloads ----
 payloads = [
-    # (
-    #     "client",
-    #     {
-    #         "userId": "U001",
-    #         "accessType": "client",
-    #         "fullName": "Example Client",
-    #         "loginTime": "2025-04-25 15:10:30",
-    #         "expiryTimestamp": "1781934720",
-    #         # "Order ID": "RVIS-03072025-003",
-    #     },
-    # ),
+    (
+        "client",
+        {
+            # "userId": "U001",
+            "userId": "U_011",
+            "accessType": "client",
+            "fullName": "Example Client",
+            "loginTime": "2025-04-25 15:10:30",
+            "expiryTimestamp": "1781934720",
+            # "Order ID": "RVIS-03072025-003",
+        },
+    ),
     (
         "maker",
         {
@@ -126,17 +127,18 @@ payloads = [
             # "Order ID": "RVIS-03072025-003",
         },
     ),
-    # (
-    #     "corporate_client",
-    #     {
-    #         "userId": "U003",
-    #         "accessType": "corporate_client",
-    #         "fullName": "Example Corporate Client",
-    #         "loginTime": "2025-04-25 15:10:30",
-    #         "expiryTimestamp": "1781934720",
-    #         "Order ID": "RVIS-03072025-003",
-    #     },
-    # ),
+    (
+        "corporate_client",
+        {
+            # "userId": "U003",
+            "userId": "U_011",
+            "accessType": "corporate_client",
+            "fullName": "Example Corporate Client",
+            "loginTime": "2025-04-25 15:10:30",
+            "expiryTimestamp": "1781934720",
+            # "Order ID": "RVIS-03072025-003",
+        },
+    ),
     (
         "sme",
         {
@@ -149,17 +151,18 @@ payloads = [
             # "Order ID": "RVIS-03072025-003",
         },
     ),
-    # (
-    #     "spoc",
-    #     {
-    #         "userId": "U005",
-    #         "accessType": "spoc",
-    #         "fullName": "Example SPOC",
-    #         "loginTime": "2025-04-25 15:10:30",
-    #         "expiryTimestamp": "1781934720",
-    #         "Order ID": "RVIS-03072025-003",
-    #     },
-    # ),
+    (
+        "spoc",
+        {
+            # "userId": "U005",
+            "userId": "U_011",
+            "accessType": "spoc",
+            "fullName": "Example SPOC",
+            "loginTime": "2025-04-25 15:10:30",
+            "expiryTimestamp": "1781934720",
+            # "Order ID": "RVIS-03072025-003",
+        },
+    ),
     # (
     #     "admin",
     #     {
