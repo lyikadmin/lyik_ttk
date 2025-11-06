@@ -73,11 +73,11 @@ class OrderStatusUpdate(PostActionProcessorSpec):
             outer_payload = self._decode_jwt(token=token)
 
             # Step 2: Search for 'token'
-            inner_token = self.find_token_field(outer_payload)
-            if not inner_token:
+            inner_ttk_token = self.find_token_field(outer_payload)
+            if not inner_ttk_token:
                 # logger.error("Inner token not found in the decoded payload.")
                 # return payload
-                inner_token = "example_token"
+                inner_ttk_token = "example_token"
 
             parsed_form_rec = Schengentouristvisa(**payload.model_dump())
 
@@ -190,7 +190,7 @@ class OrderStatusUpdate(PostActionProcessorSpec):
                     order_status_update_api,
                     content=json.dumps(body),
                     headers={
-                        "Authorization": f"Bearer {inner_token}",
+                        "Authorization": f"Bearer {inner_ttk_token}",
                         "Content-Type": "application/json",
                     },
                 )

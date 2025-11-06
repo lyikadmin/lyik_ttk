@@ -31,7 +31,7 @@ _RELEVANT_PANES: List[str] = [
     "travel_insurance",
     "previous_visas",
     "additional_details",
-    "additional_documents_temp",
+    "additional_documents_pane",
     # 3rd tab
     "salary_slip",
     "bank_statement",

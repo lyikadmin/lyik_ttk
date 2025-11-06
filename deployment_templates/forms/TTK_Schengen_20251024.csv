@@ -402,9 +402,12 @@ info_pane_builder,appointment,,,info_pane,,False,"<!DOCTYPE html>
 ",Appointment Details,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",operation.save:Save and Continue;verify.verify_handler:VERIFIER_APPOINTMENT_DETAILS;verify.action_text:Verify
 card_builder,earliest_appointment_date,,,card,,False,,Find your Earliest Appointment Date,,,False,,,,,
 table,arliest_appointment_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,location_city,,,dropdown,,False,Enter Location (City),Location (City),,,False,,,,,dynamic_values_path:$.scratch_pad.appointment_city_dropdown_values
-fac_str,earliest_available_date,,,textbox,,False,Select location to see earliest date,Earliest Available Date,,,False,,,,False,dynamic_auto_value:$.scratch_pad.appointment_city_dates[$.appointment.earliest_appointment_date.location_city]
+fac_str,location_city,,,dropdown,,False,Enter Location (City),Location (City),,,False,,,,,dynamic_values_path:$.appointment.earliest_appointment_date.appointment_city_dropdown_values
+fac_str,earliest_available_date,,,textbox,,False,Select location to see earliest date,Earliest Available Date,,,False,,,,False,dynamic_auto_value:$.appointment.earliest_appointment_date.appointment_city_dates[$.appointment.earliest_appointment_date.location_city]
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
+fac_str,appointment_city_dropdown_values,,,hidden,,False,,,,,False,,,,,
+fac_str,appointment_city_dates,,,hidden,,False,,,,,False,,,,,
+fac_str,business_days,,,hidden,,False,,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 display_field,display_appointment_details_header,,,display_field,,False,"<!-- <p style=""font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;"">
  
@@ -448,10 +451,10 @@ display_field,display_appointment_details_header,,,display_field,,False,"<!-- <p
 </body>
 </html>
 ",,,,False,,,,,
-fac_add_on_service_appointment,add_on_service_option,,,checkbox,,False,Select Option,,,,False,,,,not EXISTS(@.appointment_scheduled.upload_appointment),
+fac_add_on_service_appointment,add_on_service_option,,,checkbox,,False,Select Option,,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI])",
 card_builder,appointment_scheduled,,,card,,False,,My Scheduled Appointment Details,,,False,,,,,
 table,appointment_details_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,scheduled_location,,,dropdown,,False,Enter Scheduled Location (City),Scheduled Location (City),,,False,,,,,dynamic_values_path:$.scratch_pad.appointment_city_dropdown_values
+fac_str,scheduled_location,,,dropdown,,False,Enter Scheduled Location (City),Scheduled Location (City),,,False,,,,,dynamic_values_path:$.appointment.earliest_appointment_date.appointment_city_dropdown_values
 fac_date,scheduled_date,,,datebox,,False,DD/MM/YYYY,Scheduled Date,,,False,,,,,;only_future: true
 fac_hour_select,scheduled_hour,,,dropdown,,False,Select Option,Scheduled Time (Hour),,,False,,,,,
 fac_minute_select,scheduled_minute,,,dropdown,,False,Select Option,Scheduled Time (Minutes),,,False,,,,,
@@ -1116,7 +1119,7 @@ card_builder,resident_in_other_country,,,card,,False,,Residence in another Count
 table,resident_in_other_country_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_file,address_proof,,,fileoption,,False,Upload a PDF,Upload Address Proof,,,False,,,,,"file_type:.pdf;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 fac_str,residence_permit_number,,,textbox,,True,Enter Residence Permit Number,Residence Permit Number,,,False,,,,,
-fac_date,permit_date_of_expiry,,,datebox,,True,DD/MM/YYYY,Permit Date of Expiry,,,False,,,,,
+fac_date,permit_date_of_expiry,,,datebox,,True,DD/MM/YYYY,Permit Date of Expiry,,,False,,,,,;only_future: true
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -1555,7 +1558,7 @@ info_pane_builder,accomodation,,,info_pane,,False,"<!DOCTYPE html>
     </div>
   </body>
 </html>
-",Accommodation,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",verify.verify_handler:VERIFIER_ACCOMMODATION;verify.action_text:Verify Accommodation Details;operation.save:Save and Continue;verify.verify_handler:VERIFIER_ACCOMMODATION;verify.action_text:Verify Accommodation Details
+",Accommodation,,,False,,,,"CONTAINS(USER.persona,[CLI, CORP_CLI, MKR, ADMIN])",verify.verify_handler:VERIFIER_ACCOMMODATION;verify.action_text:Verify Accommodation Details;operation.save:Save and Continue;verify.verify_handler:VERIFIER_ACCOMMODATION;verify.action_text:Verify Accommodation Details
 display_field,display_accommodation_header,,,display_field,,False,"
 <!DOCTYPE html>
 <html lang=""en"">
@@ -1648,14 +1651,14 @@ align-items: center;"">
        
 ",,,,False,,,,,
 table,accommodation_details_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,traveller_name,,,textbox,,True,Enter Name of the Traveller,Name of the Traveller,,,False,,,,,
-fac_str,num_of_passengers,,,textbox,,True,Enter Number of Passengers,Number of Passengers,,,False,,,,,
-fac_str,accommodation_name,,,textbox,,True,Enter Name of Hotel/Accommodation,Name of Hotel/Accommodation,,,False,,,,,
-fac_str,accommodation_address,,,textbox.row-4,,True,Enter Address of Hotel/Accommodation,Address of Hotel/Accommodation,,,False,,,,,
-fac_str,accommodation_email,,,textbox,,True,Enter Email ID of Hotel/Accommodation,Email ID of Hotel/Accommodation,,,False,,,,,
-fac_str,accommodation_phone,,,textbox,,True,Enter Telephone of Hotel/Accommodation,Telephone of Hotel/Accommodation,,,False,,,,,
-fac_str,start_date,,,textbox,,True,Enter Start Date/ Check-in Date,Start Date/ Check-in Date,,,False,,,,,
-fac_str,end_date,,,textbox,,True,Enter End Date / Check-out Date,End Date / Check-out Date,,,False,,,,,
+fac_str,traveller_name,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMODATION_OCR.traveller_name,True,Enter Name of the Traveller,Name of the Traveller,,,False,,,,,
+fac_str,num_of_passengers,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMODATION_OCR.num_of_passengers,True,Enter Number of Passengers,Number of Passengers,,,False,,,,,
+fac_str,accommodation_name,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMODATION_OCR.accommodation_name,True,Enter Name of Hotel/Accommodation,Name of Hotel/Accommodation,,,False,,,,,
+fac_str,accommodation_address,,,textbox.row-4,@.booked_appointment.booking_upload.TRUSTED_ACCOMODATION_OCR.accommodation_address,True,Enter Address of Hotel/Accommodation,Address of Hotel/Accommodation,,,False,,,,,
+fac_str,accommodation_email,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMODATION_OCR.accommodation_email,True,Enter Email ID of Hotel/Accommodation,Email ID of Hotel/Accommodation,,,False,,,,,
+fac_str,accommodation_phone,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMODATION_OCR.accommodation_phone,True,Enter Telephone of Hotel/Accommodation,Telephone of Hotel/Accommodation,,,False,,,,,
+fac_str,start_date,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMODATION_OCR.start_date,True,Enter Start Date/ Check-in Date,Start Date/ Check-in Date,,,False,,,,,
+fac_str,end_date,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMODATION_OCR.end_date,True,Enter End Date / Check-out Date,End Date / Check-out Date,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,add_on_service,,,card,,False,,Add-On Service,,,False,,,,,
@@ -1841,12 +1844,12 @@ align-items: center;"">
 ",,,,False,,,,,
 fac_file,flight_tickets,,,fileoption,,False,Upload a PDF,Flight Tickets,,,False,,,,,"file_type:.pdf;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 table,flight_tickets_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,name_of_traveller,,,textbox,,True,Enter Name of the Traveller,Name of the Traveller,,,False,,,,,
-fac_str,airline,,,textbox,,True,Enter Name of Airline,Name of Airline,,,False,,,,,
-fac_str,port_of_entry,,,textbox,,True,Enter Port of Entry,Port of Entry,,,False,,,,,
-fac_str,port_of_exit,,,textbox,,True,Enter Port of Exit,Port of Exit,,,False,,,,,
-fac_date,arrival_date,,,datebox,,True,DD/MM/YYYY,Arrival Date / Check-in Date,,,False,,,,,
-fac_date,departure_date,,,datebox,,True,DD/MM/YYYY,Departure Date / Check-out Date,,,False,,,,,
+fac_str,name_of_traveller,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.name_of_traveller,True,Enter Name of the Traveller,Name of the Traveller,,,False,,,,,
+fac_str,airline,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.airline,True,Enter Name of Airline,Name of Airline,,,False,,,,,
+fac_str,port_of_entry,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.port_of_entry,True,Enter Port of Entry,Port of Entry,,,False,,,,,
+fac_str,port_of_exit,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.port_of_exit,True,Enter Port of Exit,Port of Exit,,,False,,,,,
+fac_date,arrival_date,,,datebox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.arrival_date,True,DD/MM/YYYY,Arrival Date / Check-in Date,,,False,,,,,;only_future: true
+fac_date,departure_date,,,datebox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.departure_date,True,DD/MM/YYYY,Departure Date / Check-out Date,,,False,,,,,;only_future: true
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,add_on_service,,,card,,False,,Add-On Service,,,False,,,,,
@@ -2075,25 +2078,25 @@ please upload it here. Make sure it includes all Schengen countries you're visit
 </div>
 </div>",,,,False,,,,,
 fac_file,flight_reservation_tickets,,,fileoption,,False,Upload a Image/PDF,Insurance Document,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
-table,insyrance_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,name_of_traveller,,,textbox,,True,Enter Name of the Traveller,Name of the Traveller,,,False,,,,,
-fac_str,passport_num,,,textbox,,True,Enter Passport Number,Passport Number,,,False,,,,,
-fac_date,dob,,,datebox,,True,DD/MM/YYYY,Date of Birth,,,False,,,,,
-fac_str,address_of_travaller,,,textbox.row-4,,True,Enter Address of Traveller,Address of Traveller,,,False,,,,,
-fac_str,mobile_num,,,textbox,,True,Enter Mobile Number,Mobile Number,,,False,,,,,
-fac_str,email_id,,,textbox,,True,Enter Email ID,Email ID,,,False,,,,,
-fac_date,travel_start_date,,,datebox,,True,DD/MM/YYYY,Travel Start Date(Commencement Date / From),,,False,,,,,
-fac_date,travel_end_date,,,datebox,,True,DD/MM/YYYY,Travel End Date (End Date / To),,,False,,,,,
-fac_str,duration,,,textbox,,True,Enter Number of Days,Number of Days,,,False,,,,,
-fac_str,geographical_coverage,,,textbox,,True,Enter Geographical Coverage,Geographical Coverage,,,False,,,,,
-fac_str,name_of_insurance_company,,,textbox,,True,Enter Name of the Insurance Company,Name of the Insurance Company,,,False,,,,,
-fac_date,issue_date_of_travel,,,datebox,,True,DD/MM/YYYY,Issue Date of Travel Insurance,,,False,,,,,
-fac_str,travel_insurance_policy_num,,,textbox,,True,Enter Travel Insurance Policy Number,Travel Insurance Policy Number,,,False,,,,,
-fac_str,emergency_assitance_details,,,textbox,,False,Enter Emergency Assistance Details,Emergency Assistance Details,,,False,,,,,
-fac_str,sum_insured,,,textbox,,True,Enter Sum Insured,Sum Insured,,,False,,,,,
-fac_str,nominee_name,,,textbox,,True,Enter Name of Nominee,Name of Nominee,,,False,,,,,
-fac_str,relationship_with_nominee,,,textbox,,True,Enter Relationship with Nominee,Relationship with Nominee,,,False,,,,,
-fac_str,nominee_mobile,,,textbox,,True,Enter Mobile Number of Nominee,Mobile Number of Nominee,,,False,,,,,
+table,insurance_table,,,table,,False,,,,,False,,,,,table.column:2
+fac_str,name_of_traveller,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.name_of_traveller,True,Enter Name of the Traveller,Name of the Traveller,,,False,,,,,
+fac_str,passport_num,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.passport_num,True,Enter Passport Number,Passport Number,,,False,,,,,
+fac_date,dob,,,datebox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.dob,True,DD/MM/YYYY,Date of Birth,,,False,,,,,
+fac_str,address_of_travaller,,,textbox.row-4,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.address_of_travaller,True,Enter Address of Traveller,Address of Traveller,,,False,,,,,
+fac_str,mobile_num,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.mobile_num,True,Enter Mobile Number,Mobile Number,,,False,,,,,
+fac_str,email_id,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.email_id,True,Enter Email ID,Email ID,,,False,,,,,
+fac_date,travel_start_date,,,datebox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.travel_start_date,True,DD/MM/YYYY,Travel Start Date(Commencement Date / From),,,False,,,,,;only_future: true
+fac_date,travel_end_date,,,datebox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.travel_end_date,True,DD/MM/YYYY,Travel End Date (End Date / To),,,False,,,,,;only_future: true
+fac_str,duration,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.duration,True,Enter Number of Days,Number of Days,,,False,,,,,
+fac_str,geographical_coverage,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.geographical_coverage,True,Enter Geographical Coverage,Geographical Coverage,,,False,,,,,
+fac_str,name_of_insurance_company,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.name_of_insurance_company,True,Enter Name of the Insurance Company,Name of the Insurance Company,,,False,,,,,
+fac_date,issue_date_of_travel,,,datebox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.issue_date_of_travel,True,DD/MM/YYYY,Issue Date of Travel Insurance,,,False,,,,,
+fac_str,travel_insurance_policy_num,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.travel_insurance_policy_num,True,Enter Travel Insurance Policy Number,Travel Insurance Policy Number,,,False,,,,,
+fac_str,emergency_assitance_details,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.emergency_assitance_details,False,Enter Emergency Assistance Details,Emergency Assistance Details,,,False,,,,,
+fac_str,sum_insured,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.sum_insured,True,Enter Sum Insured,Sum Insured,,,False,,,,,
+fac_str,nominee_name,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.nominee_name,True,Enter Name of Nominee,Name of Nominee,,,False,,,,,
+fac_str,relationship_with_nominee,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.relationship_with_nominee,True,Enter Relationship with Nominee,Relationship with Nominee,,,False,,,,,
+fac_phone,nominee_mobile,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.nominee_mobile,True,Enter Mobile Number of Nominee,Mobile Number of Nominee,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,add_on_service,,,card,,False,,Add-On Service,,,False,,,,,
@@ -2175,17 +2178,17 @@ This helps authorities assess your travel history and support your current appli
 ",,,,False,,,,,
 fac_option,have_past_visa,,,radiobutton,NO,True,Select Option,Have you been issued a Schengen visa during the past?,,,False,,,,,
 card_builder,previous_visas_details,,,card,,False,,Previous Visa Details,,,False,,,not have_past_visa = 'YES',,
-fac_file,previous_visa_copy,,,fileoption,,False,Upload a Image/PDF,Previous Visa Copy,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
+fac_file,previous_visa_copy,,,fileoption,,False,Upload a Image,Previous Visa Copy,API.TRUSTED_VISA_OCR,,False,,,,,"file_type:.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 table,past_visa_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,passport_num,,,textbox,,True,Enter Passport Number,Passport Number,,,False,,,,,
-fac_str,visa_number,,,textbox,,False,Enter Visa Number,Visa Number,,,False,,,,,
-fac_str,visa_type,,,textbox,,False,Enter Visa Type,Visa Type,,,False,,,,,
-fac_country,country_of_issue,,,dropdown,,False,Select Option,Country of Visa Issued from,,,False,,,,,
-fac_date,start_date,,,datebox,,False,DD/MM/YYYY,Start Date of Visa,,,False,,,,,;only_past: true
-fac_date,end_date,,,datebox,,False,DD/MM/YYYY,End Date of Visa,,,False,,,,,
-fac_str,num_of_entries,,,textbox,,True,Enter No. of Entries,No. of Entries,,,False,,,,,
+fac_str,passport_num,,,textbox,@.previous_visas_details.previous_visa_copy.TRUSTED_VISA_OCR.passport_number,True,Enter Passport Number,Passport Number,,,False,,,,,
+fac_str,visa_number,,,textbox,@.previous_visas_details.previous_visa_copy.TRUSTED_VISA_OCR.visa_number,False,Enter Visa Number,Visa Number,,,False,,,,,
+fac_str,visa_type,,,textbox,@.previous_visas_details.previous_visa_copy.TRUSTED_VISA_OCR.visa_code,False,Enter Visa Type,Visa Type,,,False,,,,,
+fac_country,country_of_issue,,,dropdown,@.previous_visas_details.previous_visa_copy.TRUSTED_VISA_OCR.issuing_country,False,Select Option,Country of Visa Issued from,,,False,,,,,
+fac_date,start_date,,,datebox,@.previous_visas_details.previous_visa_copy.TRUSTED_VISA_OCR.valid_from,False,DD/MM/YYYY,Start Date of Visa,,,False,,,,,;only_past: true
+fac_date,end_date,,,datebox,@.previous_visas_details.previous_visa_copy.TRUSTED_VISA_OCR.valid_until,False,DD/MM/YYYY,End Date of Visa,,,False,,,,,
+fac_str,num_of_entries,,,textbox,@.previous_visas_details.previous_visa_copy.TRUSTED_VISA_OCR.entries,True,Enter No. of Entries,No. of Entries,,,False,,,,,
 fac_str,allowed_days_for_stay,,,textbox,,True,Enter No. of Days allowed to Stay,No. of Days allowed to Stay,,,False,,,,,
-fac_str,annotation,,,textbox,,True,Enter Annotation,Annotation,,,False,,,,,
+fac_str,annotation,,,textbox,@.previous_visas_details.previous_visa_copy.TRUSTED_VISA_OCR.annotations,True,Enter Annotation,Annotation,,,False,,,,,
 fac_purpose_of_visa_or_travel,purpose_of_visa,,,dropdown,VISIT_FAMILY_FRIENDS,False,Select Option,Purpose of Visa (at the time of filing your previous visa application),,,False,,,,,
 fac_option,utilized_visa,,,radiobutton,NO,False,Select Option,Have you utilised/travelled using this Visa?,,,False,,,,,align:center
 fac_str,others_specify,,,textbox,,False,Enter Other Purpose of Visa,Other Purpose of Visa,,,False,,,"not purpose_of_visa=""OTHER""",,
@@ -2201,7 +2204,7 @@ break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,additional_details_section,,,section_break,,False,,Additional Travel Details,,,False,,,,,
-info_pane_builder,additional_details,,,info_pane,,False,,Additional Travel Details,,,False,,,,,operation.save:Save and Continue;verify.verify_handler:VERIFIER_ADDITIONAL_TRAVEL_DETAILS;verify.action_text:Verify Additional Details
+info_pane_builder,additional_details,,,info_pane,,False,,Additional Travel Details,,,False,,,,"CONTAINS(USER.persona,[CLI, CORP_CLI, MKR, ADMIN])",operation.save:Save and Continue;verify.verify_handler:VERIFIER_ADDITIONAL_TRAVEL_DETAILS;verify.action_text:Verify Additional Details
 card_builder,national_id,,,card,,False,,National Identification Number,,,False,,,,,
 table,national_id_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_file,aadhaar_upload_front,,,fileoption,,False,Upload a Image/PDF,Front Image Of Aadhaar Card,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
@@ -2320,33 +2323,48 @@ fac_expense_coverage_5,coverage_other,,,checkbox,,False,Select Option,,,,False,,
 fac_str,others_specify_2,,,textbox,,False,Enter Other Means (Please Specify),Other Means (Please Specify),,,False,,,"not coverage_other=""OTHER""",,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-section_break,additional_documents_temp_section,,,section_break,,False,,Additional Documents,,,False,,,,,
-info_pane_builder,additional_documents_temp,,,info_pane,,False,,Additional Documents,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",operation.save:Save and Continue
-group_builder,additional_documents_group,,,groupbox,,False,,Additional Document,,,False,,,,,button_label:Add Another Document;limits.min:1;limits.max:3
-info_pane_builder,additionaldocumentgroup,,,groupbox,,False,,Additional Documents,,,False,,,,,
-card_builder,additional_documents_card_temp,,,card,,False,,Additional Document,,,False,,,,,
-display_field,display_card,,,display_field,,False,"<div style=""
-display: flex;
-justify-content: center;
-align-items: center;"">
-
-<div style=""
-  text-align: center;
-  /* width: 1060px; */
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 32px;
-  color: #000000;
-  text-align: center;
-"">
-Upload any additional documents required for your application in this section.
+section_break,additional_documents_section,,,section_break,,False,,Additional Documents,,,False,,,,,
+info_pane_builder,additional_documents_pane,,,info_pane,,False,,Additional Documents,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",operation.save:Save and Continue
+display_field,display_card,,,display_field,,False,"<div style=""display: flex; justify-content: center; align-items: center"">
+  <div
+    style=""
+      text-align: center;
+      /* width: 1060px; */
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 32px;
+      color: #000000;
+      text-align: center;
+    ""
+  >
+    Upload the templates for additional documents required for the application. <br>
+    Note: Ensure to click on the ""Generate Documents"" button and save the
+    section for any uploaded template.
+  </div>
 </div>
-
-</div> ",,,,False,,,,,
-fac_str,document_name_temp,,,textbox,,False,Enter Name of the document,Name of the document,,,False,,,,,
-fac_str,document_description_temp,,,textbox,,False,Enter Document Description,Document Description,,,False,,,,,
-fac_file,file_upload_temp,,,fileoption,,False,Upload a Image/PDF,File Upload,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
+",,,,False,,,"CONTAINS(USER.persona,[CLI, SPOC, CORP_CLI])",,
+group_builder,additional_documents_consultant_group,,,groupbox,,False,,Additional Document,,,False,,,"CONTAINS(USER.persona,[CLI, SPOC, CORP_CLI])",,button_label:Add Document;limits.min:1;limits.max:50
+info_pane_builder,additionaldocumentgroupconsultant,,,groupbox,,False,,Templates,,,False,,,,,
+card_builder,additional_documents_card_consultant,,,card,,False,,Template,SAVE_EVEN_IF_HIDDEN,,False,,,,,
+fac_file,file_upload,,,fileoption,,False,Upload a .docx file,Upload Template,,,False,,,,,"file_type:.docx;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
+table,document_desc_table,,,table,,False,,,,,False,,,,,table.column:2
+fac_str,document_name,,,textbox,,False,Enter Name of the document,Name of the document,,,False,,,,,
+fac_str,document_description,,,textbox,,False,Enter Document Description,Document Description,,,False,,,,,
+break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+fac_str,generate_templates,,,cta_button,Generate Documents,False,Generate Link to Download templates ZIP,Generate Documents,,,False,,,"CONTAINS(USER.persona,[CLI, SPOC, CORP_CLI])",,verify.verify_handler:VERIFIER_GENERATE_FILLED_GENERIC_TEMPLATES;verify.action_text:Generate Documents;align:center
+fac_str,template_download_display,,,data_display,,False,,,,,False,,,,False,
+group_builder,additional_documents_traveller_group,,,groupbox,,False,,Additional Document,,,False,,,,,button_label:Add Document;limits.fixed:true
+info_pane_builder,additionaldocumentgrouptraveller,,,groupbox,,False,,Additional Documents,,,False,,,,,
+card_builder,additional_documents_card_traveller,,,card,,False,,Additional Document,SAVE_EVEN_IF_HIDDEN,,False,,,,,
+fac_str,document_name,,,hidden,,False,,,,,False,,,,,
+fac_str,document_description,,,hidden,,False,,,,,False,,,,,
+fac_str,document_name_display,,,data_display,Example Document Name,False,,,,,False,,,,,
+fac_str,document_description_display,,,data_display,Example document description,False,,,,,False,,,,,
+fac_file,file_upload,,,fileoption,,False,Upload a PDF file,File Upload,,,False,,,,,"file_type:.pdf;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -3142,26 +3160,139 @@ display_field,display_not_filled_itr,,,display_field,,False,"<!DOCTYPE html>
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 tab_break,employer_docs_tab,,,tab_break,,False,,Employer Documents,,,False,,,,,
 section_break,cover_letter_section,,,section_break,,False,,Covering Letter,,,False,,,,,
-info_pane_builder,cover_letter_info,,,info_pane,,False,,Covering Letter,,,False,,,,"CONTAINS(USER.persona, [CLI,SPOC,MKR])",operation.save:Save and Continue
+info_pane_builder,cover_letter_info,,,info_pane,,False,,Covering Letter,,,False,,,,"CONTAINS(USER.persona,[CLI, CORP_CLI, SPOC, MKR, ADMIN])",operation.save:Save and Continue
 display_field,display_field_1,,,display_field,,False,The Visa Application requires the original Company Covering Letter.,,,,False,,,,,
 fac_cover,letter_option,,,radiobutton,,False,Select Option,,,,False,,,,,
+card_builder,generate_cover_letter,,,card,,False,,Generate Covering Letter,,,False,,,,,
+display_field,display_field_3,,,display_field,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"" />
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0""/>
+    <title>Invitation Letter Guidelines</title>
+    <style>
+        .box10 {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            color: #000;
+            /* text-align: center; */
+        }
+
+        .box11 {
+            display: flex;
+            /* justify-content: center;  */
+            /* centers horizontally */
+        }
+
+        ol {
+            margin-left: 20px;
+        }
+
+        p {
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class=""box10"">  
+    <p>Kindly generate the covering letter using the prescribed template, review the information carefully. Ensure the letter is:</p>
+        <div class=""box11"">
+ 
+        <ol>
+            <li><b>Printed</b> on the official company letterhead</li>
+            <li><b>Signed</b> by the authorized signatory</li>
+            <li>Affixed with the <b>Company's Round Seal</b> (where applicable)</li>
+        </ol>
+        </div>
+        
+    <p>This is a mandatory document and forms an integral part of your visa application package.</p>
+</div>
+</body>
+</html>
+",,,,False,,,,,
+fac_str,generate_cover,,,cta_button,Generate Letter,False,Automatically generate Covering letter,Generate Cover,,,False,,,,,verify.verify_handler:VERIFIER_COVER_LETTER;verify.action_text:Auto-fill Details;align:center
+fac_str,generation_info_display,,,data_display,,False,,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,send_email,,,card,,False,,,,,False,,,"CONTAINS(USER.persona,[CLI,SPOC,CORP_CLI,SME])",,
+fac_str,notification_type,,,hidden,COVERING_LETTER,False,Enter Notification Type,Notification Type,,,False,,,,,
+fac_str,email_notification,,,cta_button,Send Email,False,Send Email,Send Email,,,False,,,,,verify.verify_handler:VERIFIER_SEND_NOTIFICATION;verify.action_text:Send Email;align:center
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,covering_letter_card,,,card,,False,,Upload Covering Letter,,,False,,,,,
 display_field,display_field,,,display_field,,False,Please upload the Signed and Sealed Covering Letter.,,,,False,,,,,
-fac_file,cover_upload,,,fileoption,,False,Upload a file,Covering Letter,,,False,,,,,"file_type:.docx,.pdf,.jpg,.jpeg,.png;download:None"
+fac_file,cover_upload,,,fileoption,,False,Upload a file,Covering Letter,,,False,,,,,file_type:.pdf;download:None
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,invitation_letter_section,,,section_break,,False,,Invitation Letter,,,False,,,,,
-info_pane_builder,invitation,,,info_pane,,False,,Invitation Letter,,,False,,,,"CONTAINS(USER.persona, [CLI,SPOC,MKR])",operation.save:Save and Continue
+info_pane_builder,invitation,,,info_pane,,False,,Invitation Letter,,,False,,,,"CONTAINS(USER.persona,[CLI, CORP_CLI, SPOC, MKR, ADMIN])",operation.save:Save and Continue
 display_field,display_field,,,display_field,,False,The Visa Application requires an Invitation Letter from the Host Country (Inviting Company).,,,,False,,,,,
 fac_invitation,letter_option,,,radiobutton,,False,Select Option,,,,False,,,,,
+card_builder,invitation_letter_generate,,,card,,False,,Generate Invitation Letter,,,False,,,,,
+display_field,display_field_2,,,display_field,,False,"<!DOCTYPE html>
+<html lang=""en"">
+
+<head>
+    <meta charset=""UTF-8"" />
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"" />
+    <title>Invitation Letter Guidelines</title>
+    <style>
+        .box10 {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            color: #000;
+            /* text-align: center; */
+        }
+
+        .box11 {
+            display: flex;
+            /* justify-content: center;  */
+            /* centers horizontally */
+        }
+
+        ol {
+            margin-left: 20px;
+        }
+
+        p {
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class=""box10"">
+        <p>Kindly generate the invitation letter using the prescribed template, review the information carefully, and
+            request the inviting company to:</p>
+
+        <div class=""box11"">
+            <ol>
+                <li><b>Print</b> the letter on their official company letterhead</li>
+                <li>Get it <b>Signed</b> by their authorized signatory</li>
+                <li>Affix the <b>Company's Round Seal</b> wherever applicable</li>
+            </ol>
+        </div>
+
+        <p>This is a mandatory document and forms an integral part of your visa application package.</p>
+    </div>
+</body>
+
+</html>",,,,False,,,,,
+fac_str,generate_cover,,,cta_button,Generate Letter,False,Automatically generate Invitation letter,Generate Cover,,,False,,,,,verify.verify_handler:VERIFIER_INVITATION_LETTER;verify.action_text:Generate Letter;align:center
+fac_str,generation_info_display,,,data_display,,False,,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,send_email,,,card,,False,,,,,False,,,"CONTAINS(USER.persona,[CLI,SPOC,CORP_CLI,SME])",,
+fac_str,notification_type,,,hidden,INVITATION_LETTER,False,Enter Notification Type,Notification Type,,,False,,,,,
+fac_str,email_notification,,,cta_button,Send Email,False,Send Email,Send Email,,,False,,,,,verify.verify_handler:VERIFIER_SEND_NOTIFICATION;verify.action_text:Send Email;align:center
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,invitation_letter_upload,,,card,,False,,Upload Invitation Letter,,,False,,,,,
 display_field,display_field_3,,,display_field,,False,Please upload the Invitation Letter,,,,False,,,,,
-fac_file,invite_upload,,,fileoption,,False,Upload a file,Invitation Upload,,,False,,,,,"file_type:.docx,.pdf,.jpg,.jpeg,.png;download:None"
+fac_file,invite_upload,,,fileoption,,False,Upload a file,Invitation Upload,,,False,,,,,file_type:.pdf;download:None
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 tab_break,employer_fin_tab,,,tab_break,,False,,Employer's Financial Documents,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,
 section_break,company_bank_statement_section,,,section_break,,False,,Company Bank Statements,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,
-info_pane_builder,company_bank_statement,,,info_pane,,False,,Company Bank Statements,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,operation.save:Save and Continue
+info_pane_builder,company_bank_statement,,,info_pane,,False,,Company Bank Statements,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',"CONTAINS(USER.persona,[CLI, SPOC, MKR, ADMIN])",operation.save:Save and Continue
 display_field,display_field_1,,,display_field,,False,The Visa Application requires the Original Bank Statements of the Company covering the last 12 months with the Bank's Seal & Signature.,,,,False,,,,,
 fac_company_statement,bank_statement_option,,,radiobutton,NOT_APPL,False,Select Option,,,,False,,,,,
 card_builder,statements_card,,,card,,False,,Company Bank Statements (Optional),,,False,,,,bank_statement_option = 'EXECPTIONAL_APPROVAL' or bank_statement_option = 'FOREIGN_MISSION',
@@ -3170,7 +3301,7 @@ fac_file,statement_file,,,fileoption,,False,Upload an image/file,Document Proof,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,company_itr_section,,,section_break,,False,,Company ITR Acknowledgements,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,
-info_pane_builder,company_itr,,,info_pane,,False,,Company ITR Acknowledgements,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,operation.save:Save and Continue
+info_pane_builder,company_itr,,,info_pane,,False,,Company ITR Acknowledgements,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',"CONTAINS(USER.persona,[CLI, SPOC, MKR, ADMIN])",operation.save:Save and Continue
 display_field,display_field,,,display_field,,False, The Visa Application requires the original Income Tax Returns (ITR) of the Company for the last three (3) Financial Years.,,,,False,,,,,
 fac_itr_acknowledge,itr_ackowledgements,,,radiobutton,NOT_APPL,False,Select Option,,,,False,,,,,
 card_builder,itr_doc,,,card,,False,,Company ITR Ackowledgements (Optional),,,False,,,,itr_ackowledgements = 'EXECPTIONAL_APPROVAL' or itr_ackowledgements = 'FOREIGN_MISSION',
@@ -3179,7 +3310,7 @@ fac_file,statement_file,,,fileoption,,False,Upload an image/file,ITR Ackowledgem
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,company_doc_section,,,section_break,,False,,Company Incorporation Document,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,
-info_pane_builder,company_docs,,,info_pane,,False,,Company Incorporation Document,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,operation.save:Save and Continue
+info_pane_builder,company_docs,,,info_pane,,False,,Company Incorporation Document,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',"CONTAINS(USER.persona,[CLI, SPOC, MKR, ADMIN])",operation.save:Save and Continue
 display_field,display_field_1,,,display_field,,False,The Visa Application requires a photocopy of the Company Incorporation Document / Certificate of Incorporation.,,,,False,,,,,
 fac_company_docs,docs_option,,,radiobutton,NOT_APPL,False,Select Option,,,,False,,,,,
 display_field,diplay_field_2,,,display_field,,False,"<!DOCTYPE html>
@@ -3226,8 +3357,23 @@ fac_file,statement_file,,,fileoption,,False,Upload an image/file,Company COI/ Ot
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 tab_break,additional_documents_tab,,,tab_break,,False,,Additional Information,,,False,,,,,
-section_break,consultant_section,,,section_break,,False,No Instructions Present,TTK Consultant,PROGRESS.IGNORE,,False,,,"CONTAINS(USER.persona,[CLI, SME, SPOC, CORP_CLI])",,
-info_pane_builder,consultant_info,,,info_pane,,False,,TTK Consultant,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI, SME, SPOC, CORP_CLI])",,operation.save:Save and Continue
+section_break,comments_section,,,section_break,,False,,Comments,PROGRESS.IGNORE,,False,,,"CONTAINS(USER.persona,[CLI, SPOC, CORP_CLI])",,
+info_pane_builder,comments_pane,,,info_pane,,False,,Comments,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI, SPOC, CORP_CLI])",,operation.save:Save Comments
+card_builder,c_card,,,card,,False,,Comments,,,False,,,not EXISTS(@.c_card.c_row[0]),,operation.save:Save and Continue
+table,c_table,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:1
+group_builder,c_row,,,table_row,,False,,Comments Row,,,False,,,,,
+fac_str,user,,,data_display,,False,Enter User,User,,,False,,,,,align:left
+fac_str,timestamp,,,data_display,,False,Enter Time,Time,,,False,,,,,
+fac_str,comments,,,data_display,,False,Enter Comment,Comment,,,False,,,,,align:left
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+fac_str,user,,,data_display,,False,Enter User,User,,,False,,,,,
+fac_str,comment_input,,,textbox.row-4,,False,Enter Comment Input,Comment Input,,,False,,,,,
+fac_str,add_comment_button,,,cta_button,Add Comment,False,Add Comment,Add Comment,,,False,,,,,verify.verify_handler:VERIFIER_ADD_COMMENT;verify.action_text:Add Comment;align:center
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+section_break,consultant_section,,,section_break,,False,No Instructions Present,TTK Consultant,PROGRESS.IGNORE,,False,,,"CONTAINS(USER.persona,[CLI, SPOC, CORP_CLI])",,
+info_pane_builder,consultant_info,,,info_pane,,False,,TTK Consultant,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI, SPOC, CORP_CLI])",,operation.save:Save and Continue
 card_builder,instruction_letter,,,card,,False,,Instruction Sheet,,,False,,,,,
 display_field,display_card_3,,,display_field,,False,"<div style=""
 display: flex;
@@ -3268,7 +3414,7 @@ align-items: center;"">
   color: #000000;
   text-align: center;
 "">
-Upload any additional documents required for your application in this section.
+Upload an additional document required for the application:
 </div>
 
 </div> ",,,,False,,,,,
@@ -3279,8 +3425,8 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-section_break,submit_section,,,section_break,,False,No Instructions Present,Submit Application,PROGRESS.IGNORE,,False,,,"CONTAINS(USER.persona,[CLI, SME, SPOC, CORP_CLI])",,
-info_pane_builder,submit_info,,,info_pane,,False,,Submit Application,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI, SME, SPOC, CORP_CLI])",,operation.save:Submit Application;verify.verify_handler:VERIFIER_SUBMISSION_CONFIRMATION;verify.action_text:Verify Confirmation
+section_break,submit_section,,,section_break,,False,No Instructions Present,Submit Application,PROGRESS.IGNORE,,False,,,"CONTAINS(USER.persona,[CLI, SPOC, CORP_CLI])",,
+info_pane_builder,submit_info,,,info_pane,,False,,Submit Application,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI, SPOC, CORP_CLI])",,operation.save:Submit Application;verify.verify_handler:VERIFIER_SUBMISSION_CONFIRMATION;verify.action_text:Verify Confirmation
 card_builder,docket,,,card,,False,,Docket,,,False,,,,,
 display_field,note,,,display_field,,False,"<div style=""
 display: flex;
@@ -3331,7 +3477,7 @@ fac_confirm_uneditable,understand_lock,,,checkbox,,False,Select Option,,,,False,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,docket_section,,,section_break,,False,No Instructions Present,Docket,PROGRESS.IGNORE,,False,,,,,
-info_pane_builder,docket_info,,,info_pane,,False,No Instructions Present,Docket,PROGRESS.IGNORE,,False,,,,"CONTAINS(USER.persona, [CLI,SPOC,CORP_CLI,MKR])",operation.save:Save
+info_pane_builder,docket_info,,,info_pane,,False,No Instructions Present,Docket,PROGRESS.IGNORE,,False,,,,"CONTAINS(USER.persona,[CLI, CORP_CLI, SPOC, MKR, ADMIN])",operation.save:Save
 display_field,display_header_docket,,,display_field,,False,"<!-- <p style=""font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;"">
 The visa application requires you to carry your Original Salary Slips with your company’s seal and signature. 
 For detailed guideline on this, click on
@@ -3384,7 +3530,4 @@ info_pane_builder,scratch_pad,,,info_pane,,False,,Scratch Pad,SAVE_EVEN_IF_HIDDE
 fac_str,form_title,,,textbox,,False,,,,,False,,,,,
 fac_str,form_sub_title,,,textbox,,False,,,,,False,,,,,
 fac_str,form_indicator,,,textbox,SCHENGEN,False,,,,,False,,,,,
-fac_str,appointment_city_dropdown_values,,,textbox,,False,,,,,False,,,,,
-fac_str,appointment_city_dates,,,textbox,,False,,,,,False,,,,,
-fac_str,business_days,,,textbox,,False,,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,

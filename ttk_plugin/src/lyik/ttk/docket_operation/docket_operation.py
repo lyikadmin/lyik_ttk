@@ -460,7 +460,7 @@ class DocketOperation(OperationPluginSpec):
         company_bank_statement = parsed_form_model.company_bank_statement
         company_incorporation_document = parsed_form_model.company_docs
         itr = parsed_form_model.itr_acknowledgement
-        additional_documents = parsed_form_model.additional_documents_temp
+        additional_documents = parsed_form_model.additional_documents_pane
 
         if consultant_info and consultant_info.instruction_letter:
             files_in_rec_with_filename["Instruction_sheet"] = (
@@ -592,22 +592,22 @@ class DocketOperation(OperationPluginSpec):
                     key_name = card.document_name or f"Additional_Doc{next_index:02d}"
                     files_in_rec_with_filename[key_name] = card.file_upload
                     next_index += 1
-        if additional_documents and additional_documents.additional_documents_group:
-            for add_docs in additional_documents.additional_documents_group:
-                doc_group = add_docs.additionaldocumentgroup
+        if additional_documents and additional_documents.additional_documents_traveller_group:
+            for add_docs in additional_documents.additional_documents_traveller_group:
+                doc_group = add_docs.additionaldocumentgrouptraveller
                 if (
                     doc_group
-                    and doc_group.additional_documents_card_temp
-                    and doc_group.additional_documents_card_temp.file_upload_temp
-                    and doc_group.additional_documents_card_temp.file_upload_temp.get(
+                    and doc_group.additional_documents_card_traveller
+                    and doc_group.additional_documents_card_traveller.file_upload
+                    and doc_group.additional_documents_card_traveller.file_upload.get(
                         "doc_id"
                     )
                 ):
-                    doc_card = doc_group.additional_documents_card_temp
+                    doc_card = doc_group.additional_documents_card_traveller
                     key_name = (
-                        doc_card.document_name_temp or f"Additional_Doc{next_index:02d}"
+                        doc_card.document_name_display or f"Additional_Doc{next_index:02d}"
                     )
-                    files_in_rec_with_filename[key_name] = doc_card.file_upload_temp
+                    files_in_rec_with_filename[key_name] = doc_card.file_upload
                     next_index += 1
 
         return files_in_rec_with_filename
