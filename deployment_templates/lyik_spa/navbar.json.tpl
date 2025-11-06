@@ -1,5 +1,5 @@
 {
-  "background": "url(https://www.ttkvisas.in/assets/images/headerbg_1.svg)",
+  "background": "url(TPL_BASEURL/static/ttk_desktop_navheader.png)",
   "background_mobile": "url(TPL_BASEURL/static/ttk_mobile_background.png)",
   "showLogo": false,
   "logoSrc": "/assets/images/logo.png",
