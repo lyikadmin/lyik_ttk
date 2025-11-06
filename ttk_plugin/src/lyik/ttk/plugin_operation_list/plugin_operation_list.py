@@ -57,7 +57,11 @@ class OperationListPlugin(OperationsListSpec):
 
             parsed_record = Schengentouristvisa(**form_record.model_dump())
             context.token
-            user_name = parsed_record.passport.passport_details.first_name or ""
+            user_name = (
+                parsed_record.passport.passport_details.first_name
+                if parsed_record.passport and parsed_record.passport.passport_details
+                else ""
+            )
 
             for op in ALL_OPERATIONS:
                 if op.op_id == OPR_DOCKET_CREATION:
@@ -74,7 +78,7 @@ class OperationListPlugin(OperationsListSpec):
                     == DOCKETSTATUS.ENABLE_DOWNLOAD
                 ):
                     pass
-                elif str(form_state)== STATE_APPROVED:
+                elif str(form_state) == STATE_APPROVED:
                     pass
                 else:
                     return OperationsListResponseModel(operations=[])
