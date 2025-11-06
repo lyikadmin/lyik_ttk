@@ -58,7 +58,7 @@ class CoverLetterVerifier(VerifyHandlerSpec):
         """
         This plugin will generate the cover letter docx document using the transformer plugin.
         """
-        GET_TEMPLATE_FROM_API = False
+        GET_TEMPLATE_FROM_API = True
         try:
             if not context or not context.config:
                 raise PluginException(

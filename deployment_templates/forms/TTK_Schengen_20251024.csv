@@ -3214,7 +3214,7 @@ display_field,display_field_3,,,display_field,,False,"<!DOCTYPE html>
 fac_str,generate_cover,,,cta_button,Generate Letter,False,Automatically generate Covering letter,Generate Cover,,,False,,,,,verify.verify_handler:VERIFIER_COVER_LETTER;verify.action_text:Auto-fill Details;align:center
 fac_str,generation_info_display,,,data_display,,False,,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,send_email,,,card,,False,,,,,False,,,"not CONTAINS(USER.persona,[CLI,SPOC,CORP_CLI,SME])",,
+card_builder,send_email,,,card,,False,,,,,False,,,"CONTAINS(USER.persona,[CLI,SPOC,CORP_CLI,SME])",,
 fac_str,notification_type,,,hidden,COVERING_LETTER,False,Enter Notification Type,Notification Type,,,False,,,,,
 fac_str,email_notification,,,cta_button,Send Email,False,Send Email,Send Email,,,False,,,,,verify.verify_handler:VERIFIER_SEND_NOTIFICATION;verify.action_text:Send Email;align:center
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,

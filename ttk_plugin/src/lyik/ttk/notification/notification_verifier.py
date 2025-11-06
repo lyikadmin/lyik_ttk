@@ -139,9 +139,9 @@ class NotificationVerifier(VerifyHandlerSpec):
                 data = {"raw": resp.text}
 
             return VerifyHandlerResponseModel(
-                status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
+                status=VERIFY_RESPONSE_STATUS.SUCCESS,
                 actor="system",
-                message="",
+                message="Notification Sent successfully.",
             )
 
         except PluginException as pe:
