@@ -1629,7 +1629,7 @@ fac_file,accommodation_proof,,,fileoption,,False,Upload a Image/PDF,Inviter's Ac
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,booked_appointment,,,card,,False,,Booked Accommodation,,,False,,,accommodation_choice.accommodation_option = 'WITH_FAMILY',not lock_accommodation='Lock',
-fac_file,booking_upload,,,fileoption,,False,Upload a Image/PDF,Accommodation Booking,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
+fac_file,booking_upload,,,fileoption,,False,Upload a PDF,Accommodation Booking,API.TRUSTED_ACCOMMODATION_OCR,,False,,,,,"file_type:.pdf;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 display_field,display_accommodation_instruction,,,display_field,,False,"<div style=""
 display: flex;
 justify-content: center;
@@ -1651,14 +1651,14 @@ align-items: center;"">
        
 ",,,,False,,,,,
 table,accommodation_details_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,traveller_name,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMODATION_OCR.traveller_name,True,Enter Name of the Traveller,Name of the Traveller,,,False,,,,,
-fac_str,num_of_passengers,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMODATION_OCR.num_of_passengers,True,Enter Number of Passengers,Number of Passengers,,,False,,,,,
-fac_str,accommodation_name,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMODATION_OCR.accommodation_name,True,Enter Name of Hotel/Accommodation,Name of Hotel/Accommodation,,,False,,,,,
-fac_str,accommodation_address,,,textbox.row-4,@.booked_appointment.booking_upload.TRUSTED_ACCOMODATION_OCR.accommodation_address,True,Enter Address of Hotel/Accommodation,Address of Hotel/Accommodation,,,False,,,,,
-fac_str,accommodation_email,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMODATION_OCR.accommodation_email,True,Enter Email ID of Hotel/Accommodation,Email ID of Hotel/Accommodation,,,False,,,,,
-fac_str,accommodation_phone,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMODATION_OCR.accommodation_phone,True,Enter Telephone of Hotel/Accommodation,Telephone of Hotel/Accommodation,,,False,,,,,
-fac_str,start_date,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMODATION_OCR.start_date,True,Enter Start Date/ Check-in Date,Start Date/ Check-in Date,,,False,,,,,
-fac_str,end_date,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMODATION_OCR.end_date,True,Enter End Date / Check-out Date,End Date / Check-out Date,,,False,,,,,
+fac_str,traveller_name,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.traveller_name,True,Enter Name of the Traveller,Name of the Traveller,,,False,,,,,
+fac_str,num_of_passengers,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.num_of_passengers,True,Enter Number of Passengers,Number of Passengers,,,False,,,,,
+fac_str,accommodation_name,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_name,True,Enter Name of Hotel/Accommodation,Name of Hotel/Accommodation,,,False,,,,,
+fac_str,accommodation_address,,,textbox.row-4,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_address,True,Enter Address of Hotel/Accommodation,Address of Hotel/Accommodation,,,False,,,,,
+fac_str,accommodation_email,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_email,True,Enter Email ID of Hotel/Accommodation,Email ID of Hotel/Accommodation,,,False,,,,,
+fac_str,accommodation_phone,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_phone,True,Enter Telephone of Hotel/Accommodation,Telephone of Hotel/Accommodation,,,False,,,,,
+fac_str,start_date,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.start_date,True,Enter Start Date/ Check-in Date,Start Date/ Check-in Date,,,False,,,,,
+fac_str,end_date,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.end_date,True,Enter End Date / Check-out Date,End Date / Check-out Date,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,add_on_service,,,card,,False,,Add-On Service,,,False,,,,,
@@ -1842,9 +1842,9 @@ align-items: center;"">
     </div>
   </div>
 ",,,,False,,,,,
-fac_file,flight_tickets,,,fileoption,,False,Upload a PDF,Flight Tickets,,,False,,,,,"file_type:.pdf;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
+fac_file,flight_tickets,,,fileoption,,False,Upload a PDF,Flight Tickets,API.TRUSTED_FLIGHT_TICKET_OCR,,False,,,,,"file_type:.pdf;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 table,flight_tickets_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,name_of_traveller,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.name_of_traveller,True,Enter Name of the Traveller,Name of the Traveller,,,False,,,,,
+fac_str,name_of_traveller,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.primary_traveller_name,True,Enter Name of the Traveller,Name of the Traveller,,,False,,,,,
 fac_str,airline,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.airline,True,Enter Name of Airline,Name of Airline,,,False,,,,,
 fac_str,port_of_entry,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.port_of_entry,True,Enter Port of Entry,Port of Entry,,,False,,,,,
 fac_str,port_of_exit,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.port_of_exit,True,Enter Port of Exit,Port of Exit,,,False,,,,,
@@ -2077,7 +2077,7 @@ If you’d like us to <strong> review </strong> your Travel Insurance to make su
 please upload it here. Make sure it includes all Schengen countries you're visiting.
 </div>
 </div>",,,,False,,,,,
-fac_file,flight_reservation_tickets,,,fileoption,,False,Upload a Image/PDF,Insurance Document,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
+fac_file,flight_reservation_tickets,,,fileoption,,False,Upload a PDF,Insurance Document,API.TRUSTED_TRAVEL_INSURANCE_OCR,,False,,,,,"file_type:.pdf;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 table,insurance_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,name_of_traveller,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.name_of_traveller,True,Enter Name of the Traveller,Name of the Traveller,,,False,,,,,
 fac_str,passport_num,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.passport_num,True,Enter Passport Number,Passport Number,,,False,,,,,
@@ -2207,9 +2207,9 @@ section_break,additional_details_section,,,section_break,,False,,Additional Trav
 info_pane_builder,additional_details,,,info_pane,,False,,Additional Travel Details,,,False,,,,"CONTAINS(USER.persona,[CLI, CORP_CLI, MKR, ADMIN])",operation.save:Save and Continue;verify.verify_handler:VERIFIER_ADDITIONAL_TRAVEL_DETAILS;verify.action_text:Verify Additional Details
 card_builder,national_id,,,card,,False,,National Identification Number,,,False,,,,,
 table,national_id_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_file,aadhaar_upload_front,,,fileoption,,False,Upload a Image/PDF,Front Image Of Aadhaar Card,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
+fac_file,aadhaar_upload_front,,,fileoption,,False,Upload a Image/PDF,Front Image Of Aadhaar Card,API.TRUSTED_AADHAAR_OCR,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 fac_file,aadhaar_upload_back,,,fileoption,,False,Upload a Image/PDF,Back Image Of Aadhaar Card,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
-fac_aadhaar,aadhaar_number,,,textbox,,True,Enter 12-digit Aadhaar Number,Aadhaar Card Number,,,False,,,,,
+fac_aadhaar,aadhaar_number,,,textbox,@.national_id.aadhaar_upload_front.TRUSTED_AADHAAR_OCR.aadhaar_number,True,Enter 12-digit Aadhaar Number,Aadhaar Card Number,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 fac_option,travel_other,,,radiobutton,NO,True,Select Option,Are you traveling to any other Schengen Country(s) during this trip?,,,False,,,,,
