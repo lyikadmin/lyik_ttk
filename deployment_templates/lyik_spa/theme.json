@@ -1,61 +1,51 @@
 {
-  "loginBackground": "/assets/images/login_bg.png",
-  "spacing": "comfort",
-  "fontFamily": "'Inter', sans-serif",
-  "colors": {
-    "main": "#1698CA",
-    "brand": "#2862A9",
-    "light": "#30A1E0",
+  "company": "LYIK",
+  "font_family": "\"Gilmer\", sans-serif",
+  "mode": "default",
+  "login": {
+    "background": "/assets/login_bg.png",
+    "card_background": "#ffffff",
+    "login_card": true,
+    "login_fields_position": "center"
+  },
+  "base_colors": {
+    "primary": "#FFCB09",
+    "primary_contrast_text": "#000000",
+    "secondary": "#2862A9",
     "black": "#000000",
-    "white": "#FFFFFF",
-    "grey": "#727272",
+    "secondary_contrast_text": "#ffffff",
+    "loading_spinner": "#FFCB09",
     "error": "#D24D57",
     "success": "#32A028",
     "warning": "#F57C00",
     "info": "#1976D2",
-    "contrastText": "#FFFFFF",
-    "primary": {
-      "brand": "#1136B3"
-    },
-    "secondary": {
-      "main": "#1970C8",
-      "lightold": "#1698CA",
-      "light": "#000000",
-      "button": "#262D64",
-      "hoverButtonColor": "#1698CA"
-    },
-    "background": {
-      "secondary": "#1698CA"
-    },
-    "text": {
-      "secondary": "#666666",
-      "card_title": "262D64"
-    },
-    "border": {
-      "primary": "#9E9E9E",
-      "secondary": "#C4C4C4",
-      "focus": "#1970C8"
-    },
-    "status": {
-      "success": "#32A028",
-      "error": "#D32F2F",
-      "warning": "#F57C00",
-      "info": "#1976D2"
-    },
-    "button": {
+    "warning_contrast_text": "#000000"
+  },
+  "sidebar": {
+    "text_color": "#FFCB09",
+    "background_color": "#424242",
+    "active_background_color": "#FFCB09",
+    "active_text_color": "#000000",
+    "white": "#ffffff"
+  },
+  "app_bar": {
+    "profile_pic_color": "#FFCB09",
+    "display_name_color": "#2862A9",
+    "date_color": "#2862A9",
+    "title_color": "#2862A9"
+  },
+  "button": {
       "main": {
-        "bgColor_": "#1698CA",
-        "bgColor": "#3BB9EB",
+        "bgColor": "#FFCB09",
         "color": "#fff"
       },
       "primary": {
-        "bgColor_": "#30A1E0",
-        "bgColor": "#3BB9EB",
+        "bgColor": "#FFCB09",
         "color": "#fff"
       },
       "outlined": {
-        "borderColor": "#30A1E0",
-        "color": "#30A1E0",
+        "borderColor": "#FFCB09",
+        "color": "#FFCB09",
         "bgColor": "#FFFFFF"
       },
       "disabled": {
@@ -72,19 +62,18 @@
         "bgColor": "#32A028"
       }
     },
-    "cards": {
-      "main": "#262D64"
+  "text": {
+      "secondary": "#666666",
+      "card_title": "262D64",
+      "field_title": "#2862A9"
     },
-    "sidebar": {
-      "backgroundColorold": "#1698CA",
-      "backgroundColor": "#3BB9EB",
-      "contrastText": "#FFFFFF",
-      "activeColor": "#1698CA",
-      "activeBackgroundColor": "#FFFFFF"
-    },
-    "progress_bar": {
-      "progress_percentage": "#458B58",
-      "text_color": "#00166D"
+  "scrollbar": {
+    "onHover": "#787575ff",
+    "trackColor": "#d9d9d9ff",
+    "scrollColor": "#929292ff"
+  },
+  "progress_bar": {
+      "progress_percentage": "#FFCB09",
+      "text_color": "#FFCB09"
     }
-  }
 }

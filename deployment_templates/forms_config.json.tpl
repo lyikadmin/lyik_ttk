@@ -1,35 +1,46 @@
 {
-  "company_name": "TTK",
-  "api_path": "TPL_BASEURL/api",
-  "digilocker_clientId": "TPL_DIGILOCKER_CLIENT_ID",
-  "digilocker_clientSecret": "TPL_DIGILOCKER_CLIENT_SECRET",
-  "digilocker_callbackUrl": "TPL_BASEURL/digi_redirect",
-  "digilocker_codeVerifier": "1QTIzQ~~tMgU.AVpL6.FF5Hdu4ytsG0~_uv0x7GY5j5g-Z~p7vtuI3KaOPQT7~wVAi",
-  "digilocker_api_path": "https://digilocker.meripehchaan.gov.in",
-  "login_bg_path": "/assets/login_bg.png",
-  "progress_bar": true,
-  "show_navbar": true,
-  "show_sidebar_expanded": false,
-  "disable_toggle_sidebar": true,
-  "show_csv_export": false,
-  "show_records_search": false,
-  "show_back_button": false,
-  "home_title": "Visa Applications",
-  "home_cta_label": "Open Form",
-  "show_logout": false,
-  "size_limit_mb": 10,
-  "show_verify_button": false,
-  "verification_status": {
-    "success": "Saved",
-    "failure": "Not Saved",
-    "indeterminate": "Need to Check"
+  "COMPANY_NAME": "TTK",
+  "APP_MODE": "DEBUG",
+  "SECRETS": {
+    "ENCRYPTION_DECRYPTION_KEY": "your-encryption-key"
   },
-  "approval_status": {
-    "approve": "Approved",
-    "discrepency": "Discrepancy"
+  "API_BASE_URL": "TPL_BASEURL/api",
+  "API_BASE_URL_": "TPL_BASEURL/api",
+  "WHATSAPP_URL":"TPL_TTK_API_BASE_URLwhatsApp?token={$user.provider_info.token}&orderNo={$user.provider_info.order_id}",
+  "GENERAL_SETTINGS": {
+    "SHOW_LOGOUT_BUTTON": true,
+    "SHOW_BACK_BUTTON": true,
+    "SHOW_VERIFIER_BUTTON": false,
+    "SHOW_SIDEBAR": true,
+    "DISABLE_SIDEBAR_TOGGLE": true,
+    "IS_SIDEBAR_COLLAPSED": true,
+    "SHOW_NAVBAR": false,
+    "SIZE_LIMIT_MB": 10,
+    "SHOW_PROGRESSBAR": true,
+    "EXPORT_CSV_BUTTON": true,
+    "USE_PERSONA_ONLY_FOR_EDITABILITY": true,
+    "SHOW_WHATSAPP_ICON": true
   },
-  "logout": "TPL_TTK_FRONTEND_URL",
-  "use_persona_only_for_editability": false,
-  "show_whatsapp": true,
-  "whatsapp_url":"TPL_TTK_API_BASE_URLwhatsApp?token={$user.provider_info.token}&orderNo={$user.provider_info.order_id}"
+  "DEFAULT_DATA": {
+    "TABLE_TITLE":"Visa Applications",
+    "ACTION_BUTTON_LABEL":"View Details",
+    "VERIFIER_STATUS": {
+      "SUCCESS": "Verified",
+      "FAILURE": "Verification Failed",
+      "INDETERMINATE": "In Review"
+    },
+    "APPROVAL_STATUS": {
+      "APPROVED": "Approved",
+      "REJECTED": "Discrepancy",
+      "APPROVE_TITLE": "Approve",
+      "REJECT_TITLE": "Reject"
+    },
+    "DIGILOCKER": {
+      "DIGILOCKER_CLIENT_ID": "JH168E60B6",
+      "DIGILOCKER_CLIENT_SECRET": "bd4f70b64aa14614e37c",
+      "DIGILOCKER_CALLBACK_URL": "http://localhost:3030/digi_redirect",
+      "DIGILOCKER_CODE_VERIFIER": "1QTIzQ~~tMgU.AVpL6.FF5Hdu4ytsG0~_uv0x7GY5j5g-Z~p7vtuI3KaOPQT7~wVAi",
+      "DIGILOCKER_API_PATH": ""
+    }
+  }
 }
