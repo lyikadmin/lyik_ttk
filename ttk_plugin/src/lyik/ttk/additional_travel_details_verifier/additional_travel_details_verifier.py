@@ -50,11 +50,7 @@ class AdditionalTravelDetailsVerifier(VerifyHandlerSpec):
     ]:
         """
         This plugin verifies the additional travel details of the user.
-        Args:
-            payload (RootAdditionalDetails): This is the additional travel details payload.
-        Returns:
-            VerifyHandlerResponseModel: VerifyHandlerResponseModel with the verification status.
-
+        Makes sure the appropriate details are filled for the checkboxes ticked for 'type of your sponsor'.
         """
         try:
             if payload is None:

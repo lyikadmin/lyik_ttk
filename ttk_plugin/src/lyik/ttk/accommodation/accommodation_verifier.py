@@ -38,6 +38,7 @@ class AccommodationVerifier(VerifyHandlerSpec):
     ]:
         """
         This verifier verifies the accommodation details.
+        Validates the email mainly
         """
         payload_dict = payload.model_dump(mode="json")
 

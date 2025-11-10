@@ -50,6 +50,7 @@ class VisaRequestVerifier(VerifyHandlerSpec):
         This verifier validates the data of the Visa Request Summary section.
         """
         USE_DEFAULT = False
+        
         if not context or not context.config:
             raise PluginException(
                 message=get_error_message(

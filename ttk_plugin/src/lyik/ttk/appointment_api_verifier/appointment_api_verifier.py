@@ -58,6 +58,9 @@ class AppointmentAPIVerifier(VerifyHandlerSpec):
         VerifyHandlerResponseModel,
         Doc("Response after verifying the Earliest Apointment Date."),
     ]:
+        """
+        CTA To re-fetch the appointment details list
+        """
         RUN_API = True
         try:
             if not context:
