@@ -101,3 +101,6 @@ LYIK_ERR_COUNTRY_3,Please input Valid Country.,,
 LYIK_ERR_RELATIONSHIP_WITH_EU,Please input Relationship.,,
 LYIK_ERR_DOCX_GEN_FAILURE,Failed to generate the Document. Please try again or connect with TTK for help.,Failed to generate the DOCX file. Please try again or contact support.,Cover Letter Section TTK
 LYIK_ERR_VISA_TYPE_COA_MISSING,Unable to get the country of arrival or visa type. Please ensure the details are filled before proceeding.,,Appointment Details Section TTK
+LYIK_ERR_INVALID_PHONE_NUMBER,Invalid Phone Number.,,Custom Data Type for Mobile
+LYIK_ERR_EMAIL_STR,Invalid Email ID.,,LOV Pattern
+LYIK_ERR_PINCODE_STR,Invalid Pincode.,,LOV Pattern
