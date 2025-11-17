@@ -37,6 +37,7 @@ class AddressVerifier(VerifyHandlerSpec):
     ]:
         """
         This verifier verifies the Address details.
+        Just checks if the pincode is valid when visible.
         """
         payload_dict = payload.model_dump(mode="json")
 

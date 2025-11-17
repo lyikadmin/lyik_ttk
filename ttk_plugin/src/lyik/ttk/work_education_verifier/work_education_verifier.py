@@ -39,6 +39,7 @@ class WorkEducationVerifier(VerifyHandlerSpec):
     ]:
         """
         This verifier verifies the work/education details.
+        Validates the phone numbers mainly.
         """
 
         if not context or not context.config:

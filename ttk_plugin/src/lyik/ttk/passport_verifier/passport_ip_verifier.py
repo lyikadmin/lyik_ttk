@@ -46,7 +46,7 @@ class PassportIPVerifier(VerifyHandlerSpec):
         Doc("Response after validating the Passport IP."),
     ]:
         """
-        This verifier validates if the appointment details, specifically the date is valid.
+        This verifier validates if expiry date of passport is whithin a range from the arrival dates required for Visa.
         """
         payload_dict = payload.model_dump(mode="json")
         ret = check_if_verified(payload=payload_dict)

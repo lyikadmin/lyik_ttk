@@ -41,6 +41,7 @@ class SalarySlipVerifier(VerifyHandlerSpec):
     ]:
         """
         This verifier validates the data of the Salary Slip section.
+        Checks if skipped or uploaded files.
         """
         skip_salary_slips = None
         if payload and payload.skip_salary_slips:
@@ -80,6 +81,7 @@ class BankStatementVerifier(VerifyHandlerSpec):
     ]:
         """
         This verifier validates the data of the Bank Statement section.
+        Checks if skipped or uploaded files.
         """
         skip_bank_statement = None
         if payload and payload.skip_bank_statements:
@@ -119,6 +121,7 @@ class ITRAcknowledgeVerifier(VerifyHandlerSpec):
     ]:
         """
         This verifier validates the data of the ITR Acknowledgements section.
+        Checks if skipped or uploaded files.
         """
         skip_itr_upload = None
         if payload and payload.itr_options:

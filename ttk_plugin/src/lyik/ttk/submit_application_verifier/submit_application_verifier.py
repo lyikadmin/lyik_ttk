@@ -36,7 +36,8 @@ class SumbitApplicationVerifier(VerifyHandlerSpec):
         Doc("Response after validating the Application Submission."),
     ]:
         """
-        This verifier verifies the Application Submission. This is a SUBMIT verifier
+        This verifier verifies the Application Submission. 
+        Checks that the confirmation checkboxes are ticked before submitting.
         """
         try:
             if payload.docket.docket_status not in {
