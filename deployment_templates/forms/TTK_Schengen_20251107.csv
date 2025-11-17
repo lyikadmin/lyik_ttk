@@ -254,7 +254,7 @@ display_field,display_info_header,,,display_field,,False,"<!-- <p style=""font-s
 card_builder,visa_request,,,card,,False,,Summary,SAVE_EVEN_IF_HIDDEN,,False,,,,,
 table,visa_request_summary,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,phone_number,,,textbox,,True,Enter Phone Number,Phone Number,,,False,,,,False,
-fac_str,email_id,,,textbox,,True,Enter Email ID,Email ID,,,False,,,,False,
+fac_email_str,email_id,,,textbox,,True,Select Option,Email ID,,,False,,,,False,
 fac_country_3,from_country,,,dropdown,,False,Select Option,Travelling From,,,False,,,,False,
 fac_country_3,to_country,,,dropdown,,False,Select Option,Travelling To,,,False,,,,False,
 fac_date,departure_date,,,datebox,,False,DD/MM/YYYY,Date of Departure,,,False,,,,,;only_future: true
@@ -453,7 +453,7 @@ display_field,display_appointment_details_header,,,display_field,,False,"<!-- <p
 </html>
 ",,,,False,,,,,
 fac_add_on_service_appointment,add_on_service_option,,,checkbox,,False,Select Option,,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI])",
-card_builder,appointment_scheduled,,,card,,False,,My Scheduled Appointment Details,,,False,,,,,
+card_builder,appointment_scheduled,,,card,,False,,My Scheduled Appointment Details,,,False,,,,not (@.add_on_service_option = 'YES' and (_user_token.persona = 'CLI' or _user_token.persona = 'CORP_CLI')),
 table,appointment_details_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,scheduled_location,,,dropdown,,False,Enter Scheduled Location (City),Scheduled Location (City),,,False,,,,,dynamic_values_path:$.appointment.earliest_appointment_date.appointment_city_dropdown_values
 fac_date,scheduled_date,,,datebox,,False,DD/MM/YYYY,Scheduled Date,,,False,,,,,;only_future: true
@@ -653,10 +653,10 @@ fac_str,mother_name,,,textbox,,False,Enter Mother's Name,Mother's Name,,,False,,
 fac_str,spouse_name,,,textbox,,False,Enter Spouse' Name,Spouse' Name,,,False,,,,,
 fac_str,address_line_1,,,textbox,@.passport_page_upload.TRUSTED_OVD.full_address,False,Enter Address Line 1,Address Line 1,,,False,,,,,
 fac_str,address_line_2,,,textbox,@.passport_page_upload.TRUSTED_OVD.address_line_2,False,Enter Address Line 2,Address Line 2,,,False,,,,,
-fac_str,pin_code,,,textbox,@.passport_page_upload.TRUSTED_OVD.postal_code,False,6 digit PIN Code,PIN Code,,,False,,,,,
 fac_str,city,,,textbox,@.passport_page_upload.TRUSTED_OVD.city,False,Enter City,City,,,False,,,,,
 fac_str,state,,,textbox,@.passport_page_upload.TRUSTED_OVD.state,False,Enter State,State,,,False,,,,,
 fac_str,country,,,textbox,@.passport_page_upload.TRUSTED_OVD.code,True,Enter Country,Country,,,False,,,,,
+fac_str,pin_code,,,textbox,@.passport_page_upload.TRUSTED_OVD.postal_code,False,6 digit PIN Code,PIN Code,,,False,,,,,
 fac_country_3,country_of_birth,,,dropdown,IND,True,Select Option,Country of Birth,,,False,,,,,
 fac_str,desired_validity,,,hidden,6,False,This is the minimum duration for which the passport should be valid,,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
@@ -675,7 +675,7 @@ table,parental_detals_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,first_name,,,textbox,,True,Enter First Name,First Name of Parent/Guardian,,,False,,,,,
 fac_str,surname,,,textbox,,True,Enter Surname,Surname of Parent/Guardian,,,False,,,,,
 fac_phone,phone_number,,,textbox,,True,Enter Phone Number,Phone Number of Parent/Guardian,,,False,,,,,
-fac_email,email_address,,,textbox,,True,Enter Email Address,Email Address of Parent/Guardian,,,False,,,,,
+fac_email_str,email_address,,,textbox,,True,Enter Email Address,Email Address of Parent/Guardian,,,False,,,,,
 fac_str,address,,,textbox,,True,Enter Address,Address of Parents/ Guardian,,,False,,,,,
 fac_str,nationality,,,textbox,,True,Enter Nationality of Parents / Guardian,Nationality of Parents / Guardian,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
@@ -1043,7 +1043,7 @@ info_pane_builder,residential_address,,,info_pane,,False,"<!DOCTYPE html>
   </div>
 </body>
 </html>
-",Address Proof,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",verify.verify_handler:VERIFIER_ADDRESS;verify.action_text:Verify Address Details;operation.save:Save and Continue;verify.verify_handler:VERIFIER_ADDRESS;verify.action_text:Verify Address Details
+",Address Proof,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",operation.save:Save and Continue
 display_field,display_residential_address_header,,,display_field,,False,"<!-- <p style=""font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;"">
  You can fill your address using your passport, or provide an alternative ID to verify your address.
 For detailed guidelines on this
@@ -1099,7 +1099,7 @@ fac_address_proof_type,type_of_proof,,,dropdown,,False,Select Option,Type of Pro
 fac_file,address_proof_upload,,,fileoption,,False,Upload a Image/PDF,Upload Address Proof,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 fac_str,address_line_1,,,textbox,,True,Enter Address Line 1,Address Line 1,,,False,,,,,
 fac_str,address_line_2,,,textbox,,True,Enter Address Line 2,Address Line 2,,,False,,,,,
-fac_str,pin_code,,,textbox,,True,6 digit PIN Code,PIN Code,,,False,,,,,
+fac_pincode_str,pin_code,,,textbox,,True,6 digit PIN Code,PIN Code,,,False,,,,,
 fac_str,city,,,textbox,,True,Enter City,City,,,False,,,,,
 fac_str,state,,,textbox,,True,Enter State,State,,,False,,,,,
 fac_str,country,,,textbox,,True,Enter Country,Country,,,False,,,,,
@@ -1109,7 +1109,7 @@ card_builder,residential_address_card_v2,,,card,,False,,Current Residential Addr
 table,residential_address_table_v2,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,address_line_1,,,textbox,,True,Enter Address Line 1,Address Line 1,,,False,,,,False,
 fac_str,address_line_2,,,textbox,,False,Enter Address Line 2,Address Line 2,,,False,,,,False,
-fac_str,pin_code,,,textbox,,True,6 digit PIN Code,PIN Code,,,False,,,,False,
+fac_pincode_str,pin_code,,,textbox,,True,6 digit PIN Code,PIN Code,,,False,,,,False,
 fac_str,city,,,textbox,,True,Enter City,City,,,False,,,,False,
 fac_str,state,,,textbox,,True,Enter State,State,,,False,,,,False,
 fac_str,country,,,textbox,,True,Enter Country,Country,,,False,,,,False,
@@ -1242,14 +1242,13 @@ info_pane_builder,work_address,,,info_pane,,False,"<!DOCTYPE html>
     </div>
   </body>
 </html>
-",Work/Education,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",verify.verify_handler:VERIFIER_WORK_EDUCATION;verify.action_text:Verify;operation.save:Save and Continue;verify.verify_handler:VERIFIER_WORK_EDUCATION;verify.action_text:Verify
+",Work/Education,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",operation.save:Save and Continue
 fac_current_occupation_status,current_occupation_status,,,radiobutton,EMPLOYEE,False,Select Option,Are you currently an Employee or a Student?,,,False,,,,,
 card_builder,work_details,,,card,,False,,Work Details,,,False,,,"not current_occupation_status = ""EMPLOYEE""",,
 table,work_address_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,employer_name,,,textbox,,True,Enter Name of the Employer,Name of the Employer,,,False,,,not @.current_occupation_status = 'EMPLOYEE',,
 fac_str,occupation,,,textbox,,True,Enter Current Occupation,Current Occupation,,,False,,,not @.current_occupation_status = 'EMPLOYEE',,
 fac_date,date_of_joining,,,datebox,,False,DD/MM/YYYY,Date of Joining,,,False,,,not @.current_occupation_status = 'EMPLOYEE',,;only_past: true
-fac_str,work_phone,,,textbox,,True,Enter Work Phone Number of Employer,Work Phone Number of Employer,,,False,,,not @.current_occupation_status = 'EMPLOYEE',,
 fac_str,work_address,,,textbox.row-4,,True,Enter Work Address,Work Address,,,False,,,not @.current_occupation_status = 'EMPLOYEE',,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -1258,7 +1257,6 @@ table,educational_establishment_table,,,table,,False,,,,,False,,,,,table.column:
 fac_str,establishment_name,,,textbox,,True,Enter Name of Establishment,Educational Establishment,,,False,,,not @.current_occupation_status = 'STUDENT',,
 fac_date,date_of_admission,,,datebox,,False,DD/MM/YYYY,Date of Admission,,,False,,,not @.current_occupation_status='STUDENT',,
 fac_str,establishment_address,,,textbox.row-4,,True,Enter Address,Address of Educational Establishment,,,False,,,not @.current_occupation_status='STUDENT',,
-fac_str,establishment_contact,,,textbox,,True,Enter Phone Number,Contact of Educational Establishment,,,False,,,not @.current_occupation_status='STUDENT',,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -1559,7 +1557,7 @@ info_pane_builder,accomodation,,,info_pane,,False,"<!DOCTYPE html>
     </div>
   </body>
 </html>
-",Accommodation,,,False,,,,"CONTAINS(USER.persona,[CLI, CORP_CLI, MKR, ADMIN])",verify.verify_handler:VERIFIER_ACCOMMODATION;verify.action_text:Verify Accommodation Details;operation.save:Save and Continue;verify.verify_handler:VERIFIER_ACCOMMODATION;verify.action_text:Verify Accommodation Details
+",Accommodation,,,False,,,,"CONTAINS(USER.persona,[CLI, CORP_CLI, MKR, ADMIN])",operation.save:Save and Continue
 display_field,display_accommodation_header,,,display_field,,False,"
 <!DOCTYPE html>
 <html lang=""en"">
@@ -1623,13 +1621,13 @@ fac_str,inviter_name,,,textbox,,True,Enter Name of the Inviter,Name of the Invit
 fac_relationship,relationship,,,dropdown,,False,Select Option,Relationship,,,False,,,,,
 fac_str,inviter_address,,,textbox.row-4,,True,Enter Address of the Inviter,Address of the Inviter (Family/Friend),,,False,,,,,
 fac_str,mobile_number,,,textbox,,True,Enter Mobile/Telephone Number,Mobile/Telephone Number,,,False,,,,,
-fac_str,email_id,,,textbox,,True,Enter Email ID,Email ID of Inviter (Family/Friend),,,False,,,,,
+fac_email_str,email_id,,,textbox,,True,Enter Email ID,Email ID of Inviter (Family/Friend),,,False,,,,,
 fac_file,passport_bio_page,,,fileoption,,False,Upload a Image/PDF,Front Page of Inviter's Passport,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 fac_file,visa_copy_permit,,,fileoption,,False,Upload a Image/PDF,Visa Copy / Resident Permit Card,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 fac_file,accommodation_proof,,,fileoption,,False,Upload a Image/PDF,Inviter's Accommodation Proof,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,booked_appointment,,,card,,False,,Booked Accommodation,,,False,,,accommodation_choice.accommodation_option = 'WITH_FAMILY',not lock_accommodation='Lock',
+card_builder,booked_appointment,,,card,,False,,Booked Accommodation,,,False,,,accommodation_choice.accommodation_option = 'WITH_FAMILY',not (@.accommodation_choice.accommodation_option = 'TTK_ASSITANCE' and (_user_token.persona = 'CLI' or _user_token.persona = 'CORP_CLI')),
 fac_file,booking_upload,,,fileoption,,False,Upload a PDF,Accommodation Booking,API.TRUSTED_ACCOMMODATION_OCR,,False,,,,,"file_type:.pdf;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 display_field,display_accommodation_instruction,,,display_field,,False,"<div style=""
 display: flex;
@@ -1652,14 +1650,13 @@ align-items: center;"">
        
 ",,,,False,,,,,
 table,accommodation_details_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,traveller_name,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.traveller_name,True,Enter Name of the Traveller,Name of the Traveller,,,False,,,,,
-fac_str,num_of_passengers,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.num_of_passengers,True,Enter Number of Passengers,Number of Passengers,,,False,,,,,
-fac_str,accommodation_name,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_name,True,Enter Name of Hotel/Accommodation,Name of Hotel/Accommodation,,,False,,,,,
-fac_str,accommodation_address,,,textbox.row-4,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_address,True,Enter Address of Hotel/Accommodation,Address of Hotel/Accommodation,,,False,,,,,
-fac_str,accommodation_email,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_email,True,Enter Email ID of Hotel/Accommodation,Email ID of Hotel/Accommodation,,,False,,,,,
-fac_str,accommodation_phone,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_phone,True,Enter Telephone of Hotel/Accommodation,Telephone of Hotel/Accommodation,,,False,,,,,
-fac_str,start_date,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.start_date,True,Enter Start Date/ Check-in Date,Start Date/ Check-in Date,,,False,,,,,
-fac_str,end_date,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.end_date,True,Enter End Date / Check-out Date,End Date / Check-out Date,,,False,,,,,
+fac_str,traveller_name,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.traveller_name,False,Enter Name of the Traveller,Name of the Traveller,,,False,,,,,
+fac_str,num_of_passengers,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.num_of_passengers,False,Enter Number of Passengers,Number of Passengers,,,False,,,,,
+fac_str,accommodation_name,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_name,False,Enter Name of Hotel/Accommodation,Name of Hotel/Accommodation,,,False,,,,,
+fac_str,accommodation_address,,,textbox.row-4,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_address,False,Enter Address of Hotel/Accommodation,Address of Hotel/Accommodation,,,False,,,,,
+fac_email_str,accommodation_email,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_email,False,Select Option,Email ID of Hotel/Accommodation,,,False,,,,,
+fac_str,start_date,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.start_date,False,Enter Start Date/ Check-in Date,Start Date/ Check-in Date,,,False,,,,,
+fac_str,end_date,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.end_date,False,Enter End Date / Check-out Date,End Date / Check-out Date,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,add_on_service,,,card,,False,,Add-On Service,,,False,,,,,
@@ -1820,8 +1817,11 @@ in the top-right corner of this section.
 </body>
 </html>
 ",,,,False,,,,,
+card_builder,tickets,,,card,,False,,Flight Tickets,,,False,,,,,
+fac_tickets,ticket_options,,,radiobutton,BOOKED,False,Select Option,Please let us know how your Tickets are arranged:,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 fac_str,lock_ticket,,,hidden,,False,,,,,False,,,,,
-card_builder,flight_tickets,,,card,,False,,Flight Tickets,,,False,,,,not lock_ticket='Lock',
+card_builder,flight_tickets,,,card,,False,,Flight Tickets,,,False,,,,not (@.tickets.ticket_options = 'TTK_ASSITANCE' and (_user_token.persona = 'CLI' or _user_token.persona = 'CORP_CLI')),
 display_field,display_flight_tickets_instructions,,,display_field,,False,"
 <div style=""
 display: flex;
@@ -1845,12 +1845,12 @@ align-items: center;"">
 ",,,,False,,,,,
 fac_file,flight_tickets,,,fileoption,,False,Upload a PDF,Flight Tickets,API.TRUSTED_FLIGHT_TICKET_OCR,,False,,,,,"file_type:.pdf;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 table,flight_tickets_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,name_of_traveller,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.primary_traveller_name,True,Enter Name of the Traveller,Name of the Traveller,,,False,,,,,
-fac_str,airline,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.airline,True,Enter Name of Airline,Name of Airline,,,False,,,,,
-fac_str,port_of_entry,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.port_of_entry,True,Enter Port of Entry,Port of Entry,,,False,,,,,
-fac_str,port_of_exit,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.port_of_exit,True,Enter Port of Exit,Port of Exit,,,False,,,,,
-fac_date,arrival_date,,,datebox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.arrival_date,True,DD/MM/YYYY,Arrival Date / Check-in Date,,,False,,,,,;only_future: true
-fac_date,departure_date,,,datebox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.departure_date,True,DD/MM/YYYY,Departure Date / Check-out Date,,,False,,,,,;only_future: true
+fac_str,name_of_traveller,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.primary_traveller_name,False,Enter Name of the Traveller,Name of the Traveller,,,False,,,,,
+fac_str,airline,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.airline,False,Enter Name of Airline,Name of Airline,,,False,,,,,
+fac_str,port_of_entry,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.port_of_entry,False,Enter Port of Entry,Port of Entry,,,False,,,,,
+fac_str,port_of_exit,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.port_of_exit,False,Enter Port of Exit,Port of Exit,,,False,,,,,
+fac_date,arrival_date,,,datebox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.arrival_date,False,DD/MM/YYYY,Arrival Date / Check-in Date,,,False,,,,,;only_future: true
+fac_date,departure_date,,,datebox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.departure_date,False,DD/MM/YYYY,Departure Date / Check-out Date,,,False,,,,,;only_future: true
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,add_on_service,,,card,,False,,Add-On Service,,,False,,,,,
@@ -2027,9 +2027,11 @@ in the top-right corner of this section.
     </div>
 </body>
 </html>",,,,False,,,,,
+card_builder,insurance_options_card,,,card,,False,,Insurance,,,False,,,,,
+fac_insurance_option,insurance_options,,,radiobutton,HAVE_INSURANCE,False,Select Option,Please let us know how your Travel Insurance is arranged:,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 fac_str,lock_travel_insurance,,,hidden,,False,,,,,False,,,,,
-fac_adosi,add_on_service_option,,,checkbox,,False,Select Option,,,,False,,,,not EXISTS(@.flight_reservation_details.flight_reservation_tickets),
-card_builder,add_on_card,,,card,,False,,Details Required for Insurance,,,False,,,"not add_on_service_option = ""INSURANCE""",not EXISTS(@.flight_reservation_details.flight_reservation_tickets),
+card_builder,add_on_card,,,card,,False,,Details Required for Insurance,,,False,,,not @.insurance_options_card.insurance_options = 'TTK_ASSITANCE' ,not EXISTS(@.flight_reservation_details.flight_reservation_tickets),
 display_field,instruction_display,,,display_field,,False,"<div style=""
 display: flex;
 justify-content: center;
@@ -2058,7 +2060,7 @@ fac_str,pre_existing_disease_details,,,textbox,,False,Enter Details of Pre-Exist
 fac_insurance_plan,plan_sum_insured,,,dropdown,,False,Select Option,Plan (Sum Insured),,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,flight_reservation_details,,,card,,False,,Insurance Details,,,False,,,,not @.add_on_service.add_on_service = 'YES',
+card_builder,flight_reservation_details,,,card,,False,,Insurance Details,,,False,,,,not (@.insurance_options_card.insurance_options = 'TTK_ASSITANCE' and (_user_token.persona = 'CLI' or _user_token.persona = 'CORP_CLI')),
 display_field,display_flight_reservation_details,,,display_field,,False,"<div style=""
 display: flex;
 justify-content: center;
@@ -2080,24 +2082,24 @@ please upload it here. Make sure it includes all Schengen countries you're visit
 </div>",,,,False,,,,,
 fac_file,flight_reservation_tickets,,,fileoption,,False,Upload a PDF,Insurance Document,API.TRUSTED_TRAVEL_INSURANCE_OCR,,False,,,,,"file_type:.pdf;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 table,insurance_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,name_of_traveller,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.name_of_traveller,True,Enter Name of the Traveller,Name of the Traveller,,,False,,,,,
-fac_str,passport_num,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.passport_num,True,Enter Passport Number,Passport Number,,,False,,,,,
-fac_date,dob,,,datebox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.dob,True,DD/MM/YYYY,Date of Birth,,,False,,,,,
-fac_str,address_of_travaller,,,textbox.row-4,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.address_of_travaller,True,Enter Address of Traveller,Address of Traveller,,,False,,,,,
-fac_str,mobile_num,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.mobile_num,True,Enter Mobile Number,Mobile Number,,,False,,,,,
-fac_str,email_id,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.email_id,True,Enter Email ID,Email ID,,,False,,,,,
-fac_date,travel_start_date,,,datebox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.travel_start_date,True,DD/MM/YYYY,Travel Start Date(Commencement Date / From),,,False,,,,,;only_future: true
-fac_date,travel_end_date,,,datebox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.travel_end_date,True,DD/MM/YYYY,Travel End Date (End Date / To),,,False,,,,,;only_future: true
-fac_str,duration,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.duration,True,Enter Number of Days,Number of Days,,,False,,,,,
-fac_str,geographical_coverage,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.geographical_coverage,True,Enter Geographical Coverage,Geographical Coverage,,,False,,,,,
-fac_str,name_of_insurance_company,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.name_of_insurance_company,True,Enter Name of the Insurance Company,Name of the Insurance Company,,,False,,,,,
-fac_date,issue_date_of_travel,,,datebox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.issue_date_of_travel,True,DD/MM/YYYY,Issue Date of Travel Insurance,,,False,,,,,
-fac_str,travel_insurance_policy_num,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.travel_insurance_policy_num,True,Enter Travel Insurance Policy Number,Travel Insurance Policy Number,,,False,,,,,
+fac_str,name_of_traveller,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.name_of_traveller,False,Enter Name of the Traveller,Name of the Traveller,,,False,,,,,
+fac_str,passport_num,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.passport_num,False,Enter Passport Number,Passport Number,,,False,,,,,
+fac_date,dob,,,datebox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.dob,False,DD/MM/YYYY,Date of Birth,,,False,,,,,
+fac_str,address_of_travaller,,,textbox.row-4,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.address_of_travaller,False,Enter Address of Traveller,Address of Traveller,,,False,,,,,
+fac_str,mobile_num,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.mobile_num,False,Enter Mobile Number,Mobile Number,,,False,,,,,
+fac_email_str,email_id,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.email_id,False,Select Option,Email ID,,,False,,,,,
+fac_date,travel_start_date,,,datebox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.travel_start_date,False,DD/MM/YYYY,Travel Start Date(Commencement Date / From),,,False,,,,,;only_future: true
+fac_date,travel_end_date,,,datebox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.travel_end_date,False,DD/MM/YYYY,Travel End Date (End Date / To),,,False,,,,,;only_future: true
+fac_str,duration,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.duration,False,Enter Number of Days,Number of Days,,,False,,,,,
+fac_str,geographical_coverage,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.geographical_coverage,False,Enter Geographical Coverage,Geographical Coverage,,,False,,,,,
+fac_str,name_of_insurance_company,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.name_of_insurance_company,False,Enter Name of the Insurance Company,Name of the Insurance Company,,,False,,,,,
+fac_date,issue_date_of_travel,,,datebox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.issue_date_of_travel,False,DD/MM/YYYY,Issue Date of Travel Insurance,,,False,,,,,
+fac_str,travel_insurance_policy_num,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.travel_insurance_policy_num,False,Enter Travel Insurance Policy Number,Travel Insurance Policy Number,,,False,,,,,
 fac_str,emergency_assitance_details,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.emergency_assitance_details,False,Enter Emergency Assistance Details,Emergency Assistance Details,,,False,,,,,
-fac_str,sum_insured,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.sum_insured,True,Enter Sum Insured,Sum Insured,,,False,,,,,
-fac_str,nominee_name,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.nominee_name,True,Enter Name of Nominee,Name of Nominee,,,False,,,,,
-fac_str,relationship_with_nominee,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.relationship_with_nominee,True,Enter Relationship with Nominee,Relationship with Nominee,,,False,,,,,
-fac_phone,nominee_mobile,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.nominee_mobile,True,Enter Mobile Number of Nominee,Mobile Number of Nominee,,,False,,,,,
+fac_str,sum_insured,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.sum_insured,False,Enter Sum Insured,Sum Insured,,,False,,,,,
+fac_str,nominee_name,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.nominee_name,False,Enter Name of Nominee,Name of Nominee,,,False,,,,,
+fac_str,relationship_with_nominee,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.relationship_with_nominee,False,Enter Relationship with Nominee,Relationship with Nominee,,,False,,,,,
+fac_phone,nominee_mobile,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.nominee_mobile,False,Enter Mobile Number of Nominee,Mobile Number of Nominee,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,add_on_service,,,card,,False,,Add-On Service,,,False,,,,,
@@ -2244,7 +2246,7 @@ fac_str,pin_code,,,textbox,,True,6 digit PIN Code,PIN Code,,,False,,,,,
 fac_str,city,,,textbox,,True,Enter City,City,,,False,,,,,
 fac_str,state,,,textbox,,True,Enter State,State,,,False,,,,,
 fac_str,country,,,textbox,,True,Enter Country,Country,,,False,,,,,
-fac_str,email_address,,,textbox,,True,Enter Email Address,Email Address,,,False,,,,,
+fac_email_str,email_address,,,textbox,,True,Enter Email Address,Email Address,,,False,,,,,
 fac_phone,telephone_mobile_number,,,textbox,,True,Enter Telephone / Mobile Number,Telephone / Mobile Number,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -2545,55 +2547,6 @@ in the top-right corner of this section.
 ",,,,False,,,,,
 fac_skip_salary_slips,skip_salary_slips,,,checkbox,,False,Select Option,,,,False,,,,not EXISTS(@.upload.salary_slip),
 card_builder,upload,,,card,,False,,Salary Slips (Optional),,,False,,,,,
-display_field,display_salary_slips_instructions,,,display_field,,False,"<!-- <div style=""
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-  padding: 16px;
-  font-size: 14px;
-  font-weight: 400;
-  color: #000;
-  line-height: 1.5;
-"">
-  <p style=""margin: 0;"">
-    If you’d like us to review your Salary Slips to make sure it meets the guidelines, please upload it here.
-    If your current employment is under 3 months, submit the payslip from your previous employer
-  </p>
-</div> -->
-<!DOCTYPE html>
-<html lang=""en"">
-<head>
-  <meta charset=""UTF-8"">
-  <title>Centered Paragraph</title>
-  <style>
-    .center-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .message-box {
-      /* width: 1060px; */
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 32px;
-      color: #000000;
-      text-align: center;
-    }
-  </style>
-</head>
-<body>
-  <div class=""center-wrapper"">
-    <div class=""message-box"">
-        If you’d like us to <strong> review </strong> your Salary Slips to make sure it meets the guidelines, please upload it here.
-    If your current employment is under 3 months, submit the payslip from your previous employer
-    </div>
-  </div>
-</body>
-</html>",,,,False,,,,,
 fac_file,salary_slip,,,fileoption,,False,Upload a file,Salary Slip (Optional),,,False,,,,not @.skip_salary_slips = 'YES',"file_type:.pdf,.jpg,.jpeg,.png,.zip;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
