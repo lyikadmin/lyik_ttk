@@ -33,15 +33,7 @@ from .impl_preaction_processors.copy_passport_details import CopyPassportAddress
 from .impl_preaction_processors.save_traveller import PreactionSavePrimaryTraveller  # 8
 from .impl_preaction_processors.save_traveller import PreactionSaveCoTravellers  # 9
 
-SCHENGEN_FORM_INDICATOR = "SCHENGEN"
-
-{
-SCHENGEN_FORM_INDICATOR: ["SWE", "DEN"],
-"SINGAPORE": {"SIN"}
-
-}
-
-class Schengen_Preactions(PreActionProcessorSpec):
+class Central_Preaction(PreActionProcessorSpec):
     @impl
     async def pre_action_processor(
         self,
@@ -76,7 +68,7 @@ class Schengen_Preactions(PreActionProcessorSpec):
         Doc("The updated form record data."),
     ]:
         """
-        This preaction processor will do all preaction processing required for TTK Schengen form.
+        This preaction processor will do all preaction processing required for TTK forms.
         """
         generic_only = False
         # Parse to the form model
