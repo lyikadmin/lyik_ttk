@@ -63,23 +63,23 @@ def get_form_indicator(form_rec: dict | BaseModel) -> FormIndicator | None:
 
     form_indicator: str | None = None
 
-    # 1. Try explicit indicator(s) first
-    try:
-        scratch_pad = form_rec.get("scratch_pad") or {}
-        form_indicator = scratch_pad.get("form_indicator")
-    except AttributeError:
-        pass
+    # # 1. Try explicit indicator(s) first
+    # try:
+    #     scratch_pad = form_rec.get("scratch_pad") or {}
+    #     form_indicator = scratch_pad.get("form_indicator")
+    # except AttributeError:
+    #     pass
 
-    if not form_indicator:
-        try:
-            vri = form_rec.get("visa_request_information") or {}
-            vr = vri.get("visa_request") or {}
-            form_indicator = vr.get("form_indicator")
-        except AttributeError:
-            pass
+    # if not form_indicator:
+    #     try:
+    #         vri = form_rec.get("visa_request_information") or {}
+    #         vr = vri.get("visa_request") or {}
+    #         form_indicator = vr.get("form_indicator")
+    #     except AttributeError:
+    #         pass
 
-    if form_indicator:
-        return str(form_indicator)
+    # if form_indicator:
+    #     return str(form_indicator)
 
     # 2. Derive from to_country if indicator is missing
     to_country_code: str | None = None
