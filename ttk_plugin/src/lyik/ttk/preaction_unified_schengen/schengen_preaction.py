@@ -18,7 +18,7 @@ impl = pluggy.HookimplMarker(getProjectName())
 
 # Unified Base preaction processor
 from ._base_preaction import BaseUnifiedPreActionProcessor
-from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa
+from lyik.ttk.utils.form_indicator import FormIndicator, get_form_indicator
 
 # preaction processors
 from .impl_preaction_processors.client_action_guard import ClientActionGuard  # 1
@@ -34,6 +34,12 @@ from .impl_preaction_processors.save_traveller import PreactionSavePrimaryTravel
 from .impl_preaction_processors.save_traveller import PreactionSaveCoTravellers  # 9
 
 SCHENGEN_FORM_INDICATOR = "SCHENGEN"
+
+{
+SCHENGEN_FORM_INDICATOR: ["SWE", "DEN"],
+"SINGAPORE": {"SIN"}
+
+}
 
 class Schengen_Preactions(PreActionProcessorSpec):
     @impl
@@ -74,21 +80,10 @@ class Schengen_Preactions(PreActionProcessorSpec):
         """
         generic_only = False
         # Parse to the form model
-        try:
-            form = Schengentouristvisa(**payload.model_dump())
-        except Exception as exc:
-            logger.error(
-                "Cannot parse model for preactions, skipping schengen preactions – %s",
-                exc,
-            )
-            return payload
+        form_indicator = get_form_indicator(form=payload)
 
-        form_indicator = get_form_indicator(form=form)
-
-        if form_indicator != SCHENGEN_FORM_INDICATOR:
+        if form_indicator != FormIndicator.SCHENGEN:
             generic_only = True
-
-        payload = form
 
         payload_original = GenericFormRecordModel.model_validate(payload.model_dump())
 
@@ -131,20 +126,3 @@ class Schengen_Preactions(PreActionProcessorSpec):
             return payload_original  # Return original payload on error to prevent data loss.
 
         return payload
-
-def get_form_indicator(form: Schengentouristvisa) -> str | None:
-
-    form_indicator = None
-
-    try:
-        form_indicator = form.scratch_pad.form_indicator
-    except Exception as e:
-        pass
-
-    if not form_indicator:
-        try:
-            form_indicator = form.visa_request_information.visa_request.form_indicator
-        except Exception as e:
-            pass
-
-    return form_indicator
