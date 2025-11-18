@@ -8,6 +8,9 @@ import requests
 TTK_TOKEN_SECRET = "BmThdDKu4lPOFiiqwHG1GQVm7iGeVIqALcqwJDM6VySzVdOwZ1UMoylzwhIDgXl6"
 API_URL = "http://localhost:8080/v1/auth/get-token"
 
+UI_ENDPOINT = "https://forms-uat.ttkservices.com/home?token="
+# UI_ENDPOINT = "http://localhost:3030/home?token="
+
 
 def base64url_encode(s: str) -> str:
     return base64.urlsafe_b64encode(s.encode()).decode().rstrip("=")
@@ -98,8 +101,7 @@ def run_for_payload(role_name: str, payload: dict):
     # 5) Base64URL-encode the full LYIK token string
     lyik_token_b64url = base64url_encode(lyik_token)
     print(f"\n📦 Base64URL Encoded LYIK Token ({role_name}):")
-    print(lyik_token_b64url)
-
+    print(f"{UI_ENDPOINT}{lyik_token_b64url}")
 
 # ---- All four payloads ----
 payloads = [
