@@ -8,8 +8,27 @@ import requests
 TTK_TOKEN_SECRET = "BmThdDKu4lPOFiiqwHG1GQVm7iGeVIqALcqwJDM6VySzVdOwZ1UMoylzwhIDgXl6"
 API_URL = "http://localhost:8080/v1/auth/get-token"
 
-UI_ENDPOINT = "https://forms-uat.ttkservices.com/home?token="
-# UI_ENDPOINT = "http://localhost:3030/home?token="
+# ================== CHOOSE UI ENDPOINT VIA INPUT ==================
+print("Select UI environment:")
+print("  1) Localhost (http://localhost:3030)")
+print("  2) UAT       (https://forms-uat.ttkservices.com)")
+
+choice = input("Enter 1 or 2 (default 2): ").strip()
+
+if choice == "1":
+    UI_ENDPOINT = "http://localhost:3030/home?token="
+    selected_env = "local"
+else:
+    UI_ENDPOINT = "https://forms-uat.ttkservices.com/home?token="
+    selected_env = "uat"
+
+print(f"\nUsing environment: {selected_env}")
+print(f"UI_ENDPOINT: {UI_ENDPOINT}")
+# =======================================================================
+
+
+# UI_ENDPOINT = "https://forms-uat.ttkservices.com/home?token="
+# # UI_ENDPOINT = "http://localhost:3030/home?token="
 
 
 def base64url_encode(s: str) -> str:
