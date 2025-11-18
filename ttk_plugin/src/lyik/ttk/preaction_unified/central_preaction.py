@@ -72,7 +72,7 @@ class Central_Preaction(PreActionProcessorSpec):
         """
         generic_only = False
         # Parse to the form model
-        form_indicator = get_form_indicator(form=payload)
+        form_indicator = get_form_indicator(form_rec=payload)
 
         if form_indicator != FormIndicator.SCHENGEN:
             generic_only = True
