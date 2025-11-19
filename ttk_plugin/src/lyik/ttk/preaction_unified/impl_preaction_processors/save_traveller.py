@@ -6,7 +6,9 @@ from lyikpluginmanager import (
     ContextModel,
     GenericFormRecordModel,
 )
-from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa
+
+# from lyik.ttk.models.generated.universal_model import UniversalModel
+from lyik.ttk.models.generated.universal_model import UniversalModel
 import logging
 
 logger = logging.getLogger(__name__)
@@ -62,7 +64,7 @@ class PreactionSavePrimaryTraveller(BaseUnifiedPreActionProcessor):
             )
             return payload
         try:
-            record = Schengentouristvisa(**payload.model_dump())
+            record = UniversalModel(**payload.model_dump())
             traveller_type = record.visa_request_information.visa_request.traveller_type
             if not traveller_type:
                 logger.warning(
@@ -156,7 +158,7 @@ class PreactionSaveCoTravellers(BaseUnifiedPreActionProcessor):
             return payload
 
         try:
-            record = Schengentouristvisa(**payload.model_dump())
+            record = UniversalModel(**payload.model_dump())
             traveller_type = record.visa_request_information.visa_request.traveller_type
             if not traveller_type:
                 logger.warning(

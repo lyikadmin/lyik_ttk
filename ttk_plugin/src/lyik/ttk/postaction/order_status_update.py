@@ -19,7 +19,8 @@ import httpx
 import json
 from datetime import date, datetime, time
 
-from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa
+from lyik.ttk.utils.form_indicator import FormIndicator, get_form_indicator
+from lyik.ttk.models.generated.universal_model import UniversalModel
 from lyik.ttk.models.forms.schengentouristvisa import DOCKETSTATUS
 from pydantic import BaseModel
 
@@ -67,6 +68,11 @@ class OrderStatusUpdate(PostActionProcessorSpec):
                 )
                 return payload
 
+            form_indicator = get_form_indicator(form_rec=payload)
+
+            if form_indicator != FormIndicator.SCHENGEN:
+                return payload
+
             order_status_update_api = api_prefix + api_route
 
             # Step 1: Decode outer token
@@ -79,14 +85,14 @@ class OrderStatusUpdate(PostActionProcessorSpec):
                 # return payload
                 inner_ttk_token = "example_token"
 
-            parsed_form_rec = Schengentouristvisa(**payload.model_dump())
+            parsed_form_rec = UniversalModel(**payload.model_dump())
 
             makerConfirmation = False
             appointmentDetails = {}
             additionalReviewRequired: bool = False
-            formStatus:str | None = None
+            formStatus: str | None = None
             travelerDetails: TravelerDetailsModel = TravelerDetailsModel()
-            formTitle:str|None = ''
+            formTitle: str | None = ""
 
             if (
                 parsed_form_rec.lets_get_started
@@ -94,10 +100,14 @@ class OrderStatusUpdate(PostActionProcessorSpec):
             ):
                 formStatus = parsed_form_rec.lets_get_started.form_status
 
-            if (parsed_form_rec.visa_request_information and
-                parsed_form_rec.visa_request_information.visa_request and
-                parsed_form_rec.visa_request_information.visa_request.form_title):
-                formTitle = parsed_form_rec.visa_request_information.visa_request.form_title
+            if (
+                parsed_form_rec.visa_request_information
+                and parsed_form_rec.visa_request_information.visa_request
+                and parsed_form_rec.visa_request_information.visa_request.form_title
+            ):
+                formTitle = (
+                    parsed_form_rec.visa_request_information.visa_request.form_title
+                )
             if (
                 parsed_form_rec.submit_info
                 and parsed_form_rec.submit_info.confirm
@@ -178,7 +188,7 @@ class OrderStatusUpdate(PostActionProcessorSpec):
                 "makerConfirmation": makerConfirmation,
                 "appointmentDetails": appointmentDetails,
                 "additionalReviewRequired": additionalReviewRequired,
-                "travellerName":formTitle,
+                "travellerName": formTitle,
                 "formStatus": formStatus,
                 "travelerDetails": travelerDetails.model_dump(),
             }

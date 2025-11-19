@@ -9,7 +9,11 @@ from lyikpluginmanager import (
     GenericFormRecordModel,
 )
 from typing_extensions import Doc
-from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa, RootLetsGetStarted, VISATYPE
+from lyik.ttk.models.generated.universal_model import (
+    UniversalModel,
+    RootLetsGetStarted,
+    VISATYPE,
+)
 from .._base_preaction import BaseUnifiedPreActionProcessor
 
 logger = logging.getLogger(__name__)
@@ -25,8 +29,8 @@ _RELEVANT_PANES: List[str] = [
     "photograph",
     "residential_address",
     "work_address",
-    "itinerary_accomodation",   # ← check spelling; likely "itinerary_accommodation"
-    "accomodation",             # ← check spelling; likely "accommodation"
+    "itinerary_accomodation",  # ← check spelling; likely "itinerary_accommodation"
+    "accomodation",  # ← check spelling; likely "accommodation"
     "ticketing",
     "travel_insurance",
     "previous_visas",
@@ -41,11 +45,8 @@ _RELEVANT_PANES: List[str] = [
     "invitation",
 ]
 
-_BUSINESS_PANES: List[str] = [
-    "company_bank_statement",
-    "company_itr",
-    "company_docs"
-]
+_BUSINESS_PANES: List[str] = ["company_bank_statement", "company_itr", "company_docs"]
+
 
 def _has_success_ver_status(data: dict) -> bool:
     ver = data.get("_ver_status")
@@ -54,6 +55,7 @@ def _has_success_ver_status(data: dict) -> bool:
 
 class PctCompletion(BaseUnifiedPreActionProcessor):
     """Calculates traveller progress and writes it into ``pct_completion``."""
+
     async def unified_pre_action_processor_impl(
         self,
         context: ContextModel,
@@ -67,16 +69,18 @@ class PctCompletion(BaseUnifiedPreActionProcessor):
     ]:
 
         try:
-            form: Schengentouristvisa = Schengentouristvisa(**payload.model_dump())
+            form: UniversalModel = UniversalModel(**payload.model_dump())
         except Exception as exc:  # defensive – don’t break save/submit
             logger.error("pct_completion: cannot parse payload – %s", exc)
             record = payload.model_dump()
             return GenericFormRecordModel.model_validate(record)
-        
+
         panes_to_check = _RELEVANT_PANES.copy()
-        if (form.visa_request_information and
-            form.visa_request_information.visa_request and
-            form.visa_request_information.visa_request.visa_type):
+        if (
+            form.visa_request_information
+            and form.visa_request_information.visa_request
+            and form.visa_request_information.visa_request.visa_type
+        ):
 
             # visa_type = form.visa_request_information.visa_request.visa_type.value
             # if visa_type and visa_type.lower() == "business":
@@ -87,14 +91,16 @@ class PctCompletion(BaseUnifiedPreActionProcessor):
                 panes_to_check += _BUSINESS_PANES
 
         # 1) Figure out share-flag mapping
-        if (form.visa_request_information and 
-            form.visa_request_information.visa_request and 
-            form.visa_request_information.visa_request.traveller_type):
+        if (
+            form.visa_request_information
+            and form.visa_request_information.visa_request
+            and form.visa_request_information.visa_request.traveller_type
+        ):
             vt = form.visa_request_information.visa_request.traveller_type
         else:
-            vt = ''
+            vt = ""
 
-        if (form.shared_travell_info and form.shared_travell_info.shared):
+        if form.shared_travell_info and form.shared_travell_info.shared:
             shared = form.shared_travell_info.shared
         else:
             shared = None
@@ -126,7 +132,10 @@ class PctCompletion(BaseUnifiedPreActionProcessor):
 
         logger.info(
             "pct_completion: relevant_panes=%s | panes_to_check(after share)=%s | shared_removed=%s | shared_count=%d",
-            _RELEVANT_PANES, panes_to_check, share_removed, shared_count
+            _RELEVANT_PANES,
+            panes_to_check,
+            share_removed,
+            shared_count,
         )
 
         # 3) Status scan with detailed tracking
@@ -151,7 +160,10 @@ class PctCompletion(BaseUnifiedPreActionProcessor):
 
         logger.info(
             "pct_completion: panes_considered=%s | panes_completed=%s | panes_incomplete=%s | missing_attrs=%s",
-            panes_to_check, completed_panes, incomplete_panes, missing_attrs
+            panes_to_check,
+            completed_panes,
+            incomplete_panes,
+            missing_attrs,
         )
 
         # 4) Totals and final completed count
@@ -165,7 +177,9 @@ class PctCompletion(BaseUnifiedPreActionProcessor):
 
         logger.info(
             "pct_completion: totals -> total=%d, completed=%d, pct=%s",
-            total, completed, pct_str
+            total,
+            completed,
+            pct_str,
         )
 
         # 6) Write back into lets_get_started

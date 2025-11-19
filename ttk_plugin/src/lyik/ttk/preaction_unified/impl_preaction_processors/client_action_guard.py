@@ -10,11 +10,12 @@ from lyikpluginmanager import (
     PluginException,
 )
 import jwt
-from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa, DOCKETSTATUS
+from lyik.ttk.models.generated.universal_model import UniversalModel, DOCKETSTATUS
 from .._base_preaction import BaseUnifiedPreActionProcessor
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
+
 
 class ClientActionGuard(BaseUnifiedPreActionProcessor):
     async def unified_pre_action_processor_impl(
@@ -46,19 +47,16 @@ class ClientActionGuard(BaseUnifiedPreActionProcessor):
         except Exception as e:
             logger.error("Failed to decode JWT: %s", e)
             return payload
-        
+
         # --- extract persona list ---
         persona_list = (
-            outer
-            .get("user_metadata", {})
-            .get("permissions", {})
-            .get("persona", [])
+            outer.get("user_metadata", {}).get("permissions", {}).get("persona", [])
         )
         is_client = any(p in ("CLI", "CLIENT") for p in persona_list)
-        
+
         # 0) Parse incoming payload into our Pydantic form
         try:
-            form = Schengentouristvisa(**payload.model_dump())
+            form = UniversalModel(**payload.model_dump())
         except Exception as exc:
             logger.error("ClientActionGuard: cannot parse payload – %s", exc)
             # fallback to original
@@ -76,7 +74,7 @@ class ClientActionGuard(BaseUnifiedPreActionProcessor):
 
         # Nothing to modify – hand back the original record
         return payload
-    
+
     def _decode_jwt(self, token: str) -> Dict[str, Any]:
         try:
             payload = jwt.decode(

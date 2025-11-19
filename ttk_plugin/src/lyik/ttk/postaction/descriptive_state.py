@@ -14,7 +14,11 @@ from lyikpluginmanager import (
 from lyikpluginmanager.core.utils import StrEnum
 from typing_extensions import Doc
 
-from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa, RootLetsGetStarted, DOCKETSTATUS  # adjust path
+from lyik.ttk.models.generated.universal_model import (
+    UniversalModel,
+    RootLetsGetStarted,
+    DOCKETSTATUS,
+)  # adjust path
 
 logger = logging.getLogger(__name__)
 impl = pluggy.HookimplMarker(getProjectName())
@@ -28,6 +32,7 @@ _DISPLAY_STATE: dict[str, str] = {
     "INITIALIZED": "Form Created",
 }
 
+
 class DisplayStatus(StrEnum):
     """
     1	A Record is created	New
@@ -37,10 +42,12 @@ class DisplayStatus(StrEnum):
     5	Checker Approved	Completed
     6	Checker Discrepancy	In Review
     """
+
     NEW = "New"
     IN_PROGRESS = "In Progress"
-    COMPLETED = "Completed" 
+    COMPLETED = "Completed"
     IN_REVIEW = "In Review"
+
 
 class FormStatusDisplay(PostActionProcessorSpec):
     """
@@ -62,33 +69,42 @@ class FormStatusDisplay(PostActionProcessorSpec):
     ]:
         # 1)  Parse into strongly-typed model (defensive – won’t break save)
         try:
-            form = Schengentouristvisa(**payload.model_dump())
+            form = UniversalModel(**payload.model_dump())
         except Exception as exc:
             logger.error("form_status_display: cannot parse payload - %s", exc)
             return payload
-        
+
         if not current_state:
             current_state = ""
 
         if not form.lets_get_started:
             form.lets_get_started = RootLetsGetStarted()
-        
+
         form_display_status = form.lets_get_started.form_status
-        
+
         if action.value == "SAVE":
             form_display_status = DisplayStatus.IN_PROGRESS
-        
+
         if not previous_state:
             form_display_status = DisplayStatus.NEW
 
-
         if action.value == "SUBMIT" or current_state == "SUBMIT":
-            if form.submit_info and form.submit_info.docket and form.submit_info.docket.docket_status:
-                if form.submit_info.docket.docket_status == DOCKETSTATUS.ADDITIONAL_REVIEW:
+            if (
+                form.submit_info
+                and form.submit_info.docket
+                and form.submit_info.docket.docket_status
+            ):
+                if (
+                    form.submit_info.docket.docket_status
+                    == DOCKETSTATUS.ADDITIONAL_REVIEW
+                ):
                     form_display_status = DisplayStatus.IN_PROGRESS
-                elif form.submit_info.docket.docket_status == DOCKETSTATUS.ENABLE_DOWNLOAD:
+                elif (
+                    form.submit_info.docket.docket_status
+                    == DOCKETSTATUS.ENABLE_DOWNLOAD
+                ):
                     form_display_status = DisplayStatus.COMPLETED
-        
+
         if current_state == "APPROVED":
             form_display_status = DisplayStatus.COMPLETED
 
@@ -101,15 +117,12 @@ class FormStatusDisplay(PostActionProcessorSpec):
 
         # 4)  Return updated record
         return GenericFormRecordModel.model_validate(data_dict)
-        
-
 
         # # If no state at all, set it to 'INITIALIZED'
         # if not current_state:
         #     form_state = "INITIALIZED"
         # else:
         #     form_state = current_state
-
 
         # if action.value == "SUBMIT":
         #     form_state = "SUBMIT"

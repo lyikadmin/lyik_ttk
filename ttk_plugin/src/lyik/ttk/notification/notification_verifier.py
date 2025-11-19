@@ -13,7 +13,10 @@ from lyikpluginmanager import (
     VERIFY_RESPONSE_STATUS,
     PluginException,
 )
-from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa, RootCoverLetterInfoSendEmail
+from lyik.ttk.models.generated.universal_model import (
+    UniversalModel,
+    RootCoverLetterInfoSendEmail,
+)
 from lyikpluginmanager.annotation import RequiredEnv
 from typing_extensions import Doc
 from lyik.ttk.utils.message import get_error_message
@@ -24,8 +27,9 @@ impl = pluggy.HookimplMarker(getProjectName())
 
 notification_type_map = {
     "COVERING_LETTER": "Covering Letter",
-    "INVITATION_LETTER": "Invitation Letter"
+    "INVITATION_LETTER": "Invitation Letter",
 }
+
 
 class NotificationVerifier(VerifyHandlerSpec):
     """
@@ -61,7 +65,7 @@ class NotificationVerifier(VerifyHandlerSpec):
                     ),
                     detailed_message="Missing outer JWT context.token.",
                 )
-            
+
             notification_type = payload.notification_type
             section_name = notification_type_map.get(notification_type, "Unknown")
 
@@ -75,7 +79,7 @@ class NotificationVerifier(VerifyHandlerSpec):
                     detailed_message="TTK token not found inside provider_info.token.",
                 )
 
-            # Build URL from envs 
+            # Build URL from envs
             base_url = os.getenv("TTK_API_BASE_URL", "").rstrip("/")
             route = os.getenv("TTK_NOTIFICATION_API_ROUTE", "").lstrip("/")
             if not base_url or not route:
@@ -92,7 +96,7 @@ class NotificationVerifier(VerifyHandlerSpec):
             if context.record:
                 # Adjust the path below to your record structure if needed.
                 # Get the order_id from the record
-                full_form_record = Schengentouristvisa(**context.record)
+                full_form_record = UniversalModel(**context.record)
                 order_id = (
                     full_form_record.visa_request_information.visa_request.order_id
                 )

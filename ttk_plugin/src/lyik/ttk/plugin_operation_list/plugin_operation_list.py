@@ -9,7 +9,7 @@ from lyikpluginmanager import (
     PluginException,
 )
 from typing_extensions import Annotated, Doc, List
-from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa, DOCKETSTATUS
+from lyik.ttk.models.generated.universal_model import UniversalModel, DOCKETSTATUS
 from lyik.ttk.utils.utils import get_personas_from_encoded_token
 import logging
 import jwt
@@ -55,7 +55,7 @@ class OperationListPlugin(OperationsListSpec):
 
             personas = get_personas_from_encoded_token(token=token)
 
-            parsed_record = Schengentouristvisa(**form_record.model_dump())
+            parsed_record = UniversalModel(**form_record.model_dump())
             context.token
             user_name = (
                 parsed_record.passport.passport_details.first_name

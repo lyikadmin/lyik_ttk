@@ -26,8 +26,12 @@ dependencies = [
     "phonenumbers==8.13.11",
     "filetype==1.2.0",
     "rarfile==4.2",
-    "py7zr==1.0.0"
+    "py7zr==1.0.0",
+    "datamodel-code-generator==0.30.1"
 ]
+
+[tool.setuptools.package-data]
+"lyik.ttk.models.pydantic_v2" = ["*.j2", "*.jinja2"]
 
 [project.entry-points."LYIK"]
 _150_CUSTOM_LINKED_RECORD_FILTER = "lyik.ttk.linked_record.linked_record_filters:CustomLinkedRecordFiltersPlugin"
