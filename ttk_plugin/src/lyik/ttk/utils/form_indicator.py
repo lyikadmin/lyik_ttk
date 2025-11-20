@@ -5,9 +5,10 @@ from lyikpluginmanager.core.utils import StrEnum
 
 class FormIndicator(StrEnum):
     SCHENGEN = "SCHENGEN"
-    SGP = "SGP"
-    ARE = "ARE"
-    SAU = "SAU"
+    SINGAPORE = "SGP"
+    UAE = "ARE"
+    SAUDI_ARABIA = "SAU"
+    INDONESIA = "IDN"
 
 
 # Schengen Country Codes
@@ -45,9 +46,9 @@ _SCHENGEN_COUNTRY_CODES = {
 
 # Individual Country Codes → Indicators
 _INDIVIDUAL_COUNTRY_INDICATORS: dict[str, FormIndicator] = {
-    "SGP": FormIndicator.SGP,  # Singapore
-    "ARE": FormIndicator.ARE,  # UAE
-    "SAU": FormIndicator.SAU,  # Saudi Arabia
+    "SGP": FormIndicator.SINGAPORE,  # Singapore
+    "ARE": FormIndicator.UAE,  # UAE
+    "SAU": FormIndicator.SAUDI_ARABIA,  # Saudi Arabia
 }
 
 
