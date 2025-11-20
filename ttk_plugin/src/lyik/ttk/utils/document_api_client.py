@@ -1,5 +1,30 @@
+import os
+import logging
 import requests
 from typing import Dict, Any, Optional
+
+logger = logging.getLogger(__name__)
+
+# Reuse the same verbose flag (or allow separate override)
+_VERBOSE_LOG_ENV = os.getenv("DOCUMENT_GEN_API_VERBOSE_LOGS", "true").lower()
+VERBOSE_LOG_ENABLED = _VERBOSE_LOG_ENV in ("1", "true", "yes", "on")
+
+
+def _debug_log(message: str, *args, **kwargs) -> None:
+    if VERBOSE_LOG_ENABLED:
+        logger.debug(message, *args, **kwargs)
+
+
+def _log_exception(message: str, exc: Exception) -> None:
+    if VERBOSE_LOG_ENABLED:
+        logger.exception(
+            "%s | type=%s, repr=%r",
+            message,
+            type(exc).__name__,
+            exc,
+        )
+    else:
+        logger.error("%s: %s", message, exc)
 
 
 class DocumentAPIClient:
@@ -25,6 +50,11 @@ class DocumentAPIClient:
             "Content-Type": "application/json",
             "Authorization": f"Bearer {ttk_token}",
         }
+        _debug_log(
+            "DocumentAPIClient initialized | base_url=%s, headers_keys=%s",
+            self.base_url,
+            list(self.headers.keys()),
+        )
 
     def _post(self, endpoint: str, payload: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -42,18 +72,40 @@ class DocumentAPIClient:
             ValueError: If response cannot be parsed or has unexpected format.
         """
         url = f"{self.base_url}/{endpoint.lstrip('/')}"
+        _debug_log(
+            "DocumentAPIClient._post | url=%s, payload_keys=%s",
+            url,
+            list(payload.keys()),
+        )
+
         try:
             response = requests.post(
                 url, json=payload, headers=self.headers, timeout=30
             )
+            _debug_log(
+                "DocumentAPIClient._post | status_code=%s",
+                response.status_code,
+            )
             response.raise_for_status()
             data = response.json()
+            _debug_log(
+                "DocumentAPIClient._post | response_json_keys=%s",
+                list(data.keys()) if isinstance(data, dict) else None,
+            )
         except requests.exceptions.RequestException as e:
+            _log_exception("HTTP request failed in DocumentAPIClient._post", e)
             raise RuntimeError(f"HTTP request failed: {e}") from e
-        except ValueError:
-            raise ValueError("Failed to parse JSON response from API")
+        except ValueError as e:
+            # Could be either response.json() or our own check.
+            _log_exception("Failed to parse JSON response from API", e)
+            raise ValueError("Failed to parse JSON response from API") from e
 
         if "responseData" not in data:
+            # This will be what you'd see if the API changed shape.
+            logger.error(
+                "Unexpected response: 'responseData' missing | data_keys=%s",
+                list(data.keys()) if isinstance(data, dict) else None,
+            )
             raise ValueError("Unexpected response: 'responseData' missing")
 
         return data
@@ -69,6 +121,11 @@ class DocumentAPIClient:
         Returns:
             Dict[str, Any]: API response containing document list.
         """
+        _debug_log(
+            "DocumentAPIClient.get_document_list | endpoint=%s, order_id=%s",
+            endpoint,
+            order_id,
+        )
         payload = {"orderId": order_id}
         return self._post(endpoint, payload)
 
@@ -86,5 +143,11 @@ class DocumentAPIClient:
         Returns:
             Dict[str, Any]: API response containing document detail and the actual document in base64.
         """
+        _debug_log(
+            "DocumentAPIClient.get_document_by_id | endpoint=%s, order_id=%s, document_id=%s",
+            endpoint,
+            order_id,
+            document_id,
+        )
         payload = {"orderId": order_id, "documentId": document_id}
         return self._post(endpoint, payload)
