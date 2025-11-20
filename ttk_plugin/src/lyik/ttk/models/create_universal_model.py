@@ -10,10 +10,13 @@ import lyik.ttk.models.pydantic_v2 as py_template_pkg
 from datamodel_code_generator import generate
 from datamodel_code_generator import InputFileType, DataModelType
 
+from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa
+from lyik.ttk.models.forms.indonesiaapplicationform import Indonesiaapplicationform
+from lyik.ttk.models.forms.saudiarabiaapplicationform import Saudiarabiaapplicationform
 from lyik.ttk.models.forms.singaporevisaapplicationform import (
     Singaporevisaapplicationform,
 )
-from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa
+from lyik.ttk.models.forms.uaevisaapplicationform import Uaevisaapplicationform
 
 
 class PydanticIntersectionBuilder:
@@ -334,7 +337,13 @@ class PydanticIntersectionBuilder:
 def run():
     # Step 1: Build the intersection model
     UniversalModel = PydanticIntersectionBuilder.build_intersection_model(
-        [Schengentouristvisa, Singaporevisaapplicationform]
+        [
+            Schengentouristvisa,
+            Indonesiaapplicationform,
+            Saudiarabiaapplicationform,
+            Singaporevisaapplicationform,
+            Uaevisaapplicationform,
+        ]
     )
 
     # Step 2: Save the generated model to a Python file using datamodel-code-generator
