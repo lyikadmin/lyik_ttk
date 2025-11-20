@@ -6,8 +6,8 @@ from lyikpluginmanager import (
     ContextModel,
     GenericFormRecordModel,
 )
-from lyik.ttk.models.forms.schengentouristvisa import (
-    Schengentouristvisa,
+from lyik.ttk.models.generated.universal_model import (
+    UniversalModel,
     RootVisaRequestInformationVisaRequest,
 )
 from .._base_preaction import BaseUnifiedPreActionProcessor
@@ -49,7 +49,7 @@ class NormalizeCountryCodes(BaseUnifiedPreActionProcessor):
         Convert 'from_country' and 'to_country' fields in the visa request to ISO3 format.
         """
         try:
-            form = Schengentouristvisa(**payload.model_dump())
+            form = UniversalModel(**payload.model_dump())
         except Exception as e:
             logger.error("Failed to parse form payload for country normalization: %s", e)
             return payload
@@ -71,7 +71,6 @@ class NormalizeCountryCodes(BaseUnifiedPreActionProcessor):
                 if iso3 != val:
                     setattr(visa_request, attr, iso3)
                     modified = True
-                    logger.info(f"Normalized {attr}: '{val}' -> '{iso3}'")
 
         if not modified:
             return payload

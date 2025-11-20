@@ -6,9 +6,9 @@ from lyikpluginmanager import (
     ContextModel,
     GenericFormRecordModel,
 )
-from lyik.ttk.models.forms.schengentouristvisa import (
+from lyik.ttk.models.generated.universal_model import (
+    UniversalModel,
     RootLetsGetStarted,
-    Schengentouristvisa,
     RootVisaRequestInformationVisaRequest,
     RootScratchPad,
 )
@@ -75,7 +75,7 @@ class NormalizeFields(BaseUnifiedPreActionProcessor):
         - Formats date fields to 'DD/MM/YYYY' string representations
         """
         try:
-            form = Schengentouristvisa(**payload.model_dump())
+            form = UniversalModel(**payload.model_dump())
         except Exception as e:
             logger.error("Failed to parse form payload: %s", e)
             return payload

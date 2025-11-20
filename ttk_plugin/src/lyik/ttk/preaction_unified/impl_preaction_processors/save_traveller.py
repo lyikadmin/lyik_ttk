@@ -7,7 +7,6 @@ from lyikpluginmanager import (
     GenericFormRecordModel,
 )
 
-# from lyik.ttk.models.generated.universal_model import UniversalModel
 from lyik.ttk.models.generated.universal_model import UniversalModel
 import logging
 

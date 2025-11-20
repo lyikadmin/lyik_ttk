@@ -5,8 +5,8 @@ from lyikpluginmanager import (
     ContextModel,
     GenericFormRecordModel,
 )
-from lyik.ttk.models.forms.schengentouristvisa import (
-    Schengentouristvisa,
+from lyik.ttk.models.generated.universal_model import (
+    UniversalModel,
     SAMEASPASSADDR,
     RootPassportPassportDetails,
     RootResidentialAddressResidentialAddressCardV2,
@@ -34,7 +34,7 @@ class CopyPassportAddress(BaseUnifiedPreActionProcessor):
         """
         # Turn into our strong-typed form model
         try:
-            form = Schengentouristvisa(**payload.model_dump())
+            form = UniversalModel(**payload.model_dump())
         except Exception as e:
             logger.error("Failed to parse form payload for address copy: %s", e)
             return payload

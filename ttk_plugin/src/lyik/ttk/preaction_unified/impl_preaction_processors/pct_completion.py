@@ -2,6 +2,7 @@
 from __future__ import annotations
 import logging
 from typing import Annotated, List
+from pydantic import BaseModel
 
 import apluggy as pluggy
 from lyikpluginmanager import (
@@ -18,8 +19,6 @@ from .._base_preaction import BaseUnifiedPreActionProcessor
 
 logger = logging.getLogger(__name__)
 
-# 🔧 VERIFY THESE NAMES MATCH YOUR Pydantic MODEL FIELDS EXACTLY.
-# If your model uses "accommodation" (correct spelling), update both lines below.
 _RELEVANT_PANES: List[str] = [
     # 1st tab
     "visa_request_information",
@@ -29,8 +28,8 @@ _RELEVANT_PANES: List[str] = [
     "photograph",
     "residential_address",
     "work_address",
-    "itinerary_accomodation",  # ← check spelling; likely "itinerary_accommodation"
-    "accomodation",  # ← check spelling; likely "accommodation"
+    "itinerary_accomodation",
+    "accomodation",
     "ticketing",
     "travel_insurance",
     "previous_visas",
@@ -145,11 +144,11 @@ class PctCompletion(BaseUnifiedPreActionProcessor):
         missing_attrs: List[str] = []
 
         for pane_name in panes_to_check:
-            pane = getattr(form, pane_name, None)
+            pane: BaseModel = getattr(form, pane_name, None)
             if pane is None:
                 missing_attrs.append(pane_name)
                 continue
-            pane_dict = pane.model_dump(exclude_none=True)
+            pane_dict: dict = pane.model_dump(exclude_none=True)
             if _has_success_ver_status(pane_dict):
                 completed += 1
                 completed_panes.append(pane_name)

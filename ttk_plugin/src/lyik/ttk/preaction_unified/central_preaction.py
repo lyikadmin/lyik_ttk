@@ -20,18 +20,32 @@ impl = pluggy.HookimplMarker(getProjectName())
 from ._base_preaction import BaseUnifiedPreActionProcessor
 from lyik.ttk.utils.form_indicator import FormIndicator, get_form_indicator
 
-# preaction processors
-from .impl_preaction_processors.client_action_guard import ClientActionGuard  # 1
-from .impl_preaction_processors.pct_completion import PctCompletion  # 2
-from .impl_preaction_processors.normalize_country_codes import (
-    NormalizeCountryCodes,
-)  # 3
-from .impl_preaction_processors.invoke_appointment_api import InvokeAppointmentAPI  # 4
-from .impl_preaction_processors.normalize_fields import NormalizeFields  # 5
-from .impl_preaction_processors.append_maker_id import AppendMakerId  # 6
-from .impl_preaction_processors.copy_passport_details import CopyPassportAddress  # 7
-from .impl_preaction_processors.save_traveller import PreactionSavePrimaryTraveller  # 8
-from .impl_preaction_processors.save_traveller import PreactionSaveCoTravellers  # 9
+# PREACTION PROCESSORS
+# 1 - Universal
+from .impl_preaction_processors.client_action_guard import ClientActionGuard
+
+# 2 - For all, but Specific. Need to add the expected infopanes.
+from .impl_preaction_processors.pct_completion import PctCompletion
+
+# 3 - Universal
+from .impl_preaction_processors.normalize_country_codes import NormalizeCountryCodes
+
+# 4 - Semi - Universal for some. Only for Forms with Appointment Section. (Maybe universal with Appointment Model required)
+from .impl_preaction_processors.invoke_appointment_api import InvokeAppointmentAPI
+
+# 5 - Universal
+from .impl_preaction_processors.normalize_fields import NormalizeFields
+
+# from .impl_preaction_processors.append_maker_id import AppendMakerId  # 6
+# 7 - Universal, but should be generalised a but more if district is required later.
+from .impl_preaction_processors.copy_passport_details import CopyPassportAddress
+
+# 8 - Universal
+from .impl_preaction_processors.save_traveller import PreactionSavePrimaryTraveller
+
+# 9 - Universal
+from .impl_preaction_processors.save_traveller import PreactionSaveCoTravellers
+
 
 class Central_Preaction(PreActionProcessorSpec):
     @impl
@@ -79,8 +93,8 @@ class Central_Preaction(PreActionProcessorSpec):
 
         payload_original = GenericFormRecordModel.model_validate(payload.model_dump())
 
-        processors_ordered_list = (
-            [
+        if form_indicator in [FormIndicator.SCHENGEN]:
+            processors_ordered_list = [
                 ClientActionGuard,
                 PctCompletion,
                 NormalizeCountryCodes,
@@ -91,15 +105,50 @@ class Central_Preaction(PreActionProcessorSpec):
                 PreactionSavePrimaryTraveller,
                 PreactionSaveCoTravellers,
             ]
-            if not generic_only
-            else [
+        elif form_indicator in [FormIndicator.UAE]:
+            processors_ordered_list = [
+                ClientActionGuard,
+                PctCompletion,
+                NormalizeCountryCodes,
+                # InvokeAppointmentAPI, # - No Appointment Section
+                NormalizeFields,
+                # AppendMakerId,
+                CopyPassportAddress,
+                PreactionSavePrimaryTraveller,
+                PreactionSaveCoTravellers,
+            ]
+        elif form_indicator in [FormIndicator.SAUDI_ARABIA]:
+            processors_ordered_list = [
+                ClientActionGuard,
+                PctCompletion,
+                NormalizeCountryCodes,
+                InvokeAppointmentAPI,
+                NormalizeFields,
+                # AppendMakerId,
+                CopyPassportAddress,
+                PreactionSavePrimaryTraveller,
+                PreactionSaveCoTravellers,
+            ]
+        elif form_indicator in [FormIndicator.INDONESIA]:
+            processors_ordered_list = [
+                ClientActionGuard,
+                PctCompletion,
+                NormalizeCountryCodes,
+                # InvokeAppointmentAPI, # - No Appointment Section
+                NormalizeFields,
+                # AppendMakerId,
+                CopyPassportAddress,
+                PreactionSavePrimaryTraveller,
+                PreactionSaveCoTravellers,
+            ]
+        else:
+            processors_ordered_list = [
                 PctCompletion,
                 NormalizeCountryCodes,
                 NormalizeFields,
                 PreactionSavePrimaryTraveller,
                 PreactionSaveCoTravellers,
             ]
-        )
         try:
             for processor_cls in processors_ordered_list:
                 processor: BaseUnifiedPreActionProcessor = processor_cls()
