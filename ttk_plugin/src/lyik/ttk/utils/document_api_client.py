@@ -1,5 +1,6 @@
 import os
 import logging
+import json
 import requests
 from typing import Dict, Any, Optional
 
@@ -27,6 +28,39 @@ def _log_exception(message: str, exc: Exception) -> None:
         logger.error("%s: %s", message, exc)
 
 
+def _pp(obj: Any) -> str:
+    """
+    Pretty-print JSON-like objects for logs.
+    """
+    try:
+        return json.dumps(obj, indent=2, sort_keys=True, default=str)
+    except TypeError:
+        return repr(obj)
+
+
+def _redact_headers(headers: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Redact sensitive headers (like Authorization) before logging.
+    """
+    if not isinstance(headers, dict):
+        return headers
+    redacted = dict(headers)
+    if "Authorization" in redacted:
+        redacted["Authorization"] = "***REDACTED***"
+    return redacted
+
+
+def _truncate(s: Optional[str], max_len: int = 4000) -> Optional[str]:
+    """
+    Truncate long strings in logs to avoid massive log lines.
+    """
+    if s is None:
+        return None
+    if len(s) <= max_len:
+        return s
+    return s[:max_len] + "... [truncated]"
+
+
 class DocumentAPIClient:
     """
     Utility class to interact with TTK Document APIs.
@@ -51,9 +85,9 @@ class DocumentAPIClient:
             "Authorization": f"Bearer {ttk_token}",
         }
         _debug_log(
-            "DocumentAPIClient initialized | base_url=%s, headers_keys=%s",
+            "DocumentAPIClient initialized | base_url=%s, headers=%s",
             self.base_url,
-            list(self.headers.keys()),
+            _pp(_redact_headers(self.headers)),
         )
 
     def _post(self, endpoint: str, payload: Dict[str, Any]) -> Dict[str, Any]:
@@ -73,25 +107,56 @@ class DocumentAPIClient:
         """
         url = f"{self.base_url}/{endpoint.lstrip('/')}"
         _debug_log(
-            "DocumentAPIClient._post | url=%s, payload_keys=%s",
+            "DocumentAPIClient._post | url=%s\nPayload:\n%s",
             url,
-            list(payload.keys()),
+            _pp(payload),
         )
 
         try:
             response = requests.post(
                 url, json=payload, headers=self.headers, timeout=30
             )
+
+            # Log the actual HTTP request as sent
+            req = response.request
+            try:
+                req_body = (
+                    req.body.decode() if isinstance(req.body, bytes) else req.body
+                )
+            except Exception:
+                req_body = "<un-decodable body>"
+
             _debug_log(
-                "DocumentAPIClient._post | status_code=%s",
-                response.status_code,
+                "DocumentAPIClient._post | HTTP Request\n"
+                "  %s %s\n"
+                "Headers:\n%s\n"
+                "Body:\n%s",
+                req.method,
+                req.url,
+                _pp(_redact_headers(dict(req.headers))),
+                _truncate(req_body),
             )
+
+            # Log the raw HTTP response before parsing
+            _debug_log(
+                "DocumentAPIClient._post | HTTP Response\n"
+                "  status_code=%s\n"
+                "Headers:\n%s\n"
+                "Text:\n%s",
+                response.status_code,
+                _pp(dict(response.headers)),
+                _truncate(response.text),
+            )
+
             response.raise_for_status()
             data = response.json()
+
+            # Log parsed JSON response fully (entire structure)
             _debug_log(
-                "DocumentAPIClient._post | response_json_keys=%s",
-                list(data.keys()) if isinstance(data, dict) else None,
+                "DocumentAPIClient._post | Parsed JSON:\n%s",
+                _pp(data),
             )
+
         except requests.exceptions.RequestException as e:
             _log_exception("HTTP request failed in DocumentAPIClient._post", e)
             raise RuntimeError(f"HTTP request failed: {e}") from e
@@ -103,8 +168,8 @@ class DocumentAPIClient:
         if "responseData" not in data:
             # This will be what you'd see if the API changed shape.
             logger.error(
-                "Unexpected response: 'responseData' missing | data_keys=%s",
-                list(data.keys()) if isinstance(data, dict) else None,
+                "Unexpected response: 'responseData' missing | full_response=%s",
+                _pp(data),
             )
             raise ValueError("Unexpected response: 'responseData' missing")
 
