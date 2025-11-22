@@ -16,8 +16,9 @@ from lyikpluginmanager import (
     ContextModel,
     GenericFormRecordModel,
 )
-from lyik.ttk.models.forms.schengentouristvisa import (
-    Schengentouristvisa,
+
+from lyik.ttk.models.generated.universal_model_with_appointment import (
+    UniversalModelWithAppointment,
     RootAppointment,
 )
 
@@ -75,7 +76,7 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
                 return payload
 
             try:
-                form = Schengentouristvisa(**payload.model_dump())
+                form = UniversalModelWithAppointment(**payload.model_dump())
             except Exception as e:
                 logger.error(
                     "Failed to parse form payload for country normalization: %s", e
