@@ -4,6 +4,7 @@ import jwt
 import logging
 import requests
 from typing import Any, Dict, Annotated
+from pydantic import BaseModel
 
 from lyikpluginmanager import (
     getProjectName,
@@ -24,10 +25,12 @@ from lyik.ttk.utils.message import get_error_message
 logger = logging.getLogger(__name__)
 impl = pluggy.HookimplMarker(getProjectName())
 
+COVERING_LETTER_KEY = "COVERING_LETTER"
+INVITATION_LETTER_KEY = "INVITATION_LETTER"
 
 notification_type_map = {
-    "COVERING_LETTER": "Covering Letter",
-    "INVITATION_LETTER": "Invitation Letter",
+    COVERING_LETTER_KEY: "Covering Letter",
+    INVITATION_LETTER_KEY: "Invitation Letter"
 }
 
 
@@ -65,8 +68,14 @@ class NotificationVerifier(VerifyHandlerSpec):
                     ),
                     detailed_message="Missing outer JWT context.token.",
                 )
+            
+            notification_type = COVERING_LETTER_KEY
 
-            notification_type = payload.notification_type
+            if isinstance(payload, BaseModel):
+                notification_type = payload.notification_type   
+            elif isinstance(payload, dict):
+                notification_type = payload.get("notification_type", COVERING_LETTER_KEY)
+
             section_name = notification_type_map.get(notification_type, "Unknown")
 
             # Extract ttk token from outer JWT
@@ -112,7 +121,7 @@ class NotificationVerifier(VerifyHandlerSpec):
             # --- Compose request ----------------------------------------------
             body = {
                 "orderId": order_id,
-                "sectionName": {section_name},
+                "sectionName": section_name,
                 "notificationType": "Document",
                 "notificationMessage": f"The {section_name} has been generated for your Order: '{order_id}'.",
             }
@@ -138,12 +147,13 @@ class NotificationVerifier(VerifyHandlerSpec):
             data = {}
             try:
                 data = resp.json()
+                logger.info(f"Details from Notification API: {data}")
             except Exception:
                 # If API returns non-JSON body
                 data = {"raw": resp.text}
 
             return VerifyHandlerResponseModel(
-                status=VERIFY_RESPONSE_STATUS.SUCCESS,
+                status=VERIFY_RESPONSE_STATUS.DATA_ONLY,
                 actor="system",
                 message="Notification Sent successfully.",
             )
