@@ -20,7 +20,9 @@ import json
 from datetime import date, datetime, time
 
 from lyik.ttk.utils.form_indicator import FormIndicator, get_form_indicator
-from lyik.ttk.models.generated.universal_model import UniversalModel
+from lyik.ttk.utils.form_utils import has_appointment_section
+from lyik.ttk.models.generated import UniversalModel, UniversalModelWithAppointment
+
 from lyik.ttk.models.forms.schengentouristvisa import DOCKETSTATUS
 from pydantic import BaseModel
 
@@ -29,13 +31,14 @@ impl = pluggy.HookimplMarker(getProjectName())
 
 
 class TravelerDetailsModel(BaseModel):
-    dateOfArrival: str | None = ""
-    dateOfDeparture: str | None = ""
-    lengthOfStay: int | None = ""
-    validityOfVisa: int | None = ""
-    visaMode: str | None = ""
+    dateOfArrival: str | None = None
+    dateOfDeparture: str | None = None
+    lengthOfStay: int | None = None
+    validityOfVisa: int | None = None
+    visaMode: str | None = None
 
 
+# This postaction is only to be run for forms with appointment section
 class OrderStatusUpdate(PostActionProcessorSpec):
     @impl
     async def post_action_processor(
@@ -70,9 +73,6 @@ class OrderStatusUpdate(PostActionProcessorSpec):
 
             form_indicator = get_form_indicator(form_rec=payload)
 
-            if form_indicator != FormIndicator.SCHENGEN:
-                return payload
-
             order_status_update_api = api_prefix + api_route
 
             # Step 1: Decode outer token
@@ -85,7 +85,10 @@ class OrderStatusUpdate(PostActionProcessorSpec):
                 # return payload
                 inner_ttk_token = "example_token"
 
-            parsed_form_rec = UniversalModel(**payload.model_dump())
+            if has_appointment_section(form_indicator):
+                parsed_form_rec = UniversalModelWithAppointment(**payload.model_dump())
+            else:
+                parsed_form_rec = UniversalModel(**payload.model_dump())
 
             makerConfirmation = False
             appointmentDetails = {}
@@ -128,35 +131,38 @@ class OrderStatusUpdate(PostActionProcessorSpec):
                 and parsed_form_rec.visa_request_information.visa_request
             ):
                 visa_request = parsed_form_rec.visa_request_information.visa_request
+
+                # Safely pull attributes with getattr so missing fields don't raise
+                arrival_date = getattr(visa_request, "arrival_date", None)
+                departure_date = getattr(visa_request, "departure_date", None)
+                length_of_stay = getattr(visa_request, "length_of_stay", None)
+                validity = getattr(visa_request, "validity", None)
+                visa_mode = getattr(visa_request, "visa_mode", None)
+
                 travelerDetails = TravelerDetailsModel(
                     dateOfArrival=(
-                        visa_request.arrival_date.strftime("%d-%m-%Y")
-                        if visa_request.arrival_date
+                        arrival_date.strftime("%d-%m-%Y")
+                        if isinstance(arrival_date, (date, datetime))
                         else None
                     ),
                     dateOfDeparture=(
-                        visa_request.departure_date.strftime("%d-%m-%Y")
-                        if visa_request.departure_date
+                        departure_date.strftime("%d-%m-%Y")
+                        if isinstance(departure_date, (date, datetime))
                         else None
                     ),
                     lengthOfStay=(
-                        visa_request.length_of_stay
-                        if isinstance(visa_request.length_of_stay, int)
-                        else None
+                        length_of_stay if isinstance(length_of_stay, int) else None
                     ),
-                    validityOfVisa=(
-                        visa_request.validity
-                        if isinstance(visa_request.validity, int)
-                        else None
-                    ),
+                    validityOfVisa=(validity if isinstance(validity, int) else None),
                     visaMode=(
-                        visa_request.visa_mode.value
-                        if visa_request.visa_mode is not None
+                        visa_mode.value
+                        if visa_mode is not None and hasattr(visa_mode, "value")
                         else None
                     ),
                 )
             if (
-                parsed_form_rec.appointment
+                has_appointment_section(form_indicator)
+                and parsed_form_rec.appointment
                 and parsed_form_rec.appointment.appointment_scheduled
             ):
                 schedule = parsed_form_rec.appointment.appointment_scheduled

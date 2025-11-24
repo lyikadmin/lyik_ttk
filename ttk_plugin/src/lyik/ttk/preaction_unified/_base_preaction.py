@@ -4,6 +4,7 @@ from lyikpluginmanager import (
     ContextModel,
     GenericFormRecordModel,
 )
+from lyik.ttk.utils.form_indicator import FormIndicator
 
 
 class BaseUnifiedPreActionProcessor(ABC):
@@ -14,6 +15,7 @@ class BaseUnifiedPreActionProcessor(ABC):
         action: Annotated[str, Doc("The action like 'save' or 'submit'")],
         current_state: Annotated[str | None, Doc("Current saved state of the record")],
         new_state: Annotated[str | None, Doc("New incoming state of the record")],
+        form_indicator: Annotated[FormIndicator | None, Doc("Form Indicator")],
         payload: Annotated[
             GenericFormRecordModel, Doc("Form record payload to process")
         ],
@@ -24,5 +26,3 @@ class BaseUnifiedPreActionProcessor(ABC):
         Abstract method to be implemented by all preaction processors.
         """
         pass
-
-

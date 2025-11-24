@@ -9,6 +9,7 @@ from lyikpluginmanager import (
     PluginException,
 )
 from lyik.ttk.models.generated.universal_model import UniversalModel
+from lyik.ttk.utils.form_indicator import FormIndicator
 import logging
 
 logger = logging.getLogger(__name__)
@@ -46,6 +47,10 @@ class AppendMakerId(BaseUnifiedPreActionProcessor):
                 "New state of the record like: 'save', 'submit', 'approved'"
                 "This state will be the new state which will be sent in the request"
             ),
+        ],
+        form_indicator: Annotated[
+            FormIndicator,
+            Doc("The form indicator for the form"),
         ],
         payload: Annotated[
             GenericFormRecordModel,

@@ -353,8 +353,10 @@ def run():
         output_path="ttk_plugin/src/lyik/ttk/models/generated/universal_model.py",
     )
 
-    # Universal Models with specific infopanes
-    # Step 1: Build the intersection model
+    # Universal Models with specific fields to be required
+    #=============
+    # Forms with Appointment Section
+    #=============
     UniversalModelWithAppointment = PydanticIntersectionBuilder.build_intersection_model(
         models=[
             Schengentouristvisa,
@@ -366,10 +368,28 @@ def run():
         model_name="UniversalModelWithAppointment",
     )
 
-    # Step 2: Save the generated model to a Python file using datamodel-code-generator
     PydanticIntersectionBuilder.save_model_to_file_using_codegen(
         UniversalModelWithAppointment,
         output_path="ttk_plugin/src/lyik/ttk/models/generated/universal_model_with_appointment.py",
+    )
+
+    #=============
+    # Forms with Submission Requires Docket status to be enabled
+    #=============
+    UniversalModelWithSubmissionRequiresDocketStatus = PydanticIntersectionBuilder.build_intersection_model(
+        models=[
+            Schengentouristvisa,
+            Indonesiaapplicationform,
+            # Saudiarabiaapplicationform,
+            Singaporevisaapplicationform,
+            # Uaevisaapplicationform,
+        ],
+        model_name="UniversalModelWithSubmissionRequiresDocketStatus",
+    )
+
+    PydanticIntersectionBuilder.save_model_to_file_using_codegen(
+        UniversalModelWithSubmissionRequiresDocketStatus,
+        output_path="ttk_plugin/src/lyik/ttk/models/generated/universal_model_with_submission_requires_docket_status.py",
     )
 
 

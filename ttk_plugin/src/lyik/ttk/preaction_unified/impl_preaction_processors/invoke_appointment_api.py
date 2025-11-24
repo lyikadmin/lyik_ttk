@@ -21,6 +21,7 @@ from lyik.ttk.models.generated.universal_model_with_appointment import (
     UniversalModelWithAppointment,
     RootAppointment,
 )
+from lyik.ttk.utils.form_indicator import FormIndicator
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -48,6 +49,10 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
         action: Annotated[str, "save or submit"],
         current_state: Annotated[str | None, "previous record state"],
         new_state: Annotated[str | None, "new record state"],
+        form_indicator: Annotated[
+            FormIndicator,
+            Doc("The form indicator for the form"),
+        ],
         payload: Annotated[GenericFormRecordModel, "entire form record model"],
     ) -> Annotated[
         GenericFormRecordModel,

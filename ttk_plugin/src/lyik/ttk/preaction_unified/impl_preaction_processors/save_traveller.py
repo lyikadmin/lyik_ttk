@@ -14,6 +14,8 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.info)
 
 from .._base_preaction import BaseUnifiedPreActionProcessor
+from lyik.ttk.utils.form_indicator import FormIndicator
+
 
 
 PRIMARY_COLLECTION_NAME = "primary_travellers"
@@ -43,6 +45,10 @@ class PreactionSavePrimaryTraveller(BaseUnifiedPreActionProcessor):
                 "New state of the record like: 'save', 'submit', 'approved'"
                 "This state will be the new state which will be sent in the request"
             ),
+        ],
+        form_indicator: Annotated[
+            FormIndicator,
+            Doc("The form indicator for the form"),
         ],
         payload: Annotated[
             GenericFormRecordModel,
@@ -135,6 +141,10 @@ class PreactionSaveCoTravellers(BaseUnifiedPreActionProcessor):
                 "New state of the record like: 'save', 'submit', 'approved'"
                 "This state will be the new state which will be sent in the request"
             ),
+        ],
+        form_indicator: Annotated[
+            FormIndicator,
+            Doc("The form indicator for the form"),
         ],
         payload: Annotated[
             GenericFormRecordModel,
