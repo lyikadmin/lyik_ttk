@@ -392,6 +392,25 @@ def run():
         output_path="ttk_plugin/src/lyik/ttk/models/generated/universal_model_with_submission_requires_docket_status.py",
     )
 
+    #=============
+    # Forms with Covering and Invitation Letter
+    #=============
+    UniversalModelWithCoverInvitationLetter = PydanticIntersectionBuilder.build_intersection_model(
+        models=[
+            Schengentouristvisa,
+            # Indonesiaapplicationform,
+            # Saudiarabiaapplicationform,
+            Singaporevisaapplicationform,
+            # Uaevisaapplicationform,
+        ],
+        model_name="UniversalModelWithCoverInvitationLetter",
+    )
+
+    PydanticIntersectionBuilder.save_model_to_file_using_codegen(
+        UniversalModelWithCoverInvitationLetter,
+        output_path="ttk_plugin/src/lyik/ttk/models/generated/universal_model_with_cover_invitation_letter.py",
+    )
+
 
 if __name__ == "__main__":
     run()

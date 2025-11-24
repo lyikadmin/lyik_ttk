@@ -13,9 +13,9 @@ from lyikpluginmanager import (
     DocxTemplateModel,
 )
 
-from lyik.ttk.models.forms.schengentouristvisa import (
-    Schengentouristvisa,
-    RootCoverLetterInfoGenerateCoverLetter,
+from lyik.ttk.models.generated.universal_model_with_cover_invitation_letter import (
+    UniversalModelWithCoverInvitationLetter,
+    RootCoverLetterInfoGenerateCoverLetter
 )
 from lyikpluginmanager.annotation import RequiredEnv
 
@@ -149,8 +149,8 @@ class CoverLetterVerifier(VerifyHandlerSpec):
                     )
 
                 # Step 3: Get the order_id from the record
-                _debug_log("Parsing Schengentouristvisa record for order_id")
-                full_form_record = Schengentouristvisa(**context.record)
+                _debug_log("Parsing record for order_id")
+                full_form_record = UniversalModelWithCoverInvitationLetter(**context.record)
                 order_id = (
                     full_form_record.visa_request_information.visa_request.order_id
                 )
