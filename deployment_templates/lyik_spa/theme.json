@@ -28,52 +28,63 @@
     "active_text_color": "#000000",
     "white": "#ffffff"
   },
+  "records": {
+    "header": "#FFCB09",
+    "action_button": "#FFCB09",
+    "search": "#FFCB09",
+    "export_csv": "#FFCB09"
+  },
   "app_bar": {
     "profile_pic_color": "#FFCB09",
     "display_name_color": "#2862A9",
     "date_color": "#2862A9",
     "title_color": "#2862A9"
   },
+  "sidepanel": {
+    "title": "#01156e",
+    "subtitle": "#01156e",
+    "linkheader": "#FFCB09"
+  },
   "button": {
-      "main": {
-        "bgColor": "#FFCB09",
-        "color": "#fff"
-      },
-      "primary": {
-        "bgColor": "#FFCB09",
-        "color": "#fff"
-      },
-      "outlined": {
-        "borderColor": "#FFCB09",
-        "color": "#FFCB09",
-        "bgColor": "#FFFFFF"
-      },
-      "disabled": {
-        "color": "#fff",
-        "bgColor": "#BBBBBB",
-        "borderColor": "#CDCDCD"
-      },
-      "error": {
-        "color": "#fff",
-        "bgColor": "#D24D57"
-      },
-      "success": {
-        "color": "#fff",
-        "bgColor": "#32A028"
-      }
+    "main": {
+      "bgColor": "#FFCB09",
+      "color": "#fff"
     },
+    "primary": {
+      "bgColor": "#FFCB09",
+      "color": "#fff"
+    },
+    "outlined": {
+      "borderColor": "#FFCB09",
+      "color": "#FFCB09",
+      "bgColor": "#FFFFFF"
+    },
+    "disabled": {
+      "color": "#fff",
+      "bgColor": "#BBBBBB",
+      "borderColor": "#CDCDCD"
+    },
+    "error": {
+      "color": "#fff",
+      "bgColor": "#D24D57"
+    },
+    "success": {
+      "color": "#fff",
+      "bgColor": "#32A028"
+    }
+  },
   "text": {
-      "secondary": "#666666",
-      "card_title": "262D64",
-      "field_title": "#2862A9"
-    },
+    "secondary": "#666666",
+    "card_title": "262D64",
+    "field_title": "#2862A9"
+  },
   "scrollbar": {
     "onHover": "#787575ff",
     "trackColor": "#d9d9d9ff",
     "scrollColor": "#929292ff"
   },
   "progress_bar": {
-      "progress_percentage": "#FFCB09",
-      "text_color": "#FFCB09"
-    }
+    "progress_percentage": "#FFCB09",
+    "text_color": "#FFCB09"
+  }
 }
