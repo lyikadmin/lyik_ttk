@@ -53,6 +53,7 @@ import rarfile
 import py7zr
 from datetime import datetime
 from lyik.ttk.utils.form_indicator import FormIndicator, get_form_indicator
+from lyik.ttk.utils.csv_utils import load_csv_rows
 
 
 logger = logging.getLogger(__name__)
@@ -452,11 +453,24 @@ class DocketOperation(OperationPluginSpec):
             )
 
     @staticmethod
-    @lru_cache(maxsize=1)
-    def load_csv(file_path: str):
-        with open(file_path, newline="", encoding="utf-8") as f:
-            reader = csv.DictReader(f)
-            return sorted(reader, key=lambda x: int(x.get("order", 0)))
+    def load_csv(file_path: str) -> List[Dict[str, str]]:
+        """
+        Docket-sequence specific loader.
+
+        - Uses the generic `load_csv_rows`
+        - Sorts rows by the 'order' column (default 0 if missing/invalid)
+        """
+        rows = load_csv_rows(file_path)
+
+        def _order_key(row: Dict[str, str]) -> int:
+            raw = row.get("order", 0)
+            try:
+                return int(raw)
+            except (TypeError, ValueError):
+                return 0
+
+        # Return a new sorted list so we don't mutate the cached `rows`
+        return sorted(rows, key=_order_key)
 
     def _resolve_path(self, obj, path: str):
         """Safely resolve dotted path like a.b.c supporting Pydantic models and dicts."""
