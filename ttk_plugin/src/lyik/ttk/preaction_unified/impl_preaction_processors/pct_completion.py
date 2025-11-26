@@ -18,6 +18,7 @@ from lyik.ttk.models.generated.universal_model import (
 from .._base_preaction import BaseUnifiedPreActionProcessor
 
 from lyik.ttk.utils.form_indicator import FormIndicator
+from lyik.ttk.utils.form_utils import FormConfig
 
 logger = logging.getLogger(__name__)
 
@@ -80,20 +81,20 @@ class PctCompletion(BaseUnifiedPreActionProcessor):
             record = payload.model_dump()
             return GenericFormRecordModel.model_validate(record)
 
-        panes_to_check = _RELEVANT_PANES.copy()
+        frm_config = FormConfig(form_indicator=form_indicator)
+
+        # Start with relevant panes from helper (so later can come from config)
+        panes_to_check = frm_config.get_relevant_infopane_list()
+
         if (
             form.visa_request_information
             and form.visa_request_information.visa_request
             and form.visa_request_information.visa_request.visa_type
         ):
-
-            # visa_type = form.visa_request_information.visa_request.visa_type.value
-            # if visa_type and visa_type.lower() == "business":
-            #     panes_to_check += _BUSINESS_PANES
-
             visa_type: VISATYPE = form.visa_request_information.visa_request.visa_type
             if visa_type and visa_type.value and visa_type.value.lower() == "business":
-                panes_to_check += _BUSINESS_PANES
+                # Add business panes via helper
+                panes_to_check += frm_config.get_business_panes_list()
 
         # 1) Figure out share-flag mapping
         if (
@@ -110,20 +111,26 @@ class PctCompletion(BaseUnifiedPreActionProcessor):
         else:
             shared = None
 
-        # vt = getattr(getattr(form, "visa_request_information", None), "visa_request", None)
-        # vt = getattr(vt, "traveller_type", "") or ""
-        # shared = getattr(getattr(form, "shared_travell_info", None), "shared", None)
-
-        # panes_to_check = _RELEVANT_PANES.copy()
         shared_count = 0
         share_removed: List[str] = []
 
         if vt and vt.lower() != "primary" and shared:
-            mapping = [
-                ("itinerary_accomodation", shared.itinerary_same),
-                ("accomodation", shared.accommodation_same),
-                ("ticketing", shared.flight_ticket_same),
-            ]
+            # Only panes that are allowed to be shared (from common_infopanes_list)
+            common_infopanes = set(frm_config.get_common_infopanes_list())
+
+            # Map pane name -> attribute name on `shared`
+            pane_flag_attrs = {
+                "itinerary_accomodation": "itinerary_same",
+                "accomodation": "accommodation_same",
+                "ticketing": "flight_ticket_same",
+            }
+
+            mapping = []
+            for pane_name, attr_name in pane_flag_attrs.items():
+                if pane_name in common_infopanes:
+                    flag = getattr(shared, attr_name, None)
+                    mapping.append((pane_name, flag))
+
             for pane_name, flag in mapping:
                 try:
                     is_on = bool(flag and getattr(flag, "value", flag))
@@ -137,7 +144,7 @@ class PctCompletion(BaseUnifiedPreActionProcessor):
 
         logger.info(
             "pct_completion: relevant_panes=%s | panes_to_check(after share)=%s | shared_removed=%s | shared_count=%d",
-            _RELEVANT_PANES,
+            frm_config.get_relevant_infopane_list(),
             panes_to_check,
             share_removed,
             shared_count,

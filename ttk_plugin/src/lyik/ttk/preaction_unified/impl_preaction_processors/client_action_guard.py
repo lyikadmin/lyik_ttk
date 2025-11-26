@@ -11,11 +11,14 @@ from lyikpluginmanager import (
     PluginException,
 )
 import jwt
-from lyik.ttk.models.generated.universal_model_with_submission_requires_docket_status import UniversalModelWithSubmissionRequiresDocketStatus, DOCKETSTATUS
+from lyik.ttk.models.generated.universal_model_with_submission_requires_docket_status import (
+    UniversalModelWithSubmissionRequiresDocketStatus,
+    DOCKETSTATUS,
+)
 from lyik.ttk.utils.form_indicator import FormIndicator
 from .._base_preaction import BaseUnifiedPreActionProcessor
 
-from lyik.ttk.utils.form_utils import has_submission_docket_status_requirement
+from lyik.ttk.utils.form_utils import FormConfig
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -45,8 +48,8 @@ class ClientActionGuard(BaseUnifiedPreActionProcessor):
             )
             return payload
         token = context.token
-
-        if not has_submission_docket_status_requirement(form_indicator=form_indicator):
+        frm_config = FormConfig(form_indicator=form_indicator)
+        if not frm_config.has_submission_docket_status_requirement():
             return payload
 
         # Step 1: Decode outer token
@@ -65,14 +68,16 @@ class ClientActionGuard(BaseUnifiedPreActionProcessor):
 
         # 0) Parse incoming payload into our Pydantic form
         try:
-            form = UniversalModelWithSubmissionRequiresDocketStatus(**payload.model_dump())
+            form = UniversalModelWithSubmissionRequiresDocketStatus(
+                **payload.model_dump()
+            )
         except Exception as exc:
             logger.error("ClientActionGuard: cannot parse payload – %s", exc)
             # fallback to original
             return payload
 
         # --- 1) freeze after docket enabled ---
-        if is_client and has_submission_docket_status_requirement(form_indicator=form_indicator):
+        if is_client and frm_config.has_submission_docket_status_requirement():
             ds = None
             if form.submit_info and form.submit_info.docket:
                 ds = form.submit_info.docket.docket_status

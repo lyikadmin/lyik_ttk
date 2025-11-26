@@ -20,7 +20,7 @@ import json
 from datetime import date, datetime, time
 
 from lyik.ttk.utils.form_indicator import FormIndicator, get_form_indicator
-from lyik.ttk.utils.form_utils import has_appointment_section
+from lyik.ttk.utils.form_utils import FormConfig
 from lyik.ttk.models.generated import UniversalModel, UniversalModelWithAppointment
 
 from lyik.ttk.models.forms.schengentouristvisa import DOCKETSTATUS
@@ -85,7 +85,8 @@ class OrderStatusUpdate(PostActionProcessorSpec):
                 # return payload
                 inner_ttk_token = "example_token"
 
-            if has_appointment_section(form_indicator):
+            frm_config = FormConfig(form_indicator=form_indicator)
+            if frm_config.has_appointment_section():
                 parsed_form_rec = UniversalModelWithAppointment(**payload.model_dump())
             else:
                 parsed_form_rec = UniversalModel(**payload.model_dump())
@@ -161,7 +162,7 @@ class OrderStatusUpdate(PostActionProcessorSpec):
                     ),
                 )
             if (
-                has_appointment_section(form_indicator)
+                frm_config.has_appointment_section()
                 and parsed_form_rec.appointment
                 and parsed_form_rec.appointment.appointment_scheduled
             ):
