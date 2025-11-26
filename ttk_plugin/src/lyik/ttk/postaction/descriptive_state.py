@@ -14,8 +14,8 @@ from lyikpluginmanager import (
 from lyikpluginmanager.core.utils import StrEnum
 from typing_extensions import Doc
 
-from lyik.ttk.models.generated.universal_model import (
-    UniversalModel,
+from lyik.ttk.models.generated.universal_model_with_submission_requires_docket_status import (
+    UniversalModelWithSubmissionRequiresDocketStatus,
     RootLetsGetStarted,
     DOCKETSTATUS,
 )  # adjust path
@@ -69,7 +69,9 @@ class FormStatusDisplay(PostActionProcessorSpec):
     ]:
         # 1)  Parse into strongly-typed model (defensive – won’t break save)
         try:
-            form = UniversalModel(**payload.model_dump())
+            form = UniversalModelWithSubmissionRequiresDocketStatus(
+                **payload.model_dump()
+            )
         except Exception as exc:
             logger.error("form_status_display: cannot parse payload - %s", exc)
             return payload

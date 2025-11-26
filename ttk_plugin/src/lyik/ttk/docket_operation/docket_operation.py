@@ -25,10 +25,15 @@ from PIL import Image
 from pypdf import PdfWriter, PdfReader
 import mimetypes
 import mimetypes
-from lyik.ttk.models.forms.schengentouristvisa import (
-    Schengentouristvisa,
-    VISATYPE,
+
+# from lyik.ttk.models.forms.schengentouristvisa import (
+#     Schengentouristvisa,
+#     VISATYPE,
+# )
+from lyik.ttk.models.generated.universal_model_with_submission_requires_docket_status import (
+    UniversalModelWithSubmissionRequiresDocketStatus,
 )
+from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa
 from lyik.ttk.ttk_storage_util.ttk_storage import TTKStorage
 from lyik.ttk.utils.operation_html_message import get_docket_operation_html_message
 from lyik.ttk.utils.message import get_error_message
@@ -36,7 +41,9 @@ from lyik.ttk.docket_operation.docket_utilities.map_form_rec_to_schengen_pdf imp
     DocketUtilities,
 )
 from lyik.ttk.models.pdf.pdf_model import PDFModel
-from typing import Annotated, Dict, List
+from typing import Annotated, Dict, List, Any
+import csv
+from functools import lru_cache
 from typing_extensions import Doc
 import logging
 import os
@@ -45,6 +52,7 @@ import zipfile, filetype, tarfile
 import rarfile
 import py7zr
 from datetime import datetime
+from lyik.ttk.utils.form_indicator import FormIndicator, get_form_indicator
 
 
 logger = logging.getLogger(__name__)
@@ -96,7 +104,7 @@ class DocketOperation(OperationPluginSpec):
     ) -> Annotated[
         OperationResponseModel,
         RequiredVars(["DB_CONN_URL", "DOWNLOAD_DOC_API_ENDPOINT", "PDF_GARBLE_KEY"]),
-        RequiredEnv(["API_DOMAIN"]),
+        RequiredEnv(["API_DOMAIN", "CRED_FILES_MOUNT_PATH"]),
         Doc("Reurns the operation response with operation status and message."),
     ]:
         try:
@@ -127,7 +135,13 @@ class DocketOperation(OperationPluginSpec):
                     detailed_message="org_id is missing in the context.",
                 )
 
-            parsed_form_model = Schengentouristvisa(**form_record.model_dump())
+            form_indicator: FormIndicator = get_form_indicator(
+                form_rec=form_record.model_dump(mode="json")
+            )
+
+            parsed_form_model = UniversalModelWithSubmissionRequiresDocketStatus(
+                **form_record.model_dump()
+            )
 
             traveller_type = (
                 parsed_form_model.visa_request_information.visa_request.traveller_type
@@ -168,8 +182,10 @@ class DocketOperation(OperationPluginSpec):
                             detailed_message="Failed to fetch the Primary traveller details.",
                         )
 
-                    primary_traveller_data = Schengentouristvisa(
-                        **fetched_data.model_dump(mode="json")
+                    primary_traveller_data = (
+                        UniversalModelWithSubmissionRequiresDocketStatus(
+                            **fetched_data.model_dump(mode="json")
+                        )
                     )
 
                     shared_traveller_info = parsed_form_model.shared_travell_info
@@ -257,8 +273,9 @@ class DocketOperation(OperationPluginSpec):
 
             docket_util = DocketUtilities()
 
+            # TODO: Call proper mapping utility based on FormIndicator (e.g.: SCHENGEN)
             mapped_data: PDFModel = docket_util.map_schengen_to_pdf_model(
-                schengen_visa_data=parsed_form_model
+                schengen_visa_data=Schengentouristvisa(**form_record.model_dump())
             )
 
             data_dict: Dict = mapped_data.model_dump(mode="json")
@@ -267,7 +284,7 @@ class DocketOperation(OperationPluginSpec):
 
             if parsed_form_model.visa_request_information.visa_request.to_country:
                 template_id = (
-                    parsed_form_model.visa_request_information.visa_request.to_country
+                    parsed_form_model.visa_request_information.visa_request.to_country.value
                 )
             else:
                 raise PluginException(
@@ -332,6 +349,7 @@ class DocketOperation(OperationPluginSpec):
             files_in_rec_with_filename = self.get_files_from_record(
                 parsed_form_model=parsed_form_model,
                 pdf_doc_model=generated_pdf_doc,
+                form_indicator=form_indicator,
             )
 
             fetched_documents_by_key: Dict[str, DBDocumentModel] = {}
@@ -433,184 +451,368 @@ class DocketOperation(OperationPluginSpec):
                 ),
             )
 
+    @staticmethod
+    @lru_cache(maxsize=1)
+    def load_csv(file_path: str):
+        with open(file_path, newline="", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            return sorted(reader, key=lambda x: int(x.get("order", 0)))
+
+    def _resolve_path(self, obj, path: str):
+        """Safely resolve dotted path like a.b.c supporting Pydantic models and dicts."""
+        try:
+            for part in path.split("."):
+                if obj is None:
+                    return None
+
+                # Handle list index: something.0.name
+                if isinstance(obj, list) and part.isdigit():
+                    idx = int(part)
+                    if idx < 0 or idx >= len(obj):
+                        return None
+                    obj = obj[idx]
+                    continue
+
+                # Handle dict keys
+                if isinstance(obj, dict):
+                    obj = obj.get(part)
+                    continue
+
+                # Handle Pydantic model attributes (incl. model_extra)
+                if hasattr(obj, part):
+                    obj = getattr(obj, part)
+                    continue
+
+                # Nothing matched → path broken
+                return None
+
+            return obj
+        except Exception:
+            return None
+
+    def _find_upload_dict(self, obj):
+        """Recursively find the dict that contains a real uploaded file (doc_id)."""
+        if obj is None:
+            return None
+
+        if isinstance(obj, dict) and obj.get("doc_id"):
+            return obj
+
+        if isinstance(obj, dict):
+            for v in obj.values():
+                found = self._find_upload_dict(v)
+                if found:
+                    return found
+
+        if isinstance(obj, list):
+            for item in obj:
+                found = self._find_upload_dict(item)
+                if found:
+                    return found
+
+        if hasattr(obj, "__dict__"):
+            for v in obj.__dict__.values():
+                found = self._find_upload_dict(v)
+                if found:
+                    return found
+
+        return None
+
+    def _find_document_name(self, obj):
+        """Recursively locate the first non-empty 'document_name' in dicts, lists, or model attributes."""
+
+        if obj is None:
+            return None
+
+        # Handle dict (must check key BEFORE recursing into values)
+        if isinstance(obj, dict):
+            if obj.get("document_name"):
+                return obj["document_name"]
+
+            for v in obj.values():
+                found = self._find_document_name(v)
+                if found:
+                    return found
+
+            return None
+
+        # Handle list
+        if isinstance(obj, list):
+            for item in obj:
+                found = self._find_document_name(item)
+                if found:
+                    return found
+            return None
+
+        # Handle object with attributes (Pydantic / dataclass / normal class)
+        if hasattr(obj, "__dict__"):
+            attrs = obj.__dict__
+
+            # Check attribute directly
+            if attrs.get("document_name"):
+                return attrs["document_name"]
+
+            # Then recurse into attributes
+            for v in attrs.values():
+                found = self._find_document_name(v)
+                if found:
+                    return found
+            return None
+
+        # Anything else (primitive, None, etc.) has no structure → skip
+        return None
+
     def get_files_from_record(
         self,
-        parsed_form_model: Schengentouristvisa,
+        parsed_form_model: UniversalModelWithSubmissionRequiresDocketStatus,
         pdf_doc_model: DBDocumentModel | None,
-    ) -> Dict[str, any]:
-        files_in_rec_with_filename = {}
-        next_index = 1
+        form_indicator: FormIndicator,
+    ) -> Dict[str, Any]:
 
+        files = {}
+        next_index = 1
         visa_type = parsed_form_model.visa_request_information.visa_request.visa_type
 
-        appointment = parsed_form_model.appointment
-        passport = parsed_form_model.passport
-        previous_visa = parsed_form_model.previous_visas
-        additional_details = parsed_form_model.additional_details
-        cover_letter_info = parsed_form_model.cover_letter_info
-        invitation = parsed_form_model.invitation
-        consultant_info = parsed_form_model.consultant_info
-        itinerary = parsed_form_model.itinerary_accomodation
-        address = parsed_form_model.residential_address
-        flight = parsed_form_model.ticketing
-        accommodation = parsed_form_model.accomodation
-        travel_insurance = parsed_form_model.travel_insurance
-        salary_slips = parsed_form_model.salary_slip
-        bank_statement = parsed_form_model.bank_statement
-        company_bank_statement = parsed_form_model.company_bank_statement
-        company_incorporation_document = parsed_form_model.company_docs
-        itr = parsed_form_model.itr_acknowledgement
-        additional_documents = parsed_form_model.additional_documents_pane
+        mount_path = os.getenv("CRED_FILES_MOUNT_PATH")
 
-        if consultant_info and consultant_info.instruction_letter:
-            files_in_rec_with_filename["Instruction_sheet"] = (
-                consultant_info.instruction_letter.upload_instruction
+        if not mount_path:
+            raise ValueError(
+                f"Missing mount_path: '{mount_path}'. Cannot import CSV file."
             )
-        if appointment and appointment.appointment_scheduled:
-            files_in_rec_with_filename["Visa_Appointment"] = (
-                appointment.appointment_scheduled.upload_appointment
-            )
-        if passport and passport.passport_details:
-            files_in_rec_with_filename["Passport_front"] = (
-                passport.passport_details.ovd_front
-            )
-        if passport and passport.passport_details:
-            files_in_rec_with_filename["Passport_back"] = (
-                passport.passport_details.ovd_back
-            )
-        if previous_visa and previous_visa.previous_visas_details:
-            files_in_rec_with_filename["Previous_Visa"] = (
-                previous_visa.previous_visas_details.previous_visa_copy
-            )
-        if additional_details and additional_details.travel_info:
-            files_in_rec_with_filename["Non-Schengen Visa"] = (
-                additional_details.travel_info.visa_copy
-            )
-        if pdf_doc_model:
-            files_in_rec_with_filename[pdf_doc_model.doc_name] = (
-                pdf_doc_model.model_dump()
-            )
-        # elif (
-        #     consultant_info
-        #     and consultant_info.application_form_embassy
-        #     and consultant_info.application_form_embassy.application_form
-        # ):
-        #     files_in_rec_with_filename[
-        #         self.generate_application_pdf_name(
-        #             parsed_form_model.passport.passport_details.first_name,
-        #             parsed_form_model.visa_request_information.visa_request.to_country_full_name,
-        #         )
-        #     ] = consultant_info.application_form_embassy.application_form
-        # else:
-        #     raise PluginException(
-        #         message=get_error_message(
-        #             error_message_code="LYIK_ERR_MISSING_EMBASSY_FORM_DOCKET"
-        #         ),
-        #         detailed_message="Application Form from Embassy is not uploaded.",
-        #     )
 
-        if visa_type == VISATYPE.Business:
-            if cover_letter_info and cover_letter_info.covering_letter_card:
-                files_in_rec_with_filename["Cover_Letter"] = (
-                    cover_letter_info.covering_letter_card.cover_upload
-                )
-            if invitation and invitation.invitation_letter_upload:
-                files_in_rec_with_filename["Invitation_Letter"] = (
-                    invitation.invitation_letter_upload.invite_upload
-                )
-        if itinerary and itinerary.itinerary_card:
-            files_in_rec_with_filename["Itinerary"] = (
-                itinerary.itinerary_card.upload_itinerary
+        docket_seq_files_path = os.path.join(mount_path, "docket_sequence")
+
+        if not os.path.exists(docket_seq_files_path):
+            raise FileNotFoundError(
+                f"Docket Sequence directory not found: {docket_seq_files_path}"
             )
-        if address and address.residential_address_card_v1:
-            files_in_rec_with_filename["Address_Proof"] = (
-                address.residential_address_card_v1.address_proof_upload
+
+        # Build the expected filename
+        expected_file_name = f"{form_indicator.value}.csv"
+        seq_file_path = os.path.join(
+            mount_path, docket_seq_files_path, expected_file_name
+        )
+
+        if not os.path.exists(seq_file_path) or not os.path.isfile(seq_file_path):
+            raise FileNotFoundError(
+                f"Docket Sequence CSV file not found: {seq_file_path}"
             )
-        if address and address.resident_in_other_country:
-            files_in_rec_with_filename["Foreign_Address_Proof"] = (
-                address.resident_in_other_country.address_proof
+
+        for row in self.load_csv(seq_file_path):
+            file_name = row["Name of the Document"]
+            path = row["Upload Field Attribute"]
+            row_visa_type = row["Type of Visa"]
+            repeatable = (
+                row["Is this Field Repeatable?"].lower() == "yes"
+                if row["Is this Field Repeatable?"]
+                else False
             )
-        if flight and flight.flight_tickets:
-            files_in_rec_with_filename["Flight_Tickets"] = (
-                flight.flight_tickets.flight_tickets
-            )
-        if accommodation and accommodation.booked_appointment:
-            files_in_rec_with_filename["Accommodation"] = (
-                accommodation.booked_appointment.booking_upload
-            )
-        if travel_insurance and travel_insurance.flight_reservation_details:
-            files_in_rec_with_filename["Travel_Insurance"] = (
-                travel_insurance.flight_reservation_details.flight_reservation_tickets
-            )
-        if salary_slips and salary_slips.upload:
-            files_in_rec_with_filename["Salary_Slips"] = salary_slips.upload.salary_slip
-        if bank_statement and bank_statement.upload:
-            files_in_rec_with_filename["Bank_Statements"] = (
-                bank_statement.upload.bank_statements
-            )
-        if visa_type == VISATYPE.Business:
-            if company_bank_statement and company_bank_statement.statements_card:
-                files_in_rec_with_filename["Company_Bank_Statement"] = (
-                    company_bank_statement.statements_card.statement_file
-                )
+            naming_template = row["Default Placeholder Name"]
+
+            # Visa type check
             if (
-                company_incorporation_document
-                and company_incorporation_document.incorporation_docs
+                row_visa_type
+                and str(row_visa_type).strip().lower() != str(visa_type).strip().lower()
             ):
-                files_in_rec_with_filename["Company_Incorporation_Certificate"] = (
-                    company_incorporation_document.incorporation_docs.statement_file
-                )
-        if itr and itr.upload:
-            files_in_rec_with_filename["ITR_Document"] = itr.upload.itr_acknowledgement
-        if accommodation and accommodation.invitation_details:
-            files_in_rec_with_filename["Inviter_Passport"] = (
-                accommodation.invitation_details.passport_bio_page
-            )
-            files_in_rec_with_filename["Inviter_Visa"] = (
-                accommodation.invitation_details.visa_copy_permit
-            )
-            files_in_rec_with_filename["Inviter_Accommodation"] = (
-                accommodation.invitation_details.accommodation_proof
-            )
-        if additional_details and additional_details.national_id:
-            files_in_rec_with_filename["Aadhaar_front"] = (
-                additional_details.national_id.aadhaar_upload_front
-            )
-            files_in_rec_with_filename["Aadhaar_back"] = (
-                additional_details.national_id.aadhaar_upload_back
-            )
-        if consultant_info and consultant_info.additional_documents:
-            for ci_add_docs in consultant_info.additional_documents:
-                ci_doc_group = ci_add_docs.additionaldocumentgroup
-                if (
-                    ci_doc_group
-                    and ci_doc_group.additional_documents_card
-                    and ci_doc_group.additional_documents_card.file_upload
-                    and ci_doc_group.additional_documents_card.file_upload.get("doc_id")
-                ):
-                    card = ci_doc_group.additional_documents_card
-                    key_name = card.document_name or f"Additional_Doc{next_index:02d}"
-                    files_in_rec_with_filename[key_name] = card.file_upload
-                    next_index += 1
-        if additional_documents and additional_documents.additional_documents_traveller_group:
-            for add_docs in additional_documents.additional_documents_traveller_group:
-                doc_group = add_docs.additionaldocumentgrouptraveller
-                if (
-                    doc_group
-                    and doc_group.additional_documents_card_traveller
-                    and doc_group.additional_documents_card_traveller.file_upload
-                    and doc_group.additional_documents_card_traveller.file_upload.get(
-                        "doc_id"
-                    )
-                ):
-                    doc_card = doc_group.additional_documents_card_traveller
-                    key_name = (
-                        doc_card.document_name_display or f"Additional_Doc{next_index:02d}"
-                    )
-                    files_in_rec_with_filename[key_name] = doc_card.file_upload
+                continue
+
+            # SPECIAL case for PDF
+            if path == "**FILLED_APPLICATION_DOC**":
+                if pdf_doc_model:
+                    files[pdf_doc_model.doc_name] = pdf_doc_model.model_dump()
+                continue
+
+            # Regular path evaluation
+            value = self._resolve_path(parsed_form_model, path)
+            if not value:
+                continue
+
+            # Handle repeatable dynamic entries
+            if repeatable and isinstance(value, list):
+                for item in value:
+                    if not item:
+                        continue
+
+                    # 1) Find the file object
+                    upload_dict = self._find_upload_dict(item)
+                    if not upload_dict:
+                        continue
+
+                    # 2) Find document name (recursive)
+                    doc_name = self._find_document_name(item)
+
+                    # 3) Fallback to placeholder
+                    final_name = doc_name or naming_template.format(index=next_index)
+
+                    # 4) Add file
+                    files[final_name] = upload_dict
                     next_index += 1
 
-        return files_in_rec_with_filename
+                continue
+
+            files[file_name] = value
+
+        return files
+
+    # def get_files_from_record(
+    #     self,
+    #     parsed_form_model: Schengentouristvisa,
+    #     pdf_doc_model: DBDocumentModel | None,
+    # ) -> Dict[str, any]:
+    #     files_in_rec_with_filename = {}
+    #     next_index = 1
+
+    #     visa_type = parsed_form_model.visa_request_information.visa_request.visa_type
+
+    #     appointment = parsed_form_model.appointment
+    #     passport = parsed_form_model.passport
+    #     previous_visa = parsed_form_model.previous_visas
+    #     additional_details = parsed_form_model.additional_details
+    #     cover_letter_info = parsed_form_model.cover_letter_info
+    #     invitation = parsed_form_model.invitation
+    #     consultant_info = parsed_form_model.consultant_info
+    #     itinerary = parsed_form_model.itinerary_accomodation
+    #     address = parsed_form_model.residential_address
+    #     flight = parsed_form_model.ticketing
+    #     accommodation = parsed_form_model.accomodation
+    #     travel_insurance = parsed_form_model.travel_insurance
+    #     salary_slips = parsed_form_model.salary_slip
+    #     bank_statement = parsed_form_model.bank_statement
+    #     company_bank_statement = parsed_form_model.company_bank_statement
+    #     company_incorporation_document = parsed_form_model.company_docs
+    #     itr = parsed_form_model.itr_acknowledgement
+    #     additional_documents = parsed_form_model.additional_documents_pane
+
+    #     if consultant_info and consultant_info.instruction_letter:
+    #         files_in_rec_with_filename["Instruction_sheet"] = (
+    #             consultant_info.instruction_letter.upload_instruction
+    #         )
+    #     if appointment and appointment.appointment_scheduled:
+    #         files_in_rec_with_filename["Visa_Appointment"] = (
+    #             appointment.appointment_scheduled.upload_appointment
+    #         )
+    #     if passport and passport.passport_details:
+    #         files_in_rec_with_filename["Passport_front"] = (
+    #             passport.passport_details.ovd_front
+    #         )
+    #     if passport and passport.passport_details:
+    #         files_in_rec_with_filename["Passport_back"] = (
+    #             passport.passport_details.ovd_back
+    #         )
+    #     if previous_visa and previous_visa.previous_visas_details:
+    #         files_in_rec_with_filename["Previous_Visa"] = (
+    #             previous_visa.previous_visas_details.previous_visa_copy
+    #         )
+    #     if additional_details and additional_details.travel_info:
+    #         files_in_rec_with_filename["Non-Schengen Visa"] = (
+    #             additional_details.travel_info.visa_copy
+    #         )
+    #     if pdf_doc_model:
+    #         files_in_rec_with_filename[pdf_doc_model.doc_name] = (
+    #             pdf_doc_model.model_dump()
+    #         )
+    #     if visa_type == VISATYPE.Business:
+    #         if cover_letter_info and cover_letter_info.covering_letter_card:
+    #             files_in_rec_with_filename["Cover_Letter"] = (
+    #                 cover_letter_info.covering_letter_card.cover_upload
+    #             )
+    #         if invitation and invitation.invitation_letter_upload:
+    #             files_in_rec_with_filename["Invitation_Letter"] = (
+    #                 invitation.invitation_letter_upload.invite_upload
+    #             )
+    #     if itinerary and itinerary.itinerary_card:
+    #         files_in_rec_with_filename["Itinerary"] = (
+    #             itinerary.itinerary_card.upload_itinerary
+    #         )
+    #     if address and address.residential_address_card_v1:
+    #         files_in_rec_with_filename["Address_Proof"] = (
+    #             address.residential_address_card_v1.address_proof_upload
+    #         )
+    #     if address and address.resident_in_other_country:
+    #         files_in_rec_with_filename["Foreign_Address_Proof"] = (
+    #             address.resident_in_other_country.address_proof
+    #         )
+    #     if flight and flight.flight_tickets:
+    #         files_in_rec_with_filename["Flight_Tickets"] = (
+    #             flight.flight_tickets.flight_tickets
+    #         )
+    #     if accommodation and accommodation.booked_appointment:
+    #         files_in_rec_with_filename["Accommodation"] = (
+    #             accommodation.booked_appointment.booking_upload
+    #         )
+    #     if travel_insurance and travel_insurance.flight_reservation_details:
+    #         files_in_rec_with_filename["Travel_Insurance"] = (
+    #             travel_insurance.flight_reservation_details.flight_reservation_tickets
+    #         )
+    #     if salary_slips and salary_slips.upload:
+    #         files_in_rec_with_filename["Salary_Slips"] = salary_slips.upload.salary_slip
+    #     if bank_statement and bank_statement.upload:
+    #         files_in_rec_with_filename["Bank_Statements"] = (
+    #             bank_statement.upload.bank_statements
+    #         )
+    #     if visa_type == VISATYPE.Business:
+    #         if company_bank_statement and company_bank_statement.statements_card:
+    #             files_in_rec_with_filename["Company_Bank_Statement"] = (
+    #                 company_bank_statement.statements_card.statement_file
+    #             )
+    #         if (
+    #             company_incorporation_document
+    #             and company_incorporation_document.incorporation_docs
+    #         ):
+    #             files_in_rec_with_filename["Company_Incorporation_Certificate"] = (
+    #                 company_incorporation_document.incorporation_docs.statement_file
+    #             )
+    #     if itr and itr.upload:
+    #         files_in_rec_with_filename["ITR_Document"] = itr.upload.itr_acknowledgement
+    #     if accommodation and accommodation.invitation_details:
+    #         files_in_rec_with_filename["Inviter_Passport"] = (
+    #             accommodation.invitation_details.passport_bio_page
+    #         )
+    #         files_in_rec_with_filename["Inviter_Visa"] = (
+    #             accommodation.invitation_details.visa_copy_permit
+    #         )
+    #         files_in_rec_with_filename["Inviter_Accommodation"] = (
+    #             accommodation.invitation_details.accommodation_proof
+    #         )
+    #     if additional_details and additional_details.national_id:
+    #         files_in_rec_with_filename["Aadhaar_front"] = (
+    #             additional_details.national_id.aadhaar_upload_front
+    #         )
+    #         files_in_rec_with_filename["Aadhaar_back"] = (
+    #             additional_details.national_id.aadhaar_upload_back
+    #         )
+    #     if consultant_info and consultant_info.additional_documents:
+    #         for ci_add_docs in consultant_info.additional_documents:
+    #             ci_doc_group = ci_add_docs.additionaldocumentgroup
+    #             if (
+    #                 ci_doc_group
+    #                 and ci_doc_group.additional_documents_card
+    #                 and ci_doc_group.additional_documents_card.file_upload
+    #                 and ci_doc_group.additional_documents_card.file_upload.get("doc_id")
+    #             ):
+    #                 card = ci_doc_group.additional_documents_card
+    #                 key_name = card.document_name or f"Additional_Doc{next_index:02d}"
+    #                 files_in_rec_with_filename[key_name] = card.file_upload
+    #                 next_index += 1
+    #     if additional_documents and additional_documents.additional_documents_traveller_group:
+    #         for add_docs in additional_documents.additional_documents_traveller_group:
+    #             doc_group = add_docs.additionaldocumentgrouptraveller
+    #             if (
+    #                 doc_group
+    #                 and doc_group.additional_documents_card_traveller
+    #                 and doc_group.additional_documents_card_traveller.file_upload
+    #                 and doc_group.additional_documents_card_traveller.file_upload.get(
+    #                     "doc_id"
+    #                 )
+    #             ):
+    #                 doc_card = doc_group.additional_documents_card_traveller
+    #                 key_name = (
+    #                     doc_card.document_name_display or f"Additional_Doc{next_index:02d}"
+    #                 )
+    #                 files_in_rec_with_filename[key_name] = doc_card.file_upload
+    #                 next_index += 1
+
+    #     return files_in_rec_with_filename
 
     def add_documents_to_dict(
         documents_list, files_dict, start_index=1, prefix="Additional_Doc"

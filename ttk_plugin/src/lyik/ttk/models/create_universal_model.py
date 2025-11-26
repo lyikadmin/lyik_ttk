@@ -266,8 +266,13 @@ class PydanticIntersectionBuilder:
         # Keep the original enum class name from the first model
         original_name = enums[0].__name__
 
-        # Use deterministic ordering
-        members = {name: name for name in sorted(member_name_union)}
+        # Preserve original values
+        merged_values = {}
+        for enum in enums:
+            for name, member in enum.__members__.items():
+                merged_values.setdefault(name, member.value)
+
+        members = {name: merged_values[name] for name in sorted(merged_values)}
 
         # Build new Enum class with original name
         MergedEnum = Enum(original_name, members)
@@ -354,9 +359,9 @@ def run():
     )
 
     # Universal Models with specific fields to be required
-    #=============
+    # =============
     # Forms with Appointment Section
-    #=============
+    # =============
     UniversalModelWithAppointment = PydanticIntersectionBuilder.build_intersection_model(
         models=[
             Schengentouristvisa,
@@ -373,9 +378,9 @@ def run():
         output_path="ttk_plugin/src/lyik/ttk/models/generated/universal_model_with_appointment.py",
     )
 
-    #=============
+    # =============
     # Forms with Submission Requires Docket status to be enabled
-    #=============
+    # =============
     UniversalModelWithSubmissionRequiresDocketStatus = PydanticIntersectionBuilder.build_intersection_model(
         models=[
             Schengentouristvisa,
@@ -392,9 +397,9 @@ def run():
         output_path="ttk_plugin/src/lyik/ttk/models/generated/universal_model_with_submission_requires_docket_status.py",
     )
 
-    #=============
+    # =============
     # Forms with Covering and Invitation Letter
-    #=============
+    # =============
     UniversalModelWithCoverInvitationLetter = PydanticIntersectionBuilder.build_intersection_model(
         models=[
             Schengentouristvisa,

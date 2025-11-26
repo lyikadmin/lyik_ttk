@@ -5,9 +5,8 @@ from lyikpluginmanager import (
     ContextModel,
     GenericFormRecordModel,
 )
-from lyik.ttk.models.generated.universal_model import (
-    UniversalModel,
-    SAMEASPASSADDR,
+from lyik.ttk.models.generated.universal_model_with_appointment import (
+    UniversalModelWithAppointment,
     RootPassportPassportDetails,
     RootResidentialAddressResidentialAddressCardV2,
     RootResidentialAddress,
@@ -19,6 +18,7 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 from .._base_preaction import BaseUnifiedPreActionProcessor
+
 
 class CopyPassportAddress(BaseUnifiedPreActionProcessor):
     async def unified_pre_action_processor_impl(
@@ -40,7 +40,7 @@ class CopyPassportAddress(BaseUnifiedPreActionProcessor):
         """
         # Turn into our strong-typed form model
         try:
-            form = UniversalModel(**payload.model_dump())
+            form = UniversalModelWithAppointment(**payload.model_dump())
         except Exception as e:
             logger.error("Failed to parse form payload for address copy: %s", e)
             return payload
@@ -56,7 +56,9 @@ class CopyPassportAddress(BaseUnifiedPreActionProcessor):
         # Build new residential_address_card
         new_card = RootResidentialAddressResidentialAddressCardV2(
             address_line_1=default_if_empty(pp_addr.address_line_1),
-            address_line_2=default_if_empty(pp_addr.address_line_2, default=""), # Not mandatory field anymore
+            address_line_2=default_if_empty(
+                pp_addr.address_line_2, default=""
+            ),  # Not mandatory field anymore
             pin_code=default_if_empty(pp_addr.pin_code),
             state=default_if_empty(pp_addr.state),
             city=default_if_empty(pp_addr.city),
