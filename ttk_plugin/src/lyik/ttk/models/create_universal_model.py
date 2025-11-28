@@ -70,7 +70,11 @@ class PydanticIntersectionBuilder:
             if merged_type is None:
                 continue
 
-            # --- CHANGED: Preserve metadata from the first model's field and make Optional + default None ---
+            # If the merged type is an Enum, allow either the enum OR a fallback type (e.g. str)
+            from inspect import isclass
+            if isclass(merged_type) and issubclass(merged_type, Enum):
+                merged_type = Union[merged_type, str]
+
             metadata_kwargs: Dict[str, Any] = {}
 
             # Try to extract common metadata attributes from the Field info object
@@ -414,6 +418,25 @@ def run():
     PydanticIntersectionBuilder.save_model_to_file_using_codegen(
         UniversalModelWithCoverInvitationLetter,
         output_path="ttk_plugin/src/lyik/ttk/models/generated/universal_model_with_cover_invitation_letter.py",
+    )
+
+    # =============
+    # Forms with Salary, Bank and ITR sections (Financial Documents)
+    # =============
+    UniversalModelWithAllFinancialDocuments = PydanticIntersectionBuilder.build_intersection_model(
+        models=[
+            Schengentouristvisa,
+            # Indonesiaapplicationform,
+            # Saudiarabiaapplicationform,
+            # Singaporevisaapplicationform,
+            # Uaevisaapplicationform,
+        ],
+        model_name="UniversalModelWithAllFinancialDocuments",
+    )
+
+    PydanticIntersectionBuilder.save_model_to_file_using_codegen(
+        UniversalModelWithAllFinancialDocuments,
+        output_path="ttk_plugin/src/lyik/ttk/models/generated/universal_model_with_all_financial_documents.py",
     )
 
 

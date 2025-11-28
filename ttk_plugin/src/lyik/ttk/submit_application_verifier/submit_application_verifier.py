@@ -7,18 +7,52 @@ from lyikpluginmanager import (
     VerifyHandlerResponseModel,
     VERIFY_RESPONSE_STATUS,
 )
-from typing import Annotated
+from typing import Annotated, List
 from typing_extensions import Doc
-from lyik.ttk.models.forms.schengentouristvisa import RootSubmitInfo, DOCKETSTATUS
+
+from lyik.ttk.models.generated.universal_model_with_submission_requires_docket_status import (
+    RootSubmitInfo,
+    DOCKETSTATUS,
+)
 import logging
 from lyik.ttk.utils.verifier_util import check_if_verified, validate_pincode
 from lyik.ttk.utils.message import get_error_message
+from lyik.ttk.utils import get_form_indicator, FormConfig
 
 logger = logging.getLogger(__name__)
 
 impl = pluggy.HookimplMarker(getProjectName())
 
 ACTOR = "system"
+
+
+def _get_nested_value(data: dict, path: str):
+    """
+    Safely get a nested value from a dict given a dotted path like
+    'confirm.viewed_data'. Returns None if any key is missing.
+    """
+    current = data
+    for part in path.split("."):
+        if isinstance(current, dict) and part in current:
+            current = current[part]
+        else:
+            return None
+    return current
+
+
+def _all_requirements_satisfied(requirements: List[str], payload_dict: dict) -> bool:
+    """
+    Returns True only if all requirements specified by dotted paths
+    are present and truthy in payload_dict.
+    """
+    for req in requirements:
+        value = _get_nested_value(payload_dict, req)
+        if not value:
+            logger.info(
+                "Submission requirement not satisfied: %s (value: %r)", req, value
+            )
+            return False
+    return True
 
 
 class SumbitApplicationVerifier(VerifyHandlerSpec):
@@ -36,9 +70,13 @@ class SumbitApplicationVerifier(VerifyHandlerSpec):
         Doc("Response after validating the Application Submission."),
     ]:
         """
-        This verifier verifies the Application Submission. 
+        This verifier verifies the Application Submission.
         Checks that the confirmation checkboxes are ticked before submitting.
         """
+        frm_config = FormConfig(form_indicator=get_form_indicator(context.record))
+        submit_requirement: List[str] | None = (
+            frm_config.get_submit_requirement_list()
+        )
         try:
             if payload.docket.docket_status not in {
                 DOCKETSTATUS.ADDITIONAL_REVIEW,
@@ -52,14 +90,29 @@ class SumbitApplicationVerifier(VerifyHandlerSpec):
                     status=VERIFY_RESPONSE_STATUS.FAILURE,
                 )
 
-            if payload.docket.docket_status == DOCKETSTATUS.ENABLE_DOWNLOAD:
-                cfm = payload.confirm
-                if not (
-                    cfm.viewed_data
-                    and cfm.appointment_booked
-                    and cfm.addons_addressed
-                    and cfm.docs_uploaded
-                    and cfm.understand_lock
+            # Only enforce dynamic requirements when ENABLE_DOWNLOAD and we have a list
+            if (
+                payload.docket.docket_status == DOCKETSTATUS.ENABLE_DOWNLOAD
+                and submit_requirement
+            ):
+                """
+                submit_requirement will be a list which may be empty,
+                or will have a list such as
+                [
+                    "confirm.viewed_data",
+                    "confirm.appointment_booked",
+                    "confirm.addons_addressed",
+                    "confirm.docs_uploaded",
+                    "confirm.understand_lock",
+                ]
+
+                These paths are evaluated against payload_dict and
+                all must be truthy for a successful submission.
+                """
+                payload_dict = payload.model_dump()
+
+                if not _all_requirements_satisfied(
+                    submit_requirement, payload_dict
                 ):
                     return VerifyHandlerResponseModel(
                         actor=ACTOR,
@@ -68,6 +121,7 @@ class SumbitApplicationVerifier(VerifyHandlerSpec):
                         ),
                         status=VERIFY_RESPONSE_STATUS.FAILURE,
                     )
+
             return VerifyHandlerResponseModel(
                 actor=ACTOR,
                 message=f"Verified by the {ACTOR}",

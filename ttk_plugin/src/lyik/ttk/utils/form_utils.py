@@ -20,6 +20,7 @@ class FormConfigRow(BaseModel):
     - relevant_infopanes
     - business_panes
     - common_infopanes
+    - submit_requirement
     - has_appointment_section
     - has_submission_docket_status_requirement
     """
@@ -27,8 +28,10 @@ class FormConfigRow(BaseModel):
     relevant_infopanes: Optional[str] = None
     business_panes: Optional[str] = None
     common_infopanes: Optional[str] = None
+    submit_requirement: Optional[str] = None
     has_appointment_section: Optional[str] = None
     has_submission_docket_status_requirement: Optional[str] = None
+
 
 
 COMMON_INFOPANES = Literal["itinerary_accomodation", "accomodation", "ticketing"]
@@ -47,6 +50,7 @@ class FormConfig:
         self._relevant_infopanes: List[str] = []
         self._business_panes: List[str] = []
         self._common_infopanes: List[COMMON_INFOPANES] = []
+        self._submit_requirement: List[str] = []
         self._has_appointment_section: bool = False
         self._has_submission_docket_status_requirement: bool = False
 
@@ -102,6 +106,9 @@ class FormConfig:
             if row.common_infopanes:
                 self._common_infopanes.append(row.common_infopanes)
 
+            if row.submit_requirement:
+                self._submit_requirement.append(row.submit_requirement)
+
             # boolean columns (first non-empty wins)
             if (not self._has_appointment_section) and row.has_appointment_section:
                 parsed = self._parse_bool(row.has_appointment_section)
@@ -135,6 +142,13 @@ class FormConfig:
         Get the shared common infopanes list (Shared between the primary and co-traveller).
         """
         return self._common_infopanes
+    
+    def get_submit_requirement_list(self) -> List[str]:
+        """
+        Get the dot separated path of checkbox fields which must be checked before submitting the application
+        """
+        return self._submit_requirement
+
 
     def has_appointment_section(self) -> bool:
         "True if the form has an appointment section"

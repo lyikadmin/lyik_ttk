@@ -9,9 +9,8 @@ from lyikpluginmanager import (
     PluginException,
 )
 
-from lyik.ttk.models.forms.schengentouristvisa import (
-    Schengentouristvisa,
-    RootAppointment,
+from lyik.ttk.models.generated.universal_model_with_appointment import (
+    UniversalModelWithAppointment,
     RootAppointmentEarliestAppointmentDate,
 )
 from datetime import datetime
@@ -95,7 +94,7 @@ class AppointmentAPIVerifier(VerifyHandlerSpec):
                 )
 
             try:
-                form = Schengentouristvisa(**context.record)
+                form = UniversalModelWithAppointment(**context.record)
             except Exception as e:
                 raise PluginException(
                     message=get_error_message(
