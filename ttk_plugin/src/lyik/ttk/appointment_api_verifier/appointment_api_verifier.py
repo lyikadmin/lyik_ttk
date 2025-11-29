@@ -126,10 +126,10 @@ class AppointmentAPIVerifier(VerifyHandlerSpec):
 
             try:
                 country_code: str = (
-                    form.visa_request_information.visa_request.to_country.value
+                    form.visa_request_information.visa_request.to_country
                 )
                 visa_type: str = (
-                    form.visa_request_information.visa_request.visa_type.value
+                    form.visa_request_information.visa_request.visa_type
                 )
             except Exception as e:
                 raise PluginException(

@@ -68,7 +68,7 @@ class VisaRequestVerifier(VerifyHandlerSpec):
 
         if has_appointment_section:
             
-            appointment = RootAppointment.model_construct(
+            appointment = RootAppointment.model_validate(
                 context.record.get("appointment", None)
             )
 

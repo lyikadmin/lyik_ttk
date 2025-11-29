@@ -20,6 +20,7 @@ from lyikpluginmanager import (
 from lyik.ttk.models.generated.universal_model_with_appointment import (
     UniversalModelWithAppointment,
     RootAppointment,
+    RootAppointmentEarliestAppointmentDate,
 )
 from lyik.ttk.utils.form_indicator import FormIndicator
 
@@ -91,6 +92,8 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
             # Initialize appointment details if not present (The Case where a record was just created)
             if not form.appointment:
                 form.appointment = RootAppointment()
+                if not form.appointment.earliest_appointment_date:
+                    form.appointment.earliest_appointment_date = RootAppointmentEarliestAppointmentDate()
 
             appointment = form.appointment
 
@@ -107,10 +110,10 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
 
             try:
                 country_code: str = (
-                    form.visa_request_information.visa_request.to_country.value
+                    form.visa_request_information.visa_request.to_country
                 )
                 visa_type: str = (
-                    form.visa_request_information.visa_request.visa_type.value
+                    form.visa_request_information.visa_request.visa_type
                 )
             except Exception as e:
                 logger.error(
@@ -218,6 +221,7 @@ class InvokeAppointmentAPI(BaseUnifiedPreActionProcessor):
                 }
 
                 business_days = "10"
+
 
             if city_dropdown_values:
                 form.appointment.earliest_appointment_date.appointment_city_dropdown_values = json.dumps(

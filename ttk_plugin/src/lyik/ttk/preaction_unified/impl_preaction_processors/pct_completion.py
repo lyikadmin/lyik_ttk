@@ -91,8 +91,10 @@ class PctCompletion(BaseUnifiedPreActionProcessor):
             and form.visa_request_information.visa_request
             and form.visa_request_information.visa_request.visa_type
         ):
-            visa_type: VISATYPE = form.visa_request_information.visa_request.visa_type
-            if visa_type and visa_type.value and visa_type.value.lower() == "business":
+            visa_type: VISATYPE | str = (
+                form.visa_request_information.visa_request.visa_type
+            )
+            if visa_type and visa_type.lower() == "business":
                 # Add business panes via helper
                 panes_to_check += frm_config.get_business_panes_list()
 
@@ -157,11 +159,16 @@ class PctCompletion(BaseUnifiedPreActionProcessor):
         missing_attrs: List[str] = []
 
         for pane_name in panes_to_check:
-            pane: BaseModel = getattr(form, pane_name, None)
+            pane: BaseModel | dict = getattr(form, pane_name, None)
             if pane is None:
                 missing_attrs.append(pane_name)
                 continue
-            pane_dict: dict = pane.model_dump(exclude_none=True)
+            if isinstance(pane, BaseModel):
+                pane_dict: dict = pane.model_dump(exclude_none=True)
+            else:
+                # It is already a dictionary.
+                pane_dict = pane
+
             if _has_success_ver_status(pane_dict):
                 completed += 1
                 completed_panes.append(pane_name)
