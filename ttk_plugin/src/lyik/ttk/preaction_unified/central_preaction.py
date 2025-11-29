@@ -11,6 +11,7 @@ from lyikpluginmanager import (
 )
 from lyikpluginmanager.annotation import RequiredVars
 import logging
+from lyik.ttk.utils import FormConfig
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.info)
@@ -22,7 +23,7 @@ from ._base_preaction import BaseUnifiedPreActionProcessor
 from lyik.ttk.utils.form_indicator import FormIndicator, get_form_indicator
 
 # PREACTION PROCESSORS
-# 1 - Semi - Universal. Only for 
+# 1 - Semi - Universal. Only for
 from .impl_preaction_processors.client_action_guard import ClientActionGuard
 
 # 2 - For all, but Specific. Need to add the expected infopanes.
@@ -86,15 +87,18 @@ PreactionCls = Type[BaseUnifiedPreActionProcessor]
 def _get_processors_for_form_indicator(
     form_indicator: FormIndicator,
 ) -> List[PreactionCls]:
-    if form_indicator in (FormIndicator.SCHENGEN, FormIndicator.SAUDI_ARABIA):
-        return FORM_WITH_APPOINTMENT_PREACTION_LIST
-    elif form_indicator in (
-        FormIndicator.SINGAPORE,
-        FormIndicator.UAE,
-        FormIndicator.INDONESIA,
-    ):
+    try:
+        frm_config = FormConfig(form_indicator=form_indicator)
+        if frm_config.has_appointment_section():
+            return FORM_WITH_APPOINTMENT_PREACTION_LIST
+        else:
+            return FORM_WITHOUT_APPOINTMENT_PREACTION_LIST
+    except Exception as e:
+        logger.warning(
+            "Unexpected exception during Form Config interpretation. Msg: %s", e
+        )
         return FORM_WITHOUT_APPOINTMENT_PREACTION_LIST
-    return BASIC_FORM_PREACTION_LIST
+        # return BASIC_FORM_PREACTION_LIST  # Return a default processor list on error
 
 
 class Central_Preaction(PreActionProcessorSpec):
