@@ -347,7 +347,7 @@ class RootAccomodationAccommodationChoice(BaseModel):
         description='Select Option',
         title='Please let us know how your stay is arranged:',
     )
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootAccomodationAddOnService(BaseModel):
@@ -356,7 +356,7 @@ class RootAccomodationAddOnService(BaseModel):
         description='<!-- <div style="\n  display: flex;\n  align-items: left;\n  justify-content: left;\n  text-align: left;\n  margin-left: 15px;\n">\nTo know the cost, please refer to the <strong>&nbsp;Add-On Cart Section</strong>.\n</div> -->\n<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Centered Paragraph</title>\n  <style>\n    .message-box {\n      font-family: \'Inter\', sans-serif;\n      font-weight: 425;\n      font-size: 16px;\n      text-align: left;\n      \n    }\n  </style>\n</head>\n<body>\n    <div class="message-box">\n      <span>\n        <span style="font-weight: 600;"><b>Dummy Accommodation Assistance</b></span> <br>\n        Need help booking your dummy accommodation?  Visit the <b>Add-On Services</b> Cart to avail this service for a small fee.\n      </span>\n    </div>\n</body>\n</html>',
         title='Display Field',
     )
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootAccomodationBookedAppointment(BaseModel):
@@ -384,7 +384,7 @@ class RootAccomodationBookedAppointment(BaseModel):
         description='Enter Email ID of Hotel/Accommodation',
         title='Email ID of Hotel/Accommodation',
     )
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootAccomodationInvitationDetails(BaseModel):
@@ -418,7 +418,7 @@ class RootAccomodationInvitationDetails(BaseModel):
     accommodation_proof: Optional[Union[str, Dict[str, Any]]] = Field(
         None, description='Upload a Image/PDF', title="Inviter's Accommodation Proof"
     )
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootAdditionalDocumentsPaneAdditionalDocumentsConsultantGroupAdditionaldocumentgroupconsultantAdditionalDocumentsCardConsultant(
@@ -433,7 +433,7 @@ class RootAdditionalDocumentsPaneAdditionalDocumentsConsultantGroupAdditionaldoc
     document_description: Optional[str] = Field(
         None, description='Enter Document Description', title='Document Description'
     )
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootAdditionalDocumentsPaneAdditionalDocumentsTravellerGroupAdditionaldocumentgrouptravellerAdditionalDocumentsCardTraveller(
@@ -446,7 +446,7 @@ class RootAdditionalDocumentsPaneAdditionalDocumentsTravellerGroupAdditionaldocu
     file_upload: Optional[Union[str, Dict[str, Any]]] = Field(
         None, description='Upload a PDF file', title='File Upload'
     )
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootConsultantInfoAdditionalDocumentsAdditionaldocumentgroupAdditionalDocumentsCard(
@@ -466,7 +466,7 @@ class RootConsultantInfoAdditionalDocumentsAdditionaldocumentgroupAdditionalDocu
     file_upload: Optional[Union[str, Dict[str, Any]]] = Field(
         None, description='Upload a Image/PDF', title='File Upload'
     )
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootConsultantInfoInstructionLetter(BaseModel):
@@ -478,7 +478,7 @@ class RootConsultantInfoInstructionLetter(BaseModel):
     upload_instruction: Optional[Union[str, Dict[str, Any]]] = Field(
         None, description='Upload a Image/PDF', title='Instruction Sheet'
     )
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootLetsGetStarted(BaseModel):
@@ -495,7 +495,7 @@ class RootLetsGetStarted(BaseModel):
         None, description='Used for form status', title=''
     )
     field_ver_status: Optional[Dict[str, Any]] = Field(None, title='Ver Status')
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootPassportPassportDetails(BaseModel):
@@ -579,7 +579,7 @@ class RootPassportPassportDetails(BaseModel):
     country_of_birth: Optional[Union[COUNTRY3, str]] = Field(
         None, description='Select Option', title='Country of Birth'
     )
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootPhotographAddOnServicePhoto(BaseModel):
@@ -588,7 +588,7 @@ class RootPhotographAddOnServicePhoto(BaseModel):
         description='<!-- <div style="\n  display: flex;\n  align-items: left;\n  justify-content: left;\n  text-align: left;\n  margin-left: 15px;\n">\n  To know the cost, please refer the <strong>&nbsp;Add-On Cart Section</strong>.\n</div> -->\n<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Centered Paragraph</title>\n  <style>\n    .message-box {\n      font-family: \'Inter\', sans-serif;\n      font-weight: 425;\n      font-size: 16px;\n      text-align: left;\n    }\n  </style>\n</head>\n<body>\n    <div class="message-box">\n      <span>\n        <span style="font-weight: 600;"><b>Visa Photo Printing Assistance</b></span> <br>\n        Need help printing your photograph for visa filing? Visit the <b>Add-On Services</b> Cart to avail this service for a small fee.\n      </span>\n    </div>\n</body>\n</html>',
         title='Display Field',
     )
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootPhotographPassportPhoto(BaseModel):
@@ -600,7 +600,7 @@ class RootPhotographPassportPhoto(BaseModel):
     photo: Optional[Union[str, Dict[str, Any]]] = Field(
         None, description='Upload a Image/PDF', title='Passport-Size Photo (Optional)'
     )
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootResidentialAddressResidentialAddressCardV1(BaseModel):
@@ -622,7 +622,7 @@ class RootResidentialAddressResidentialAddressCardV1(BaseModel):
     city: Optional[str] = Field(None, description='Enter City', title='City')
     state: Optional[str] = Field(None, description='Enter State', title='State')
     country: Optional[str] = Field(None, description='Enter Country', title='Country')
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootScratchPad(BaseModel):
@@ -630,14 +630,14 @@ class RootScratchPad(BaseModel):
     form_sub_title: Optional[str] = Field(None, title='')
     form_indicator: Optional[str] = Field(None, title='')
     field_ver_status: Optional[Dict[str, Any]] = Field(None, title='Ver Status')
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootSubmitInfoConfirm(BaseModel):
     viewed_data: Optional[Union[CONFIRMVIEWEDDATA, str]] = Field(
         None, description='Select Option', title=''
     )
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootSubmitInfoDocket(BaseModel):
@@ -649,7 +649,7 @@ class RootSubmitInfoDocket(BaseModel):
     docket_status: Optional[Union[DOCKETSTATUS, str]] = Field(
         None, description='Select Option', title=''
     )
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootTicketingAddOnService(BaseModel):
@@ -658,7 +658,7 @@ class RootTicketingAddOnService(BaseModel):
         description='<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Centered Paragraph</title>\n  <style>\n    .message-box {\n      font-family: \'Inter\', sans-serif;\n      font-weight: 425;\n      font-size: 16px;\n      text-align: left;\n      \n    }\n  </style>\n</head>\n<body>\n    <div class="message-box">\n      <span>\n\n        <span style="font-weight: 600;"><b>Dummy Flight Ticket Assistance</b></span> <br>\n        Need help booking a dummy flight ticket? Visit the <b>Add-On Services</b> Cart to avail this service for a small fee.\n      </span>\n    </div>\n</body>\n</html>',
         title='Display Field',
     )
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootTicketingFlightTickets(BaseModel):
@@ -683,7 +683,7 @@ class RootTicketingFlightTickets(BaseModel):
     departure_date: Optional[date] = Field(
         None, description='DD/MM/YYYY', title='Departure Date / Check-out Date'
     )
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class SAMEACCOMMODATIONASPRIMARY(Enum):
@@ -724,7 +724,7 @@ class RootAccomodation(BaseModel):
         None, title='Add-On Service'
     )
     field_ver_status: Optional[Dict[str, Any]] = Field(None, title='Ver Status')
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootAdditionalDocumentsPaneAdditionalDocumentsConsultantGroupAdditionaldocumentgroupconsultant(
@@ -733,7 +733,7 @@ class RootAdditionalDocumentsPaneAdditionalDocumentsConsultantGroupAdditionaldoc
     additional_documents_card_consultant: Optional[
         RootAdditionalDocumentsPaneAdditionalDocumentsConsultantGroupAdditionaldocumentgroupconsultantAdditionalDocumentsCardConsultant
     ] = Field(None, title='Template')
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootAdditionalDocumentsPaneAdditionalDocumentsTravellerGroupAdditionaldocumentgrouptraveller(
@@ -742,14 +742,14 @@ class RootAdditionalDocumentsPaneAdditionalDocumentsTravellerGroupAdditionaldocu
     additional_documents_card_traveller: Optional[
         RootAdditionalDocumentsPaneAdditionalDocumentsTravellerGroupAdditionaldocumentgrouptravellerAdditionalDocumentsCardTraveller
     ] = Field(None, title='Additional Document')
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootConsultantInfoAdditionalDocumentsAdditionaldocumentgroup(BaseModel):
     additional_documents_card: Optional[
         RootConsultantInfoAdditionalDocumentsAdditionaldocumentgroupAdditionalDocumentsCard
     ] = Field(None, title='Additional Document')
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootPassport(BaseModel):
@@ -757,7 +757,7 @@ class RootPassport(BaseModel):
         None, title='Passport Details'
     )
     field_ver_status: Optional[Dict[str, Any]] = Field(None, title='Ver Status')
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootPhotograph(BaseModel):
@@ -776,7 +776,7 @@ class RootPhotograph(BaseModel):
         None, title='Add-On Service'
     )
     field_ver_status: Optional[Dict[str, Any]] = Field(None, title='Ver Status')
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootResidentialAddress(BaseModel):
@@ -784,7 +784,7 @@ class RootResidentialAddress(BaseModel):
         RootResidentialAddressResidentialAddressCardV1
     ] = Field(None, title='Current Residential Address')
     field_ver_status: Optional[Dict[str, Any]] = Field(None, title='Ver Status')
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootSharedTravellInfoShared(BaseModel):
@@ -794,7 +794,7 @@ class RootSharedTravellInfoShared(BaseModel):
     flight_ticket_same: Optional[Union[SAMEFLIGHTTICKETASPRIMARY, str]] = Field(
         None, description='Select Option', title=''
     )
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootSubmitInfo(BaseModel):
@@ -806,7 +806,7 @@ class RootSubmitInfo(BaseModel):
     )
     confirm: Optional[RootSubmitInfoConfirm] = Field(None, title='Confirm')
     field_ver_status: Optional[Dict[str, Any]] = Field(None, title='Ver Status')
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootTicketing(BaseModel):
@@ -817,7 +817,7 @@ class RootTicketing(BaseModel):
         None, title='Add-On Service'
     )
     field_ver_status: Optional[Dict[str, Any]] = Field(None, title='Ver Status')
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootVisaRequestInformationVisaRequest(BaseModel):
@@ -872,28 +872,28 @@ class RootVisaRequestInformationVisaRequest(BaseModel):
     earliest_appointment_availability: Optional[str] = Field(None, title='')
     visa_processing_type: Optional[str] = Field(None, title='')
     form_indicator: Optional[str] = Field(None, title='')
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class FieldGrpRootAdditionalDocumentsPaneAdditionalDocumentsConsultantGroup(BaseModel):
     additionaldocumentgroupconsultant: Optional[
         RootAdditionalDocumentsPaneAdditionalDocumentsConsultantGroupAdditionaldocumentgroupconsultant
     ] = Field(None, title='Templates')
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class FieldGrpRootAdditionalDocumentsPaneAdditionalDocumentsTravellerGroup(BaseModel):
     additionaldocumentgrouptraveller: Optional[
         RootAdditionalDocumentsPaneAdditionalDocumentsTravellerGroupAdditionaldocumentgrouptraveller
     ] = Field(None, title='Additional Documents')
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class FieldGrpRootConsultantInfoAdditionalDocuments(BaseModel):
     additionaldocumentgroup: Optional[
         RootConsultantInfoAdditionalDocumentsAdditionaldocumentgroup
     ] = Field(None, title='Additional Document')
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootAdditionalDocumentsPane(BaseModel):
@@ -915,7 +915,7 @@ class RootAdditionalDocumentsPane(BaseModel):
         List[FieldGrpRootAdditionalDocumentsPaneAdditionalDocumentsTravellerGroup]
     ] = Field(None, title='Additional Document')
     field_ver_status: Optional[Dict[str, Any]] = Field(None, title='Ver Status')
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootConsultantInfo(BaseModel):
@@ -926,7 +926,7 @@ class RootConsultantInfo(BaseModel):
         List[FieldGrpRootConsultantInfoAdditionalDocuments]
     ] = Field(None, title='Additional Document')
     field_ver_status: Optional[Dict[str, Any]] = Field(None, title='Ver Status')
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootSharedTravellInfo(BaseModel):
@@ -939,7 +939,7 @@ class RootSharedTravellInfo(BaseModel):
         None, title='Same as Primary Traveller'
     )
     field_ver_status: Optional[Dict[str, Any]] = Field(None, title='Ver Status')
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class RootVisaRequestInformation(BaseModel):
@@ -952,7 +952,7 @@ class RootVisaRequestInformation(BaseModel):
         None, title='Summary'
     )
     field_ver_status: Optional[Dict[str, Any]] = Field(None, title='Ver Status')
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)
 
 
 class UniversalModelWithSubmissionRequiresDocketStatus(BaseModel):
@@ -998,4 +998,4 @@ class UniversalModelWithSubmissionRequiresDocketStatus(BaseModel):
     consultant_info: Optional[RootConsultantInfo] = Field(None, title='TTK Consultant')
     submit_info: Optional[RootSubmitInfo] = Field(None, title='Submit Application')
     scratch_pad: Optional[RootScratchPad] = Field(None, title='Scratch Pad')
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)

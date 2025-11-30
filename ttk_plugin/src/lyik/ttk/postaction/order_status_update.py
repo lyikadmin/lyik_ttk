@@ -156,7 +156,7 @@ class OrderStatusUpdate(PostActionProcessorSpec):
                     ),
                     validityOfVisa=(validity if isinstance(validity, int) else None),
                     visaMode=(
-                        visa_mode.value
+                        visa_mode
                         if visa_mode is not None and hasattr(visa_mode, "value")
                         else None
                     ),
@@ -171,9 +171,9 @@ class OrderStatusUpdate(PostActionProcessorSpec):
 
                 # Combine into yyyy-mm-dd HH:MM format
                 raw_date = schedule.scheduled_date
-                hour = schedule.scheduled_hour.value if schedule.scheduled_hour else 0
+                hour = schedule.scheduled_hour if schedule.scheduled_hour else 0
                 minute = (
-                    schedule.scheduled_minute.value if schedule.scheduled_minute else 0
+                    schedule.scheduled_minute if schedule.scheduled_minute else 0
                 )
 
                 appointment_datetime = ""

@@ -2,4 +2,4 @@ class {{ class_name }}(BaseModel):
 {% for field in fields %}
     {{ field.name }}: {{ field.type_hint }} = {{ field -}}
 {% endfor %}
-    model_config = ConfigDict(extra="allow", serialize_by_alias=True)
+    model_config = ConfigDict(extra="allow", serialize_by_alias=True, use_enum_values=True)

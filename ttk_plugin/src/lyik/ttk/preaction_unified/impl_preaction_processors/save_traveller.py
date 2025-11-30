@@ -62,7 +62,7 @@ class PreactionSavePrimaryTraveller(BaseUnifiedPreActionProcessor):
         """
         This preaction processor will save the primary traveller into the primary_travellers collection.
         """
-        logger.debug(f"Entering preaction with payload: {payload}")
+        # logger.debug(f"Entering preaction with payload: {payload}")
         if not context or not context.config:
             logger.error(
                 "No context or config found in context. Passing through SavePrimaryTraveller preaction."
