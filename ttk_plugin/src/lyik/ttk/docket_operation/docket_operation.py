@@ -18,6 +18,7 @@ from lyikpluginmanager import (
     DocumentModel,
     TRANSFORMER_RESPONSE_STATUS,
     TemplateDocumentModel,
+    DocxTemplateModel,
 )
 from lyikpluginmanager.annotation import RequiredVars, RequiredEnv
 from io import BytesIO
@@ -44,13 +45,16 @@ from lyik.ttk.models.generated.universal_model_with_all_shared_sections import (
     SAMEFLIGHTTICKETASPRIMARY,
 )
 from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa
+from lyik.ttk.models.forms.singaporevisaapplicationform import (
+    Singaporevisaapplicationform,
+)
 from lyik.ttk.ttk_storage_util.ttk_storage import TTKStorage
 from lyik.ttk.utils.operation_html_message import get_docket_operation_html_message
 from lyik.ttk.utils.message import get_error_message
 from lyik.ttk.docket_operation.docket_utilities.map_form_rec_to_schengen_pdf import (
     DocketUtilities,
 )
-from lyik.ttk.models.pdf.pdf_model import PDFModel
+from lyik.ttk.models.pdf.schengen_pdf_model import SchengenPDFModel
 from typing import Annotated, Dict, List, Any
 import csv
 from functools import lru_cache
@@ -92,6 +96,10 @@ CODES = [
     "ESP",
     "SWE",
 ]
+FOLDERS = [
+    "pdf",
+    "docx",
+]
 ALLOWED_MIME_TYPES = {"application/pdf", "image/jpeg", "image/png"}
 GENERATED_DOC_ID = "GENERATED_DOC"
 ZIP_MIMES = {"application/zip", "application/x-zip-compressed"}
@@ -115,7 +123,7 @@ class DocketOperation(OperationPluginSpec):
     ) -> Annotated[
         OperationResponseModel,
         RequiredVars(["DB_CONN_URL", "DOWNLOAD_DOC_API_ENDPOINT", "PDF_GARBLE_KEY"]),
-        RequiredEnv(["API_DOMAIN", "CRED_FILES_MOUNT_PATH"]),
+        RequiredEnv(["API_DOMAIN", "CRED_FILES_MOUNT_PATH", "LYIK_ROOT_PATH"]),
         Doc("Reurns the operation response with operation status and message."),
     ]:
         try:
@@ -193,10 +201,8 @@ class DocketOperation(OperationPluginSpec):
                             detailed_message="Failed to fetch the Primary traveller details.",
                         )
 
-                    primary_traveller_data = (
-                        UniversalModelWithAllSharedSections(
-                            **fetched_data.model_dump(mode="json")
-                        )
+                    primary_traveller_data = UniversalModelWithAllSharedSections(
+                        **fetched_data.model_dump(mode="json")
                     )
 
                     shared_traveller_info = parsed_form_model.shared_travell_info
@@ -209,7 +215,8 @@ class DocketOperation(OperationPluginSpec):
                     if shared:
                         if (
                             shared.itinerary_same != None
-                            and shared.itinerary_same == SAMEITINERARYASPRIMARY.ITINERARY.value
+                            and shared.itinerary_same
+                            == SAMEITINERARYASPRIMARY.ITINERARY.value
                         ):
                             primary_traveller_itinerary = (
                                 primary_traveller_data.itinerary_accomodation
@@ -230,7 +237,8 @@ class DocketOperation(OperationPluginSpec):
 
                         if (
                             shared.accommodation_same != None
-                            and shared.accommodation_same.value == SAMEACCOMMODATIONASPRIMARY.ACCOMMODATION.value
+                            and shared.accommodation_same.value
+                            == SAMEACCOMMODATIONASPRIMARY.ACCOMMODATION.value
                         ):
                             primary_traveller_accommodation = (
                                 primary_traveller_data.accomodation
@@ -248,7 +256,8 @@ class DocketOperation(OperationPluginSpec):
 
                         if (
                             shared.flight_ticket_same != None
-                            and shared.flight_ticket_same.value == SAMEFLIGHTTICKETASPRIMARY.FLIGHT_TICKET.value
+                            and shared.flight_ticket_same.value
+                            == SAMEFLIGHTTICKETASPRIMARY.FLIGHT_TICKET.value
                         ):
                             primary_traveller_flight_ticket = (
                                 primary_traveller_data.ticketing
@@ -275,27 +284,9 @@ class DocketOperation(OperationPluginSpec):
                         detailed_message=f"Exception raised during fetch primary traveller details. Error: {str(e)}",
                     )
 
-            generated_pdf_doc = None
-
-            # if (
-            #     not parsed_form_model.consultant_info.application_form_embassy
-            #     or not parsed_form_model.consultant_info.application_form_embassy.application_form
-            # ):
-
-            docket_util = DocketUtilities()
-
-            # TODO: Call proper mapping utility based on FormIndicator (e.g.: SCHENGEN)
-            mapped_data: PDFModel = docket_util.map_schengen_to_pdf_model(
-                schengen_visa_data=Schengentouristvisa(**form_record.model_dump())
-            )
-
-            data_dict: Dict = mapped_data.model_dump(mode="json")
-
-            template_id = ""
-
             if parsed_form_model.visa_request_information.visa_request.to_country:
-                template_id = (
-                    parsed_form_model.visa_request_information.visa_request.to_country.value
+                to_country = (
+                    parsed_form_model.visa_request_information.visa_request.to_country
                 )
             else:
                 raise PluginException(
@@ -305,61 +296,42 @@ class DocketOperation(OperationPluginSpec):
                     detailed_message="to_country field is not filled in visa_request_information.",
                 )
 
-            final_template_id = "REF_PDF" if template_id in CODES else template_id
+            generated_application_doc_model = None
 
-            transformed_data: TransformerResponseModel = (
-                await invoke.template_generate_pdf(
-                    org_id=context.org_id,
-                    config=context.config,
-                    form_id=context.form_id,
-                    additional_args={"record_id": record_id},
-                    template_id=final_template_id,
-                    form_name="schengenpdf",
-                    record=data_dict,
-                    keep_pdf_editable=False,
+            # if (
+            #     not parsed_form_model.consultant_info.application_form_embassy
+            #     or not parsed_form_model.consultant_info.application_form_embassy.application_form
+            # ):
+
+            generated_appl_doc: TemplateDocumentModel = (
+                await self._get_generated_application_doc(
+                    context=context,
+                    form_record=form_record,
+                    form_indicator=form_indicator,
+                    record_id=record_id,
+                    to_country=to_country,
                 )
             )
 
-            if not transformed_data or not isinstance(
-                transformed_data, TransformerResponseModel
-            ):
-                raise PluginException(
-                    message=get_error_message(
-                        error_message_code="LYIK_ERR_SOMETHING_WENT_WRONG"
-                    ),
-                    detailed_message=f"PDF generation failed. Error:{str(e),}",
-                )
-
-            if transformed_data.status != TRANSFORMER_RESPONSE_STATUS.SUCCESS:
-                return OperationResponseModel(
-                    status=OperationStatus.FAILED,
-                    message=get_error_message(
-                        error_message_code="LYIK_ERR_DOCKET_GEN_FAILURE"
-                    ),
-                )
-
-            pdfs: List[TemplateDocumentModel] = transformed_data.response
-            pdf = pdfs[0]
-
-            generated_pdf_doc = DBDocumentModel(
+            generated_application_doc_model = DBDocumentModel(
                 doc_id=GENERATED_DOC_ID,
-                doc_name=self.generate_application_pdf_name(
+                doc_name=self.generate_application_name(
                     parsed_form_model.passport.passport_details.first_name,
                     parsed_form_model.visa_request_information.visa_request.to_country_full_name,
                 ),
-                doc_content=pdf.doc_content,
-                doc_size=len(pdf.doc_content),
+                doc_content=generated_appl_doc.doc_content,
+                doc_size=len(generated_appl_doc.doc_content),
                 metadata=DocMeta(
                     org_id=context.org_id,
                     form_id=context.form_id,
                     record_id=record_id,
-                    doc_type=pdf.doc_type,
+                    doc_type=generated_appl_doc.doc_type,
                 ),
             )
 
             files_in_rec_with_filename = self.get_files_from_record(
                 parsed_form_model=parsed_form_model,
-                pdf_doc_model=generated_pdf_doc,
+                application_doc_model=generated_application_doc_model,
                 form_indicator=form_indicator,
             )
 
@@ -461,6 +433,135 @@ class DocketOperation(OperationPluginSpec):
                     error_message_code="LYIK_ERR_UNEXPECTED_ERROR_DOCKET"
                 ),
             )
+
+    async def _get_generated_application_doc(
+        self,
+        context: ContextModel,
+        record_id: str,
+        form_indicator: FormIndicator,
+        form_record: GenericFormRecordModel,
+        to_country: str,
+    ) -> TemplateDocumentModel:
+        """
+        This function is responsible for the following:
+
+        In case of offline journey:
+        1. Call the appropriate mapping utility for pdf mapping based on the country.
+        2. Get the mapped data and call the pdf transformer and pass the appropriate pdf template for generating application document.
+
+        In case of online journey:
+        1. Call the docx transformer, pass the appropriate docx based on the country to generate application doc.
+
+        In both the cases, return the application doc.
+        """
+        docket_util = DocketUtilities()
+
+        transformed_data = None
+
+        if form_indicator == FormIndicator.SCHENGEN:
+            mapped_data: SchengenPDFModel = docket_util.map_schengen_to_pdf_model(
+                schengen_visa_data=Schengentouristvisa(**form_record.model_dump())
+            )
+
+            data_dict: Dict = mapped_data.model_dump(mode="json")
+
+            template_id = to_country
+
+            final_template_id = "REF_PDF" if template_id in CODES else template_id
+
+            transformed_data: TransformerResponseModel = (
+                await invoke.template_generate_pdf(
+                    org_id=context.org_id,
+                    config=context.config,
+                    form_id=context.form_id,
+                    additional_args={"record_id": record_id},
+                    template_id=final_template_id,
+                    form_name="schengenpdf",
+                    record=data_dict,
+                    keep_pdf_editable=False,
+                )
+            )
+        else:
+            type_of_dir = self._detect_template_folder(country_code=to_country)
+
+            if type_of_dir:
+                if type_of_dir == "pdf":
+
+                    # TODO
+                    mapped_data: Dict = {}
+
+                    transformed_data: TransformerResponseModel = (
+                        await invoke.template_generate_pdf(
+                            org_id=context.org_id,
+                            config=context.config,
+                            form_id=context.form_id,
+                            additional_args={"record_id": record_id},
+                            template_id=to_country,
+                            form_name="country_application_templates",
+                            record=mapped_data,
+                            keep_pdf_editable=False,
+                        )
+                    )
+                else:
+                    transformed_data: TransformerResponseModel = (
+                        await invoke.template_generate_docx(
+                            org_id=context.org_id,
+                            config=context.config,
+                            record=context.record,
+                            form_id=context.form_id,
+                            additional_args={},
+                            fetch_from_db_or_path=False,
+                            form_name="country_application_templates",
+                            template=DocxTemplateModel(template=to_country),
+                        )
+                    )
+            else:
+                raise PluginException(
+                    message=get_error_message(
+                        error_message_code="LYIK_ERR_UNEXPECTED_ERROR"
+                    ),
+                    detailed_message=f"Failed to locate the template file.",
+                )
+
+        if not transformed_data or not isinstance(
+            transformed_data, TransformerResponseModel
+        ):
+            raise PluginException(
+                message=get_error_message(
+                    error_message_code="LYIK_ERR_SOMETHING_WENT_WRONG"
+                ),
+                detailed_message=f"PDF generation failed.",
+            )
+
+        if transformed_data.status != TRANSFORMER_RESPONSE_STATUS.SUCCESS:
+            return OperationResponseModel(
+                status=OperationStatus.FAILED,
+                message=get_error_message(
+                    error_message_code="LYIK_ERR_DOCKET_GEN_FAILURE"
+                ),
+            )
+
+        docs: List[TemplateDocumentModel] = transformed_data.response
+        return docs[0]
+
+    def _detect_template_folder(self, country_code: str) -> str | None:
+        """
+        Returns: 'pdf', 'docx', or None if not found.
+        """
+
+        base_dir = os.getenv("LYIK_ROOT_PATH", "/lyik")
+        for folder in FOLDERS:
+            path = os.path.join(
+                base_dir,
+                "templates",
+                "country_application_templates",
+                folder,
+                country_code,
+            )
+            if os.path.isdir(path):
+                return folder
+
+        return None
 
     @staticmethod
     def load_csv(file_path: str) -> List[Dict[str, str]]:
@@ -589,7 +690,7 @@ class DocketOperation(OperationPluginSpec):
     def get_files_from_record(
         self,
         parsed_form_model: UniversalModelWithSubmissionRequiresDocketStatus,
-        pdf_doc_model: DBDocumentModel | None,
+        application_doc_model: DBDocumentModel | None,
         form_indicator: FormIndicator,
     ) -> Dict[str, Any]:
 
@@ -642,8 +743,10 @@ class DocketOperation(OperationPluginSpec):
 
             # SPECIAL case for PDF
             if path == "**FILLED_APPLICATION_DOC**":
-                if pdf_doc_model:
-                    files[pdf_doc_model.doc_name] = pdf_doc_model.model_dump()
+                if application_doc_model:
+                    files[application_doc_model.doc_name] = (
+                        application_doc_model.model_dump()
+                    )
                 continue
 
             # Regular path evaluation
@@ -1158,10 +1261,10 @@ class DocketOperation(OperationPluginSpec):
                 detailed_message=f"Failed to obfuscate the string. Error: {str(e)}",
             )
 
-    def generate_application_pdf_name(self, first_name: str, country_name: str) -> str:
+    def generate_application_name(self, first_name: str, country_name: str) -> str:
         """
-        Generates the application PDF file name in the format:
-        <FirstName_with_Underscores>_<CountryName_with_Underscores>_Application.pdf
+        Generates the application file name in the format:
+        <FirstName_with_Underscores>_<CountryName_with_Underscores>_Application.<ext>
 
         - First name: strip spaces, title case, replace spaces with underscores
         - Country name: strip spaces, title case, replace spaces with underscores

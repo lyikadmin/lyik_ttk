@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from typing import Optional
 
 
-class PDFModel(BaseModel):
+class SchengenPDFModel(BaseModel):
     visa_surname_family_name: str = ""
     visa_surname_at_birth: str = ""
     visa_first_name: str = ""
