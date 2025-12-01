@@ -992,7 +992,7 @@ fac_str,occupation,,,textbox,,True,Enter Current Occupation,Current Occupation,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,shared_traveller_section,,,section_break,,False,,Shared Traveller Details,,,False,,,$.visa_request_information.visa_request.traveller_type = 'Primary',,
-info_pane_builder,shared_travell_info,,,info_pane,,False,,Shared Traveller Details,,,False,,,,,
+info_pane_builder,shared_travell_info,,,info_pane,,False,,Shared Traveller Details,,,False,,,,,operation.save:Save and Continue
 display_field,instruction,,,display_field,,False,You may have details in common with the Primary Traveller. Select the ones that apply to you below.,,,,False,,,,,
 card_builder,shared,,,card,,False,,Same as Primary Traveller,,,False,,,,,
 fac_same_accommodation_as_primary,accommodation_same,,,checkbox,,False,Select Option,,,,False,,,,,
@@ -1152,7 +1152,6 @@ fac_str,num_of_passengers,,,textbox,@.booked_appointment.booking_upload.TRUSTED_
 fac_str,accommodation_name,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_name,False,Enter Name of Hotel/Accommodation,Name of Hotel/Accommodation,,,False,,,,,
 fac_str,accommodation_address,,,textbox.row-4,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_address,False,Enter Address of Hotel/Accommodation,Address of Hotel/Accommodation,,,False,,,,,
 fac_email_str,accommodation_email,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_email,False,Select Option,Email ID of Hotel/Accommodation,,,False,,,,,
-fac_mobile,accommodation_phone,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_phone,False,Enter Telephone of Hotel/Accommodation,Telephone of Hotel/Accommodation,,,False,,,,,
 fac_date,start_date,,,datebox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.start_date,False,DD/MM/YYYY,Start Date/ Check-in Date,,,False,,,,,;only_future: true
 fac_date,end_date,,,datebox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.end_date,False,DD/MM/YYYY,End Date / Check-out Date,,,False,,,,,;only_future: true
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
