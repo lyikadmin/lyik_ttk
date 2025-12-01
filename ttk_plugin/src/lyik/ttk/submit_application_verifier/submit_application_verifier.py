@@ -78,17 +78,18 @@ class SumbitApplicationVerifier(VerifyHandlerSpec):
             frm_config.get_submit_requirement_list()
         )
         try:
-            if payload.docket.docket_status not in {
-                DOCKETSTATUS.ADDITIONAL_REVIEW,
-                DOCKETSTATUS.ENABLE_DOWNLOAD,
-            }:
-                return VerifyHandlerResponseModel(
-                    actor=ACTOR,
-                    message=get_error_message(
-                        error_message_code="LYIK_ERR_UNDER_REVIEW_SUBMISSION"
-                    ),
-                    status=VERIFY_RESPONSE_STATUS.FAILURE,
-                )
+            # Currently can save for any status selected.
+            # if payload.docket.docket_status not in {
+            #     DOCKETSTATUS.ADDITIONAL_REVIEW,
+            #     DOCKETSTATUS.ENABLE_DOWNLOAD,
+            # }:
+            #     return VerifyHandlerResponseModel(
+            #         actor=ACTOR,
+            #         message=get_error_message(
+            #             error_message_code="LYIK_ERR_UNDER_REVIEW_SUBMISSION"
+            #         ),
+            #         status=VERIFY_RESPONSE_STATUS.FAILURE,
+            #     )
 
             # Only enforce dynamic requirements when ENABLE_DOWNLOAD and we have a list
             if (
