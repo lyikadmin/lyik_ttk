@@ -2,6 +2,7 @@
 1,Visa_Appointment,appointment.appointment_scheduled.upload_appointment,,No,
 2,Passport_front,passport.passport_details.ovd_front,,No,
 3,Passport_back,passport.passport_details.ovd_back,,No,
+4,Passport Sized - Photo,photograph.passport_photo.photo,,No,
 5,Previous_Visa,previous_visas.previous_visas_details.previous_visa_copy,,No,
 6,Non-Schengen Visa,additional_details.travel_info.visa_copy,,No,
 7,application_doc,**FILLED_APPLICATION_DOC**,,No,
@@ -24,5 +25,6 @@
 24,Inviter_Accommodation,accomodation.invitation_details.accommodation_proof,,No,
 25,Aadhaar_front,additional_details.national_id.aadhaar_upload_front,,No,
 26,Aadhaar_back,additional_details.national_id.aadhaar_upload_back,,No,
-27,Additional_Doc,consultant_info.additional_documents,,yes,Additional_Doc{index:02d}
-28,Additional_Doc,additional_documents_pane.additional_documents_traveller_group,,yes,Additional_Doc{index:02d}
+27,PAN Card,additional_details.national_id.pan_upload,,No,
+28,Additional_Doc,consultant_info.additional_documents,,yes,Additional_Doc{index:02d}
+29,Additional_Doc,additional_documents_pane.additional_documents_traveller_group,,yes,Additional_Doc{index:02d}

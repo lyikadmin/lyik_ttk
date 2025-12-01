@@ -1,7 +1,8 @@
 ﻿order,Name of the Document,Upload Field Attribute,Type of Visa,Is this Field Repeatable?,Default Placeholder Name
-1,Visa_Appointment,appointment.appointment_scheduled.upload_appointment,,No,
-2,Passport_front,passport.passport_details.ovd_front,,No,
-3,Passport_back,passport.passport_details.ovd_back,,No,
+1,Instruction_sheet,consultant_info.instruction_letter.upload_instruction,,No,
+2,Visa_Appointment,appointment.appointment_scheduled.upload_appointment,,No,
+3,Passport_front,passport.passport_details.ovd_front,,No,
+4,Passport_back,passport.passport_details.ovd_back,,No,
 5,Previous_Visa,previous_visas.previous_visas_details.previous_visa_copy,,No,
 6,Non-Schengen Visa,additional_details.travel_info.visa_copy,,No,
 7,application_doc,**FILLED_APPLICATION_DOC**,,No,

@@ -2,6 +2,7 @@
 1,Visa_Appointment,appointment.appointment_scheduled.upload_appointment,,No,
 2,Passport_front,passport.passport_details.ovd_front,,No,
 3,Passport_back,passport.passport_details.ovd_back,,No,
+4,Passport-Sized Photo,{{photograph.passport_photo.photo}},,No,
 5,Previous_Visa,previous_visas.previous_visas_details.previous_visa_copy,,No,
 6,Non-Schengen Visa,additional_details.travel_info.visa_copy,,No,
 7,application_doc,**FILLED_APPLICATION_DOC**,,No,
