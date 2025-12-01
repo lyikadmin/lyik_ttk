@@ -93,7 +93,7 @@ class SumbitApplicationVerifier(VerifyHandlerSpec):
 
             # Only enforce dynamic requirements when ENABLE_DOWNLOAD and we have a list
             if (
-                payload.docket.docket_status == DOCKETSTATUS.ENABLE_DOWNLOAD
+                payload.docket.docket_status.value == DOCKETSTATUS.ENABLE_DOWNLOAD.value
                 and submit_requirement
             ):
                 """
