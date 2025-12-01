@@ -254,7 +254,7 @@ display_field,display_info_header,,,display_field,,False,"<!-- <p style=""font-s
 card_builder,visa_request,,,card,,False,,Summary,SAVE_EVEN_IF_HIDDEN,,False,,,,,
 table,visa_request_summary,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,phone_number,,,textbox,,True,Enter Phone Number,Phone Number,,,False,,,,False,
-fac_email_str,email_id,,,textbox,,True,Select Option,Email ID,,,False,,,,False,
+fac_email_str,email_id,,,textbox,,True,Enter Email ID,Email ID,,,False,,,,False,
 fac_country_3,from_country,,,dropdown,,False,Select Option,Travelling From,,,False,,,,False,
 fac_country_3,to_country,,,dropdown,,False,Select Option,Travelling To,,,False,,,,False,
 fac_date,departure_date,,,datebox,,False,DD/MM/YYYY,Date of Departure,,,False,,,,,;only_future: true
@@ -403,9 +403,9 @@ info_pane_builder,appointment,,,info_pane,,False,"<!DOCTYPE html>
 card_builder,earliest_appointment_date,,,card,,False,,Find your Earliest Appointment Date,,,False,,,,,
 table,arliest_appointment_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,location_city,,,dropdown,,False,Enter Location (City),Location (City),,,False,,,,,dynamic_values_path:$.appointment.earliest_appointment_date.appointment_city_dropdown_values
-fac_str,earliest_available_date,,,textbox,,False,Select location to see earliest date,Earliest Available Date,,,False,,,,False,dynamic_auto_value:$.appointment.earliest_appointment_date.appointment_city_dates[$.appointment.earliest_appointment_date.location_city]
+fac_str,earliest_available_date,,,textbox,,False,Select location to see Earliest Date,Earliest Available Date,,,False,,,,False,dynamic_auto_value:$.appointment.earliest_appointment_date.appointment_city_dates[$.appointment.earliest_appointment_date.location_city]
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
-fac_str,cta_get_dropdown_values,,,cta_button,Refresh values,False,Refresh dropdown values,Refresh,,,False,,,,,verify.verify_handler:VERIFIER_APPOINTMENT_API;verify.action_text:Refresh;align:center
+fac_str,cta_get_dropdown_values,,,cta_button,Fetch Earliest Date,False,Refresh dropdown values,Refresh,,,False,,,,,verify.verify_handler:VERIFIER_APPOINTMENT_API;verify.action_text:Refresh;align:center
 fac_str,appointment_city_dropdown_values,,,hidden,,False,,,,,False,,,,,
 fac_str,appointment_city_dates,,,hidden,,False,,,,,False,,,,,
 fac_str,business_days,,,hidden,,False,,,,,False,,,,,
@@ -656,7 +656,7 @@ fac_str,address_line_2,,,textbox,@.passport_page_upload.TRUSTED_OVD.address_line
 fac_str,city,,,textbox,@.passport_page_upload.TRUSTED_OVD.city,False,Enter City,City,,,False,,,,,
 fac_str,state,,,textbox,@.passport_page_upload.TRUSTED_OVD.state,False,Enter State,State,,,False,,,,,
 fac_str,country,,,textbox,@.passport_page_upload.TRUSTED_OVD.code,True,Enter Country,Country,,,False,,,,,
-fac_str,pin_code,,,textbox,@.passport_page_upload.TRUSTED_OVD.postal_code,False,6 digit PIN Code,PIN Code,,,False,,,,,
+fac_str,pin_code,,,textbox,@.passport_page_upload.TRUSTED_OVD.postal_code,False,Enter PIN Code / Postal Code,PIN Code,,,False,,,,,
 fac_country_3,country_of_birth,,,dropdown,IND,True,Select Option,Country of Birth,,,False,,,,,
 fac_str,desired_validity,,,hidden,6,False,This is the minimum duration for which the passport should be valid,,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
@@ -1099,26 +1099,26 @@ fac_address_proof_type,type_of_proof,,,dropdown,,False,Select Option,Type of Pro
 fac_file,address_proof_upload,,,fileoption,,False,Upload a Image/PDF,Upload Address Proof,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 fac_str,address_line_1,,,textbox,,True,Enter Address Line 1,Address Line 1,,,False,,,,,
 fac_str,address_line_2,,,textbox,,True,Enter Address Line 2,Address Line 2,,,False,,,,,
-fac_pincode_str,pin_code,,,textbox,,True,6 digit PIN Code,PIN Code,,,False,,,,,
 fac_str,city,,,textbox,,True,Enter City,City,,,False,,,,,
 fac_str,state,,,textbox,,True,Enter State,State,,,False,,,,,
 fac_str,country,,,textbox,,True,Enter Country,Country,,,False,,,,,
+fac_pincode_str,pin_code,,,textbox,,True,Enter PIN Code/ Postal Code,PIN Code,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,residential_address_card_v2,,,card,,False,,Current Residential Address,SAVE_EVEN_IF_HIDDEN,,False,,,not same_as_passport_address = 'SAME_AS_PASS_ADDR',,
 table,residential_address_table_v2,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,address_line_1,,,textbox,,True,Enter Address Line 1,Address Line 1,,,False,,,,False,
 fac_str,address_line_2,,,textbox,,False,Enter Address Line 2,Address Line 2,,,False,,,,False,
-fac_pincode_str,pin_code,,,textbox,,True,6 digit PIN Code,PIN Code,,,False,,,,False,
 fac_str,city,,,textbox,,True,Enter City,City,,,False,,,,False,
 fac_str,state,,,textbox,,True,Enter State,State,,,False,,,,False,
 fac_str,country,,,textbox,,True,Enter Country,Country,,,False,,,,False,
+fac_pincode_str,pin_code,,,textbox,,True,Enter PIN Code/ Postal Code,PIN Code,,,False,,,,False,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 fac_option,other_nationality,,,radiobutton,NO,True,Select Option,Are you residing in a country other than the country of current nationality?,,,False,,,,,
 card_builder,resident_in_other_country,,,card,,False,,Residence in another Country,,,False,,,"not other_nationality = ""YES""",,
 table,resident_in_other_country_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_file,address_proof,,,fileoption,,False,Upload a PDF,Upload Address Proof,,,False,,,,,"file_type:.pdf;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
+fac_file,address_proof,,,fileoption,,False,Upload a PDF,Overseas Address Proof,,,False,,,,,"file_type:.pdf;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 fac_str,residence_permit_number,,,textbox,,True,Enter Residence Permit Number,Residence Permit Number,,,False,,,,,
 fac_date,permit_date_of_expiry,,,datebox,,True,DD/MM/YYYY,Permit Date of Expiry,,,False,,,,,;only_future: true
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
@@ -2194,7 +2194,7 @@ fac_date,start_date,,,datebox,@.previous_visas_details.previous_visa_copy.TRUSTE
 fac_date,end_date,,,datebox,@.previous_visas_details.previous_visa_copy.TRUSTED_VISA_OCR.valid_until,False,DD/MM/YYYY,End Date of Visa,,,False,,,,,
 fac_str,num_of_entries,,,textbox,@.previous_visas_details.previous_visa_copy.TRUSTED_VISA_OCR.entries,True,Enter No. of Entries,No. of Entries,,,False,,,,,
 fac_str,allowed_days_for_stay,,,textbox,,True,Enter No. of Days allowed to Stay,No. of Days allowed to Stay,,,False,,,,,
-fac_str,annotation,,,textbox,@.previous_visas_details.previous_visa_copy.TRUSTED_VISA_OCR.annotations,True,Enter Annotation,Annotation,,,False,,,,,
+fac_str,annotation,,,textbox,@.previous_visas_details.previous_visa_copy.TRUSTED_VISA_OCR.annotations,False,Enter Annotation,Annotation,,,False,,,,,
 fac_purpose_of_visa_or_travel,purpose_of_visa,,,dropdown,VISIT_FAMILY_FRIENDS,False,Select Option,Purpose of Visa (at the time of filing your previous visa application),,,False,,,,,
 fac_option,utilized_visa,,,radiobutton,NO,False,Select Option,Have you utilised/travelled using this Visa?,,,False,,,,,align:center
 fac_str,others_specify,,,textbox,,False,Enter Other Purpose of Visa,Other Purpose of Visa,,,False,,,"not purpose_of_visa=""OTHER""",,
@@ -3115,9 +3115,9 @@ display_field,display_not_filled_itr,,,display_field,,False,"<!DOCTYPE html>
 </html>
 ",,,,False,,,not @.itr_options = 'NO_ITR',,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-tab_break,employer_docs_tab,,,tab_break,,False,,Employer Documents,,,False,,,,,
-section_break,cover_letter_section,,,section_break,,False,,Covering Letter,,,False,,,,,
-info_pane_builder,cover_letter_info,,,info_pane,,False,,Covering Letter,,,False,,,,"CONTAINS(USER.persona,[CLI, CORP_CLI, SPOC, MKR, ADMIN])",operation.save:Save and Continue
+tab_break,employer_docs_tab,,,tab_break,,False,,Employer Documents,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,
+section_break,cover_letter_section,,,section_break,,False,,Covering Letter,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,
+info_pane_builder,cover_letter_info,,,info_pane,,False,,Covering Letter,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',"CONTAINS(USER.persona,[CLI, CORP_CLI, SPOC, MKR, ADMIN])",operation.save:Save and Continue
 display_field,display_field_1,,,display_field,,False,The Visa Application requires the original Company Covering Letter.,,,,False,,,,,
 fac_cover,letter_option,,,radiobutton,,False,Select Option,,,,False,,,,,
 card_builder,generate_cover_letter,,,card,,False,,Generate Covering Letter,,,False,,,,,
@@ -3180,8 +3180,8 @@ display_field,display_field,,,display_field,,False,Please upload the Signed and 
 fac_file,cover_upload,,,fileoption,,False,Upload a file,Covering Letter,,,False,,,,,file_type:.pdf;download:None
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-section_break,invitation_letter_section,,,section_break,,False,,Invitation Letter,,,False,,,,,
-info_pane_builder,invitation,,,info_pane,,False,,Invitation Letter,,,False,,,,"CONTAINS(USER.persona,[CLI, CORP_CLI, SPOC, MKR, ADMIN])",operation.save:Save and Continue
+section_break,invitation_letter_section,,,section_break,,False,,Invitation Letter,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,
+info_pane_builder,invitation,,,info_pane,,False,,Invitation Letter,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',"CONTAINS(USER.persona,[CLI, CORP_CLI, SPOC, MKR, ADMIN])",operation.save:Save and Continue
 display_field,display_field,,,display_field,,False,The Visa Application requires an Invitation Letter from the Host Country (Inviting Company).,,,,False,,,,,
 fac_invitation,letter_option,,,radiobutton,,False,Select Option,,,,False,,,,,
 card_builder,invitation_letter_generate,,,card,,False,,Generate Invitation Letter,,,False,,,,,

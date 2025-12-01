@@ -37,6 +37,8 @@ class TravelerDetailsModel(BaseModel):
     validityOfVisa: int | None = None
     visaMode: str | None = None
 
+# TODO: Need to update this to check if the length of stay is not present if it will cause any exception or not.
+# Also, need the appointment details here to run.
 
 # This postaction is only to be run for forms with appointment section
 class OrderStatusUpdate(PostActionProcessorSpec):
