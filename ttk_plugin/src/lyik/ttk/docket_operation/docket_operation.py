@@ -33,6 +33,16 @@ import mimetypes
 from lyik.ttk.models.generated.universal_model_with_submission_requires_docket_status import (
     UniversalModelWithSubmissionRequiresDocketStatus,
 )
+from lyik.ttk.models.generated.universal_model_with_all_shared_sections import (
+    UniversalModelWithAllSharedSections,
+    RootSharedTravellInfoShared,
+    RootItineraryAccomodation,
+    RootAccomodation,
+    RootTicketing,
+    SAMEITINERARYASPRIMARY,
+    SAMEACCOMMODATIONASPRIMARY,
+    SAMEFLIGHTTICKETASPRIMARY,
+)
 from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa
 from lyik.ttk.ttk_storage_util.ttk_storage import TTKStorage
 from lyik.ttk.utils.operation_html_message import get_docket_operation_html_message
@@ -140,7 +150,7 @@ class DocketOperation(OperationPluginSpec):
                 form_rec=form_record.model_dump(mode="json")
             )
 
-            parsed_form_model = UniversalModelWithSubmissionRequiresDocketStatus(
+            parsed_form_model = UniversalModelWithAllSharedSections(
                 **form_record.model_dump()
             )
 
@@ -184,7 +194,7 @@ class DocketOperation(OperationPluginSpec):
                         )
 
                     primary_traveller_data = (
-                        UniversalModelWithSubmissionRequiresDocketStatus(
+                        UniversalModelWithAllSharedSections(
                             **fetched_data.model_dump(mode="json")
                         )
                     )
@@ -199,7 +209,7 @@ class DocketOperation(OperationPluginSpec):
                     if shared:
                         if (
                             shared.itinerary_same != None
-                            and shared.itinerary_same.value == "ITINERARY"
+                            and shared.itinerary_same == SAMEITINERARYASPRIMARY.ITINERARY.value
                         ):
                             primary_traveller_itinerary = (
                                 primary_traveller_data.itinerary_accomodation
@@ -220,7 +230,7 @@ class DocketOperation(OperationPluginSpec):
 
                         if (
                             shared.accommodation_same != None
-                            and shared.accommodation_same.value == "ACCOMMODATION"
+                            and shared.accommodation_same.value == SAMEACCOMMODATIONASPRIMARY.ACCOMMODATION.value
                         ):
                             primary_traveller_accommodation = (
                                 primary_traveller_data.accomodation
@@ -238,7 +248,7 @@ class DocketOperation(OperationPluginSpec):
 
                         if (
                             shared.flight_ticket_same != None
-                            and shared.flight_ticket_same.value == "FLIGHT_TICKET"
+                            and shared.flight_ticket_same.value == SAMEFLIGHTTICKETASPRIMARY.FLIGHT_TICKET.value
                         ):
                             primary_traveller_flight_ticket = (
                                 primary_traveller_data.ticketing

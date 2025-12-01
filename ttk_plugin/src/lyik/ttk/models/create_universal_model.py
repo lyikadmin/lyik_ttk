@@ -439,6 +439,24 @@ def run():
         output_path="ttk_plugin/src/lyik/ttk/models/generated/universal_model_with_all_financial_documents.py",
     )
 
+    # =============
+    # Forms with Itinerary, Accomodation and Ticketing (Shared Sections across primary and co-traveller)
+    # =============
+    UniversalModelWithAllSharedSections = PydanticIntersectionBuilder.build_intersection_model(
+        models=[
+            Schengentouristvisa,
+            # Indonesiaapplicationform,
+            # Saudiarabiaapplicationform,
+            # Singaporevisaapplicationform,
+            # Uaevisaapplicationform,
+        ],
+        model_name="UniversalModelWithAllSharedSections",
+    )
+
+    PydanticIntersectionBuilder.save_model_to_file_using_codegen(
+        UniversalModelWithAllSharedSections,
+        output_path="ttk_plugin/src/lyik/ttk/models/generated/universal_model_with_all_shared_sections.py",
+    )
 
 if __name__ == "__main__":
     run()
