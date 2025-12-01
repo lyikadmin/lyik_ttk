@@ -16,13 +16,13 @@ from lyik.ttk.utils.verifier_util import check_if_verified, validate_phone, vali
 from lyik.ttk.utils.message import get_error_message
 from lyik.ttk.utils.utils import format_date_to_string
 from datetime import date
-from lyik.ttk.models.forms.schengentouristvisa import (
-    Schengentouristvisa,
-    RootAppointment,
-    ADDONSERVICEAPPOINTMENT,
-    RootAppointmentAppointmentScheduled,
-    RootVisaRequestInformationVisaRequest,
-)
+from lyik.ttk.models.generated.universal_model_with_appointment import RootAppointment, ADDONSERVICEAPPOINTMENT
+from lyik.ttk.models.generated.universal_model import UniversalModel
+# from lyik.ttk.models.forms.schengentouristvisa import (
+#     Schengentouristvisa,
+#     RootAppointment,
+#     ADDONSERVICEAPPOINTMENT,
+# )
 
 logger = logging.getLogger(__name__)
 
@@ -75,7 +75,7 @@ class AppointmentDetailsVerifier(VerifyHandlerSpec):
             and payload.appointment_scheduled.scheduled_date
         )
 
-        full_form_record = Schengentouristvisa.model_validate(context.record)
+        full_form_record = UniversalModel.model_validate(context.record)
 
         departure_date = (
             full_form_record.visa_request_information

@@ -6,13 +6,16 @@ from lyikpluginmanager import (
     ContextModel,
     GenericFormRecordModel,
 )
-from lyik.ttk.models.forms.schengentouristvisa import (
-    Schengentouristvisa,
+from lyik.ttk.models.generated.universal_model import (
+    UniversalModel,
     RootVisaRequestInformationVisaRequest,
 )
 from .._base_preaction import BaseUnifiedPreActionProcessor
 from pydantic import BaseModel
 import country_converter as coco
+
+from typing_extensions import Doc
+from lyik.ttk.utils.form_indicator import FormIndicator
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -43,13 +46,17 @@ class NormalizeCountryCodes(BaseUnifiedPreActionProcessor):
         action: Annotated[str, "save or submit"],
         current_state: Annotated[str | None, "previous record state"],
         new_state: Annotated[str | None, "new record state"],
+        form_indicator: Annotated[
+            FormIndicator,
+            Doc("The form indicator for the form"),
+        ],
         payload: Annotated[GenericFormRecordModel, "entire form record model"],
     ) -> Annotated[GenericFormRecordModel, "possibly modified record"]:
         """
         Convert 'from_country' and 'to_country' fields in the visa request to ISO3 format.
         """
         try:
-            form = Schengentouristvisa(**payload.model_dump())
+            form = UniversalModel(**payload.model_dump())
         except Exception as e:
             logger.error("Failed to parse form payload for country normalization: %s", e)
             return payload
@@ -71,7 +78,6 @@ class NormalizeCountryCodes(BaseUnifiedPreActionProcessor):
                 if iso3 != val:
                     setattr(visa_request, attr, iso3)
                     modified = True
-                    logger.info(f"Normalized {attr}: '{val}' -> '{iso3}'")
 
         if not modified:
             return payload

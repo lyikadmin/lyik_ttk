@@ -28,7 +28,7 @@ from lyik.ttk.models.forms.schengentouristvisa import (
 )
 from lyikpluginmanager import PluginException
 from datetime import date, datetime
-from lyik.ttk.models.pdf.pdf_model import PDFModel
+from lyik.ttk.models.pdf.schengen_pdf_model import SchengenPDFModel
 
 # from .utils import ISO3ToCountryModel
 from lyik.ttk.utils.utils import ISO3ToCountryModel
@@ -43,7 +43,7 @@ class DocketUtilities:
     def map_schengen_to_pdf_model(
         self,
         schengen_visa_data: Schengentouristvisa,
-    ) -> PDFModel:
+    ) -> SchengenPDFModel:
         """
         Maps relevant fields from a SchengenTouristVisa model instance to an EditableForm instance.
 
@@ -53,7 +53,7 @@ class DocketUtilities:
         Returns:
             EditableForm: A new instance populated with values from the SchengenTouristVisa model.
         """
-        pdf_model = PDFModel()
+        pdf_model = SchengenPDFModel()
 
         try:
             visa_info = schengen_visa_data.visa_request_information
@@ -654,8 +654,8 @@ class DocketUtilities:
 
 
 def add_other_detail(
-    pdf_model: PDFModel, schengen_visa_data: Schengentouristvisa
-) -> PDFModel:
+    pdf_model: SchengenPDFModel, schengen_visa_data: Schengentouristvisa
+) -> SchengenPDFModel:
     pdf_model.visa_civil_sts_oth_txt = (
         schengen_visa_data.passport.other_details.other_civil_status
     )

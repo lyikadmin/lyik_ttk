@@ -2,6 +2,7 @@
 from __future__ import annotations
 import logging
 from typing import Annotated, List
+from pydantic import BaseModel
 
 import apluggy as pluggy
 from lyikpluginmanager import (
@@ -9,13 +10,18 @@ from lyikpluginmanager import (
     GenericFormRecordModel,
 )
 from typing_extensions import Doc
-from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa, RootLetsGetStarted, VISATYPE
+from lyik.ttk.models.generated.universal_model import (
+    UniversalModel,
+    RootLetsGetStarted,
+    VISATYPE,
+)
 from .._base_preaction import BaseUnifiedPreActionProcessor
+
+from lyik.ttk.utils.form_indicator import FormIndicator
+from lyik.ttk.utils.form_utils import FormConfig
 
 logger = logging.getLogger(__name__)
 
-# 🔧 VERIFY THESE NAMES MATCH YOUR Pydantic MODEL FIELDS EXACTLY.
-# If your model uses "accommodation" (correct spelling), update both lines below.
 _RELEVANT_PANES: List[str] = [
     # 1st tab
     "visa_request_information",
@@ -25,8 +31,8 @@ _RELEVANT_PANES: List[str] = [
     "photograph",
     "residential_address",
     "work_address",
-    "itinerary_accomodation",   # ← check spelling; likely "itinerary_accommodation"
-    "accomodation",             # ← check spelling; likely "accommodation"
+    "itinerary_accomodation",
+    "accomodation",
     "ticketing",
     "travel_insurance",
     "previous_visas",
@@ -41,11 +47,8 @@ _RELEVANT_PANES: List[str] = [
     "invitation",
 ]
 
-_BUSINESS_PANES: List[str] = [
-    "company_bank_statement",
-    "company_itr",
-    "company_docs"
-]
+_BUSINESS_PANES: List[str] = ["company_bank_statement", "company_itr", "company_docs"]
+
 
 def _has_success_ver_status(data: dict) -> bool:
     ver = data.get("_ver_status")
@@ -54,12 +57,17 @@ def _has_success_ver_status(data: dict) -> bool:
 
 class PctCompletion(BaseUnifiedPreActionProcessor):
     """Calculates traveller progress and writes it into ``pct_completion``."""
+
     async def unified_pre_action_processor_impl(
         self,
         context: ContextModel,
         action: Annotated[str, "save / submit"],
         current_state: Annotated[str | None, "previous record state"],
         new_state: Annotated[str | None, "new record state"],
+        form_indicator: Annotated[
+            FormIndicator,
+            Doc("The form indicator for the form"),
+        ],
         payload: Annotated[GenericFormRecordModel, "entire form record model"],
     ) -> Annotated[
         GenericFormRecordModel,
@@ -67,52 +75,64 @@ class PctCompletion(BaseUnifiedPreActionProcessor):
     ]:
 
         try:
-            form: Schengentouristvisa = Schengentouristvisa(**payload.model_dump())
+            form: UniversalModel = UniversalModel(**payload.model_dump())
         except Exception as exc:  # defensive – don’t break save/submit
             logger.error("pct_completion: cannot parse payload – %s", exc)
             record = payload.model_dump()
             return GenericFormRecordModel.model_validate(record)
-        
-        panes_to_check = _RELEVANT_PANES.copy()
-        if (form.visa_request_information and
-            form.visa_request_information.visa_request and
-            form.visa_request_information.visa_request.visa_type):
 
-            # visa_type = form.visa_request_information.visa_request.visa_type.value
-            # if visa_type and visa_type.lower() == "business":
-            #     panes_to_check += _BUSINESS_PANES
+        frm_config = FormConfig(form_indicator=form_indicator)
 
-            visa_type: VISATYPE = form.visa_request_information.visa_request.visa_type
-            if visa_type and visa_type.value and visa_type.value.lower() == "business":
-                panes_to_check += _BUSINESS_PANES
+        # Start with relevant panes from helper (so later can come from config)
+        panes_to_check = frm_config.get_relevant_infopane_list()
+
+        if (
+            form.visa_request_information
+            and form.visa_request_information.visa_request
+            and form.visa_request_information.visa_request.visa_type
+        ):
+            visa_type: VISATYPE | str = (
+                form.visa_request_information.visa_request.visa_type
+            )
+            if visa_type and visa_type.lower() == "business":
+                # Add business panes via helper
+                panes_to_check += frm_config.get_business_panes_list()
 
         # 1) Figure out share-flag mapping
-        if (form.visa_request_information and 
-            form.visa_request_information.visa_request and 
-            form.visa_request_information.visa_request.traveller_type):
+        if (
+            form.visa_request_information
+            and form.visa_request_information.visa_request
+            and form.visa_request_information.visa_request.traveller_type
+        ):
             vt = form.visa_request_information.visa_request.traveller_type
         else:
-            vt = ''
+            vt = ""
 
-        if (form.shared_travell_info and form.shared_travell_info.shared):
+        if form.shared_travell_info and form.shared_travell_info.shared:
             shared = form.shared_travell_info.shared
         else:
             shared = None
 
-        # vt = getattr(getattr(form, "visa_request_information", None), "visa_request", None)
-        # vt = getattr(vt, "traveller_type", "") or ""
-        # shared = getattr(getattr(form, "shared_travell_info", None), "shared", None)
-
-        # panes_to_check = _RELEVANT_PANES.copy()
         shared_count = 0
         share_removed: List[str] = []
 
         if vt and vt.lower() != "primary" and shared:
-            mapping = [
-                ("itinerary_accomodation", shared.itinerary_same),
-                ("accomodation", shared.accommodation_same),
-                ("ticketing", shared.flight_ticket_same),
-            ]
+            # Only panes that are allowed to be shared (from common_infopanes_list)
+            common_infopanes = set(frm_config.get_common_infopanes_list())
+
+            # Map pane name -> attribute name on `shared`
+            pane_flag_attrs = {
+                "itinerary_accomodation": "itinerary_same",
+                "accomodation": "accommodation_same",
+                "ticketing": "flight_ticket_same",
+            }
+
+            mapping = []
+            for pane_name, attr_name in pane_flag_attrs.items():
+                if pane_name in common_infopanes:
+                    flag = getattr(shared, attr_name, None)
+                    mapping.append((pane_name, flag))
+
             for pane_name, flag in mapping:
                 try:
                     is_on = bool(flag and getattr(flag, "value", flag))
@@ -126,7 +146,10 @@ class PctCompletion(BaseUnifiedPreActionProcessor):
 
         logger.info(
             "pct_completion: relevant_panes=%s | panes_to_check(after share)=%s | shared_removed=%s | shared_count=%d",
-            _RELEVANT_PANES, panes_to_check, share_removed, shared_count
+            frm_config.get_relevant_infopane_list(),
+            panes_to_check,
+            share_removed,
+            shared_count,
         )
 
         # 3) Status scan with detailed tracking
@@ -136,11 +159,16 @@ class PctCompletion(BaseUnifiedPreActionProcessor):
         missing_attrs: List[str] = []
 
         for pane_name in panes_to_check:
-            pane = getattr(form, pane_name, None)
+            pane: BaseModel | dict = getattr(form, pane_name, None)
             if pane is None:
                 missing_attrs.append(pane_name)
                 continue
-            pane_dict = pane.model_dump(exclude_none=True)
+            if isinstance(pane, BaseModel):
+                pane_dict: dict = pane.model_dump(exclude_none=True)
+            else:
+                # It is already a dictionary.
+                pane_dict = pane
+
             if _has_success_ver_status(pane_dict):
                 completed += 1
                 completed_panes.append(pane_name)
@@ -151,7 +179,10 @@ class PctCompletion(BaseUnifiedPreActionProcessor):
 
         logger.info(
             "pct_completion: panes_considered=%s | panes_completed=%s | panes_incomplete=%s | missing_attrs=%s",
-            panes_to_check, completed_panes, incomplete_panes, missing_attrs
+            panes_to_check,
+            completed_panes,
+            incomplete_panes,
+            missing_attrs,
         )
 
         # 4) Totals and final completed count
@@ -165,7 +196,9 @@ class PctCompletion(BaseUnifiedPreActionProcessor):
 
         logger.info(
             "pct_completion: totals -> total=%d, completed=%d, pct=%s",
-            total, completed, pct_str
+            total,
+            completed,
+            pct_str,
         )
 
         # 6) Write back into lets_get_started

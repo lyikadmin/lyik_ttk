@@ -10,7 +10,7 @@ from lyikpluginmanager import (
 from lyikpluginmanager.annotation import RequiredVars
 from typing import Annotated
 from typing_extensions import Doc
-from lyik.ttk.models.forms.schengentouristvisa import (
+from lyik.ttk.models.generated.universal_model_with_all_financial_documents import (
     RootSalarySlip,
     RootBankStatement,
     RootItrAcknowledgement,

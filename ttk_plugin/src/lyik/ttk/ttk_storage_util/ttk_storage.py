@@ -17,7 +17,7 @@ class TTKStorage:
     def __new__(cls, db_conn_url: str, db_name: str | None = None):
         # Create the singleton on first use; afterwards always return it
         if cls._instance is None:
-            logger.info("Creating MongoManager singleton for URL '%s'.", db_conn_url)
+            # logger.info("Creating MongoManager singleton for URL '%s'.", db_conn_url)
             cls._instance = super().__new__(cls)
             cls._instance._conn_url = db_conn_url  # save for later warnings
         else:
@@ -39,7 +39,7 @@ class TTKStorage:
                 self._default_db = db_name
             return
 
-        logger.info("Initialising MongoDB client for URL '%s'.", db_conn_url)
+        # logger.info("Initialising MongoDB client for URL '%s'.", db_conn_url)
         self._client: AsyncIOMotorClient = AsyncIOMotorClient(db_conn_url)
         self._default_db: Optional[str] = db_name
         self._initialised = True
@@ -73,13 +73,13 @@ class TTKStorage:
                 document,
                 upsert=True,
             )
-            logger.info(
-                "%s document in '%s.%s'.",
-                "Upserted" if result.upserted_id else "Updated",
-                order_id,
-                db.name,
-                collection_name,
-            )
+            # logger.info(
+            #     "%s document in '%s.%s'.",
+            #     "Upserted" if result.upserted_id else "Updated",
+            #     order_id,
+            #     db.name,
+            #     collection_name,
+            # )
             return str(result.upserted_id)
         except Exception as e:
             logger.error("Error upserting into '%s': %s", collection_name, e)
@@ -105,13 +105,13 @@ class TTKStorage:
             result = await db[collection_name].update_one(
                 {"_id": order_id}, {"$set": update_query}, upsert=True
             )
-            logger.info(
-                "%s traveller '%s' in '%s.%s'.",
-                "Upserted" if result.upserted_id else "Updated",
-                traveller_id,
-                db.name,
-                collection_name,
-            )
+            # logger.info(
+            #     "%s traveller '%s' in '%s.%s'.",
+            #     "Upserted" if result.upserted_id else "Updated",
+            #     traveller_id,
+            #     db.name,
+            #     collection_name,
+            # )
             return str(result.upserted_id) if result.upserted_id else traveller_id
         except Exception as e:
             logger.error(
@@ -138,12 +138,12 @@ class TTKStorage:
         try:
             document = await db[collection_name].find_one({"_id": order_id})
             if document:
-                logger.info(
-                    "Fetched primary info for _id '%s' from '%s.%s'.",
-                    order_id,
-                    db.name,
-                    collection_name,
-                )
+                # logger.info(
+                #     "Fetched primary info for _id '%s' from '%s.%s'.",
+                #     order_id,
+                #     db.name,
+                #     collection_name,
+                # )
                 data = document.get("data")
                 return GenericFormRecordModel(**data)
             else:
@@ -175,7 +175,7 @@ class TTKStorage:
                 {"_id": order_id}, {"_id": 0, "travellers": 1}
             )
             if not document or "travellers" not in document:
-                logger.info("No travellers found for order_id '%s'.", order_id)
+                # logger.info("No travellers found for order_id '%s'.", order_id)
                 return None
 
             return document["travellers"]

@@ -8,6 +8,28 @@ import requests
 TTK_TOKEN_SECRET = "BmThdDKu4lPOFiiqwHG1GQVm7iGeVIqALcqwJDM6VySzVdOwZ1UMoylzwhIDgXl6"
 API_URL = "http://localhost:8080/v1/auth/get-token"
 
+# ================== CHOOSE UI ENDPOINT VIA INPUT ==================
+print("Select UI environment:")
+print("  1) Localhost (http://localhost:3030)")
+print("  2) UAT       (https://forms-uat.ttkservices.com)")
+
+choice = input("Enter 1 or 2 (default 2): ").strip()
+
+if choice == "1":
+    UI_ENDPOINT = "http://localhost:3030/home?token="
+    selected_env = "local"
+else:
+    UI_ENDPOINT = "https://forms-uat.ttkservices.com/home?token="
+    selected_env = "uat"
+
+print(f"\nUsing environment: {selected_env}")
+print(f"UI_ENDPOINT: {UI_ENDPOINT}")
+# =======================================================================
+
+
+# UI_ENDPOINT = "https://forms-uat.ttkservices.com/home?token="
+# # UI_ENDPOINT = "http://localhost:3030/home?token="
+
 
 def base64url_encode(s: str) -> str:
     return base64.urlsafe_b64encode(s.encode()).decode().rstrip("=")
@@ -98,8 +120,7 @@ def run_for_payload(role_name: str, payload: dict):
     # 5) Base64URL-encode the full LYIK token string
     lyik_token_b64url = base64url_encode(lyik_token)
     print(f"\n📦 Base64URL Encoded LYIK Token ({role_name}):")
-    print(lyik_token_b64url)
-
+    print(f"{UI_ENDPOINT}{lyik_token_b64url}")
 
 # ---- All four payloads ----
 payloads = [

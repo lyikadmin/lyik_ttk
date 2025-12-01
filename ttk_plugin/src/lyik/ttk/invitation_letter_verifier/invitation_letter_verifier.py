@@ -13,8 +13,8 @@ from lyikpluginmanager import (
     DocxTemplateModel,
 )
 import base64
-from lyik.ttk.models.forms.schengentouristvisa import (
-    Schengentouristvisa,
+from lyik.ttk.models.generated.universal_model_with_cover_invitation_letter import (
+    UniversalModelWithCoverInvitationLetter,
     RootInvitationInvitationLetterGenerate,
 )
 from lyik.ttk.utils.document_api_client import DocumentAPIClient
@@ -99,7 +99,7 @@ class InvitationLetterVerifier(VerifyHandlerSpec):
                     )
 
                 # Step 3: Get the order_id from the record
-                full_form_record = Schengentouristvisa(**context.record)
+                full_form_record = UniversalModelWithCoverInvitationLetter(**context.record)
                 order_id = (
                     full_form_record.visa_request_information.visa_request.order_id
                 )

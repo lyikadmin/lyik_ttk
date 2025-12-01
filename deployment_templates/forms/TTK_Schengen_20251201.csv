@@ -1249,6 +1249,7 @@ table,work_address_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,employer_name,,,textbox,,True,Enter Name of the Employer,Name of the Employer,,,False,,,not @.current_occupation_status = 'EMPLOYEE',,
 fac_str,occupation,,,textbox,,True,Enter Current Occupation,Current Occupation,,,False,,,not @.current_occupation_status = 'EMPLOYEE',,
 fac_date,date_of_joining,,,datebox,,False,DD/MM/YYYY,Date of Joining,,,False,,,not @.current_occupation_status = 'EMPLOYEE',,;only_past: true
+fac_mobile,work_phone,,,textbox,,True,Enter Work Phone Number of Employer,Work Phone Number of Employer,,,False,,,not @.current_occupation_status = 'EMPLOYEE',,
 fac_str,work_address,,,textbox.row-4,,True,Enter Work Address,Work Address,,,False,,,not @.current_occupation_status = 'EMPLOYEE',,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -1257,6 +1258,7 @@ table,educational_establishment_table,,,table,,False,,,,,False,,,,,table.column:
 fac_str,establishment_name,,,textbox,,True,Enter Name of Establishment,Educational Establishment,,,False,,,not @.current_occupation_status = 'STUDENT',,
 fac_date,date_of_admission,,,datebox,,False,DD/MM/YYYY,Date of Admission,,,False,,,not @.current_occupation_status='STUDENT',,
 fac_str,establishment_address,,,textbox.row-4,,True,Enter Address,Address of Educational Establishment,,,False,,,not @.current_occupation_status='STUDENT',,
+fac_mobile,establishment_contact,,,textbox,,True,Enter Phone Number,Contact of Educational Establishment,,,False,,,not @.current_occupation_status='STUDENT',,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -1655,6 +1657,7 @@ fac_str,num_of_passengers,,,textbox,@.booked_appointment.booking_upload.TRUSTED_
 fac_str,accommodation_name,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_name,False,Enter Name of Hotel/Accommodation,Name of Hotel/Accommodation,,,False,,,,,
 fac_str,accommodation_address,,,textbox.row-4,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_address,False,Enter Address of Hotel/Accommodation,Address of Hotel/Accommodation,,,False,,,,,
 fac_email_str,accommodation_email,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_email,False,Enter Email ID of Hotel/Accommodation,Email ID of Hotel/Accommodation,,,False,,,,,
+fac_mobile,accommodation_phone,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_phone,False,Enter Telephone of Hotel/Accommodation,Telephone of Hotel/Accommodation,,,False,,,,,
 fac_date,start_date,,,datebox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.start_date,False,DD/MM/YYYY,Start Date/ Check-in Date,,,False,,,,,;only_future: true
 fac_date,end_date,,,datebox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.end_date,False,DD/MM/YYYY,End Date / Check-out Date,,,False,,,,,;only_future: true
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,

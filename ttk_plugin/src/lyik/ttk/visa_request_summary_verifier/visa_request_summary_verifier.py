@@ -18,10 +18,11 @@ from lyik.ttk.utils.verifier_util import (
     validate_phone,
     validate_email,
 )
-from lyik.ttk.models.forms.schengentouristvisa import (
-    Schengentouristvisa,
-)
 from lyik.ttk.utils.message import get_error_message
+from lyik.ttk.utils.form_indicator import get_form_indicator
+from lyik.ttk.utils.form_utils import FormConfig
+
+from lyik.ttk.models.generated.universal_model_with_appointment import RootAppointment
 
 logger = logging.getLogger(__name__)
 
@@ -50,7 +51,7 @@ class VisaRequestVerifier(VerifyHandlerSpec):
         This verifier validates the data of the Visa Request Summary section.
         """
         USE_DEFAULT = False
-        
+
         if not context or not context.config:
             raise PluginException(
                 message=get_error_message(
@@ -59,43 +60,53 @@ class VisaRequestVerifier(VerifyHandlerSpec):
                 detailed_message="The context is missing or config is missing in context.",
             )
 
-        full_form_record = Schengentouristvisa.model_validate(context.record)
+        form_indicator = get_form_indicator(form_rec=context.record)
 
-        if USE_DEFAULT:
-            try:
-                business_days = int(
-                    full_form_record.appointment.earliest_appointment_date.business_days
-                )
-                if not business_days:
+        frm_config = FormConfig(form_indicator=form_indicator)
+
+        has_appointment_section = frm_config.has_appointment_section()
+
+        if has_appointment_section:
+            
+            appointment = RootAppointment.model_validate(
+                context.record.get("appointment", None)
+            )
+
+            if USE_DEFAULT:
+                try:
+                    business_days = int(
+                        appointment.earliest_appointment_date.business_days
+                    )
+                    if not business_days:
+                        business_days = DEFAULT_BUSINESS_DAYS
+                except Exception as e:
                     business_days = DEFAULT_BUSINESS_DAYS
-            except Exception as e:
-                business_days = DEFAULT_BUSINESS_DAYS
-        else:
-            try:
-                business_days = int(
-                    full_form_record.appointment.earliest_appointment_date.business_days
-                )
-            except Exception as e:
+            else:
+                try:
+                    business_days = int(
+                        appointment.earliest_appointment_date.business_days
+                    )
+                except Exception as e:
+                    return VerifyHandlerResponseModel(
+                        actor=ACTOR,
+                        message="Could not get Appointment Details to calculate Earliest available departure Date.",
+                        status=VERIFY_RESPONSE_STATUS.FAILURE,
+                    )
+
+            today = date.today()
+            earliest_departure_date = business_days_from(
+                start=today, business_days=business_days
+            )
+
+            if earliest_departure_date > payload.visa_request.departure_date:
                 return VerifyHandlerResponseModel(
                     actor=ACTOR,
-                    message="Could not get Appointment Details to calculate Earliest available departure Date.",
+                    message=get_error_message(
+                        "LYIK_ERR_EARLY_ARRIVAL_DEPARTURE_DATES",
+                        [earliest_departure_date.strftime("%d-%b-%Y")],
+                    ),
                     status=VERIFY_RESPONSE_STATUS.FAILURE,
                 )
-
-        today = date.today()
-        earliest_departure_date = business_days_from(
-            start=today, business_days=business_days
-        )
-
-        if earliest_departure_date > payload.visa_request.departure_date:
-            return VerifyHandlerResponseModel(
-                actor=ACTOR,
-                message=get_error_message(
-                    "LYIK_ERR_EARLY_ARRIVAL_DEPARTURE_DATES",
-                    [earliest_departure_date.strftime("%d-%b-%Y")],
-                ),
-                status=VERIFY_RESPONSE_STATUS.FAILURE,
-            )
 
         default_country_code = context.config.DEFAULT_COUNTRY_CODE
 

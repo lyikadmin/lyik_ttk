@@ -6,13 +6,16 @@ from lyikpluginmanager import (
     ContextModel,
     GenericFormRecordModel,
 )
-from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa
+
+from lyik.ttk.models.generated.universal_model import UniversalModel
 import logging
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.info)
 
 from .._base_preaction import BaseUnifiedPreActionProcessor
+from lyik.ttk.utils.form_indicator import FormIndicator
+
 
 
 PRIMARY_COLLECTION_NAME = "primary_travellers"
@@ -43,6 +46,10 @@ class PreactionSavePrimaryTraveller(BaseUnifiedPreActionProcessor):
                 "This state will be the new state which will be sent in the request"
             ),
         ],
+        form_indicator: Annotated[
+            FormIndicator,
+            Doc("The form indicator for the form"),
+        ],
         payload: Annotated[
             GenericFormRecordModel,
             Doc("The payload of form record data."),
@@ -55,14 +62,14 @@ class PreactionSavePrimaryTraveller(BaseUnifiedPreActionProcessor):
         """
         This preaction processor will save the primary traveller into the primary_travellers collection.
         """
-        logger.debug(f"Entering preaction with payload: {payload}")
+        # logger.debug(f"Entering preaction with payload: {payload}")
         if not context or not context.config:
             logger.error(
                 "No context or config found in context. Passing through SavePrimaryTraveller preaction."
             )
             return payload
         try:
-            record = Schengentouristvisa(**payload.model_dump())
+            record = UniversalModel(**payload.model_dump())
             traveller_type = record.visa_request_information.visa_request.traveller_type
             if not traveller_type:
                 logger.warning(
@@ -135,6 +142,10 @@ class PreactionSaveCoTravellers(BaseUnifiedPreActionProcessor):
                 "This state will be the new state which will be sent in the request"
             ),
         ],
+        form_indicator: Annotated[
+            FormIndicator,
+            Doc("The form indicator for the form"),
+        ],
         payload: Annotated[
             GenericFormRecordModel,
             Doc("The payload of form record data."),
@@ -156,7 +167,7 @@ class PreactionSaveCoTravellers(BaseUnifiedPreActionProcessor):
             return payload
 
         try:
-            record = Schengentouristvisa(**payload.model_dump())
+            record = UniversalModel(**payload.model_dump())
             traveller_type = record.visa_request_information.visa_request.traveller_type
             if not traveller_type:
                 logger.warning(

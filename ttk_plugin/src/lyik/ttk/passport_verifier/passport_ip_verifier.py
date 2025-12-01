@@ -10,11 +10,15 @@ from lyikpluginmanager import (
 from lyikpluginmanager.annotation import RequiredVars
 from typing import Annotated, Optional
 from typing_extensions import Doc
-from lyik.ttk.models.forms.schengentouristvisa import (
-    Schengentouristvisa,
+from lyik.ttk.models.generated.universal_model import (
+    UniversalModel,
     RootPassport,
-    CIVILMARITALSTATUS,
 )
+# from lyik.ttk.models.forms.schengentouristvisa import (
+#     Schengentouristvisa,
+#     RootPassport,
+#     CIVILMARITALSTATUS,
+# )
 from lyik.ttk.utils.verifier_util import (
     check_if_verified,
 )
@@ -53,7 +57,7 @@ class PassportIPVerifier(VerifyHandlerSpec):
         if ret:
             return ret
 
-        full_form_record = Schengentouristvisa.model_validate(context.record)
+        full_form_record = UniversalModel.model_validate(context.record)
 
         india_return_date = None
         if (
@@ -107,16 +111,17 @@ class PassportIPVerifier(VerifyHandlerSpec):
                 status=VERIFY_RESPONSE_STATUS.FAILURE,
             )
 
-        marital_status = payload.other_details.civil_status
-        if marital_status == CIVILMARITALSTATUS.OTHER:
-            if not payload.other_details.other_civil_status:
-                return VerifyHandlerResponseModel(
-                    actor=ACTOR,
-                    message=get_error_message(
-                        error_message_code="LYIK_ERR_OTHER_CIVIL_STATUS"
-                    ),
-                    status=VERIFY_RESPONSE_STATUS.FAILURE,
-                )
+        # Not present under the Universal approach
+        # marital_status = payload.other_details.civil_status
+        # if marital_status.strip().lower() == "OTHER".strip().lower():
+        #     if not payload.other_details.other_civil_status:
+        #         return VerifyHandlerResponseModel(
+        #             actor=ACTOR,
+        #             message=get_error_message(
+        #                 error_message_code="LYIK_ERR_OTHER_CIVIL_STATUS"
+        #             ),
+        #             status=VERIFY_RESPONSE_STATUS.FAILURE,
+        #         )
 
         return VerifyHandlerResponseModel(
             actor=ACTOR,

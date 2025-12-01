@@ -9,7 +9,7 @@ from lyikpluginmanager import (
 )
 from typing import Annotated
 from typing_extensions import Doc
-from lyik.ttk.models.forms.schengentouristvisa import RootTravelInsurance
+from lyik.ttk.models.forms.schengentouristvisa import RootTravelInsurance, INSURANCEOPTION
 import logging
 from lyik.ttk.utils.message import get_error_message
 
@@ -38,8 +38,9 @@ class TravelInsuranceVerifier(VerifyHandlerSpec):
         This verifier validates the data of the Travel Insurance section.
         """
         skip_travel_insurance = None
-        if payload and payload.add_on_service_option:
-            skip_travel_insurance = payload.add_on_service_option
+        if payload and payload.insurance_options_card and payload.insurance_options_card.insurance_options:
+            if payload.insurance_options_card.insurance_options.value == INSURANCEOPTION.TTK_ASSITANCE.value:
+                skip_travel_insurance = INSURANCEOPTION.TTK_ASSITANCE
 
         salary_slip_file = None
         if (
