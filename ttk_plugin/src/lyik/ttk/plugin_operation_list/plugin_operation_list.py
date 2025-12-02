@@ -80,7 +80,7 @@ class OperationListPlugin(OperationsListSpec):
                 form_state = self.get_state(form_record=form_record)
                 if (
                     parsed_record.submit_info.docket.docket_status
-                    == DOCKETSTATUS.ENABLE_DOWNLOAD
+                    == DOCKETSTATUS.ENABLE_DOWNLOAD.value
                 ):
                     pass
                 elif str(form_state) == STATE_APPROVED:
