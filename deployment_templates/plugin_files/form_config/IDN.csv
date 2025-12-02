@@ -1,0 +1,9 @@
+relevant_infopanes,business_panes,common_infopanes,has_appointment_section,has_submission_docket_status_requirement,submit_requirement
+visa_request_information,,accomodation,false,true,confirm.viewed_data
+passport,,ticketing,,,confirm.addons_addressed
+photograph,,,,,confirm.docs_uploaded
+residential_address,,,,,confirm.understand_lock
+accomodation,,,,,
+ticketing,,,,,
+additional_details,,,,,
+additional_documents_pane,,,,,
