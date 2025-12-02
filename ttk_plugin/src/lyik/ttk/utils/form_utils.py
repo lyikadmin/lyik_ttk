@@ -1,12 +1,6 @@
 from lyik.ttk.utils.form_indicator import FormIndicator
 from .csv_utils import load_csv_rows
 import os
-from typing import List, Dict
-
-from pydantic import BaseModel
-from lyik.ttk.utils.form_indicator import FormIndicator
-from .csv_utils import load_csv_rows
-import os
 from typing import List, Dict, Optional, Literal
 
 from pydantic import BaseModel
@@ -19,22 +13,20 @@ class FormConfigRow(BaseModel):
     Expected CSV headers:
     - relevant_infopanes
     - business_panes
-    - common_infopanes
     - submit_requirement
-    - has_appointment_section
     - has_submission_docket_status_requirement
     """
 
     relevant_infopanes: Optional[str] = None
     business_panes: Optional[str] = None
-    common_infopanes: Optional[str] = None
     submit_requirement: Optional[str] = None
-    has_appointment_section: Optional[str] = None
     has_submission_docket_status_requirement: Optional[str] = None
 
 
+APPOINTPENT_INFOPANE = "appointment"
 
 COMMON_INFOPANES = Literal["itinerary_accomodation", "accomodation", "ticketing"]
+COMMON_INFOPANES_VALUES = ("itinerary_accomodation", "accomodation", "ticketing")
 
 
 class FormConfig:
@@ -92,29 +84,27 @@ class FormConfig:
 
     def _parse_rows(self) -> None:
         """
-        - First 3 columns → aggregated into lists across all rows.
-        - Last 2 columns → take first non-empty boolean value.
+        - relevant_infopanes, business_panes, submit_requirement → aggregated into lists across all rows.
+        - has_submission_docket_status_requirement → first non-empty boolean value.
+        - common_infopanes → derived from relevant_infopanes if they match the COMMON_INFOPANES set.
+        - has_appointment_section → derived from presence of 'appointment' in relevant_infopanes.
         """
         for row in self._rows:
             # list columns (1 value per row)
             if row.relevant_infopanes:
                 self._relevant_infopanes.append(row.relevant_infopanes)
 
+                # derive common_infopanes from relevant_infopanes
+                if row.relevant_infopanes in COMMON_INFOPANES_VALUES:
+                    self._common_infopanes.append(row.relevant_infopanes)
+
             if row.business_panes:
                 self._business_panes.append(row.business_panes)
-
-            if row.common_infopanes:
-                self._common_infopanes.append(row.common_infopanes)
 
             if row.submit_requirement:
                 self._submit_requirement.append(row.submit_requirement)
 
-            # boolean columns (first non-empty wins)
-            if (not self._has_appointment_section) and row.has_appointment_section:
-                parsed = self._parse_bool(row.has_appointment_section)
-                if parsed is not None:
-                    self._has_appointment_section = parsed
-
+            # boolean column (first non-empty wins)
             if (
                 not self._has_submission_docket_status_requirement
                 and row.has_submission_docket_status_requirement
@@ -122,6 +112,9 @@ class FormConfig:
                 parsed = self._parse_bool(row.has_submission_docket_status_requirement)
                 if parsed is not None:
                     self._has_submission_docket_status_requirement = parsed
+
+        # derive has_appointment_section from relevant_infopanes
+        self._has_appointment_section = APPOINTPENT_INFOPANE in self._relevant_infopanes
 
     # ----- Public API -----
 
@@ -142,13 +135,12 @@ class FormConfig:
         Get the shared common infopanes list (Shared between the primary and co-traveller).
         """
         return self._common_infopanes
-    
+
     def get_submit_requirement_list(self) -> List[str]:
         """
         Get the dot separated path of checkbox fields which must be checked before submitting the application
         """
         return self._submit_requirement
-
 
     def has_appointment_section(self) -> bool:
         "True if the form has an appointment section"
