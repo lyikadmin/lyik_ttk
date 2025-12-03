@@ -261,12 +261,10 @@ fac_date,departure_date,,,datebox,,False,DD/MM/YYYY,Date of Departure,,,False,,,
 fac_date,arrival_date,,,datebox,,False,DD/MM/YYYY,Date of Return,,,False,,,,,;only_future: true
 fac_visa_type,visa_type,,,dropdown,,True,Select Option,Type of Visa,,,False,,,,False,
 fac_str,purpose_of_stay,,,textbox,,True,Enter Additional Purpose of Stay,Additional Purpose of Stay,,,False,,,,,
+fac_length_of_stay_mexico,length_of_stay,,,dropdown,,False,Select Option,Length of Stay in Mexico,,,False,,,,,
 fac_int,validity,,,textbox,,False,Enter Validity of Visa (in Days),Validity of Visa (in Days),,,False,,,,False,
-fac_number_of_entries_sgp,no_of_entries,,,dropdown,,True,Select Option,Number of Entries,,,False,,,,,
+fac_number_of_entries,no_of_entries,,,dropdown,,True,Select Option,Number of Entries,,,False,,,,,
 fac_visa_mode,visa_mode,,,dropdown,Paper,False,Select Option,Visa Mode (E-Visa/Paper),,,False,,,,False,
-fac_sgp_stay,length_of_stay_sgp,,,dropdown,LESS_THAN_30_DAYS,False,Select Option,How long do you intend to stay in Singapore?,,,False,,,,,
-fac_str,reason_for_length_of_stay,,,textbox,,False,Enter Reason if the stay is more than 30 days,Reason if the stay is more than 30 days,,,False,,,not length_of_stay_sgp = 'MORE_THAN_30_DAYS',,
-fac_int,no_of_travellers,,,hidden,,False,Enter Number of Travellers,Number of Travellers,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 fac_str,from_country_full_name,,,hidden,,False,,,,,False,,,,,
 fac_str,to_country_full_name,,,hidden,,False,,,,,False,,,,,
@@ -280,6 +278,190 @@ fac_str,earliest_appointment_availability,,,hidden,,False,,,,,False,,,,,
 fac_str,visa_processing_type,,,hidden,,False,,,,,False,,,,,
 fac_str,form_indicator,,,hidden,SCHENGEN,False,,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+section_break,appointment_section,,,section_break,,False,,Appointment Details,,,False,,,,,
+info_pane_builder,appointment,,,info_pane,,False,"<!DOCTYPE html>
+<html lang=""en"">
+  <head>
+    <meta charset=""UTF-8"" />
+    <title>Schengen Visa Application Guidelines</title>
+    <style>
+      .container {
+        background-color: #fefefe;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-family: ""Inter"", sans-serif;
+        color: #111;
+      }
+      .container.schengen {
+        /* width: 540px; */
+        max-width: 100%;
+      }
+      .container p,
+      .container ul,
+      .container li {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 34px;
+        letter-spacing: 0;
+        color: #333;
+        margin: 0;
+      }
+      .container p {
+        margin-bottom: 16px;
+      }
+      .container ul {
+        padding-left: 20px;
+        margin-bottom: 16px;
+      }
+      .container li {
+        margin-bottom: 8px;
+      }
+      .container .heading {
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 34px;
+        letter-spacing: 0;
+        margin-bottom: 8px;
+      }
+      .container .subheading {
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 34px;
+        letter-spacing: 0;
+        margin-bottom: 16px;
+      }
+      .container .note {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 34px;
+        letter-spacing: 0;
+        color: #555;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class=""container schengen"">
+      <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
+
+      <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px"">
+        <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+        Need help with this part? Here's what you need to know about each field
+        in this section.
+      </p>
+
+      <ul>
+        <li>
+          If you have already scheduled your visa appointment with the
+          respective embassy/consulate, then upload the confirmation here for
+          our consultant to review, OR
+        </li>
+        <li>
+          Request assistance from TTK Visa consultant to book an appointment on
+          your behalf. Once you update your passport and address proof sections,
+          TTK Visa Consultant will reach out to you to share the latest
+          available slots and location prior to scheduling.
+        </li>
+      </ul>
+      <!-- <p class=""subheading""><strong>Important:</strong></p>
+    <ul>
+      <li>All documents must be printed on A4 size sheets only.</li>
+      <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
+      <li>Required documents must be submitted with the visa application (no fax or email to Embassy accepted).</li>
+      <li>Only documents listed in the checklist will be accepted.</li>
+      <li>If your visa has been refused previously, you must submit the refusal notice or a written explanation of the reason for travel and refusal.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Brief Procedure:</strong></p>
+    <ul>
+      <li>TTK will review your documents and suggest necessary changes before submission.</li>
+      <li>TTK will book an appointment as per jurisdiction at the Visa Application Centre (VAC), subject to slot availability. Inform TTK of your tentative dates at the earliest.</li>
+      <li>Applicants must visit the VAC in person to provide biometric fingerprint data with a signed application form, appointment letter, and checklist documents.</li>
+      <li>Alternatively, TTK can submit the application if the applicant qualifies for biometric waiver due to previous Schengen visa issuance.</li>
+      <li>Courier service is available by filling out the 'Courier Request Form'. The passport will be sent to the address mentioned in the form.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Processing Time:</strong></p>
+    <ul>
+      <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
+      <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
+      <li>Consular officers may request additional documents or a personal interview if required.</li>
+    </ul> -->
+
+      <p class=""note"">
+        <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+        <!-- (To be provided by TTK) -->
+      </p>
+    </div>
+  </body>
+</html>
+",Appointment Details,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",operation.save:Save and Continue;verify.verify_handler:VERIFIER_APPOINTMENT_DETAILS;verify.action_text:Verify
+card_builder,earliest_appointment_date,,,card,,False,,Find your Earliest Appointment Date,,,False,,,,,
+table,arliest_appointment_table,,,table,,False,,,,,False,,,,,table.column:2
+fac_str,location_city,,,dropdown,,False,Enter Location (City),Location (City),,,False,,,,,dynamic_values_path:$.appointment.earliest_appointment_date.appointment_city_dropdown_values
+fac_str,earliest_available_date,,,textbox,,False,Select location to see Earliest Date,Earliest Available Date,,,False,,,,False,dynamic_auto_value:$.appointment.earliest_appointment_date.appointment_city_dates[$.appointment.earliest_appointment_date.location_city]
+break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
+fac_str,cta_get_dropdown_values,,,cta_button,Fetch Earliest Date,False,Refresh dropdown values,Refresh,,,False,,,,,verify.verify_handler:VERIFIER_APPOINTMENT_API;verify.action_text:Refresh;align:center
+fac_str,appointment_city_dropdown_values,,,hidden,,False,,,,,False,,,,,
+fac_str,appointment_city_dates,,,hidden,,False,,,,,False,,,,,
+fac_str,business_days,,,hidden,,False,,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+display_field,display_appointment_details_header,,,display_field,,False,"<!-- <p style=""font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;"">
+ 
+  Please upload the details of your
+    Booked Visa
+  appointment below.
+</p> -->
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"">
+  <title>Centered Visa Appointment Text</title>
+  <style>
+    .center-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .message-box {
+      /* width: 1060px; */
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 32px;
+      color: #000000;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class=""center-wrapper"">
+    <div class=""message-box"">
+        Please upload the details of your Booked Visa Appointment below.
+        <!-- <span style=""font-weight: bold; font-size: 1em;"">
+          Booked Visa
+        </span>
+        appointment below. -->
+    </div>
+  </div>
+</body>
+</html>
+",,,,False,,,,,
+fac_add_on_service_appointment,add_on_service_option,,,checkbox,,False,Select Option,,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI])",
+card_builder,appointment_scheduled,,,card,,False,,My Scheduled Appointment Details,,,False,,,,not (@.add_on_service_option = 'YES' and (_user_token.persona = 'CLI' or _user_token.persona = 'CORP_CLI')),
+table,appointment_details_table,,,table,,False,,,,,False,,,,,table.column:2
+fac_str,scheduled_location,,,dropdown,,False,Enter Scheduled Location (City),Scheduled Location (City),,,False,,,,,dynamic_values_path:$.appointment.earliest_appointment_date.appointment_city_dropdown_values
+fac_date,scheduled_date,,,datebox,,False,DD/MM/YYYY,Scheduled Date,,,False,,,,,;only_future: true
+fac_hour_select,scheduled_hour,,,dropdown,,False,Select Option,Scheduled Time (Hour),,,False,,,,,
+fac_minute_select,scheduled_minute,,,dropdown,,False,Select Option,Scheduled Time (Minutes),,,False,,,,,
+fac_file,upload_appointment,,,fileoption,,False,Upload a Image/PDF,Appointment Document,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
+break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+fac_str,lock_appointment,,,hidden,,False,,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 tab_break,personal_tab,,,tab_break,,False,personal,Personal,,,False,,,,,
 section_break,passport_section,,,section_break,,False,,Passport,,,False,,,,,
@@ -371,50 +553,9 @@ info_pane_builder,passport,,,info_pane,,False,"<!DOCTYPE html>
   </div>
 </body>
 </html>
-",Passport,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",operation.save:Save and Continue;verify.verify_handler:VERIFIER_PASSPORT_IP;verify.action_text:Verify
-display_field,display_passport_header,,,display_field,,False,"
-
-<!DOCTYPE html>
-<html lang=""en"">
-<head>
-  <meta charset=""UTF-8"">
-  <title>Centered Paragraph</title>
-  <style>
-    .center-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .message-box {
-      /* width: 1060px; */
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 32px;
-      color: #000000;
-      text-align: center;
-    }
-  </style>
-</head>
-<body>
-
-  
-  <div class=""center-wrapper"">
-    <div class=""message-box"">
-
-        Please upload the images of your Passport to auto-fill the details below. For detailed guidelines on this, click on the
-        <span style=""font-weight: 700; font-size: 1em;"">
-          Instructions 
-        </span>
-        in the top-right corner of this section.
-    </div>
-  </div>
-</body>
-</html>
-",,,,False,,,,,
+",Passport,,,False,,,,,
 card_builder,passport_details,,,card,,False,,Passport Details,,,False,,,,,
-fac_passport_type_sgp,type_of_passport,,,dropdown,INTERNATIONAL_PASSPORT,True,Select Option,Type of Passport,,,False,,,,,
+fac_passport_type_mex,type_of_passport,,,dropdown,ORDINARY,False,Select Option,Type of Passport,,,False,,,,,
 table,passport_page_upload,,,table,,False,,,,,False,,,,,table.column:2
 fac_file,ovd_front,,,fileoption,,True,Upload an Image,Front Page of Passport,,,False,,,,,"file_type:.jpg, .jpeg, .png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 fac_file,ovd_back,,,fileoption,,True,Upload an Image,Back Page of Passport,,,False,,,,,"file_type:.jpg, .jpeg, .png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
@@ -455,19 +596,16 @@ display_field,display_passport_table_headline,,,display_field,,False,"<!DOCTYPE 
 table,passport_info_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,first_name,,,textbox,@.passport_page_upload.TRUSTED_OVD.name,True,Enter Given Name as in Passport,Given Name as in Passport,,,False,,,,,
 fac_str,surname,,,textbox,@.passport_page_upload.TRUSTED_OVD.surname,True,Enter Surname as in Passport,Surname as in Passport,,,False,,,,,
-fac_str,alias,,,textbox,,False,Enter Alias (any other name),Alias (any other name),,,False,,,,,
+fac_str,surname_at_birth,,,textbox,,False,Enter Surname at birth/Former family name,Surname at birth/Former family name,,,False,,,,,
 fac_date,date_of_birth,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_birth,True,DD/MM/YYYY,Date of Birth as in Passport,,,False,,,,,;only_past: true
+fac_str,age,,,textbox,,False,Enter Age,Age,,,False,,,,,
 fac_passport_number,passport_number,,,textbox,@.passport_page_upload.TRUSTED_OVD.uid,True,Enter passport number,Passport Number,,,False,,,,,
 fac_date,date_of_issue,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_issue,True,DD/MM/YYYY,Date of Issue,,,False,,,,,;only_past: true
 fac_date,date_of_expiry,,,datebox,@.passport_page_upload.TRUSTED_OVD.date_of_expiry,True,DD/MM/YYYY,Date of Expiry,,,False,,,,,
-fac_gender_sgp,gender,,,dropdown,@.passport_page_upload.TRUSTED_OVD.gender,True,Select Option,Gender,,,False,,,,,
+fac_gender_mex,gender,,,dropdown,,False,Select Option,Gender,,,False,,,,,
 fac_str,place_of_issue,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_issue,False,Enter Place of Issue,Place of Issue,,,False,,,,,
-fac_country_3,country_of_issue,,,dropdown,,False,Select Option,Country of Issue,,,False,,,,,
 fac_str,place_of_birth,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_birth,True,Enter Place of Birth,Place of Birth,,,False,,,,,
-fac_india_states,state_of_birth,,,dropdown,,False,Select Option,State of Birth,,,False,,,,,
-fac_str,race,,,textbox,,False,"E.g. Malay, Indian, Chinese, Caucasian, etc",Race,,,False,,,,,
 fac_str,nationality,,,textbox,Indian,True,Enter Nationality,Nationality,,,False,,,,,
-fac_str,religion,,,textbox,,False,"E.g. Hindu, Christian, Muslim, etc..",Religion,,,False,,,,,
 fac_str,issued_by,,,textbox,@.passport_page_upload.TRUSTED_OVD.place_of_issue,True,Enter Issued By (Authority/City),Issued By (Authority/City),,,False,,,,,
 fac_str,father_name,,,textbox,,False,Enter Father's Name,Father's Name,,,False,,,,,
 fac_str,mother_name,,,textbox,,False,Enter Mother's Name,Mother's Name,,,False,,,,,
@@ -476,32 +614,112 @@ fac_str,address_line_1,,,textbox,@.passport_page_upload.TRUSTED_OVD.full_address
 fac_str,address_line_2,,,textbox,@.passport_page_upload.TRUSTED_OVD.address_line_2,False,Enter Address Line 2,Address Line 2,,,False,,,,,
 fac_str,city,,,textbox,@.passport_page_upload.TRUSTED_OVD.city,False,Enter City,City,,,False,,,,,
 fac_str,state,,,textbox,@.passport_page_upload.TRUSTED_OVD.state,False,Enter State,State,,,False,,,,,
-fac_str,district,,,textbox,,False,Enter District,District,,,False,,,,,
 fac_str,country,,,textbox,@.passport_page_upload.TRUSTED_OVD.code,True,Enter Country,Country,,,False,,,,,
 fac_str,pin_code,,,textbox,@.passport_page_upload.TRUSTED_OVD.postal_code,False,Enter PIN Code / Postal Code,PIN Code,,,False,,,,,
 fac_country_3,country_of_birth,,,dropdown,IND,True,Select Option,Country of Birth,,,False,,,,,
+fac_str,desired_validity,,,hidden,6,False,This is the minimum duration for which the passport should be valid,,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,other_details,,,card,,False,,Other Details,,,False,,,,,
 table,other_details_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_civil_marital_status_sgp,civil_status,,,dropdown,,False,Select Option,Civil/Marital Status,,,False,,,,,
-fac_str,nationality_of_birth,,,textbox,,False,Enter Nationality of Birth (if different),Nationality of Birth (if different),,,False,,,,,
-fac_str,other_nationality,,,textbox,,False,Enter Other Nationality,Other Nationality,,,False,,,,,
-fac_spouse_nationality,spouse_nationality,,,dropdown,,False,Select Option,Nationality/Citizenship of Spouse,,,False,,,,,
-fac_nric_sgp,nric_num,,,textbox,,False,Enter NRIC Number,NRIC Number,,,False,,,not(spouse_nationality = 'SINGAPORE_CITIZEN' or spouse_nationality = 'SINGAPORE_PERMANENT_RESIDENT'),,
-fac_nationality_others,spouse_others_nationality,,,textbox,,False,Enter Other Nationality,Others (please Specify),,,False,,,not spouse_nationality = 'OTHERS',,
+fac_civil_marital_status_mex,civil_status,,,dropdown,,False,Select Option,Civil/Marital Status,,,False,,,,,
+fac_option,legal_migratory_status,,,radiobutton,NO,False,Select Option,Legal Migratory Status,,,False,,,,,
 fac_option,minor_status,,,radiobutton,NO,False,Select Option,Are you a Minor?,,,False,,,,,align:center
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,travel_companion_details,,,card,,False,,Details of Travelling Companion,,,False,,,@.other_details.minor_status = 'NO',,
-table,travel_companion_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_relationship_with_applicant_sgp,relationship_with_applicant,,,dropdown,,False,Select Option,Relationship of Travelling companion To Applicant,,,False,,,,,
-fac_str,companion_name,,,textbox,,False,Enter Name,Name,,,False,,,,,
-fac_date,companion_dob,,,datebox,,False,DD/MM/YYYY,Date of Birth,,,False,,,,,
-fac_gender_sgp,companion_gender,,,dropdown,,False,Select Option,Gender,,,False,,,,,
-fac_str,companion_nationality,,,textbox,,False,Enter Nationality,Nationality,,,False,,,,,
-fac_str,companion_passport_num,,,textbox,,False,Enter Passport Number,Passport Number,,,False,,,,,
-break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
+card_builder,parental_guardian_details,,,card,,False,,Parental Authority/Legal Guardian Details,,,False,,,$.passport.other_details.minor_status = 'NO',,
+fac_minor_accompaniment_mex,minor_accompaniment,,,radiobutton,,False,Select Option,Who is accompanying the Minor Applicant for Visa Application filing?,,,False,,,,,
+display_field,display_both_parents,,,display_field,,False,"<!-- <div style=""
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  text-align: left;
+  margin-left: 15px;
+"">
+  To know the cost, please refer the <strong>&nbsp;Add-On Cart Section</strong>.
+</div> -->
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"">
+  <title>Centered Paragraph</title>
+  <style>
+    .message-box {
+      font-family: 'Inter', sans-serif;
+      font-weight: 425;
+      font-size: 16px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+    <div class=""message-box"">
+      <span>
+        Application Form must be signed by both Parents.
+    </div>
+</body>
+</html>",,,,False,,,not $.passport.parental_guardian_details.minor_accompaniment = 'BOTH_PARENTS',,
+display_field,display_one_parent,,,display_field,,False,"<!-- <div style=""
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  text-align: left;
+  margin-left: 15px;
+"">
+  To know the cost, please refer the <strong>&nbsp;Add-On Cart Section</strong>.
+</div> -->
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"">
+  <title>Centered Paragraph</title>
+  <style>
+    .message-box {
+      font-family: 'Inter', sans-serif;
+      font-weight: 425;
+      font-size: 16px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+    <div class=""message-box"">
+      <span>
+        If a visa application is presented by only one parent/guardian, said parent must provide a notarized authorization letter, which demonstrates that the non-accompanying parent consents to the visa application process on behalf of his/her child/children.
+    </div>
+</body>
+</html>",,,,False,,,not $.passport.parental_guardian_details.minor_accompaniment = 'ONE_PARENT',,
+display_field,display_third_party,,,display_field,,False,"<!-- <div style=""
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  text-align: left;
+  margin-left: 15px;
+"">
+  To know the cost, please refer the <strong>&nbsp;Add-On Cart Section</strong>.
+</div> -->
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"">
+  <title>Centered Paragraph</title>
+  <style>
+    .message-box {
+      font-family: 'Inter', sans-serif;
+      font-weight: 425;
+      font-size: 16px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+    <div class=""message-box"">
+      <span>
+        Minors applying on their own, or accompanied by a third party over the age of 18, must provide a letter of consent, signed by both Parents and/or person(s) who exercise custody/guardianship. <br>
+        It is mandatory to have the letter of consent notarized by a Notary Public or entity legally authorized to provide services in the jurisdiction.    </div>
+</body>
+</html>",,,,False,,,not $.passport.parental_guardian_details.minor_accompaniment = 'THIRD_PARTY',,
+fac_file,notarized_letter,,,fileoption,,False,Upload an image/file,Notarized Letter,,,False,,,,,download:None
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,photograph_section,,,section_break,,False,,Photograph,,,False,,,,,
@@ -924,9 +1142,8 @@ fac_str,address_line_1,,,textbox,,True,Enter Address Line 1,Address Line 1,,,Fal
 fac_str,address_line_2,,,textbox,,True,Enter Address Line 2,Address Line 2,,,False,,,,,
 fac_str,city,,,textbox,,True,Enter City,City,,,False,,,,,
 fac_str,state,,,textbox,,True,Enter State,State,,,False,,,,,
-fac_str,district,,,textbox,,True,Enter District,District,,,False,,,,,
 fac_str,country,,,textbox,,True,Enter Country,Country,,,False,,,,,
-fac_str,pin_code,,,textbox,,True,6 digit PIN Code,PIN Code,,,False,,,,,
+fac_pincode_str,pin_code,,,textbox,,True,Enter PIN Code/ Postal Code,PIN Code,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,residential_address_card_v2,,,card,,False,,Current Residential Address,SAVE_EVEN_IF_HIDDEN,,False,,,not same_as_passport_address = 'SAME_AS_PASS_ADDR',,
@@ -935,9 +1152,8 @@ fac_str,address_line_1,,,textbox,,True,Enter Address Line 1,Address Line 1,,,Fal
 fac_str,address_line_2,,,textbox,,False,Enter Address Line 2,Address Line 2,,,False,,,,False,
 fac_str,city,,,textbox,,True,Enter City,City,,,False,,,,False,
 fac_str,state,,,textbox,,True,Enter State,State,,,False,,,,False,
-fac_str,district,,,textbox,,False,Enter District,District,,,False,,,,,
 fac_str,country,,,textbox,,True,Enter Country,Country,,,False,,,,False,
-fac_str,pin_code,,,textbox,,True,6 digit PIN Code,PIN Code,,,False,,,,False,
+fac_pincode_str,pin_code,,,textbox,,True,Enter PIN Code/ Postal Code,PIN Code,,,False,,,,False,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 fac_option,other_nationality,,,radiobutton,NO,True,Select Option,Are you residing in a country other than the country of current nationality?,,,False,,,,,
@@ -1070,12 +1286,17 @@ info_pane_builder,work_address,,,info_pane,,False,"<!DOCTYPE html>
 ",Work/Education,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",operation.save:Save and Continue
 card_builder,work_details,,,card,,False,,Work Details,,,False,,,,,
 table,work_address_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_str,occupation,,,textbox,,False,Enter Current Occupation,Current Occupation,,,False,,,,,
-fac_str,annual_income,,,textbox,,False,Enter Annual Income in Singapore dollars (SGD),Annual Income in Singapore dollars (SGD),,,False,,,,,
+fac_str,employer_name,,,textbox,,True,Enter Name of the Employer,Name of the Employer,,,False,,,,,
+fac_str,occupation,,,textbox,,True,Enter Current Occupation,Current Occupation,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,education_details,,,card,,False,,Education Details,,,False,,,,,
-fac_academic_qualification_sgp,academic_qualification,,,dropdown,,False,Select Option,Highest Academic/Professional Qualification Attained,,,False,,,,,
+table,educational_establishment_table,,,table,,False,,,,,False,,,,,table.column:2
+fac_str,establishment_name,,,textbox,,True,Enter Name of Establishment,Educational Establishment,,,False,,,,,
+fac_date,date_of_admission,,,datebox,,False,DD/MM/YYYY,Date of Admission,,,False,,,,,
+fac_str,establishment_address,,,textbox.row-4,,True,Enter Address,Address of Educational Establishment,,,False,,,,,
+fac_mobile,establishment_contact,,,textbox,,True,Enter Phone Number,Contact of Educational Establishment,,,False,,,,,
+break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,shared_traveller_section,,,section_break,,False,,Shared Traveller Details,,,False,,,$.visa_request_information.visa_request.traveller_type = 'Primary',,
@@ -1206,13 +1427,13 @@ info_pane_builder,accomodation,,,info_pane,,False,"<!DOCTYPE html>
     </div>
   </body>
 </html>
-",Accommodation,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",operation.save:Save and Continue
+",Accommodation,,,False,,,,"CONTAINS(USER.persona,[CLI, CORP_CLI, MKR, ADMIN])",operation.save:Save and Continue
 fac_str,lock_accommodation,,,hidden,,False,,,,,False,,,,,
 card_builder,accommodation_choice,,,card,,False,,Accommodation,,,False,,,,not lock_accommodation='Lock',
 fac_accommodation_arrangement,accommodation_option,,,radiobutton,BOOKED,False,Select Option,Please let us know how your stay is arranged:,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,booked_appointment,,,card,,False,,Booked Accommodation,,,False,,,accommodation_choice.accommodation_option = 'WITH_FAMILY',not lock_accommodation='Lock',
-fac_file,booking_upload,,,fileoption,,False,Upload a Image/PDF,Accommodation Booking,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
+card_builder,booked_appointment,,,card,,False,,Booked Accommodation,,,False,,,accommodation_choice.accommodation_option = 'WITH_FAMILY',not (@.accommodation_choice.accommodation_option = 'TTK_ASSITANCE' and (_user_token.persona = 'CLI' or _user_token.persona = 'CORP_CLI')),
+fac_file,booking_upload,,,fileoption,,False,Upload a PDF,Accommodation Booking,API.TRUSTED_ACCOMMODATION_OCR,,False,,,,,"file_type:.pdf;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 display_field,display_accommodation_instruction,,,display_field,,False,"<div style=""
 display: flex;
 justify-content: center;
@@ -1237,12 +1458,7 @@ table,accommodation_details_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,traveller_name,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.traveller_name,False,Enter Name of the Traveller,Name of the Traveller,,,False,,,,,
 fac_str,num_of_passengers,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.num_of_passengers,False,Enter Number of Passengers,Number of Passengers,,,False,,,,,
 fac_str,accommodation_name,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_name,False,Enter Name of Hotel/Accommodation,Name of Hotel/Accommodation,,,False,,,,,
-fac_str,block_num,,,textbox,,False,Enter Block/ House No.,Block/ House No.,,,False,,,,,
-fac_str,floor_num,,,textbox,,False,Enter Floor No.,Floor No.,,,False,,,,,
-fac_str,unit_num,,,textbox,,False,Enter Unit No.,Unit No.,,,False,,,,,
-fac_str,postal_code,,,textbox,,False,Enter Postal/PIN Code,Postal Code,,,False,,,,,
-fac_str,street_name,,,textbox,,False,Enter Street Name,Street Name,,,False,,,,,
-fac_str,building_name,,,textbox,,False,Enter Building Name,Building Name,,,False,,,,,
+fac_str,accommodation_address,,,textbox.row-4,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_address,False,Enter Address of Hotel/Accommodation,Address of Hotel/Accommodation,,,False,,,,,
 fac_email_str,accommodation_email,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_email,False,Enter Email ID of Hotel/Accommodation,Email ID of Hotel/Accommodation,,,False,,,,,
 fac_mobile,accommodation_phone,,,textbox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.accommodation_phone,False,Enter Telephone of Hotel/Accommodation,Telephone of Hotel/Accommodation,,,False,,,,,
 fac_date,start_date,,,datebox,@.booked_appointment.booking_upload.TRUSTED_ACCOMMODATION_OCR.start_date,False,DD/MM/YYYY,Start Date/ Check-in Date,,,False,,,,,;only_future: true
@@ -1272,13 +1488,7 @@ align-items: center;"">
 table,inviter_details_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,inviter_name,,,textbox,,True,Enter Name of the Inviter,Name of the Inviter (Family/Friend),,,False,,,,,
 fac_relationship,relationship,,,dropdown,,False,Select Option,Relationship,,,False,,,,,
-fac_str,block_num,,,textbox,,False,Enter Block/ House No.,Block/ House No.,,,False,,,,,
-fac_str,other_relationship,,,textbox,,False,Enter Other Relationship,Other Relationship (Please Specify),,,False,,,not relationship = 'OTHERS',,
-fac_str,floor_num,,,textbox,,False,Enter Floor No.,Floor No.,,,False,,,,,
-fac_str,unit_num,,,textbox,,False,Enter Unit No.,Unit No.,,,False,,,,,
-fac_str,postal_code,,,textbox,,False,Enter Postal/PIN Code,Postal Code,,,False,,,,,
-fac_str,street_name,,,textbox,,False,Enter Street Name,Street Name,,,False,,,,,
-fac_str,building_name,,,textbox,,False,Enter Building Name,Building Name,,,False,,,,,
+fac_str,inviter_address,,,textbox.row-4,,True,Enter Address of the Inviter,Address of the Inviter (Family/Friend),,,False,,,,,
 fac_str,mobile_number,,,textbox,,True,Enter Mobile/Telephone Number,Mobile/Telephone Number,,,False,,,,,
 fac_email_str,email_id,,,textbox,,True,Enter Email ID,Email ID of Inviter (Family/Friend),,,False,,,,,
 fac_file,passport_bio_page,,,fileoption,,False,Upload a Image/PDF,Front Page of Inviter's Passport,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
@@ -1397,32 +1607,12 @@ info_pane_builder,ticketing,,,info_pane,,False,"<!DOCTYPE html>
   </div>
 </body>
 </html>
-",Flight Tickets,,,False,,,$.cotraveller.same_as_primary_ticketing = 'SAME_AS_PRIMARY_TRAVELLER_TICKETING',"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",operation.save:Save and Continue
+",Flight Tickets,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",operation.save:Save and Continue
 card_builder,tickets,,,card,,False,,Flight Tickets,,,False,,,,,
 fac_tickets,ticket_options,,,radiobutton,BOOKED,False,Select Option,Please let us know how your Tickets are arranged:,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,flight_tickets,,,card,,False,,Flight Tickets,,,False,,, not tickets.ticket_options = 'BOOKED',not lock_ticket='Lock',
+card_builder,flight_tickets,,,card,,False,,Flight Tickets,,,False,,,,not lock_ticket='Lock',
 fac_file,flight_tickets,,,fileoption,,False,Upload a PDF,Flight Tickets,API.TRUSTED_FLIGHT_TICKET_OCR,,False,,,,,"file_type:.pdf;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
-display_field,display_autofill,,,display_field,,False,"
-<div style=""
-display: flex;
-justify-content: center;
-align-items: center;"">
-
-<div style=""
-  text-align: center;
-  /* width: 1060px; */
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 32px;
-  color: #000000;
-  text-align: center;
-"">
-        Please upload the Document to autofill the details below.
-    </div>
-  </div>
-",,,,False,,,,,
 table,flight_tickets_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,name_of_traveller,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.primary_traveller_name,False,Enter Name of the Traveller,Name of the Traveller,,,False,,,,,
 fac_str,airline,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.airline,False,Enter Name of Airline,Name of Airline,,,False,,,,,
@@ -1460,7 +1650,7 @@ display_field,display_add_on,,,display_field,,False,"<!DOCTYPE html>
 </html>",,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-section_break,travel_insurance_section,,,section_break,,False,,Travel Insurance,,,False,,,$.cotraveller.same_as_primary_insurance = 'SAME_AS_PRIMARY_TRAVELLER_INSURANCE',,
+section_break,travel_insurance_section,,,section_break,,False,,Travel Insurance,,,False,,,,,
 info_pane_builder,travel_insurance,,,info_pane,,False,"<!DOCTYPE html>
 <html lang=""en"">
   <head>
@@ -1560,52 +1750,7 @@ info_pane_builder,travel_insurance,,,info_pane,,False,"<!DOCTYPE html>
     </div>
   </body>
 </html>
-",Travel Insurance,,,False,,,$.cotraveller.same_as_primary_insurance = 'SAME_AS_PRIMARY_TRAVELLER_INSURANCE',"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",operation.save:Save and Continue;verify.verify_handler:VERIFIER_TRAVEL_INSURANCE;verify.action_text:Verify
-display_field,display_header_travel_insurance,,,display_field,,False,"<!-- <p style=""font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;"">
-The visa application requires you to carry a copy of your Travel Insurance for the Schengen country you are visiting. For detailed guidelines on this,
-<span style=""font-weight: 700; font-size: 1em;"">
-    Instructions
-</span>
-in the top-right corner of this section.
-</p> -->
-
-<!DOCTYPE html>
-<html lang=""en"">
-<head>
-  <meta charset=""UTF-8"">
-  <title>Centered Paragraph</title>
-  <style>
-    .center-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .message-box {
-      /* width: 1060px; */
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 32px;
-      color: #000000;
-      text-align: center;
-    }
-  </style>
-</head>
-<body>
-
-    <div class=""center-wrapper"">
-        <div class=""message-box"" style=""text-align: center;"">
-                The visa application requires you to carry a copy of your Travel Insurance for the Schengen country you are visiting.
-                For detailed guidelines on this,click on the
-                <span style=""font-weight: 700; font-size: 1em;"">
-                    Instructions
-                </span>
-                in the top-right corner of this section.
-        </div>
-    </div>
-</body>
-</html>",,,,False,,,,,
+",Travel Insurance,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",operation.save:Save and Continue;verify.verify_handler:VERIFIER_TRAVEL_INSURANCE;verify.action_text:Verify
 card_builder,insurance_options_card,,,card,,False,,Insurance,,,False,,,,,
 fac_insurance_option,insurance_options,,,radiobutton,HAVE_INSURANCE,False,Select Option,Please let us know how your Travel Insurance is arranged:,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -1739,19 +1884,13 @@ To know the cost, please refer to the <strong>&nbsp;Add-On Cart Section</strong>
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,additional_details_section,,,section_break,,False,,Additional Travel Details,,,False,,,,,
-info_pane_builder,additional_details,,,info_pane,,False,,Additional Travel Details,,,False,,,,,operation.save:Save and Continue
-fac_option,reside_in_other_country,,,radiobutton,NO,False,Select Option,"Did you reside in other countries/places, other than your country/place of origin, for one year or more during last 5 years?",,,False,,,,,
-group_builder,residence_in_other_country_group,,,groupbox,,False,,Residence in another Country ,,,False,,,not $.additional_details.reside_in_other_country = 'YES',,button_label:Add Another Country;limits.min:1;limits.max:4
-info_pane_builder,othercountryresidence,,,groupbox,,False,,Other Country Redidence,,,False,,,,,
-card_builder,country_residence,,,card,,False,,Residence in Another Country,,,False,,,,,
-table,other_country_residence_table,,,table,,False,,,,,False,,,,,table.column:2
-fac_country_3,country,,,dropdown,,False,Select Option,Country/Place,,,False,,,,,
-fac_str,address,,,textbox.row-4,,False,Enter Address,Address,,,False,,,,,
-fac_date,stay_period_from,,,datebox,,False,DD/MM/YYYY,Period of Stay - From,,,False,,,,,
-fac_date,stay_period_to,,,datebox,,False,DD/MM/YYYY,Period of Stay - To,,,False,,,,,
+info_pane_builder,additional_details,,,info_pane,,False,,Additional Travel Details,,,False,,,,"CONTAINS(USER.persona,[CLI, CORP_CLI, MKR, ADMIN])",operation.save:Save and Continue
+card_builder,national_id,,,card,,False,,National Identification Number,,,False,,,,,
+table,national_id_table,,,table,,False,,,,,False,,,,,table.column:2
+fac_file,aadhaar_upload_front,,,fileoption,,False,Upload a Image/PDF,Front Image Of Aadhaar Card,API.TRUSTED_AADHAAR_OCR,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
+fac_file,aadhaar_upload_back,,,fileoption,,False,Upload a Image/PDF,Back Image Of Aadhaar Card,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
+fac_aadhaar,aadhaar_number,,,textbox,@.national_id.aadhaar_upload_front.TRUSTED_AADHAAR_OCR.aadhaar_number,True,Enter 12-digit Aadhaar Number,Aadhaar Card Number,,,False,,,,,
 break,,,,,,FALSE,Break Field,Break Field,,,,,1,,,
-ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 fac_option,travelling_to_other_country,,,radiobutton,NO,False,Select Option,Are you traveling to any other country during this trip?,,,False,,,,,
 card_builder,travel_info,,,card,,False,,Travelling to Multiple Countries during this trip,,,False,,,not travelling_to_other_country='YES',,
@@ -1761,11 +1900,11 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,declaration_section,,,section_break,,False,,Declaration,,,False,,,,,
 info_pane_builder,declaration,,,info_pane,,False,,Declaration,,,False,,,,,operation.save:Save and Continue
 card_builder,applicant_antecedent,,,card,,False,,Antecedent of Applicant,,,False,,,,,
-fac_option,denied_entry,,,radiobutton,NO,False,Select Option,"Have you ever been refused entry into or deported from any country/place, including Singapore?",,,False,,,,,
-fac_option,convincted,,,radiobutton,NO,False,Select Option,Have you been convicted in a court of law in any country/place including Singapore?,,,False,,,,,
-fac_option,prohibited_entry,,,radiobutton,NO,False,Select Option,Have you ever been probhibited from entering Singapore?,,,False,,,,,
-fac_option,different_passport,,,radiobutton,NO,False,Select Option,Have you ever entered Singapore using a different passport or name?,,,False,,,,,
-fac_str,furnish_details,,,textbox.row-4,,False,Enter Details,"If any of the answer is Yes, Furnish Details",,,False,,,,,
+fac_option,denied_entry,,,radiobutton,NO,False,Select Option,Have you visited Mexico before?,,,False,,,,,
+fac_option,convincted,,,radiobutton,NO,False,Select Option,Have you ever been ordered to leave Mexico?,,,False,,,,,
+fac_str,furnish_details,,,textbox.row-4,,False,Enter Details,"If you selected YES, please provide an Explanation",,,False,,,,,
+fac_option,prohibited_entry,,,radiobutton,NO,False,Select Option,Have you ever been convicted of a criminal offence in Mexico/ other country?,,,False,,,,,
+fac_str,furnish_details_1,,,textbox.row-4,,False,Enter Details,"If you selected YES, please provide an Explanation",,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,additional_documents_section,,,section_break,,False,,Additional Documents,,,False,,,,,
@@ -2220,6 +2359,224 @@ display_field,display_bank_statements_instructions,,,display_field,,False,"<!-- 
 fac_file,bank_statements,,,fileoption,,False,Upload a file,Bank Statements (Optional),,,False,,,,not @.skip_bank_statements = 'YES',"file_type:.pdf,.jpg,.jpeg,.png,.zip;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+section_break,itr_section,,,section_break,,False,,ITR Acknowledgements,,,False,,,,,
+info_pane_builder,itr_acknowledgement,,,info_pane,,False,"<!DOCTYPE html>
+<html lang=""en"">
+  <head>
+    <meta charset=""UTF-8"" />
+    <title>Schengen Visa Application Guidelines</title>
+    <style>
+      .container {
+        background-color: #fefefe;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-family: ""Inter"", sans-serif;
+        color: #111;
+      }
+      .container.schengen {
+        /* width: 540px; */
+        max-width: 100%;
+      }
+      .container p,
+      .container ul,
+      .container li {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 34px;
+        letter-spacing: 0;
+        color: #333;
+        margin: 0;
+      }
+      .container p {
+        margin-bottom: 16px;
+      }
+      .container ul {
+        padding-left: 20px;
+        margin-bottom: 16px;
+      }
+      .container li {
+        margin-bottom: 8px;
+      }
+      .container .heading {
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 34px;
+        letter-spacing: 0;
+        margin-bottom: 8px;
+      }
+      .container .subheading {
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 34px;
+        letter-spacing: 0;
+        margin-bottom: 16px;
+      }
+      .container .note {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 34px;
+        letter-spacing: 0;
+        color: #555;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class=""container schengen"">
+      <!-- <div class=""heading"" style=""font-size: 30px; font-weight: 600; margin-bottom: 8px;"">Schengen Visa Application Guidelines</div> -->
+
+      <p style=""font-size: 22px; font-weight: 700; margin-bottom: 16px"">
+        <!-- Follow these steps carefully to ensure smooth processing of your Schengen visa application: -->
+        Need help with this part? Here’s what you need to know about each field
+        in this section.
+      </p>
+
+      <p style=""margin-bottom: 16px"">
+        Please upload your Income Tax Returns (ITR) for the last 3 years.
+      </p>
+      <ul>
+        <li>No ITR filed: Upload Form 16 for the last 3 years.</li>
+        <li>
+          Recently employed / within one year / not taxable: Select “I have not
+          filed my Income Tax Returns” and proceed.
+        </li>
+      </ul>
+
+      <!-- <p class=""subheading""><strong>Important:</strong></p>
+    <ul>
+      <li>All documents must be printed on A4 size sheets only.</li>
+      <li>All applicants must book an appointment online to submit their visa application and biometric data at the Schengen visa application centre.</li>
+      <li>Required documents must be submitted with the visa application (no fax or email to Embassy accepted).</li>
+      <li>Only documents listed in the checklist will be accepted.</li>
+      <li>If your visa has been refused previously, you must submit the refusal notice or a written explanation of the reason for travel and refusal.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Brief Procedure:</strong></p>
+    <ul>
+      <li>TTK will review your documents and suggest necessary changes before submission.</li>
+      <li>TTK will book an appointment as per jurisdiction at the Visa Application Centre (VAC), subject to slot availability. Inform TTK of your tentative dates at the earliest.</li>
+      <li>Applicants must visit the VAC in person to provide biometric fingerprint data with a signed application form, appointment letter, and checklist documents.</li>
+      <li>Alternatively, TTK can submit the application if the applicant qualifies for biometric waiver due to previous Schengen visa issuance.</li>
+      <li>Courier service is available by filling out the 'Courier Request Form'. The passport will be sent to the address mentioned in the form.</li>
+    </ul>
+
+    <p class=""subheading""><strong>Processing Time:</strong></p>
+    <ul>
+      <li>Standard processing time: 10 to 15 business days from the date of application at the VFS Application Centre.</li>
+      <li>Processing duration may vary. Final decision is at the discretion of the Embassy/Consulate.</li>
+      <li>Consular officers may request additional documents or a personal interview if required.</li>
+    </ul> -->
+
+      <p class=""note"">
+        <!-- <strong>Disclaimer:</strong> TTK Services Private Limited (""TTK"") will facilitate services in compliance with the respective foreign mission's requirements. TTK is not involved in the adjudication of visa applications or decisions related to approval/refusal. TTK shall not be held responsible for delays, restricted visa entries, or further documentation/interview requests made by the consular authority. -->
+        <!-- (To be provided by TTK) -->
+      </p>
+    </div>
+  </body>
+</html>
+",ITR Acknowledgement,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",operation.save:Save and Continue;verify.verify_handler:VERIFIER_ITR_ACKNOWLEDGEMENT_IP;verify.action_text:verify
+display_field,display_itr_acknowledgements_header,,,display_field,,False,"<!-- <p style=""font-size: 14px; font-weight: 500; color: #000; margin: 0; line-height: 1.3; text-align: left;"">
+The visa application requires you to carry the original ITR Documents covering the last 12 months. 
+For detailed guidelines on this, click on
+<span style=""font-weight: 700; font-size: 1em;"">
+    Instructions
+</span>
+in the top-right corner of this section.
+</p> -->
+<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"">
+  <title>Centered Paragraph</title>
+  <style>
+    .center-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .message-box {
+      /* width: 1060px; */
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 32px;
+      color: #000000;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+    <div class=""center-wrapper"">
+        <div class=""message-box"">
+                The visa application requires you to carry the original ITR Documents covering the last 12 months.
+                For detailed guidelines on this, click on the
+                <span style=""font-weight: 700; font-size: 1em;"">
+                    Instructions
+                </span>
+                in the top-right corner of this section.
+        </div>
+    </div>
+</body>
+</html>",,,,False,,,,,
+fac_itr_option_1,itr_options,,,checkbox,,False,Select Option,,,,False,,,,not EXISTS(@.upload.itr_acknowledgement),
+card_builder,upload,,,card,,False,,ITR Acknowledgements (Optional),,,False,,,,not (@.itr_options = 'SKIP' or @.itr_options = 'NO_ITR'),
+display_field,display_itr_acknowledgement_instructions,,,display_field,,False,"<div style=""
+display: flex;
+justify-content: center;
+align-items: center;"">
+
+<div style=""
+  text-align: center;
+  /* width: 1060px; */
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 32px;
+  color: #000000;
+  text-align: center;
+"">
+If you’d like us to <strong> review </strong> your ITR Acknowledgement Document to make sure it meets the guidelines, please upload it here.
+</div>
+</div>",,,,False,,,,,
+fac_file,itr_acknowledgement,,,fileoption,,False,Upload a file,ITR Acknowledgements (Optional),,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png,.zip;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+display_field,display_not_filled_itr,,,display_field,,False,"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset=""UTF-8"">
+  <title>Centered Paragraph</title>
+  <style>
+    .center-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .message-box {
+      /* width: 1060px; */
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 32px;
+      color: #000000;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class=""center-wrapper"">
+    <div class=""message-box"">
+        If you haven’t filed your Income Tax Returns, you’ll need to submit a letter explaining the reason.<br>
+        Don’t have it ready? No worries, we’ll help you prepare it.
+    </div>
+  </div>
+</body>
+</html>
+",,,,False,,,not @.itr_options = 'NO_ITR',,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 tab_break,employer_docs_tab,,,tab_break,,False,,Employer Documents,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,
 section_break,cover_letter_section,,,section_break,,False,,Covering Letter,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,
 info_pane_builder,cover_letter_info,,,info_pane,,False,,Covering Letter,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',"CONTAINS(USER.persona,[CLI, CORP_CLI, SPOC, MKR, ADMIN])",operation.save:Save and Continue
@@ -2352,17 +2709,21 @@ display_field,display_field_3,,,display_field,,False,Please upload the Invitatio
 fac_file,invite_upload,,,fileoption,,False,Upload a file,Invitation Upload,,,False,,,,,file_type:.pdf;download:None
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-section_break,v39_form_section,,,section_break,,False,,V39 Form,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,
-info_pane_builder,v39_form,,,info_pane,,False,,V39 Form,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,operation.save:Save and Continue
-fac_file,v_form_upload,,,fileoption,,False,Upload an image/file,V39 Form,,,False,,,,,download:None
+section_break,employer_additional_docs_section,,,section_break,,False,,Additional Documents,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,
+info_pane_builder,employer_additional_docs,,,info_pane,,False,,Additional Documents,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,operation.save:Save and Continue
+group_builder,additional_documents,,,groupbox,,False,,Additional Document,,,False,,,,,button_label:Add Another Document;limits.min:1;limits.max:3
+info_pane_builder,additionaldocumentgroup,,,groupbox,,False,,Additional Document,,,False,,,,,
+card_builder,additional_documents_card,,,card,,False,,Additional Document,,,False,,,,,
+fac_str,document_name,,,textbox,,False,Enter Name of the document,Name of the document,,,False,,,,,
+fac_str,document_description,,,textbox,,False,Enter Document Description,Document Description,,,False,,,,,
+fac_file,file_upload,,,fileoption,,False,Upload a Image/PDF,File Upload,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:None"
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-section_break,acra_section,,,section_break,,False,,ACRA Form,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,
-info_pane_builder,acra_form,,,info_pane,,False,,ACRA Form,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,operation.save:Save and Continue
-fac_file,acra_form_upload,,,fileoption,,False,Upload an image/file,ACRA Form,,,False,,,,,download:None
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 tab_break,additional_documents_tab,,,tab_break,,False,,Additional Information,,,False,,,,,
-section_break,comments_section,,,section_break,,False,,Comments,PROGRESS.IGNORE,,False,,,,,
-info_pane_builder,comments_pane,,,info_pane,,False,,Comments,SAVE_EVEN_IF_HIDDEN,,False,,,,,operation.save:Save Comments
+section_break,comments_section,,,section_break,,False,,Comments,PROGRESS.IGNORE,,False,,,"CONTAINS(USER.persona,[CLI, SPOC, CORP_CLI])",,
+info_pane_builder,comments_pane,,,info_pane,,False,,Comments,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI, SPOC, CORP_CLI])",,operation.save:Save Comments
 card_builder,c_card,,,card,,False,,Comments,,,False,,,not EXISTS(@.c_card.c_row[0]),,operation.save:Save and Continue
 table,c_table,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:1
 group_builder,c_row,,,table_row,,False,,Comments Row,,,False,,,,,
@@ -2376,8 +2737,8 @@ fac_str,user,,,data_display,,False,Enter User,User,,,False,,,,,
 fac_str,comment_input,,,textbox.row-4,,False,Enter Comment Input,Comment Input,,,False,,,,,
 fac_str,add_comment_button,,,cta_button,Add Comment,False,Add Comment,Add Comment,,,False,,,,,verify.verify_handler:VERIFIER_ADD_COMMENT;verify.action_text:Add Comment;align:center
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-section_break,consultant_section,,,section_break,,False,No Instructions Present,TTK Consultant,PROGRESS.IGNORE,,False,,,"CONTAINS(USER.persona,[CLI, SPOC, CORP_CLI])",,
-info_pane_builder,consultant_info,,,info_pane,,False,,TTK Consultant,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI, SPOC, CORP_CLI])",,operation.save:Save and Continue
+section_break,consultant_section,,,section_break,,False,No Instructions Present,TTK Consultant,PROGRESS.IGNORE,,False,,,"CONTAINS(USER.persona,[CLI])",,
+info_pane_builder,consultant_info,,,info_pane,,False,,TTK Consultant,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI])",,operation.save:Save and Continue
 card_builder,instruction_letter,,,card,,False,,Instruction Sheet,,,False,,,,,
 display_field,display_card_3,,,display_field,,False,"<div style=""
 display: flex;
@@ -2451,8 +2812,8 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-section_break,submit_section,,,section_break,,False,No Instructions Present,Submit Application,PROGRESS.IGNORE,,False,,,"CONTAINS(USER.persona,[CLI, SPOC, CORP_CLI])",,
-info_pane_builder,submit_info,,,info_pane,,False,,Submit Application,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI, SPOC, CORP_CLI])",,operation.save:Submit Application;verify.verify_handler:VERIFIER_SUBMISSION_CONFIRMATION;verify.action_text:Verify Confirmation
+section_break,submit_section,,,section_break,,False,No Instructions Present,Submit Application,PROGRESS.IGNORE,,False,,,"CONTAINS(USER.persona,[CLI])",,
+info_pane_builder,submit_info,,,info_pane,,False,,Submit Application,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI])",,operation.save:Submit Application;verify.verify_handler:VERIFIER_SUBMISSION_CONFIRMATION;verify.action_text:Verify Confirmation
 card_builder,docket,,,card,,False,,Docket,,,False,,,,,
 display_field,note,,,display_field,,False,"<div style=""
 display: flex;
@@ -2496,6 +2857,10 @@ Please confirm the following before submitting the application to the Checker.
 </div> ",,,,False,,,not @.docket.docket_status = 'ENABLE_DOWNLOAD',,
 card_builder,confirm,,,card,,False,,Confirm,,,False,,,not @.docket.docket_status = 'ENABLE_DOWNLOAD',,row_spacing:compact
 fac_confirm_viewed_data,viewed_data,,,checkbox,,False,Select Option,,,,False,,,,,
+fac_confirm_apt_booked,appointment_booked,,,checkbox,,False,Select Option,,,,False,,,,,
+fac_confirm_addons,addons_addressed,,,checkbox,,False,Select Option,,,,False,,,,,
+fac_confirm_docs_uploaded,docs_uploaded,,,checkbox,,False,Select Option,,,,False,,,,,
+fac_confirm_uneditable,understand_lock,,,checkbox,,False,Select Option,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,docket_section,,,section_break,,False,No Instructions Present,Docket,PROGRESS.IGNORE,,False,,,,,

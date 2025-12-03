@@ -1646,7 +1646,7 @@ align-items: center;"">
   color: #000000;
   text-align: center;
 "">
-        Please provide the details of the dummy/confirmed Accommodation.
+        Please upload the Document to autofill the details below.
     </div>
   </div>
        
@@ -1847,6 +1847,26 @@ align-items: center;"">
   </div>
 ",,,,False,,,,,
 fac_file,flight_tickets,,,fileoption,,False,Upload a PDF,Flight Tickets,API.TRUSTED_FLIGHT_TICKET_OCR,,False,,,,,"file_type:.pdf;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
+display_field,display_autofill,,,display_field,,False,"
+<div style=""
+display: flex;
+justify-content: center;
+align-items: center;"">
+
+<div style=""
+  text-align: center;
+  /* width: 1060px; */
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 32px;
+  color: #000000;
+  text-align: center;
+"">
+        Please upload the Document to autofill the details below.
+    </div>
+  </div>
+",,,,False,,,,,
 table,flight_tickets_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,name_of_traveller,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.primary_traveller_name,False,Enter Name of the Traveller,Name of the Traveller,,,False,,,,,
 fac_str,airline,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.airline,False,Enter Name of Airline,Name of Airline,,,False,,,,,
@@ -2084,6 +2104,26 @@ please upload it here. Make sure it includes all Schengen countries you're visit
 </div>
 </div>",,,,False,,,,,
 fac_file,flight_reservation_tickets,,,fileoption,,False,Upload a PDF,Insurance Document,API.TRUSTED_TRAVEL_INSURANCE_OCR,,False,,,,,"file_type:.pdf;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
+display_field,display_autofill,,,display_field,,False,"
+<div style=""
+display: flex;
+justify-content: center;
+align-items: center;"">
+
+<div style=""
+  text-align: center;
+  /* width: 1060px; */
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 32px;
+  color: #000000;
+  text-align: center;
+"">
+        Please upload the Document to autofill the details below.
+    </div>
+  </div>
+",,,,False,,,,,
 table,insurance_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,name_of_traveller,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.name_of_traveller,False,Enter Name of the Traveller,Name of the Traveller,,,False,,,,,
 fac_str,passport_num,,,textbox,@.flight_reservation_details.flight_reservation_tickets.TRUSTED_TRAVEL_INSURANCE_OCR.passport_num,False,Enter Passport Number,Passport Number,,,False,,,,,
@@ -2185,6 +2225,26 @@ This helps authorities assess your travel history and support your current appli
 fac_option,have_past_visa,,,radiobutton,NO,True,Select Option,Have you been issued a Schengen visa during the past?,,,False,,,,,
 card_builder,previous_visas_details,,,card,,False,,Previous Visa Details,,,False,,,not have_past_visa = 'YES',,
 fac_file,previous_visa_copy,,,fileoption,,False,Upload a Image,Previous Visa Copy,API.TRUSTED_VISA_OCR,,False,,,,,"file_type:.jpg,.jpeg,.png;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
+display_field,display_autofill,,,display_field,,False,"
+<div style=""
+display: flex;
+justify-content: center;
+align-items: center;"">
+
+<div style=""
+  text-align: center;
+  /* width: 1060px; */
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 32px;
+  color: #000000;
+  text-align: center;
+"">
+        Please upload the Document to autofill the details below.
+    </div>
+  </div>
+",,,,False,,,,,
 table,past_visa_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,passport_num,,,textbox,@.previous_visas_details.previous_visa_copy.TRUSTED_VISA_OCR.passport_number,True,Enter Passport Number,Passport Number,,,False,,,,,
 fac_str,visa_number,,,textbox,@.previous_visas_details.previous_visa_copy.TRUSTED_VISA_OCR.visa_number,False,Enter Visa Number,Visa Number,,,False,,,,,
@@ -3352,6 +3412,28 @@ Upload the Instruction Sheet prepared for the Traveller.
 
 </div> ",,,,False,,,,,
 fac_file,upload_instruction,,,fileoption,,False,Upload a Image/PDF,Instruction Sheet,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:None"
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,application_form_embassy,,,card,,False,,Application Form from Embassy,,,False,,,not ($.visa_request_information.visa_request.to_country = 'BEL' or $.visa_request_information.visa_request.to_country = 'HRV' or $.visa_request_information.visa_request.to_country = 'DNK' or $.visa_request_information.visa_request.to_country = 'EST' or $.visa_request_information.visa_request.to_country = 'FIN' or $.visa_request_information.visa_request.to_country = 'FRA' or $.visa_request_information.visa_request.to_country = 'DEU' or $.visa_request_information.visa_request.to_country = 'GRC' or $.visa_request_information.visa_request.to_country = 'HUN' or $.visa_request_information.visa_request.to_country = 'ISL' or $.visa_request_information.visa_request.to_country = 'LVA' or $.visa_request_information.visa_request.to_country = 'LTU' or $.visa_request_information.visa_request.to_country = 'NLD' or $.visa_request_information.visa_request.to_country = 'NOR' or $.visa_request_information.visa_request.to_country = 'SVK' or $.visa_request_information.visa_request.to_country = 'ESP' or $.visa_request_information.visa_request.to_country = 'ROU'),,
+display_field,instruction,,,display_field,,False,"<div style=""
+display: flex;
+justify-content: center;
+align-items: center;"">
+
+<div style=""
+  text-align: center;
+  /* width: 1060px; */
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 32px;
+  color: #000000;
+  text-align: center;
+"">
+Upload the Application Form saved from the Embassy Portal.
+</div>
+
+</div> ",,,,False,,,,,
+fac_file,application_form,,,fileoption,,False,Upload a PDF,Application Form,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:None"
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 group_builder,additional_documents,,,groupbox,,False,,Additional Document,,,False,,,,,button_label:Add Another Document;limits.min:1;limits.max:3
 info_pane_builder,additionaldocumentgroup,,,groupbox,,False,,Additional Document,,,False,,,,,
