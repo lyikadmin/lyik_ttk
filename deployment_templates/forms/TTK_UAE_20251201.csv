@@ -858,7 +858,7 @@ info_pane_builder,residential_address,,,info_pane,,False,"<!DOCTYPE html>
   </div>
 </body>
 </html>
-",Address Proof,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",verify.verify_handler:VERIFIER_ADDRESS;verify.action_text:Verify Address Details;operation.save:Save and Continue;verify.verify_handler:VERIFIER_ADDRESS;verify.action_text:Verify Address Details
+",Address Proof,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",operation.save:Save and Continue
 fac_option,other_nationality,,,radiobutton,NO,True,Select Option,Are you residing in a country other than the country of current nationality?,,,False,,,,,
 card_builder,resident_in_other_country,,,card,,False,,Residence in another Country,,,False,,,"not other_nationality = ""YES""",,
 table,resident_in_other_country_table,,,table,,False,,,,,False,,,,,table.column:2
@@ -986,7 +986,7 @@ info_pane_builder,work_address,,,info_pane,,False,"<!DOCTYPE html>
     </div>
   </body>
 </html>
-",Work/Education,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",verify.verify_handler:VERIFIER_WORK_EDUCATION;verify.action_text:Verify;operation.save:Save and Continue;verify.verify_handler:VERIFIER_WORK_EDUCATION;verify.action_text:Verify
+",Work/Education,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",operation.save:Save and Continue
 card_builder,work_details,,,card,,False,,Work Details,,,False,,,,,
 fac_str,occupation,,,textbox,,True,Enter Current Occupation,Current Occupation,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
@@ -1119,7 +1119,7 @@ info_pane_builder,accomodation,,,info_pane,,False,"<!DOCTYPE html>
     </div>
   </body>
 </html>
-",Accommodation,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",verify.verify_handler:VERIFIER_ACCOMMODATION;verify.action_text:Verify Accommodation Details;operation.save:Save and Continue;verify.verify_handler:VERIFIER_ACCOMMODATION;verify.action_text:Verify Accommodation Details
+",Accommodation,,,False,,,,"CONTAINS(USER.persona, [CLI,CORP_CLI,MKR])",operation.save:Save and Continue
 fac_str,lock_accommodation,,,hidden,,False,,,,,False,,,,,
 card_builder,accommodation_choice,,,card,,False,,Accommodation,,,False,,,,not lock_accommodation='Lock',
 fac_accommodation_arrangement,accommodation_option,,,radiobutton,BOOKED,False,Select Option,Please let us know how your stay is arranged:,,,False,,,,,
@@ -1141,7 +1141,7 @@ align-items: center;"">
   color: #000000;
   text-align: center;
 "">
-        Please provide the details of the dummy/confirmed Accommodation.
+        Please upload the Document to autofill the details below.
     </div>
   </div>
        
@@ -1281,6 +1281,26 @@ fac_tickets,ticket_options,,,radiobutton,BOOKED,False,Select Option,Please let u
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,flight_tickets,,,card,,False,,Flight Tickets,,,False,,,,not lock_ticket='Lock',
 fac_file,flight_tickets,,,fileoption,,False,Upload a PDF,Flight Tickets,API.TRUSTED_FLIGHT_TICKET_OCR,,False,,,,,"file_type:.pdf;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
+display_field,display_autofill,,,display_field,,False,"
+<div style=""
+display: flex;
+justify-content: center;
+align-items: center;"">
+
+<div style=""
+  text-align: center;
+  /* width: 1060px; */
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 32px;
+  color: #000000;
+  text-align: center;
+"">
+        Please upload the Document to autofill the details below.
+    </div>
+  </div>
+",,,,False,,,,,
 table,flight_tickets_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,name_of_traveller,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.primary_traveller_name,False,Enter Name of the Traveller,Name of the Traveller,,,False,,,,,
 fac_str,airline,,,textbox,@.flight_tickets.flight_tickets.TRUSTED_FLIGHT_TICKET_OCR.airline,False,Enter Name of Airline,Name of Airline,,,False,,,,,
@@ -1375,8 +1395,8 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 tab_break,additional_documents_tab,,,tab_break,,False,,Additional Information,,,False,,,,,
-section_break,comments_section,,,section_break,,False,,Comments,PROGRESS.IGNORE,,False,,,,,
-info_pane_builder,comments_pane,,,info_pane,,False,,Comments,SAVE_EVEN_IF_HIDDEN,,False,,,,,operation.save:Save Comments
+section_break,comments_section,,,section_break,,False,,Comments,PROGRESS.IGNORE,,False,,,"CONTAINS(USER.persona,[CLI, SPOC, CORP_CLI])",,
+info_pane_builder,comments_pane,,,info_pane,,False,,Comments,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI, SPOC, CORP_CLI])",,operation.save:Save Comments
 card_builder,c_card,,,card,,False,,Comments,,,False,,,not EXISTS(@.c_card.c_row[0]),,operation.save:Save and Continue
 table,c_table,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:1
 group_builder,c_row,,,table_row,,False,,Comments Row,,,False,,,,,
@@ -1413,6 +1433,28 @@ Upload the Instruction Sheet prepared for the Traveller.
 
 </div> ",,,,False,,,,,
 fac_file,upload_instruction,,,fileoption,,False,Upload a Image/PDF,Instruction Sheet,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:None"
+ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
+card_builder,application_form_embassy,,,card,,False,,Application Form from Embassy,,,False,,,not ($.visa_request_information.visa_request.to_country = 'BEL' or $.visa_request_information.visa_request.to_country = 'HRV' or $.visa_request_information.visa_request.to_country = 'DNK' or $.visa_request_information.visa_request.to_country = 'EST' or $.visa_request_information.visa_request.to_country = 'FIN' or $.visa_request_information.visa_request.to_country = 'FRA' or $.visa_request_information.visa_request.to_country = 'DEU' or $.visa_request_information.visa_request.to_country = 'GRC' or $.visa_request_information.visa_request.to_country = 'HUN' or $.visa_request_information.visa_request.to_country = 'ISL' or $.visa_request_information.visa_request.to_country = 'LVA' or $.visa_request_information.visa_request.to_country = 'LTU' or $.visa_request_information.visa_request.to_country = 'NLD' or $.visa_request_information.visa_request.to_country = 'NOR' or $.visa_request_information.visa_request.to_country = 'SVK' or $.visa_request_information.visa_request.to_country = 'ESP' or $.visa_request_information.visa_request.to_country = 'ROU'),,
+display_field,instruction,,,display_field,,False,"<div style=""
+display: flex;
+justify-content: center;
+align-items: center;"">
+
+<div style=""
+  text-align: center;
+  /* width: 1060px; */
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 32px;
+  color: #000000;
+  text-align: center;
+"">
+Upload the Application Form saved from the Embassy Portal.
+</div>
+
+</div> ",,,,False,,,,,
+fac_file,application_form,,,fileoption,,False,Upload a PDF,Application Form,,,False,,,,,"file_type:.pdf,.jpg,.jpeg,.png;download:None"
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 group_builder,additional_documents,,,groupbox,,False,,Additional Document,,,False,,,,,button_label:Add Another Document;limits.min:1;limits.max:3
 info_pane_builder,additionaldocumentgroup,,,groupbox,,False,,Additional Document,,,False,,,,,

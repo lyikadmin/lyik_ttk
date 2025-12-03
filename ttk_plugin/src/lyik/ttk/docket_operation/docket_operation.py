@@ -27,10 +27,6 @@ from pypdf import PdfWriter, PdfReader
 import mimetypes
 import mimetypes
 
-# from lyik.ttk.models.forms.schengentouristvisa import (
-#     Schengentouristvisa,
-#     VISATYPE,
-# )
 from lyik.ttk.models.generated.universal_model_with_submission_requires_docket_status import (
     UniversalModelWithSubmissionRequiresDocketStatus,
 )
@@ -53,6 +49,10 @@ from lyik.ttk.utils.operation_html_message import get_docket_operation_html_mess
 from lyik.ttk.utils.message import get_error_message
 from lyik.ttk.docket_operation.docket_utilities.map_form_rec_to_schengen_pdf import (
     DocketUtilities,
+)
+
+from lyik.ttk.docket_operation.docket_utilities.singapore_pdf_mapping import (
+    map_singapore_to_pdf,
 )
 from lyik.ttk.models.pdf.schengen_pdf_model import SchengenPDFModel
 from typing import Annotated, Dict, List, Any
@@ -487,8 +487,10 @@ class DocketOperation(OperationPluginSpec):
             if type_of_dir:
                 if type_of_dir == "pdf":
 
-                    # TODO
-                    mapped_data: Dict = {}
+                    # TODO : WIP
+                    mapped_data: Dict = map_singapore_to_pdf(
+                        form_data=form_record.model_dump()
+                    )
 
                     transformed_data: TransformerResponseModel = (
                         await invoke.template_generate_pdf(
@@ -497,7 +499,7 @@ class DocketOperation(OperationPluginSpec):
                             form_id=context.form_id,
                             additional_args={"record_id": record_id},
                             template_id=to_country,
-                            form_name="country_application_templates",
+                            form_name="countryapplicationtemplates",
                             record=mapped_data,
                             keep_pdf_editable=False,
                         )
@@ -507,11 +509,11 @@ class DocketOperation(OperationPluginSpec):
                         await invoke.template_generate_docx(
                             org_id=context.org_id,
                             config=context.config,
-                            record=context.record,
+                            record=form_record,
                             form_id=context.form_id,
                             additional_args={},
                             fetch_from_db_or_path=False,
-                            form_name="country_application_templates",
+                            form_name="countryapplicationtemplates",
                             template=DocxTemplateModel(template=to_country),
                         )
                     )
@@ -554,7 +556,7 @@ class DocketOperation(OperationPluginSpec):
             path = os.path.join(
                 base_dir,
                 "templates",
-                "country_application_templates",
+                "countryapplicationtemplates",
                 folder,
                 country_code,
             )

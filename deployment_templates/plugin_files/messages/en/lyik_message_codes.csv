@@ -83,6 +83,7 @@ LYIK_ERR_DOCKET_GEN_FAILURE,Failed to generate the Docket. Please try again or c
 LYIK_ERR_UNEXPECTED_ERROR_DOCKET,Unexpected error occurred while generating docket. Please contact the TTK Visas for assistance.,Unexpected error occurred while generating docket. Please contact the TTK Visas for assistance.,Docket Operation TTK
 LYIK_ERR_MISSING_EMBASSY_FORM_DOCKET,Please upload the Application Form from Embassy before proceeding with Docket generation.,Kindly upload the Application Form from Embassy before proceeding with Docket generation.,Docket Operation TTK
 LYIK_ERR_DID_NOT_FULLY_CONFIRM_SUBMISSION,Please confirm all items to submit.,Please confirm all items to submit.,Submit Application TTK
+LYIK_ERR_EARLY_ARRIVAL_DEPARTURE_DATES,"Please ensure that the Departure date is on or after the earliest available date: ""%1""",The Departure Date is too early,Visa Request TTK - When the selected departure date is before the earliest available date which is the current date + business days
 LYIK_ERR_ARRIVAL_BEFORE_DEPARTURE_DATE,Please ensure the return date is after the departure date.,Date of Return cannot be before Date of Departure.,Visa Request TTK
 LYIK_ERR_UNDER_REVIEW_SUBMISSION,The application cannot be submitted while it is under review.,Cannot submit application if it's under review.,Visa Request TTK
 LYIK_ERR_EMPTY_ARRIVAL_DEPARTURE_DATES,Please enter the Dates of Departure and Return.,Please enter the Dates of Departure and Return.,Visa Request TTK
