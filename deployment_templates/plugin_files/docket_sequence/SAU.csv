@@ -24,5 +24,6 @@
 24,Inviter_Accommodation,accomodation.invitation_details.accommodation_proof,,No,
 25,Aadhaar_front,additional_details.national_id.aadhaar_upload_front,,No,
 26,Aadhaar_back,additional_details.national_id.aadhaar_upload_back,,No,
-27,Additional_Doc,consultant_info.additional_documents,,yes,Additional_Doc{index:02d}
-28,Additional_Doc,additional_documents_pane.additional_documents_traveller_group,,yes,Additional_Doc{index:02d}
+27,Additional_Doc,consultant_info.additional_documents_card.file_upload,,yes,Additional_Doc{index:02d}
+28,Additional_Doc,{{additional_documents_temp.additional_documents_card_temp.file_upload_temp}},,yes,Additional_Doc{index:02d}
+29,Additional_Doc,employer_additional_docs.additional_documents_card.file_upload,Business,yes,Additional_Doc{index:02d}
