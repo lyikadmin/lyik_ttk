@@ -237,7 +237,7 @@ class DocketOperation(OperationPluginSpec):
 
                         if (
                             shared.accommodation_same != None
-                            and shared.accommodation_same.value
+                            and shared.accommodation_same
                             == SAMEACCOMMODATIONASPRIMARY.ACCOMMODATION.value
                         ):
                             primary_traveller_accommodation = (
@@ -256,7 +256,7 @@ class DocketOperation(OperationPluginSpec):
 
                         if (
                             shared.flight_ticket_same != None
-                            and shared.flight_ticket_same.value
+                            and shared.flight_ticket_same
                             == SAMEFLIGHTTICKETASPRIMARY.FLIGHT_TICKET.value
                         ):
                             primary_traveller_flight_ticket = (

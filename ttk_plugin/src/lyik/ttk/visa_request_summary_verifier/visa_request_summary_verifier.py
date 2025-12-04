@@ -10,7 +10,7 @@ from lyikpluginmanager import (
 from lyikpluginmanager.annotation import RequiredVars
 from typing import Annotated
 from typing_extensions import Doc
-from lyik.ttk.models.forms.schengentouristvisa import RootVisaRequestInformation
+from lyik.ttk.models.generated.universal_model import RootVisaRequestInformation
 import logging
 from datetime import date, timedelta
 from lyik.ttk.utils.verifier_util import (

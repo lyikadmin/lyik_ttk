@@ -1,0 +1,17 @@
+relevant_infopanes,business_panes,has_submission_docket_status_requirement,submit_requirement
+visa_request_information,,true,confirm.viewed_data
+passport,,,confirm.addons_addressed
+photograph,,,confirm.docs_uploaded
+residential_address,,,confirm.understand_lock
+work_address,,,
+accomodation,,,
+ticketing,,,
+travel_insurance,,,
+previous_visas,,,
+additional_details,,,
+declaration,,,
+additional_documents_pane,,,
+salary_slip,,,
+itr_acknowledgement,,,
+cover_letter_info,,,
+invitation,,,
