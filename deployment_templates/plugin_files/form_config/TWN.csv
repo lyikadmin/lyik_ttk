@@ -1,9 +1,9 @@
 relevant_infopanes,business_panes,has_submission_docket_status_requirement,submit_requirement
 visa_request_information,company_bank_statement,true,confirm.viewed_data
-passport,company_itr,,confirm.appointment_booked
-photograph,company_docs,,confirm.addons_addressed
-residential_address,,,confirm.docs_uploaded
-accomodation,,,confirm.understand_lock
+passport,company_itr,,confirm.addons_addressed
+photograph,company_docs,,confirm.docs_uploaded
+residential_address,,,confirm.understand_lock
+accomodation,,,
 ticketing,,,
 travel_insurance,,,
 additional_details,,,
