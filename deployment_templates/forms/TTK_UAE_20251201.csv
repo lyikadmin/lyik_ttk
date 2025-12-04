@@ -479,7 +479,7 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,other_details,,,card,,False,,Other Details,,,False,,,,,
 table,other_details_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_civil_marital_status,civil_status,,,dropdown,,True,Select Option,Civil/Marital Status,,,False,,,,,
-fac_str,nationality_of_birth,,,textbox,,False,Enter Nationality of Birth (if different),Nationality of Birth (if different),,,False,,,,,
+fac_str,nationality_of_birth,,,textbox,,False,Enter Nationality at Birth (if different),Nationality at Birth (if different),,,False,,,,,
 fac_str,other_civil_status,,,textbox,,False,Enter Other Marital Status,Other Marital Status,,,False,,,"not civil_status == ""OTHER""",,
 fac_str,other_nationality,,,textbox,,False,Enter Other Nationality,Other Nationality,,,False,,,,,
 fac_option,minor_status,,,radiobutton,NO,False,Select Option,Are you a Minor?,,,False,,,,,align:center
