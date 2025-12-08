@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 impl = pluggy.HookimplMarker(getProjectName())
 
 # Simple flag to enable/disable all debug logs in this module
-ENABLE_OPERATION_LIST_LOGS = True
+ENABLE_OPERATION_LIST_LOGS = False
 
 
 def _log_debug(message: str, **kwargs) -> None:
