@@ -54,7 +54,7 @@ class AppointmentDetailsVerifier(VerifyHandlerSpec):
         if ret:
             return ret
 
-        if payload.add_on_service_option == ADDONSERVICEAPPOINTMENT.YES:
+        if payload.add_on_service_option == ADDONSERVICEAPPOINTMENT.YES.value:
             return VerifyHandlerResponseModel(
                 actor=ACTOR,
                 message=f"Verified by the {ACTOR}",
