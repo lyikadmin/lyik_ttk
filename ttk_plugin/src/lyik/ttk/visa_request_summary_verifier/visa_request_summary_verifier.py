@@ -19,7 +19,7 @@ from lyik.ttk.utils.verifier_util import (
     validate_email,
 )
 from lyik.ttk.utils.message import get_error_message
-from lyik.ttk.utils.form_indicator import get_form_indicator
+from lyik.ttk.utils.form_indicator import get_form_indicator, FormIndicator
 from lyik.ttk.utils.form_utils import FormConfig
 
 from lyik.ttk.models.generated.universal_model_with_appointment import RootAppointment
@@ -66,7 +66,7 @@ class VisaRequestVerifier(VerifyHandlerSpec):
 
         has_appointment_section = frm_config.has_appointment_section()
 
-        if has_appointment_section:
+        if (form_indicator == FormIndicator.SCHENGEN):
             
             appointment = RootAppointment.model_validate(
                 context.record.get("appointment", None)
