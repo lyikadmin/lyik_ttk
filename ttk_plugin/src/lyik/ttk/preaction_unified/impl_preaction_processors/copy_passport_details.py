@@ -63,6 +63,7 @@ class CopyPassportAddress(BaseUnifiedPreActionProcessor):
             state=default_if_empty(pp_addr.state),
             city=default_if_empty(pp_addr.city),
             country=default_if_empty(pp_addr.country),
+            district=default_if_empty(pp_addr.district, default=""),
         )
 
         # 1. Make sure the Pydantic model has a residential_address
