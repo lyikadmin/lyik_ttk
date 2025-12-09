@@ -27,9 +27,6 @@ from pypdf import PdfWriter, PdfReader
 import mimetypes
 import mimetypes
 
-from lyik.ttk.models.generated.universal_model_with_submission_requires_docket_status import (
-    UniversalModelWithSubmissionRequiresDocketStatus,
-)
 from lyik.ttk.models.generated.universal_model_with_all_shared_sections import (
     UniversalModelWithAllSharedSections,
     RootSharedTravellInfoShared,
@@ -41,9 +38,6 @@ from lyik.ttk.models.generated.universal_model_with_all_shared_sections import (
     SAMEFLIGHTTICKETASPRIMARY,
 )
 from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa
-from lyik.ttk.models.forms.singaporevisaapplicationform import (
-    Singaporevisaapplicationform,
-)
 from lyik.ttk.ttk_storage_util.ttk_storage import TTKStorage
 from lyik.ttk.utils.operation_html_message import get_docket_operation_html_message
 from lyik.ttk.utils.message import get_error_message
@@ -54,6 +48,7 @@ from lyik.ttk.docket_operation.docket_utilities.map_form_rec_to_schengen_pdf imp
 from lyik.ttk.docket_operation.docket_utilities.singapore_pdf_mapping import (
     map_singapore_to_pdf,
 )
+from lyik.ttk.docket_operation.docket_utilities.mexico_pdf_mapping import map_mexico_pdf
 from lyik.ttk.models.pdf.schengen_pdf_model import SchengenPDFModel
 from typing import Annotated, Dict, List, Any
 import csv
@@ -487,10 +482,15 @@ class DocketOperation(OperationPluginSpec):
             if type_of_dir:
                 if type_of_dir == "pdf":
 
-                    # TODO : WIP
-                    mapped_data: Dict = map_singapore_to_pdf(
-                        form_data=form_record.model_dump()
-                    )
+                    # TODO : WIP Dynamic invocation of accurate method
+                    if form_indicator == FormIndicator.SGP_SINGAPORE:
+                        mapped_data: Dict = map_singapore_to_pdf(
+                            form_data=form_record.model_dump()
+                        )
+                    if form_indicator == FormIndicator.MEX_MEXICO:
+                        mapped_data: Dict = map_mexico_pdf(
+                            form_data=form_record.model_dump()
+                        )
 
                     transformed_data: TransformerResponseModel = (
                         await invoke.template_generate_pdf(
@@ -691,7 +691,7 @@ class DocketOperation(OperationPluginSpec):
 
     def get_files_from_record(
         self,
-        parsed_form_model: UniversalModelWithSubmissionRequiresDocketStatus,
+        parsed_form_model: UniversalModelWithAllSharedSections,
         application_doc_model: DBDocumentModel | None,
         form_indicator: FormIndicator,
     ) -> Dict[str, Any]:
