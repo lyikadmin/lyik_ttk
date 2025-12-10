@@ -53,17 +53,25 @@ class CopyPassportAddress(BaseUnifiedPreActionProcessor):
             logger.warning("no Passport Details found")
             return payload
 
-        # Build new residential_address_card
+        # Work with a dict version of passport details
+        try:
+            pp_addr_dict = pp_addr.model_dump()
+        except Exception as e:
+            logger.error("Failed to model_dump passport details: %s", e)
+            return payload
+
+        # Build new residential_address_card using the dict
         new_card = RootResidentialAddressResidentialAddressCardV2(
-            address_line_1=default_if_empty(pp_addr.address_line_1),
+            address_line_1=default_if_empty(pp_addr_dict.get("address_line_1")),
             address_line_2=default_if_empty(
-                pp_addr.address_line_2, default=""
+                pp_addr_dict.get("address_line_2"),
+                default="",
             ),  # Not mandatory field anymore
-            pin_code=default_if_empty(pp_addr.pin_code),
-            state=default_if_empty(pp_addr.state),
-            city=default_if_empty(pp_addr.city),
-            country=default_if_empty(pp_addr.country),
-            district=default_if_empty(pp_addr.district, default=""),
+            pin_code=default_if_empty(pp_addr_dict.get("pin_code")),
+            state=default_if_empty(pp_addr_dict.get("state")),
+            city=default_if_empty(pp_addr_dict.get("city")),
+            country=default_if_empty(pp_addr_dict.get("country")),
+            district=default_if_empty(pp_addr_dict.get("district"), default=""),
         )
 
         # 1. Make sure the Pydantic model has a residential_address
