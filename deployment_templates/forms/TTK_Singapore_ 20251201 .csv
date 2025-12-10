@@ -485,7 +485,7 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,other_details,,,card,,False,,Other Details,,,False,,,,,
 table,other_details_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_civil_marital_status_sgp,civil_status,,,dropdown,,False,Select Option,Civil/Marital Status,,,False,,,,,
-fac_str,nationality_of_birth,,,textbox,,False,Enter Nationality of Birth (if different),Nationality of Birth (if different),,,False,,,,,
+fac_str,nationality_of_birth,,,textbox,,False,Enter Nationality at Birth (if different),Nationality at Birth (if different),,,False,,,,,
 fac_str,other_nationality,,,textbox,,False,Enter Other Nationality,Other Nationality,,,False,,,,,
 fac_spouse_nationality,spouse_nationality,,,dropdown,,False,Select Option,Nationality/Citizenship of Spouse,,,False,,,,,
 fac_nric_sgp,nric_num,,,textbox,,False,Enter NRIC Number,NRIC Number,,,False,,,not(spouse_nationality = 'SINGAPORE_CITIZEN' or spouse_nationality = 'SINGAPORE_PERMANENT_RESIDENT'),,
@@ -1401,7 +1401,7 @@ info_pane_builder,ticketing,,,info_pane,,False,"<!DOCTYPE html>
 card_builder,tickets,,,card,,False,,Flight Tickets,,,False,,,,,
 fac_tickets,ticket_options,,,radiobutton,BOOKED,False,Select Option,Please let us know how your Tickets are arranged:,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,flight_tickets,,,card,,False,,Flight Tickets,,,False,,, not tickets.ticket_options = 'BOOKED',not lock_ticket='Lock',
+card_builder,flight_tickets,,,card,,False,,Flight Tickets,,,False,,,,not (@.tickets.ticket_options = 'TTK_ASSITANCE' and (_user_token.persona = 'CLI' or _user_token.persona = 'CORP_CLI')),
 fac_file,flight_tickets,,,fileoption,,False,Upload a PDF,Flight Tickets,API.TRUSTED_FLIGHT_TICKET_OCR,,False,,,,,"file_type:.pdf;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 display_field,display_autofill,,,display_field,,False,"
 <div style=""
@@ -2354,15 +2354,15 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,v39_form_section,,,section_break,,False,,V39 Form,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,
 info_pane_builder,v39_form,,,info_pane,,False,,V39 Form,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,operation.save:Save and Continue
-fac_file,v_form_upload,,,fileoption,,False,Upload an image/file,V39 Form,,,False,,,,,download:None
+fac_file,v_form_upload,,,fileoption,,False,Upload an image/file,V39 Form,,,False,,,,,"file_type:.pdf, .jpeg, .jpg, .png;download:None"
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,acra_section,,,section_break,,False,,ACRA Form,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,
 info_pane_builder,acra_form,,,info_pane,,False,,ACRA Form,,,False,,,not $.visa_request_information.visa_request.visa_type='Business',,operation.save:Save and Continue
-fac_file,acra_form_upload,,,fileoption,,False,Upload an image/file,ACRA Form,,,False,,,,,download:None
+fac_file,acra_form_upload,,,fileoption,,False,Upload an image/file,ACRA Form,,,False,,,,,"file_type:.pdf, .jpeg, .jpg, .png;download:None"
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 tab_break,additional_documents_tab,,,tab_break,,False,,Additional Information,,,False,,,,,
-section_break,comments_section,,,section_break,,False,,Comments,PROGRESS.IGNORE,,False,,,,,
-info_pane_builder,comments_pane,,,info_pane,,False,,Comments,SAVE_EVEN_IF_HIDDEN,,False,,,,,operation.save:Save Comments
+section_break,comments_section,,,section_break,,False,,Comments,PROGRESS.IGNORE,,False,,,"CONTAINS(USER.persona,[CLI, SPOC, CORP_CLI])",,
+info_pane_builder,comments_pane,,,info_pane,,False,,Comments,SAVE_EVEN_IF_HIDDEN,,False,,,"CONTAINS(USER.persona,[CLI, SPOC, CORP_CLI])",,operation.save:Save Comments
 card_builder,c_card,,,card,,False,,Comments,,,False,,,not EXISTS(@.c_card.c_row[0]),,operation.save:Save and Continue
 table,c_table,,,table,,False,,,,,False,,,,,table.span:best_fit;table.column:1
 group_builder,c_row,,,table_row,,False,,Comments Row,,,False,,,,,
@@ -2496,6 +2496,9 @@ Please confirm the following before submitting the application to the Checker.
 </div> ",,,,False,,,not @.docket.docket_status = 'ENABLE_DOWNLOAD',,
 card_builder,confirm,,,card,,False,,Confirm,,,False,,,not @.docket.docket_status = 'ENABLE_DOWNLOAD',,row_spacing:compact
 fac_confirm_viewed_data,viewed_data,,,checkbox,,False,Select Option,,,,False,,,,,
+fac_confirm_addons,addons_addressed,,,checkbox,,False,Select Option,,,,False,,,,,
+fac_confirm_docs_uploaded,docs_uploaded,,,checkbox,,False,Select Option,,,,False,,,,,
+fac_confirm_uneditable,understand_lock,,,checkbox,,False,Select Option,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 section_break,docket_section,,,section_break,,False,No Instructions Present,Docket,PROGRESS.IGNORE,,False,,,,,
