@@ -482,7 +482,7 @@ ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
 card_builder,other_details,,,card,,False,,Other Details,,,False,,,,,
 table,other_details_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_civil_marital_status_twn,civil_status,,,dropdown,,True,Select Option,Civil/Marital Status,,,False,,,,,
-fac_str,nationality_of_birth,,,textbox,,False,Enter Nationality of Birth (if different),Nationality of Birth (if different),,,False,,,,,
+fac_str,nationality_of_birth,,,textbox,,False,Enter Nationality at Birth (if different),Nationality at Birth (if different),,,False,,,,,
 fac_str,other_nationality,,,textbox,,False,Enter Other Nationality,Other Nationality,,,False,,,,,
 fac_country_3,other_passport,,,dropdown,,False,Select Option,Do you hold or have ever held Passports from Countries/Regions other than the one indicated in your application? ,,,False,,,,,
 fac_option,minor_status,,,radiobutton,NO,False,Select Option,Are you a Minor?,,,False,,,,,align:center
@@ -1111,7 +1111,7 @@ card_builder,invitation_details,,,card,,False,,Details of Stay with Family/Frien
 table,inviter_details_table,,,table,,False,,,,,False,,,,,table.column:2
 fac_str,inviter_name,,,textbox,,True,Enter Name of the Inviter,Name of the Inviter (Family/Friend),,,False,,,,,
 fac_relationship_lka,relationship,,,dropdown,,False,Select Option,Relationship,,,False,,,,,
-fac_str,other_relationship,,,textbox,,False,Enter Other (Please Specify),Other (Please Specify),,,False,,,,,
+fac_str,other_relationship,,,textbox,,False,Enter Other (Please Specify),Other (Please Specify),,,False,,,not relationship = 'OTHERS',,
 fac_str,inviter_address,,,textbox.row-4,,True,Enter Address of the Inviter,Address of the Inviter (Family/Friend),,,False,,,,,
 fac_str,mobile_number,,,textbox,,True,Enter Mobile/Telephone Number,Mobile/Telephone Number,,,False,,,,,
 fac_email_str,email_id,,,textbox,,True,Enter Email ID,Email ID of Inviter (Family/Friend),,,False,,,,,
@@ -1235,7 +1235,7 @@ info_pane_builder,ticketing,,,info_pane,,False,"<!DOCTYPE html>
 card_builder,tickets,,,card,,False,,Flight Tickets,,,False,,,,,
 fac_tickets,ticket_options,,,radiobutton,BOOKED,False,Select Option,Please let us know how your Tickets are arranged:,,,False,,,,,
 ender_field,,,,,,False,Used to end builder fields,,,,False,,,,,
-card_builder,flight_tickets,,,card,,False,,Flight Tickets,,,False,,,,not lock_ticket='Lock',
+card_builder,flight_tickets,,,card,,False,,Flight Tickets,,,False,,,,not (@.tickets.ticket_options = 'TTK_ASSITANCE' and (_user_token.persona = 'CLI' or _user_token.persona = 'CORP_CLI')),
 fac_file,flight_tickets,,,fileoption,,False,Upload a PDF,Flight Tickets,API.TRUSTED_FLIGHT_TICKET_OCR,,False,,,,,"file_type:.pdf;download:CONTAINS(USER.persona, [CLI,CORP_CLI,MKR,SME,ADMIN])"
 display_field,display_autofill,,,display_field,,False,"
 <div style=""

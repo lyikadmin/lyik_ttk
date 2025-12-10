@@ -1,8 +1,8 @@
 relevant_infopanes,business_panes,has_submission_docket_status_requirement,submit_requirement
 visa_request_information,,true,confirm.viewed_data
-passport,,,
-photograph,,,
-residential_address,,,
+passport,,,confirm.addons_addressed
+photograph,,,confirm.docs_uploaded
+residential_address,,,confirm.understand_lock
 work_address,,,
 accomodation,,,
 ticketing,,,
