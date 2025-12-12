@@ -345,6 +345,7 @@ def map_japan_pdf(form_data: Dict) -> Dict:
     ):
         pdf_model.accomodation_invitation_details_inviter_name = "same as above"
         pdf_model.Tel_4 = ""
+        pdf_model.accomodation_invitation_details_inviter_address = "same as above"
         pdf_model.accomodation_invitation_details_guarantor_inviter_dob = (
             "same as above"
         )
@@ -369,6 +370,9 @@ def map_japan_pdf(form_data: Dict) -> Dict:
             invitation_details.guarantor_inviter_name or ""
         )
         pdf_model.Tel_4 = ""
+        pdf_model.accomodation_invitation_details_inviter_address = (
+            invitation_details.guarantor_inviter_address or ""
+        )
         pdf_model.accomodation_invitation_details_guarantor_inviter_dob = (
             invitation_details.guarantor_inviter_dob.strftime("%d/%m/%Y")
             if invitation_details.guarantor_inviter_dob
