@@ -272,15 +272,23 @@ def map_japan_pdf(form_data: Dict) -> Dict:
             residential_address_v2.address_line_1 or ""
         )
         pdf_model.Te_I = ""
-        pdf_model.visa_request_information_visa_request_phone_number = ""
-        pdf_model.visa_request_information_visa_request_email_id = ""
+        pdf_model.visa_request_information_visa_request_phone_number = (
+            visa_request.phone_number or ""
+        )
+        pdf_model.visa_request_information_visa_request_email_id = (
+            visa_request.email_id or ""
+        )
     else:
         pdf_model.passport_passport_details_address_line_1 = (
             residential_address_v1.address_line_1 or ""
         )
         pdf_model.Te_I = ""
-        pdf_model.visa_request_information_visa_request_phone_number = ""
-        pdf_model.visa_request_information_visa_request_email_id = ""
+        pdf_model.visa_request_information_visa_request_phone_number = (
+            visa_request.phone_number or ""
+        )
+        pdf_model.visa_request_information_visa_request_email_id = (
+            visa_request.email_id or ""
+        )
 
     pdf_model.work_address_work_details_occupation = work_details.occupation or ""
     pdf_model.work_address_work_details_employer_name = work_details.employer_name or ""
