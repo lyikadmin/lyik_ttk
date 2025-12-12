@@ -23,16 +23,11 @@ from lyikpluginmanager import (
 from lyikpluginmanager.annotation import RequiredVars, RequiredEnv
 from io import BytesIO
 from PIL import Image
-from pypdf import PdfWriter, PdfReader
 import mimetypes
 import mimetypes
 
 from lyik.ttk.models.generated.universal_model_with_all_shared_sections import (
     UniversalModelWithAllSharedSections,
-    RootSharedTravellInfoShared,
-    RootItineraryAccomodation,
-    RootAccomodation,
-    RootTicketing,
     SAMEITINERARYASPRIMARY,
     SAMEACCOMMODATIONASPRIMARY,
     SAMEFLIGHTTICKETASPRIMARY,
@@ -41,17 +36,14 @@ from lyik.ttk.models.forms.schengentouristvisa import Schengentouristvisa
 from lyik.ttk.ttk_storage_util.ttk_storage import TTKStorage
 from lyik.ttk.utils.operation_html_message import get_docket_operation_html_message
 from lyik.ttk.utils.message import get_error_message
-from lyik.ttk.docket_operation.docket_utilities.map_form_rec_to_schengen_pdf import (
-    DocketUtilities,
-)
 
-from lyik.ttk.docket_operation.docket_utilities.singapore_pdf_mapping import (
-    map_singapore_to_pdf,
+from lyik.ttk.docket_operation.docket_utilities.schengen_pdf_mapping import (
+    map_schengen_pdf,
 )
-from lyik.ttk.docket_operation.docket_utilities.mexico_pdf_mapping import map_mexico_pdf
 from lyik.ttk.models.pdf.schengen_pdf_model import SchengenPDFModel
+from lyik.ttk.docket_operation.docket_utilities.pdf_mapping_util import PDFMappingUtil
+
 from typing import Annotated, Dict, List, Any
-import csv
 from functools import lru_cache
 from typing_extensions import Doc
 import logging
@@ -449,16 +441,15 @@ class DocketOperation(OperationPluginSpec):
 
         In both the cases, return the application doc.
         """
-        docket_util = DocketUtilities()
 
         transformed_data = None
 
         if form_indicator == FormIndicator.SCHENGEN:
-            mapped_data: SchengenPDFModel = docket_util.map_schengen_to_pdf_model(
+            schengen_mapped_data: SchengenPDFModel = map_schengen_pdf(
                 schengen_visa_data=Schengentouristvisa(**form_record.model_dump())
             )
 
-            data_dict: Dict = mapped_data.model_dump(mode="json")
+            data_dict: Dict = schengen_mapped_data.model_dump(mode="json")
 
             template_id = to_country
 
@@ -481,16 +472,21 @@ class DocketOperation(OperationPluginSpec):
 
             if type_of_dir:
                 if type_of_dir == "pdf":
+                    util = PDFMappingUtil(form_record.model_dump())
+                    mapped_data: Dict = util.get_mapped_data(form_indicator)
 
-                    # TODO : WIP Dynamic invocation of accurate method
-                    if form_indicator == FormIndicator.SGP_SINGAPORE:
-                        mapped_data: Dict = map_singapore_to_pdf(
-                            form_data=form_record.model_dump()
-                        )
-                    if form_indicator == FormIndicator.MEX_MEXICO:
-                        mapped_data: Dict = map_mexico_pdf(
-                            form_data=form_record.model_dump()
-                        )
+                    # if form_indicator == FormIndicator.SGP_SINGAPORE:
+                    #     mapped_data: Dict = map_singapore_to_pdf(
+                    #         form_data=form_record.model_dump()
+                    #     )
+                    # if form_indicator == FormIndicator.MEX_MEXICO:
+                    #     mapped_data: Dict = map_mexico_pdf(
+                    #         form_data=form_record.model_dump()
+                    #     )
+                    # if form_indicator == FormIndicator.JPN_JAPAN:
+                    #     mapped_data: Dict = map_japan_pdf(
+                    #         form_data=form_record.model_dump()
+                    #     )
 
                     transformed_data: TransformerResponseModel = (
                         await invoke.template_generate_pdf(
