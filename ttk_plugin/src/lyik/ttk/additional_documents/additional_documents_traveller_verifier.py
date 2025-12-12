@@ -101,7 +101,7 @@ class AdditionalDocumentsTravellerVerifier(VerifyHandlerSpec):
             old_traveller_group = payload.additional_documents_traveller_group or []
 
             # Fast lookup:
-            # key: document_name_display (or equivalent id),
+            # key: document_name (or equivalent id),
             # value: existing traveller card (so we can preserve file_upload)
             existing_traveller_by_doc_name: Dict[
                 str,
@@ -112,7 +112,7 @@ class AdditionalDocumentsTravellerVerifier(VerifyHandlerSpec):
                 traveller_card = (
                     traveller_card_wrapper.additionaldocumentgrouptraveller.additional_documents_card_traveller
                 )
-                existing_traveller_by_doc_name[traveller_card.document_name_display] = (
+                existing_traveller_by_doc_name[traveller_card.document_name] = (
                     traveller_card
                 )
 
