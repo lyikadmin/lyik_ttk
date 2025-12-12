@@ -49,6 +49,7 @@ from lyik.ttk.docket_operation.docket_utilities.singapore_pdf_mapping import (
     map_singapore_to_pdf,
 )
 from lyik.ttk.docket_operation.docket_utilities.mexico_pdf_mapping import map_mexico_pdf
+from lyik.ttk.docket_operation.docket_utilities.japan_pdf_mapping import map_japan_pdf
 from lyik.ttk.models.pdf.schengen_pdf_model import SchengenPDFModel
 from typing import Annotated, Dict, List, Any
 import csv
@@ -489,6 +490,10 @@ class DocketOperation(OperationPluginSpec):
                         )
                     if form_indicator == FormIndicator.MEX_MEXICO:
                         mapped_data: Dict = map_mexico_pdf(
+                            form_data=form_record.model_dump()
+                        )
+                    if form_indicator == FormIndicator.JPN_JAPAN:
+                        mapped_data: Dict = map_japan_pdf(
                             form_data=form_record.model_dump()
                         )
 

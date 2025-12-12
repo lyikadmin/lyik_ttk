@@ -11,10 +11,12 @@ from lyik.ttk.models.forms.singaporevisaapplicationform import (
     VISATYPE,
     ACCOMMODATIONARRANGEMENT,
     NUMBEROFENTRIESSGP,
+    SAMEASPASSADDR,
     RootPassportPassportDetails,
     RootPassportOtherDetails,
     RootPassportTravelCompanionDetails,
     RootResidentialAddressResidentialAddressCardV1,
+    RootResidentialAddressResidentialAddressCardV2,
     RootVisaRequestInformationVisaRequest,
     RootWorkAddressWorkDetails,
     RootWorkAddressEducationDetails,
@@ -126,14 +128,24 @@ def map_singapore_to_pdf(form_data: Dict) -> Dict:
     other_details = RootPassportOtherDetails(**raw_other_details)
     passport_details = RootPassportPassportDetails(**raw_passport_details)
 
-    raw_residential_address = (
+    raw_residential_address_v1 = (
         form_model.residential_address.residential_address_card_v1.model_dump()
         if form_model.residential_address
         and form_model.residential_address.residential_address_card_v1
         else {}
     )
-    residential_address = RootResidentialAddressResidentialAddressCardV1(
-        **raw_residential_address
+    residential_address_v1 = RootResidentialAddressResidentialAddressCardV1(
+        **raw_residential_address_v1
+    )
+
+    raw_residential_address_v2 = (
+        form_model.residential_address.residential_address_card_v2.model_dump()
+        if form_model.residential_address
+        and form_model.residential_address.residential_address_card_v2
+        else {}
+    )
+    residential_address_v2 = RootResidentialAddressResidentialAddressCardV2(
+        **raw_residential_address_v2
     )
 
     raw_visa_request = (
@@ -321,13 +333,30 @@ def map_singapore_to_pdf(form_data: Dict) -> Dict:
     pdf_model.passport_passport_details_place_of_issue = (
         passport_details.place_of_issue or ""
     )
-    pdf_model.passport_passport_details_country = residential_address.country or ""
-    pdf_model.passport_passport_details_state = residential_address.state or ""
-    pdf_model.Prefecture_of_Origin = ""
-    pdf_model.CountyDistrict_of_Origin = residential_address.district or ""
-    pdf_model.passport_passport_details_address_line_1 = (
-        residential_address.address_line_1 or ""
-    )
+    if (
+        form_model.residential_address
+        and form_model.residential_address.same_as_passport_address
+        == SAMEASPASSADDR.SAME_AS_PASS_ADDR
+    ):
+        pdf_model.passport_passport_details_country = (
+            residential_address_v2.country or ""
+        )
+        pdf_model.passport_passport_details_state = residential_address_v2.state or ""
+        pdf_model.Prefecture_of_Origin = ""
+        pdf_model.CountyDistrict_of_Origin = residential_address_v2.district or ""
+        pdf_model.passport_passport_details_address_line_1 = (
+            residential_address_v2.address_line_1 or ""
+        )
+    else:
+        pdf_model.passport_passport_details_country = (
+            residential_address_v1.country or ""
+        )
+        pdf_model.passport_passport_details_state = residential_address_v1.state or ""
+        pdf_model.Prefecture_of_Origin = ""
+        pdf_model.CountyDistrict_of_Origin = residential_address_v1.district or ""
+        pdf_model.passport_passport_details_address_line_1 = (
+            residential_address_v1.address_line_1 or ""
+        )
     pdf_model.visa_request_information_visa_request_email_id = (
         visa_request.email_id or ""
     )

@@ -3,10 +3,12 @@ from lyik.ttk.models.forms.mexicovisaapplicationform import (
     RootPassportPassportDetails,
     RootPassportOtherDetails,
     RootResidentialAddressResidentialAddressCardV1,
+    RootResidentialAddressResidentialAddressCardV2,
     RootVisaRequestInformationVisaRequest,
     RootWorkAddressWorkDetails,
     RootDeclarationApplicantAntecedent,
     RootTicketingFlightTickets,
+    SAMEASPASSADDR,
     GENDERMEX,
     CIVILMARITALSTATUSMEX,
     OPTION,
@@ -57,14 +59,24 @@ def map_mexico_pdf(form_data: Dict) -> Dict:
     )
     other_details = RootPassportOtherDetails(**raw_other_details)
 
-    raw_residential_address = (
+    raw_residential_address_v1 = (
         form_model.residential_address.residential_address_card_v1.model_dump()
         if form_model.residential_address
         and form_model.residential_address.residential_address_card_v1
         else {}
     )
-    residential_address = RootResidentialAddressResidentialAddressCardV1(
-        **raw_residential_address
+    residential_address_v1 = RootResidentialAddressResidentialAddressCardV1(
+        **raw_residential_address_v1
+    )
+
+    raw_residential_address_v2 = (
+        form_model.residential_address.residential_address_card_v2.model_dump()
+        if form_model.residential_address
+        and form_model.residential_address.residential_address_card_v2
+        else {}
+    )
+    residential_address_v2 = RootResidentialAddressResidentialAddressCardV2(
+        **raw_residential_address_v2
     )
 
     raw_visa_request = (
@@ -156,9 +168,18 @@ def map_mexico_pdf(form_data: Dict) -> Dict:
         other_details.civil_status == CIVILMARITALSTATUSMEX.COMMON_LAW
     )
 
-    pdf_model.residential_address_residential_address_card_v1_type_of_proof = (
-        residential_address.address_line_1 or ""
-    )
+    if (
+        form_model.residential_address
+        and form_model.residential_address.same_as_passport_address
+        == SAMEASPASSADDR.SAME_AS_PASS_ADDR
+    ):
+        pdf_model.residential_address_residential_address_card_v1_type_of_proof = (
+            residential_address_v2.address_line_1 or ""
+        )
+    else:
+        pdf_model.residential_address_residential_address_card_v1_type_of_proof = (
+            residential_address_v1.address_line_1 or ""
+        )
 
     pdf_model.visa_request_information_visa_request_phone_number = (
         visa_request.phone_number or ""
