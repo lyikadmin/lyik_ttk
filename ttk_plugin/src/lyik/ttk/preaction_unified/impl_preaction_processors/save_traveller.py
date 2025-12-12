@@ -159,7 +159,7 @@ class PreactionSaveCoTravellers(BaseUnifiedPreActionProcessor):
         This preaction processor will save the co-travellers into the co_travellers collection.
         """
 
-        logger.debug(f"Entering preaction with payload: {payload}")
+        # logger.debug(f"Entering preaction with payload: {payload}")
         if not context or not context.config:
             logger.error(
                 "No context or config found in context. Passing through PreactionSaveCoTravellers preaction."
